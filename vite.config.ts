@@ -1,3 +1,4 @@
+import 'text-encoding-polyfill'; // https://trycatchdebug.net/news/1129689/vite-build-error-textencoder
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 // vite.config.js
@@ -11,7 +12,7 @@ export default defineConfig({
   },
   plugins: [
     react()
-  ]
+  ],
 })
 
 {/**

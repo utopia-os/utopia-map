@@ -19,6 +19,7 @@
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
     "react-router-dom": "^6.23.0",
+    "text-encoding-polyfill": "^0.6.7",
     "utopia-ui": "^3.0.19"
   },
   "devDependencies": {
