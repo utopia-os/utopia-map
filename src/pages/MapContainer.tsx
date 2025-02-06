@@ -70,14 +70,6 @@ function MapContainer({ layers, map }: { layers: Array<LayerProps>, map: any }) 
             markerDefaultColor={layer.menuColor}
             markerDefaultColor2={layer.markerDefaultColor2 ? layer.markerDefaultColor2 : "RGBA(35, 31, 32, 0.2)"}
             itemType={layer.itemType}
-            itemNameField='name'
-            itemTextField='text'
-            itemAvatarField='image'
-            itemSubnameField='subname'
-            itemColorField='color'
-            itemOwnerField='user_created'
-            itemOffersField='offers'
-            itemNeedsField='needs'
             customEditLink='/edit-item'
             customEditParameter='id'
             public_edit_items={layer.public_edit_items}
