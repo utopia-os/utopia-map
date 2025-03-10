@@ -29,6 +29,8 @@ jobs:
           # Configure which scopes are allowed (newline delimited).
           # Append a scope for each service here
           scopes: |
+            backend
+            frontend
             docu
             docker
             release
