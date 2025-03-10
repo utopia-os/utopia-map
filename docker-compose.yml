@@ -1,0 +1,20 @@
+services:
+  server:
+    image: cupcakearmy/static
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    volumes:
+      - ./dist:/srv:ro
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+    ports:
+      - 8055:8055
+    environment:
+      - SECRET=SECRET
+      - PUBLIC_URL=http://localhost
+      - ADMIN_EMAIL=admin@it4c.dev
+      - ADMIN_PASSWORD=admin123
