@@ -1,0 +1,6 @@
+{
+  "name": "directus-extensions",
+  "dependencies": {
+    "directus-extension-sync": "^3.0.2"
+  }
+}
