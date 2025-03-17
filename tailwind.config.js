@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ["./src/**/*.{html,js,jsx,tsx,ts}"],
+  content: ['./src/**/*.{html,js,jsx,tsx,ts}'],
   theme: {
     extend: {
       // that is animation class
@@ -9,9 +9,8 @@ export default {
       },
     },
   },
-  plugins: [import("daisyui")],
+  plugins: [import('daisyui')],
   daisyui: {
-    themes: ["light", "dark", "cupcake", "retro", "cyberpunk", "aqua"]
-  }
+    themes: ['light', 'dark', 'cupcake', 'retro', 'cyberpunk', 'aqua'],
+  },
 }
-

@@ -1,110 +1,97 @@
-import { createUser, passwordRequest, passwordReset, readMe, updateMe} from '@directus/sdk';
-import {  directusClient } from './directus';
-import { UserApi, UserItem } from 'utopia-ui';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable camelcase */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+import { createUser, passwordRequest, passwordReset, readMe, updateMe } from '@directus/sdk'
 
+import { directusClient } from './directus'
+
+import type { UserApi, UserItem } from 'utopia-ui'
 
 export class userApi implements UserApi {
-
   async register(email: string, password: string, userName: string): Promise<any> {
     try {
-      return await directusClient.request(createUser({email: email, password: password, first_name: userName}));
+      return await directusClient.request(createUser({ email, password, first_name: userName }))
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
   async login(email: string, password: string): Promise<any> {
     try {
-      return await directusClient.login(email,password,{mode: 'json'});
+      return await directusClient.login(email, password, { mode: 'json' })
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
-
   async logout(): Promise<any> {
     try {
-      return await directusClient.logout();
+      return await directusClient.logout()
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
   async getUser(): Promise<any> {
     try {
-      let user = await directusClient.request(readMe({ fields: ['*', {role: ['*']} as any] }));
-      return user;
+      const user = await directusClient.request(readMe({ fields: ['*', { role: ['*'] } as any] }))
+      return user
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
-    async getToken(): Promise<any> {
+  async getToken(): Promise<any> {
     try {
-    const token = await directusClient.getToken();
-      return token;
+      const token = await directusClient.getToken()
+      return token
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
   async updateUser(user: UserItem): Promise<any> {
-    const { id, ...userRest } = user;
+    const { id, ...userRest } = user
     try {
-      const res = await directusClient.request(updateMe(userRest,{ fields: ['*'] }))
-      return res as any;
+      const res = await directusClient.request(updateMe(userRest, { fields: ['*'] }))
+      return res as any
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
-  async requestPasswordReset(email:string, reset_url?:string): Promise<any> {
+  async requestPasswordReset(email: string, reset_url?: string): Promise<any> {
     try {
-    return await directusClient.request(passwordRequest(email,reset_url));
+      return await directusClient.request(passwordRequest(email, reset_url))
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
 
-  async passwordReset(reset_token:string, new_password:string): Promise<any> {
+  async passwordReset(reset_token: string, new_password: string): Promise<any> {
     try {
-    return await directusClient.request(passwordReset(reset_token, new_password));
+      return await directusClient.request(passwordReset(reset_token, new_password))
     } catch (error: any) {
-      console.log(error);
-      if (error.errors[0].message)
-        throw error.errors[0].message;
-      else throw error;
+      console.log(error)
+      if (error.errors[0].message) throw error.errors[0].message
+      else throw error
     }
   }
-
 }
-
-
-
-
-
-
-
-
-
