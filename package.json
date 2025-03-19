@@ -19,7 +19,7 @@
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
     "react-router-dom": "^6.23.0",
-    "utopia-ui": "^3.0.76"
+    "utopia-ui": "^3.0.78"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.1",
