@@ -52,13 +52,13 @@ export const getBottomRoutes = (currentUrl: string) => {
       {
         path: 'https://github.com/utopia-os/utopia-ui', // url
         icon: <SVG src='github.svg' className='w-6 h-6' />,
-        name: 'Github', // name that appear in Sidebar
+        name: 'GitHub', // name that appear in Sidebar
         blank: true,
       },
       {
         path: 'https://opencollective.com/utopia-project', // url
         icon: <SVG src='opencollective.svg' className='w-6 h-6' />,
-        name: 'open collective', // name that appear in Sidebar
+        name: 'Open Collective', // name that appear in Sidebar
         blank: true,
       },
     )
