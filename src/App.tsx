@@ -12,8 +12,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { Tag } from 'utopia-ui'
-
 import {
   AppShell,
   SideBar,
@@ -34,6 +32,8 @@ import {
   SelectUser,
   AttestationForm,
   MarketView,
+  Tag,
+  SVG
 } from 'utopia-ui'
 import { Route, Routes } from 'react-router-dom'
 
@@ -94,7 +94,7 @@ function App() {
         ?.filter((l: any) => l.listed)
         .map((l: any) => ({
           path: '/' + l.name, // url
-          icon: <img src={'https://api.utopia-lab.org/assets/' + l.indexIcon}></img>,
+          icon: <SVG src={'https://api.utopia-lab.org/assets/' + l.indexIcon} className='w-6 h-6' preProcessor={(code :string) => code.replace(/stroke=".*?"/g, 'stroke="currentColor"')}/>,
           name: l.name, // name that appear in Sidebar
         })),
     )
