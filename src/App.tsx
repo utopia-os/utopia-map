@@ -64,6 +64,14 @@ function App() {
   const [layerPageRoutes, setLayerPageRoutes] = useState<any>()
   const [loading, setLoading] = useState<boolean>(true)
 
+  const [embedded, setEmbedded] = useState<boolean>(true)
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search)
+    const embedded = params.get('embedded')
+    embedded !== 'true' && setEmbedded(false)
+  }, [location])
+
   useEffect(() => {
     setPermissionsApiInstance(new permissionsApi())
     setMapApiInstance(new mapApi(window.location.origin))
@@ -134,6 +142,7 @@ function App() {
           <AppShell
             assetsApi={new assetsApi('https://api.utopia-lab.org/assets/')}
             appName={map.name}
+            embedded={embedded}
           >
             <Permissions
               api={permissionsApiInstance}

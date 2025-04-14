@@ -35,7 +35,7 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           </p>
           <p className='py-1'>Create your personal profile and place it on the map.</p>
           <div className='grid'>
-            <label className='btn place-self-end mt-4' onClick={() => clickAction1!()}>
+            <label className='btn btn-primary place-self-end mt-4' onClick={() => clickAction1!()}>
               Close
             </label>
           </div>
