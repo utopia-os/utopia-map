@@ -80,7 +80,7 @@ export const Calendar = () => {
                 className={`cursor-pointer flex items-center justify-center font-semibold h-8 w-8 rounded-full  hover:text-white ${
                   isSameMonth(day, today) ? 'text-current' : 'text-gray-500'
                 } ${!isToday(day) && 'hover:bg-primary-content'} ${
-                  isToday(day) && 'bg-primary !text-white'
+                  isToday(day) && 'bg-primary text-white!'
                 }`}
               >
                 {format(day, 'd')}

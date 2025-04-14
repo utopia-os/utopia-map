@@ -70,7 +70,7 @@ export const Landingpage = () => {
 
   return (
     <MapOverlayPage
-      className={`!rounded-none overflow-y-auto !p-0 fadeable-div flex-none ${isLandingpageVisible ? '' : 'div-hidden'}`}
+      className={`rounded-none! overflow-y-auto p-0! fadeable-div flex-none ${isLandingpageVisible ? '' : 'div-hidden'}`}
       card={false}
     >
       <div className='hero min-h-full text-base'>
@@ -81,7 +81,7 @@ export const Landingpage = () => {
           >
             <div className='min-h-[calc(100vh-60px)] flex flex-row items-center justify-center '>
               <div
-                className={`max-w-md text-center bg-black p-8 m-8 bg-opacity-50 text-white backdrop-blur-sm rounded-xl movable-div ${isBoxVisible ? '' : 'move-out-left'}`}
+                className={`max-w-md text-center bg-black p-8 m-8 bg-opacity-50 text-white backdrop-blur-xs rounded-xl movable-div ${isBoxVisible ? '' : 'move-out-left'}`}
               >
                 <h1 className='text-5xl font-bold'>Utopia Game</h1>
                 <p className='py-6'>
@@ -90,7 +90,7 @@ export const Landingpage = () => {
                   erkunden, Fähigkeiten zu entwickeln und die Welt um sie herum zu gestalten. Bist
                   du bereit, Teil dieser Revolution zu werden?{' '}
                 </p>
-                <div className='btn !text-white btn-primary' onClick={startGame}>
+                <div className='btn text-white! btn-primary' onClick={startGame}>
                   Play ▶
                 </div>
               </div>
@@ -112,7 +112,7 @@ export const Landingpage = () => {
             <ul className='my-8 grid gap-y-8 gap-x-12 sm:grid-cols-2 lg:grid-cols-3'>
               {features?.map((item, idx) => (
                 <li key={idx} className='space-y-3'>
-                  <div className='w-12tw-card tw-card-body h-12 mx-auto !bg-transparent text-indigo-600 rounded-full flex items-center justify-center text-5xl'>
+                  <div className='w-12tw-card tw-card-body h-12 mx-auto bg-transparent! text-indigo-600 rounded-full flex items-center justify-center text-5xl'>
                     {item.symbol}
                   </div>
                   <h4 className='text-lg  font-semibold'>{item.heading}</h4>
@@ -123,7 +123,7 @@ export const Landingpage = () => {
           </section>
 
           <section className='py-14 min-h-[40em] p-8 flex h-full items-center justify-center mb-28'>
-            <div className='max-w-screen-xl mx-auto text-center'>
+            <div className='max-w-(--breakpoint-xl) mx-auto text-center'>
               <div className='max-w-xl mx-auto'>
                 <h3 className='text-3xl font-semibold sm:text-4xl'>Meet our team</h3>
                 <p className='mt-3'>
