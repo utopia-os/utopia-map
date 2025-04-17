@@ -143,6 +143,7 @@ function App() {
             assetsApi={new assetsApi('https://api.utopia-lab.org/assets/')}
             appName={map.name}
             embedded={embedded}
+            openCollectiveApiKey={import.meta.env.VITE_OPEN_COLLECTIVE_API_KEY}
           >
             <Permissions
               api={permissionsApiInstance}

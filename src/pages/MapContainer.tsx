@@ -80,6 +80,8 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         showLayerControl={map.show_layer_control}
         showGratitudeControl={map.show_gratitude_control}
         donationWidget={map.donation_widget}
+        showThemeControl={map.show_theme_control}
+        defaultTheme={map.default_theme}
       >
         {layers &&
           apis &&
@@ -142,6 +144,11 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
             </Layer>
           ))}
       </UtopiaMap>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
+      <p>123</p>
     </>
   )
 }
