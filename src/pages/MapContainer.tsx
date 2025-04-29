@@ -12,11 +12,11 @@ import { useEffect, useState } from 'react'
 import {
   UtopiaMap,
   Layer,
-  ItemView,
+  PopupView,
   PopupButton,
   StartEndView,
   TextView,
-  ItemForm,
+  PopupForm,
   PopupStartEndInput,
   PopupTextAreaInput,
   PopupTextInput,
@@ -107,14 +107,14 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               listed={layer.listed}
               api={apis.find((api) => api.id === layer.id)?.api}
             >
-              <ItemView>
+              <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
                 {layer.itemType.show_profile_button && (
                   <PopupButton url={'/item'} parameterField={'id'} text={'Profile'} />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}
-              </ItemView>
-              <ItemForm>
+              </PopupView>
+              <PopupForm>
                 {layer.itemType.show_name_input && (
                   <PopupTextInput dataField='name' placeholder='Name'></PopupTextInput>
                 )}
@@ -140,7 +140,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                   Object.entries(layer.item_presets).map((ip: any) => (
                     <input key={ip[0]} type='hidden' id={ip[0]} name={ip[0]} value={ip[1]} />
                   ))}
-              </ItemForm>
+              </PopupForm>
             </Layer>
           ))}
       </UtopiaMap>
