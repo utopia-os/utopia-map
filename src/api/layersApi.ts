@@ -16,7 +16,11 @@ export class layersApi {
     try {
       const layers = await directusClient.request(
         readItems('layers' as any, {
-          fields: ['*', { itemType: ['*.*', { profileTemplate: ['*', 'item.*.*.*'] }] } as any],
+          fields: [
+            '*',
+            { itemType: ['*.*', { profileTemplate: ['*', 'item.*.*.*.*'] }] },
+            { markerIcon: ['*'] } as any,
+          ],
           filter: { maps: { maps_id: { id: { _eq: this.mapId } } } },
           limit: 500,
         }),
