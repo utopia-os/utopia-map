@@ -48,6 +48,7 @@ export class itemsApi<T> implements ItemsApi<T> {
             'to.*',
             'relations.*',
             'user_created.*',
+            'markerIcon.*',
             { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
           ],
           filter: this.filter,
