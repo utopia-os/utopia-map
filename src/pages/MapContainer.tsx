@@ -82,6 +82,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         donationWidget={map.donation_widget}
         showThemeControl={map.show_theme_control}
         defaultTheme={map.default_theme}
+        expandLayerControl={map.expand_layer_control}
       >
         {layers &&
           apis &&
