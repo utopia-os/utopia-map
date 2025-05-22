@@ -10,14 +10,35 @@ import { directusClient } from './directus'
 
 import type { UserApi, UserItem } from 'utopia-ui'
 
+interface DirectusError {
+  errors: {
+    message: string
+    [key: string]: any
+  }[]
+}
+
 export class userApi implements UserApi {
   async register(email: string, password: string, userName: string): Promise<any> {
     try {
       return await directusClient.request(createUser({ email, password, first_name: userName }))
-    } catch (error: any) {
-      console.log(error)
-      if (error.errors[0].message) throw error.errors[0].message
-      else throw error
+    } catch (error: unknown) {
+      console.error('Registration error:', error)
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'errors' in error &&
+        Array.isArray((error as any).errors)
+      ) {
+        const directusError = error as DirectusError
+        const errorMessage = directusError.errors[0]?.message
+
+        if (errorMessage.includes('has to be unique')) {
+          throw new Error('This e-mail address is already registered.')
+        }
+
+        throw new Error(errorMessage || 'Unknown error during registration.')
+      }
+      throw error
     }
   }
 
