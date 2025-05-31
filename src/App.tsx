@@ -25,10 +25,7 @@ import {
   Quests,
   RequestPasswordPage,
   SetNewPasswordPage,
-  UserSettings,
   OverlayItemsIndexPage,
-  ProfileView,
-  ProfileForm,
   Permissions,
   Tags,
   SelectUser,
@@ -36,10 +33,11 @@ import {
   MarketView,
   SVG,
 } from 'utopia-ui'
+
 import { Route, Routes } from 'react-router-dom'
 
 import './App.css'
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 
 import { assetsApi } from './api/assetsApi'
 import { itemsApi } from './api/itemsApi'
@@ -135,6 +133,24 @@ function App() {
   const currentUrl = window.location.href
   const bottomRoutes = getBottomRoutes(currentUrl)
 
+  const ProfileForm = lazy(() =>
+    import('utopia-ui/Profile').then((mod) => ({
+      default: mod.ProfileForm,
+    })),
+  )
+
+  const ProfileView = lazy(() =>
+    import('utopia-ui/Profile').then((mod) => ({
+      default: mod.ProfileView,
+    })),
+  )
+
+  const UserSettings = lazy(() =>
+    import('utopia-ui/Profile').then((mod) => ({
+      default: mod.UserSettings,
+    })),
+  )
+
   if (map && layers)
     return (
       <div className='App overflow-x-hidden'>
@@ -166,11 +182,29 @@ function App() {
                   />
                   <Route path='set-new-password' element={<SetNewPasswordPage />} />
                   <Route path='item/*' element={<ProfileView attestationApi={attestationApi} />} />
-                  <Route path='edit-item/*' element={<ProfileForm />} />
+                  <Route
+                    path='edit-item/*'
+                    element={
+                      <Suspense fallback={<div>Loading Editor…</div>}>
+                        <ProfileForm />
+                      </Suspense>
+                    }
+                  />
                   <Route path='user-settings' element={<UserSettings />} />
                   <Route path='landingpage' element={<Landingpage />} />
                   <Route path='market' element={<MarketView />} />
                   <Route path='select-user' element={<SelectUser />} />
+                  {/* <Route
+                    path='onboarding'
+                    element={
+                      <MapOverlayPage
+                        backdrop
+                        className='max-w-[calc(100vw-32px)] md:max-w-md h-[calc(100vh-96px)] md:h-fit'
+                      >
+                        <Onboarding />
+                      </MapOverlayPage>
+                    }
+                  /> */}
                   <Route
                     path='attestation-form'
                     element={<AttestationForm api={attestationApi} />}
