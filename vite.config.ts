@@ -24,21 +24,17 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // 1) Fange exakt den Pfad zu utopia-ui/dist/Profile.*.js ab:
-          //    → Ut­opia-ui baut Profile als "dist/Profile.esm.js" (bzw. Profile.cjs.js) aus.
           if (
             id.includes('node_modules/utopia-ui/dist/Profile') &&
             /\.(esm|cjs)\.js$/.test(id)
           ) {
-            return 'profile-form'   // Chunk-Name: profile-form.[hash].js
+            return 'profile-form'
           }
 
-          // 2) Alle anderen Dateien aus utopia-ui in 'utopia-ui-vendor' bündeln:
           if (id.includes('node_modules/utopia-ui/')) {
             return 'utopia-ui-vendor'
           }
 
-          // 3) Alle übrigen node_modules-Pakete ins generische 'vendor'-Chunk:
           if (id.includes('node_modules/')) {
             return 'vendor'
           }

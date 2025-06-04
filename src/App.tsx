@@ -32,6 +32,7 @@ import {
   AttestationForm,
   MarketView,
   SVG,
+  LoadingMapOverlay,
 } from 'utopia-ui'
 
 import { Route, Routes } from 'react-router-dom'
@@ -181,16 +182,30 @@ function App() {
                     element={<RequestPasswordPage resetUrl={map.url + '/set-new-password/'} />}
                   />
                   <Route path='set-new-password' element={<SetNewPasswordPage />} />
-                  <Route path='item/*' element={<ProfileView attestationApi={attestationApi} />} />
+                  <Route
+                    path='item/*'
+                    element={
+                      <Suspense fallback={<LoadingMapOverlay />}>
+                        <ProfileView attestationApi={attestationApi} />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path='edit-item/*'
                     element={
-                      <Suspense fallback={<div>Loading Editor…</div>}>
+                      <Suspense fallback={<LoadingMapOverlay />}>
                         <ProfileForm />
                       </Suspense>
                     }
                   />
-                  <Route path='user-settings' element={<UserSettings />} />
+                  <Route
+                    path='user-settings'
+                    element={
+                      <Suspense fallback={<LoadingMapOverlay />}>
+                        <UserSettings />
+                      </Suspense>
+                    }
+                  />
                   <Route path='landingpage' element={<Landingpage />} />
                   <Route path='market' element={<MarketView />} />
                   <Route path='select-user' element={<SelectUser />} />
