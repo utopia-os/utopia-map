@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TextView } from 'utopia-ui'
 
 interface ChapterProps {
@@ -122,6 +122,13 @@ const close = () => {
 }
 
 export const ModalContent = ({ map }: { map: any }) => {
+  useEffect(() => {
+    const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
+    if (map.info_open) {
+      myModal.showModal()
+    }
+  }, [map.info_open])
+
   const [chapter, setChapter] = useState<number>(1)
   // const setQuestsOpen = useSetQuestOpen()
 

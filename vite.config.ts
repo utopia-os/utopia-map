@@ -1,37 +1,47 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+import fs from 'fs';
+import path from 'path';
 
+// __dirname-Ersatz für ESModules
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-// https://vitejs.dev/config/
 export default defineConfig({
   server: {
-    port: 5174
+    host: true,
+    port: 5174,
+    /**
+     * https: {
+     *   key: fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')),
+     *   cert: fs.readFileSync(path.resolve(__dirname, 'localhost-cert.pem')),
+     * },
+     */
   },
   plugins: [
     react(),
     tailwindcss(),
-  ]
-})
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (
+            id.includes('node_modules/utopia-ui/dist/Profile') &&
+            /\.(esm|cjs)\.js$/.test(id)
+          ) {
+            return 'profile-form'
+          }
 
-{/**
-VitePWA({manifest: {
-      "short_name": "Utopia Game",
-      "name": "Utopia - A Real Life Manifestation Game",
-      "icons": [
-        {
-          "src": "3markers-globe.svg",
-          "sizes": "any",
-          "type": "image/svg+xml"
-        },
-        {
-          "src": "3markers-globe_256.png",
-          "sizes": "256x256",
-          "type": "image/png"
-        },
-      ],
-      "start_url": "/",
-      "display": "fullscreen",
-      "orientation": "natural"
-    }})
-   */}
+          if (id.includes('node_modules/utopia-ui/')) {
+            return 'utopia-ui-vendor'
+          }
+
+          if (id.includes('node_modules/')) {
+            return 'vendor'
+          }
+        }
+      }
+    }
+  }
+});
