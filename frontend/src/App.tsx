@@ -167,9 +167,6 @@ function App() {
               adminRole='8ed0b24e-3320-48cd-8444-bc152304e580'
             ></Permissions>
             {tagsApi && <Tags api={tagsApi}></Tags>}
-            <Modal>
-              <ModalContent map={map} />
-            </Modal>
             <SideBar routes={[...routes, ...layerPageRoutes]} bottomRoutes={bottomRoutes} />
             <Content>
               <Quests />
@@ -206,6 +203,14 @@ function App() {
                       </Suspense>
                     }
                   />
+                  <Route
+                    path='info'
+                    element={
+                      <Modal>
+                        <ModalContent map={map} />
+                      </Modal>
+                    }
+                  />
                   <Route path='landingpage' element={<Landingpage />} />
                   <Route path='market' element={<MarketView />} />
                   <Route path='select-user' element={<SelectUser />} />
@@ -230,7 +235,6 @@ function App() {
                       path={l.name}
                       element={
                         <OverlayItemsIndexPage
-                          plusButton={l.index_plus_button}
                           layerName={l.name}
                           url={'/item/'}
                           parameterField={'id'}

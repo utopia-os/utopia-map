@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import { MapOverlayPage } from '#components/Templates'
+
 /**
  * @category Gaming
  */
@@ -19,18 +21,13 @@ export function Modal({
 
   return (
     <>
-      {/* You can open the modal using ID.showModal() method */}
-      <dialog id='my_modal_3' className='tw:modal tw:transition-all tw:duration-300'>
-        <form method='dialog' className='tw:modal-box tw:transition-none'>
-          <button className='tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-2 tw:top-2 tw:focus:outline-hidden'>
-            ✕
-          </button>
-          {children}
-        </form>
-        <form method='dialog' className='tw:modal-backdrop'>
-          <button>close</button>
-        </form>
-      </dialog>
+      <MapOverlayPage
+        backdrop
+        card
+        className={`tw:absolute tw:h-fit tw:max-h-[calc(100%-2.5em)] tw:top-4 tw:bottom-4 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:overflow-scroll tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-[612px] tw:transition-opacity tw:duration-500 tw:opacity-100 tw:pointer-events-auto`}
+      >
+        {children}
+      </MapOverlayPage>
     </>
   )
 }

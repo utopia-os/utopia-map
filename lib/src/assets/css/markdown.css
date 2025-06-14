@@ -43,7 +43,7 @@
     }
 
     img {
-      @apply tw:max-w-full tw:rounded tw:shadow;
+      @apply tw:max-w-full;
     }
 
     a {
@@ -58,6 +58,112 @@
       @apply tw:font-bold tw:cursor-pointer;
       color: #faa;
       text-decoration: none;
+    }
+
+        /* Überschriften, Absätze, Listen etc. (deine bisherigen Styles) */
+    /* … */
+
+    /* ========== Tabellen ========== */
+    table {
+      @apply tw:w-full tw:table-auto tw:border-collapse tw:my-4;
+    }
+    thead {
+      @apply tw:bg-gray-100;
+    }
+    th,
+    td {
+      @apply tw:border tw:border-gray-300 tw:px-4 tw:py-2;
+    }
+    tr:nth-child(even) {
+      @apply tw:bg-gray-50;
+    }
+
+    /* ========== Inline-Code & Codeblöcke ========== */
+    code {
+      @apply tw:bg-gray-100 tw:text-sm tw:px-1 tw:py-0.5 tw:rounded tw:font-mono;
+    }
+    pre {
+      @apply tw:bg-gray-800 tw:text-white tw:rounded tw:p-4 tw:my-4 tw:overflow-x-auto;
+    }
+    pre code {
+      /* entfernt doppeltes Padding im Code-Tag */
+      @apply tw:bg-transparent tw:px-0 tw:py-0;
+    }
+
+
+    /* ========== Task-Lists ========== */
+        /* ========== Task-Lists: alle Marker entfernen ========== */
+    /* Stelle sicher, dass UL und LI kein List-Style haben */
+    ul[data-type="taskList"],
+    ul[data-type="taskList"] > li {
+      list-style: none !important;
+    }
+
+    /* Für den Fall, dass ProseMirror ein ::before oder ::marker nutzt */
+    ul[data-type="taskList"] > li::before,
+    ul[data-type="taskList"] > li::marker {
+      content: "" !important;
+      display: none !important;
+    }
+    /* Ul ohne Marker, ohne Einrückung */
+    ul[data-type="taskList"] {
+      @apply tw:list-none tw:m-0 tw:p-0;
+    }
+
+    /* Li als Flex-Container, kein Marker */
+    ul[data-type="taskList"] > li {
+      @apply tw:flex tw:items-start tw:gap-2 tw:my-1 tw:list-none;
+    }
+    ul[data-type="taskList"] > li::marker {
+      content: "";
+    }
+
+    /* Label hält nur die Checkbox */
+    ul[data-type="taskList"] > li > label {
+      @apply tw:flex tw:items-center tw:m-0 tw:p-0;
+    }
+
+    /* Checkbox-Größe */
+    ul[data-type="taskList"] > li label input[type="checkbox"] {
+      @apply tw:w-4 tw:h-4 tw:shrink-0;
+    }
+
+    /* Der Text steht in einem div – mach’s inline und ohne Margin */
+    ul[data-type="taskList"] > li > div {
+      @apply tw:flex-1 tw:m-0;
+    }
+    ul[data-type="taskList"] > li > div > p {
+      @apply tw:inline-block tw:my-0 tw:leading-relaxed;
+    }
+
+    ul.contains-task-list {
+      @apply tw:list-none tw:m-0 tw:p-0;
+    }
+
+    /* Li ebenfalls ohne Marker */
+    ul.contains-task-list > li.task-list-item {
+      @apply tw:list-none;
+    }
+    /* Für alle Browser-Marker und ::before-Pseudo-Elemente */
+    ul.contains-task-list > li.task-list-item::marker,
+    ul.contains-task-list > li.task-list-item::before {
+      content: "" !important;
+      display: none !important;
+    }
+
+    /* P als Inline-Flex, damit kein Umbruch und guter Abstand */
+    ul.contains-task-list > li.task-list-item > p {
+      @apply tw:inline-flex tw:items-center tw:gap-2 tw:leading-relaxed;
+    }
+
+    /* Checkbox-Größe und Abstand */
+    ul.contains-task-list > li.task-list-item > p > input[type="checkbox"] {
+      @apply tw:w-4 tw:h-4 tw:shrink-0;
+    }
+
+    /* ========== Blockzitate ========== */
+    blockquote {
+      @apply tw:border-l-4 tw:border-gray-300 tw:pl-4 tw:italic tw:text-gray-600 tw:bg-gray-50 tw:my-4 tw:py-2;
     }
   }
 }

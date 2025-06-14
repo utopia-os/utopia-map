@@ -120,7 +120,9 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 {layer.itemType.show_name_input && (
                   <PopupTextInput dataField='name' placeholder='Name'></PopupTextInput>
                 )}
-                {layer.itemType.show_start_end_input && <PopupStartEndInput></PopupStartEndInput>}
+                {layer.itemType.show_start_end_input && (
+                  <PopupStartEndInput showLabels={false}></PopupStartEndInput>
+                )}
                 {layer.itemType.show_text_input && (
                   <div className='mt-4'>
                     <PopupTextAreaInput

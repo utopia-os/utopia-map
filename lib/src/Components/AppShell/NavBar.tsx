@@ -1,7 +1,7 @@
 import Bars3Icon from '@heroicons/react/16/solid/Bars3Icon'
 import QuestionMarkIcon from '@heroicons/react/24/outline/QuestionMarkCircleIcon'
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 import { ThemeControl } from '#components/Templates/ThemeControl'
 
@@ -11,6 +11,8 @@ import { UserControl } from './UserControl'
 export default function NavBar({ appName }: { appName: string }) {
   const appState = useAppState()
   const setAppState = useSetAppState()
+  const { pathname } = useLocation()
+  const infoButtonTarget = pathname === '/info' ? '/' : '/info'
 
   const toggleSidebar = () => {
     setAppState({ sideBarOpen: !appState.sideBarOpen })
@@ -48,12 +50,9 @@ export default function NavBar({ appName }: { appName: string }) {
                   {appName}
                 </h1>
               </Link>
-              <button
-                className='tw:btn tw:px-2  tw:btn-ghost'
-                onClick={() => window.my_modal_3.showModal()}
-              >
+              <Link className='tw:btn tw:px-2 tw:btn-ghost' to={infoButtonTarget}>
                 <QuestionMarkIcon className='tw:h-5 tw:w-5' />
-              </button>
+              </Link>
             </div>
           </div>
 
