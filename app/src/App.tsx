@@ -55,7 +55,7 @@ import { Landingpage } from './pages/Landingpage'
 import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
 import { config } from '@/config'
-import { InviteApi } from './api/inviteApi'
+import { InviteApi } from './api/InviteApi'
 
 const userApi = new UserApi()
 const inviteApi = new InviteApi(userApi)
