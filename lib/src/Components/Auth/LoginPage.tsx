@@ -22,12 +22,14 @@ export function LoginPage({ inviteApi }: Props) {
 
   const { login, loading } = useAuth()
 
-  const myProfile = useMyProfile()
+  const { myProfile, isMyProfileLoaded } = useMyProfile()
 
   const navigate = useNavigate()
 
   const redeemInvite = useCallback(
     async (inviteCode: string): Promise<string | null> => {
+      if (!isMyProfileLoaded) return null
+
       if (!myProfile) {
         toast.error('Could not find your profile to redeem the invite.')
         return null
@@ -37,7 +39,7 @@ export function LoginPage({ inviteApi }: Props) {
       localStorage.removeItem('inviteCode') // Clear invite code after redeeming
       return invitingProfileId
     },
-    [inviteApi, myProfile],
+    [inviteApi, isMyProfileLoaded, myProfile],
   )
 
   const handleSuccess = useCallback(async () => {

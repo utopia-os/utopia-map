@@ -20,13 +20,15 @@ export function InvitePage({ inviteApi }: Props) {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const myProfile = useMyProfile()
+  const { myProfile, isMyProfileLoaded } = useMyProfile()
 
   if (!id) throw new Error('Invite ID is required')
 
   useEffect(() => {
     async function redeemInvite() {
       if (!id) throw new Error('Invite ID is required')
+
+      if (!isMyProfileLoaded) return
 
       if (!myProfile) {
         toast.error('Could not find your profile to redeem the invite.')
@@ -55,7 +57,15 @@ export function InvitePage({ inviteApi }: Props) {
       // Redirect to login page
       navigate('/login')
     }
-  }, [id, isAuthenticated, inviteApi, navigate, isAuthenticationInitialized, myProfile])
+  }, [
+    id,
+    isAuthenticated,
+    inviteApi,
+    navigate,
+    isAuthenticationInitialized,
+    myProfile,
+    isMyProfileLoaded,
+  ])
 
   return (
     <MapOverlayPage backdrop className='tw:max-w-xs tw:h-fit'>
