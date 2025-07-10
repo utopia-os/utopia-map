@@ -7,8 +7,9 @@ import {
   useIsLayerVisible,
   useIsGroupTypeVisible,
   useVisibleGroupType,
+  useAllVisibleLayersInitialized,
 } from '#components/Map/hooks/useFilter'
-import { useItems, useAllItemsLoaded } from '#components/Map/hooks/useItems'
+import { useItems } from '#components/Map/hooks/useItems'
 import { useAddMarker, useAddPopup, useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useSetMarkerClicked, useSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import { useGetItemTags, useAllTagsLoaded, useTags } from '#components/Map/hooks/useTags'
@@ -44,7 +45,8 @@ export const PopupView = ({ children }: { children?: React.ReactNode }) => {
   const leafletRefs = useLeafletRefs()
 
   const allTagsLoaded = useAllTagsLoaded()
-  const allItemsLoaded = useAllItemsLoaded()
+
+  const allVisibleLayersInitialized = useAllVisibleLayersInitialized()
 
   const setMarkerClicked = useSetMarkerClicked()
   const selectPosition = useSelectPosition()
@@ -103,7 +105,7 @@ export const PopupView = ({ children }: { children?: React.ReactNode }) => {
       })
     }
 
-    if (allTagsLoaded && allItemsLoaded) {
+    if (allTagsLoaded && allVisibleLayersInitialized) {
       item.text?.match(hashTagRegex)?.map((tag) => {
         if (
           !tags.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase()) &&

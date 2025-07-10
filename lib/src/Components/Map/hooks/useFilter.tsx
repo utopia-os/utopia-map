@@ -7,7 +7,7 @@
 import { useCallback, useReducer, createContext, useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useLayers } from './useLayers'
+import { useLayers, useLayerState } from './useItems'
 import useWindowDimensions from './useWindowDimension'
 
 import type { LayerProps } from '#types/LayerProps'
@@ -349,4 +349,13 @@ export const useIsGroupTypeVisible = (): UseFilterManagerResult['isGroupTypeVisi
 export const useVisibleGroupType = (): UseFilterManagerResult['visibleGroupTypes'] => {
   const { visibleGroupTypes } = useContext(FilterContext)
   return visibleGroupTypes
+}
+
+export const useAllVisibleLayersInitialized = (): boolean => {
+  const { visibleLayers } = useContext(FilterContext)
+  const layers = useLayerState()
+  return visibleLayers.every((layer) => {
+    const foundLayer = layers.find((l) => l.props.name === layer.name)
+    return foundLayer ? foundLayer.isInitialized : false
+  })
 }

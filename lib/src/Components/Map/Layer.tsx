@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 import { useSetItemsApi, useSetItemsData } from './hooks/useItems'
 import { useAddTag } from './hooks/useTags'
@@ -43,52 +43,98 @@ export const Layer = ({
   const [newTagsToAdd] = useState<Tag[]>([])
   const [tagsReady] = useState<boolean>(false)
 
+  const initializeWithData = useCallback(() => {
+    if (!data) return
+    setItemsData({
+      data,
+      children,
+      name,
+      menuIcon,
+      menuText,
+      menuColor,
+      markerIcon,
+      markerShape,
+      markerDefaultColor,
+      markerDefaultColor2,
+      api,
+      itemType,
+      userProfileLayer,
+      customEditLink,
+      customEditParameter,
+      // eslint-disable-next-line camelcase
+      public_edit_items,
+      listed,
+    })
+  }, [
+    api,
+    children,
+    customEditLink,
+    customEditParameter,
+    data,
+    itemType,
+    listed,
+    markerDefaultColor,
+    markerDefaultColor2,
+    markerIcon,
+    markerShape,
+    menuColor,
+    menuIcon,
+    menuText,
+    name,
+    // eslint-disable-next-line camelcase
+    public_edit_items,
+    setItemsData,
+    userProfileLayer,
+  ])
+
+  const initializeWithApi = useCallback(() => {
+    if (!api) return
+    setItemsApi({
+      data,
+      children,
+      name,
+      menuIcon,
+      menuText,
+      menuColor,
+      markerIcon,
+      markerShape,
+      markerDefaultColor,
+      markerDefaultColor2,
+      api,
+      itemType,
+      userProfileLayer,
+      customEditLink,
+      customEditParameter,
+      // eslint-disable-next-line camelcase
+      public_edit_items,
+      listed,
+    })
+  }, [
+    api,
+    children,
+    customEditLink,
+    customEditParameter,
+    data,
+    itemType,
+    listed,
+    markerDefaultColor,
+    markerDefaultColor2,
+    markerIcon,
+    markerShape,
+    menuColor,
+    menuIcon,
+    menuText,
+    name,
+    // eslint-disable-next-line camelcase
+    public_edit_items,
+    setItemsApi,
+    userProfileLayer,
+  ])
+
   useEffect(() => {
-    data &&
-      setItemsData({
-        data,
-        children,
-        name,
-        menuIcon,
-        menuText,
-        menuColor,
-        markerIcon,
-        markerShape,
-        markerDefaultColor,
-        markerDefaultColor2,
-        api,
-        itemType,
-        userProfileLayer,
-        // Can we just use editCallback for all cases?
-        customEditLink,
-        customEditParameter,
-        // eslint-disable-next-line camelcase
-        public_edit_items,
-        listed,
-      })
-    api &&
-      setItemsApi({
-        data,
-        children,
-        name,
-        menuIcon,
-        menuText,
-        menuColor,
-        markerIcon,
-        markerShape,
-        markerDefaultColor,
-        markerDefaultColor2,
-        api,
-        itemType,
-        userProfileLayer,
-        customEditLink,
-        customEditParameter,
-        // eslint-disable-next-line camelcase
-        public_edit_items,
-        listed,
-      })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, api])
+    if (data) initializeWithData()
+    if (api) initializeWithApi()
+  }, [data, api, initializeWithData, initializeWithApi])
 
   useEffect(() => {
     if (tagsReady) {

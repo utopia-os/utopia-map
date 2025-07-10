@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useClusterRef } from '#components/Map/hooks/useClusterRef'
 import { useItems, useRemoveItem, useUpdateItem } from '#components/Map/hooks/useItems'
-import { useLayers } from '#components/Map/hooks/useLayers'
+import { useLayers } from '#components/Map/hooks/useItems'
 import { useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import { useSelectPosition, useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
