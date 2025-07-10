@@ -3,7 +3,7 @@
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
-import { useLayers } from '#components/Map/hooks/useLayers'
+import { useLayers } from '#components/Map/hooks/useItems'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 
 export default function AddButton({

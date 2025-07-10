@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '#components/Auth/useAuth'
 import { useItems, useUpdateItem, useAddItem } from '#components/Map/hooks/useItems'
-import { useLayers } from '#components/Map/hooks/useLayers'
+import { useLayers } from '#components/Map/hooks/useItems'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import { useAddTag, useGetItemTags, useTags } from '#components/Map/hooks/useTags'
 import { MapOverlayPage } from '#components/Templates'

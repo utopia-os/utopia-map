@@ -24,7 +24,7 @@ import {
   useResetFilterTags,
   useToggleVisibleLayer,
 } from './hooks/useFilter'
-import { useLayers } from './hooks/useLayers'
+import { useLayers } from './hooks/useItems'
 import { useLeafletRefs } from './hooks/useLeafletRefs'
 import { usePopupForm } from './hooks/usePopupForm'
 import {
@@ -44,6 +44,7 @@ import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
 import { SelectPosition } from './Subcomponents/SelectPosition'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
+import { LayerProps } from '#types/LayerProps'
 
 export function UtopiaMapInner({
   children,
@@ -85,9 +86,8 @@ export function UtopiaMapInner({
   useTheme(defaultTheme)
 
   useEffect(() => {
-    layers.forEach((layer) => addVisibleLayer(layer))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [layers])
+    layers.forEach((layer: LayerProps) => addVisibleLayer(layer))
+  }, [addVisibleLayer, layers])
 
   const setAppState = useSetAppState()
 

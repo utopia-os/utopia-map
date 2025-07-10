@@ -3,7 +3,7 @@ import SVG from 'react-inlinesvg'
 
 import LayerSVG from '#assets/layer.svg'
 import { useIsLayerVisible, useToggleVisibleLayer } from '#components/Map/hooks/useFilter'
-import { useLayers } from '#components/Map/hooks/useLayers'
+import { useLayers } from '#components/Map/hooks/useItems'
 
 export function LayerControl({ expandLayerControl = false }: { expandLayerControl: boolean }) {
   const [open, setOpen] = useState(expandLayerControl)

@@ -5,15 +5,24 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useCallback, useReducer, createContext, useContext, useState } from 'react'
+import { useCallback, useReducer, createContext, useContext } from 'react'
 import { toast } from 'react-toastify'
-
-import { useAddLayer } from './useLayers'
 
 import type { Item } from '#types/Item'
 import type { LayerProps } from '#types/LayerProps'
 
+type LayerState = {
+  props: LayerProps
+  isInitialized: boolean
+}[]
+
+interface State {
+  layers: LayerState
+  items: Item[]
+}
+
 type ActionType =
+  | { type: 'ADD_LAYER'; layer: LayerProps; items: Item[] }
   | { type: 'ADD'; item: Item }
   | { type: 'UPDATE'; item: Item }
   | { type: 'REMOVE'; item: Item }
@@ -22,6 +31,7 @@ type ActionType =
 type UseItemManagerResult = ReturnType<typeof useItemsManager>
 
 const ItemContext = createContext<UseItemManagerResult>({
+  layers: [],
   items: [],
   addItem: () => {},
   updateItem: () => {},
@@ -29,10 +39,13 @@ const ItemContext = createContext<UseItemManagerResult>({
   resetItems: () => {},
   setItemsApi: () => {},
   setItemsData: () => {},
-  allItemsLoaded: false,
 })
 
-function useItemsManager(initialItems: Item[]): {
+function useItemsManager(
+  initialItems: Item[],
+  initialLayers: LayerState,
+): {
+  layers: LayerState
   items: Item[]
   addItem: (item: Item) => void
   updateItem: (item: Item) => void
@@ -40,39 +53,62 @@ function useItemsManager(initialItems: Item[]): {
   resetItems: (layer: LayerProps) => void
   setItemsApi: (layer: LayerProps) => void
   setItemsData: (layer: LayerProps) => void
-  allItemsLoaded: boolean
 } {
-  const addLayer = useAddLayer()
-
-  const [allItemsLoaded, setallItemsLoaded] = useState<boolean>(false)
-
-  const [items, dispatch] = useReducer((state: Item[], action: ActionType) => {
-    switch (action.type) {
-      case 'ADD':
-        // eslint-disable-next-line no-case-declarations
-        const exist = state.find((item) => item.id === action.item.id)
-        if (!exist) {
-          return [...state, action.item]
-        } else return state
-      case 'UPDATE':
-        return state.map((item) => {
-          if (item.id === action.item.id) {
-            return action.item
+  const [{ items, layers }, dispatch] = useReducer(
+    (state: State, action: ActionType) => {
+      switch (action.type) {
+        case 'ADD_LAYER':
+          return {
+            layers: [
+              ...state.layers,
+              {
+                props: action.layer,
+                isInitialized: true,
+              },
+            ],
+            items: [
+              ...state.items,
+              ...action.items.map((item) => ({ ...item, layer: action.layer })),
+            ],
           }
-          return item
-        })
-      case 'REMOVE':
-        return state.filter((item) => item !== action.item)
-      case 'RESET':
-        return state.filter((item) => item.layer?.name !== action.layer.name)
-      default:
-        throw new Error()
-    }
-  }, initialItems)
+        case 'ADD':
+          // eslint-disable-next-line no-case-declarations
+          const exist = state.items.find((item) => item.id === action.item.id)
+          if (!exist) {
+            return {
+              ...state,
+              items: [...state.items, action.item],
+            }
+          } else return state
+        case 'UPDATE':
+          return {
+            ...state,
+            items: state.items.map((item) => {
+              if (item.id === action.item.id) {
+                return action.item
+              }
+              return item
+            }),
+          }
+        case 'REMOVE':
+          return {
+            ...state,
+            items: state.items.filter((item) => item !== action.item),
+          }
+        case 'RESET':
+          return {
+            ...state,
+            items: state.items.filter((item) => item.layer?.name !== action.layer.name),
+          }
+        default:
+          throw new Error()
+      }
+    },
+    { items: initialItems, layers: initialLayers } as State,
+  )
 
   const setItemsApi = useCallback(async (layer: LayerProps) => {
-    addLayer(layer)
-    const result = await toast.promise(layer.api!.getItems(), {
+    const items = await toast.promise(layer.api!.getItems(), {
       pending: `loading ${layer.name} ...`,
       success: `${layer.name} loaded`,
       error: {
@@ -81,22 +117,12 @@ function useItemsManager(initialItems: Item[]): {
         },
       },
     })
-    result.map((item) => {
-      dispatch({ type: 'ADD', item: { ...item, layer } })
-      return null
-    })
-    setallItemsLoaded(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch({ type: 'ADD_LAYER', layer, items })
   }, [])
 
   const setItemsData = useCallback((layer: LayerProps) => {
-    addLayer(layer)
-    layer.data?.map((item) => {
-      dispatch({ type: 'ADD', item: { ...item, layer } })
-      return null
-    })
-    setallItemsLoaded(true)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (!layer.data) return
+    dispatch({ type: 'ADD_LAYER', layer, items: layer.data })
   }, [])
 
   const addItem = useCallback(async (item: Item) => {
@@ -129,21 +155,24 @@ function useItemsManager(initialItems: Item[]): {
 
   return {
     items,
+    layers,
     updateItem,
     addItem,
     removeItem,
     resetItems,
     setItemsApi,
     setItemsData,
-    allItemsLoaded,
   }
 }
 
 export const ItemsProvider: React.FunctionComponent<{
   initialItems: Item[]
+  initialLayers: LayerState
   children?: React.ReactNode
-}> = ({ initialItems, children }) => (
-  <ItemContext.Provider value={useItemsManager(initialItems)}>{children}</ItemContext.Provider>
+}> = ({ initialItems, initialLayers, children }) => (
+  <ItemContext.Provider value={useItemsManager(initialItems, initialLayers)}>
+    {children}
+  </ItemContext.Provider>
 )
 
 export const useItems = (): Item[] => {
@@ -181,7 +210,12 @@ export const useSetItemsData = (): UseItemManagerResult['setItemsData'] => {
   return setItemsData
 }
 
-export const useAllItemsLoaded = (): UseItemManagerResult['allItemsLoaded'] => {
-  const { allItemsLoaded } = useContext(ItemContext)
-  return allItemsLoaded
+export const useLayers = (): LayerProps[] => {
+  const { layers } = useContext(ItemContext)
+  return layers.map((layer) => layer.props)
+}
+
+export const useLayerState = (): LayerState => {
+  const { layers } = useContext(ItemContext)
+  return layers
 }
