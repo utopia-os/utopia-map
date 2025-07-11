@@ -10,16 +10,40 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
     "paths": {
-      "utopia-ui": ["../lib/src"],
-      "#components/*": ["../lib/src/Components/*"],
-      "#utils/*":      ["../lib/src/Utils/*"],
-      "#types/*":      ["../lib/src/types/*"],
-      "#assets/*":     ["../lib/src/assets/*"],
-      "#src/*":        ["../lib/src/*"],
-      "#root/*":       ["../lib/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "utopia-ui": [
+        "../lib/src"
+      ],
+      "#components/*": [
+        "../lib/src/Components/*"
+      ],
+      "#utils/*": [
+        "../lib/src/Utils/*"
+      ],
+      "#types/*": [
+        "../lib/src/types/*"
+      ],
+      "#assets/*": [
+        "../lib/src/assets/*"
+      ],
+      "#src/*": [
+        "../lib/src/*"
+      ],
+      "#root/*": [
+        "../lib/*"
+      ]
     }
   },
-  "include": ["src"], 
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

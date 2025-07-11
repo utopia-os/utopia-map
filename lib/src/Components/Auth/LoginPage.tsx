@@ -1,28 +1,65 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { useMyProfile } from '#components/Map/hooks/useMyProfile'
 import { MapOverlayPage } from '#components/Templates/MapOverlayPage'
 
 import { useAuth } from './useAuth'
 
+import type { InviteApi } from '#types/InviteApi'
+
+interface Props {
+  inviteApi: InviteApi
+}
+
 /**
  * @category Auth
  */
-export function LoginPage() {
+export function LoginPage({ inviteApi }: Props) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   const { login, loading } = useAuth()
 
+  const { myProfile, isMyProfileLoaded } = useMyProfile()
+
   const navigate = useNavigate()
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onLogin = async () => {
+  const redeemInvite = useCallback(
+    async (inviteCode: string): Promise<string | null> => {
+      if (!isMyProfileLoaded) return null
+
+      if (!myProfile) {
+        toast.error('Could not find your profile to redeem the invite.')
+        return null
+      }
+
+      const invitingProfileId = await inviteApi.redeemInvite(inviteCode, myProfile.id)
+      localStorage.removeItem('inviteCode') // Clear invite code after redeeming
+      return invitingProfileId
+    },
+    [inviteApi, isMyProfileLoaded, myProfile],
+  )
+
+  const handleSuccess = useCallback(async () => {
+    const inviteCode = localStorage.getItem('inviteCode')
+    let invitingProfileId: string | null = null
+    if (inviteCode) {
+      invitingProfileId = await redeemInvite(inviteCode)
+    }
+    if (invitingProfileId) {
+      navigate(`/item/${invitingProfileId}`)
+    } else {
+      navigate('/')
+    }
+  }, [navigate, redeemInvite])
+
+  const onLogin = useCallback(async () => {
     await toast.promise(login({ email, password }), {
       success: {
         render({ data }) {
-          navigate('/')
+          void handleSuccess()
           return `Hi ${data?.first_name ? data.first_name : 'Traveler'}`
         },
         // other options
@@ -36,7 +73,7 @@ export function LoginPage() {
       },
       pending: 'logging in ...',
     })
-  }
+  }, [email, handleSuccess, login, password])
 
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEvent) => {
