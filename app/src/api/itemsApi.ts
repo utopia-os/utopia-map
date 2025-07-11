@@ -9,9 +9,9 @@ import { createItem, deleteItem, readItem, readItems, updateItem } from '@direct
 import { directusClient } from './directus'
 
 import type { MyCollections } from './directus'
-import type { ItemsApi } from 'utopia-ui'
+import type { FullItemsApi } from 'utopia-ui'
 
-export class itemsApi<T> implements ItemsApi<T> {
+export class itemsApi<T> implements FullItemsApi<T> {
   collectionName: keyof MyCollections
   filter: any
   layerId: string | undefined
@@ -70,7 +70,7 @@ export class itemsApi<T> implements ItemsApi<T> {
 
   async getItem(id: string): Promise<T> {
     try {
-      const result = await directusClient.request(readItem(this.collectionName as never, id))
+      const result = await directusClient.request(readItem(this.collectionName, id))
       return result as T
     } catch (error: any) {
       console.log(error)

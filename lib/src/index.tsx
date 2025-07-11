@@ -10,6 +10,7 @@ export * from './Components/Input'
 export * from './Components/Item'
 export * from './Components/Onboarding'
 export * from './Components/Profile'
+export type * from './types/FullItemsApi'
 
 declare global {
   interface Window {

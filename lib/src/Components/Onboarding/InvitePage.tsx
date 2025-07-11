@@ -3,28 +3,27 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useAuth } from '#components/Auth/useAuth'
-import { useAllItemsLoaded, useItems } from '#components/Map/hooks/useItems'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
 import { MapOverlayPage } from '#components/Templates/MapOverlayPage'
 
+import type { FullItemsApi } from '#types/FullItemsApi'
 import type { InviteApi } from '#types/InviteApi'
 import type { Item } from '#types/Item'
 
 interface Props {
   inviteApi: InviteApi
+  itemsApi: FullItemsApi<Item>
 }
 
 /**
  * @category Onboarding
  */
-export function InvitePage({ inviteApi }: Props) {
+export function InvitePage({ inviteApi, itemsApi }: Props) {
   const { isAuthenticated, isInitialized: isAuthenticationInitialized } = useAuth()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
   const { myProfile, isMyProfileLoaded } = useMyProfile()
-  const items = useItems()
-  const allItemsLoaded = useAllItemsLoaded() && items.length > 0
 
   if (!id) throw new Error('Invite ID is required')
 
@@ -63,7 +62,7 @@ export function InvitePage({ inviteApi }: Props) {
         return
       }
 
-      const invitingProfile = items.find((item) => item.id === invitingProfileId)
+      const invitingProfile = await itemsApi.getItem(invitingProfileId)
 
       if (!invitingProfile) {
         toast.error('Inviting profile not found')
@@ -74,7 +73,7 @@ export function InvitePage({ inviteApi }: Props) {
       setInvitingProfile(invitingProfile)
     }
 
-    if (!isAuthenticationInitialized || !allItemsLoaded) return
+    if (!isAuthenticationInitialized) return
 
     if (isAuthenticated) {
       void redeemInvite()
@@ -92,8 +91,7 @@ export function InvitePage({ inviteApi }: Props) {
     isAuthenticationInitialized,
     myProfile,
     isMyProfileLoaded,
-    items,
-    allItemsLoaded,
+    itemsApi,
   ])
 
   const goToSignup = () => {
