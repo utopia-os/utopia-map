@@ -10,7 +10,7 @@ interface Props {
 export const RelationsView = ({ item, relation }: Props) => {
   const items = useItems()
 
-  if (!item.relations) throw new Error('Item does not have relations defined.')
+  if (!item.relations) return
 
   const relationsOfRightType = item.relations.filter((r) => r.type === relation)
 
