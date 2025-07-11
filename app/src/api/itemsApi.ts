@@ -8,8 +8,8 @@ import { createItem, deleteItem, readItem, readItems, updateItem } from '@direct
 
 import { directusClient } from './directus'
 
+import type { FullItemsApi } from '#types/FullItemsApi'
 import type { MyCollections } from './directus'
-import type { FullItemsApi } from 'utopia-ui'
 
 export class itemsApi<T> implements FullItemsApi<T> {
   collectionName: keyof MyCollections
