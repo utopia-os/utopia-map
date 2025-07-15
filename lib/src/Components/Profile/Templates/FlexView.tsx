@@ -4,8 +4,10 @@ import { ContactInfoView } from '#components/Profile/Subcomponents/ContactInfoVi
 import { CrowdfundingView } from '#components/Profile/Subcomponents/CrowdfundingView'
 import { GalleryView } from '#components/Profile/Subcomponents/GalleryView'
 import { GroupSubHeaderView } from '#components/Profile/Subcomponents/GroupSubHeaderView'
+import { InviteLinkView } from '#components/Profile/Subcomponents/InviteLinkView'
 import { ProfileStartEndView } from '#components/Profile/Subcomponents/ProfileStartEndView'
 import { ProfileTextView } from '#components/Profile/Subcomponents/ProfileTextView'
+import { RelationsView } from '#components/Profile/Subcomponents/RelationsView'
 
 import type { Item } from '#types/Item'
 import type { Key } from 'react'
@@ -17,6 +19,8 @@ const componentMap = {
   startEnd: ProfileStartEndView,
   gallery: GalleryView,
   crowdfundings: CrowdfundingView,
+  inviteLinks: InviteLinkView,
+  relations: RelationsView,
   // weitere Komponenten hier
 }
 

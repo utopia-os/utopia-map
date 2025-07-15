@@ -20,6 +20,7 @@
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
     "react-router-dom": "^6.23.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "utopia-ui": "^3.0.111"
   },
   "devDependencies": {

@@ -20,6 +20,7 @@ import {
   Content,
   AuthProvider,
   Modal,
+  InvitePage,
   LoginPage,
   SignupPage,
   Quests,
@@ -33,8 +34,8 @@ import {
   MarketView,
   SVG,
   LoadingMapOverlay,
-  ProfileView,
   ProfileForm,
+  ProfileView,
   UserSettings,
 } from 'utopia-ui'
 
@@ -48,11 +49,16 @@ import { itemsApi } from './api/itemsApi'
 import { layersApi } from './api/layersApi'
 import { mapApi } from './api/mapApi'
 import { permissionsApi } from './api/permissionsApi'
-import { userApi } from './api/userApi'
+import { UserApi } from './api/userApi'
 import { ModalContent } from './ModalContent'
 import { Landingpage } from './pages/Landingpage'
 import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
+import { config } from '@/config'
+import { InviteApi } from './api/inviteApi'
+
+const userApi = new UserApi()
+const inviteApi = new InviteApi(userApi)
 
 function App() {
   const [permissionsApiInstance, setPermissionsApiInstance] = useState<permissionsApi>()
@@ -140,12 +146,12 @@ function App() {
   if (map && layers)
     return (
       <div className='App tw:overflow-x-hidden'>
-        <AuthProvider userApi={new userApi()}>
+        <AuthProvider userApi={userApi} inviteApi={inviteApi}>
           <AppShell
             assetsApi={new assetsApi('https://api.utopia-lab.org/assets/')}
             appName={map.name}
             embedded={embedded}
-            openCollectiveApiKey={import.meta.env.VITE_OPEN_COLLECTIVE_API_KEY}
+            openCollectiveApiKey={config.openCollectiveApiKey}
           >
             <Permissions
               api={permissionsApiInstance}
@@ -160,7 +166,8 @@ function App() {
               <Quests />
               <Routes>
                 <Route path='/*' element={<MapContainer map={map} layers={layers} />}>
-                  <Route path='login' element={<LoginPage />} />
+                  <Route path='invite/:id' element={<InvitePage inviteApi={inviteApi} />} />
+                  <Route path='login' element={<LoginPage inviteApi={inviteApi} />} />
                   <Route path='signup' element={<SignupPage />} />
                   <Route
                     path='reset-password'
