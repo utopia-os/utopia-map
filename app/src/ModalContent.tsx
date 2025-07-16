@@ -17,6 +17,14 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
       {map.custom_text ? (
         <>
           <TextView rawText={map.custom_text}></TextView>
+          <div className='tw:grid'>
+            <label
+              className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
+              onClick={() => clickAction1()}
+            >
+              Close
+            </label>
+          </div>
         </>
       ) : (
         <>
