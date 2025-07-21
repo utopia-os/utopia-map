@@ -157,6 +157,9 @@ export function ProfileForm() {
     <>
       <MapOverlayPage
         backdrop
+        closeButtonUrl={
+          item ? `/item/${item.id}${window.location.search ? window.location.search : ''}` : '/'
+        }
         className='tw:mx-4 tw:mt-4 tw:mb-4 tw:@container tw:overflow-x-hidden tw:w-[calc(100%-32px)]  tw:md:w-[calc(50%-32px)] tw:max-w-3xl tw:left-auto! tw:top-0 tw:bottom-0 tw:flex tw:flex-col'
       >
         {item ? (

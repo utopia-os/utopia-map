@@ -174,7 +174,7 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
       {item && (
         <MapOverlayPage
           key={item.id}
-          className={`tw:p-0! tw:overflow-scroll tw:m-4! tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-3xl tw:left-0! tw:sm:left-auto! tw:top-0 tw:bottom-0 tw:transition-opacity tw:duration-500 ${!selectPosition ? 'tw:opacity-100 tw:pointer-events-auto' : 'tw:opacity-0 tw:pointer-events-none'} tw:max-h-[1000px]`}
+          className={`tw:p-0! tw:overflow-visible tw:m-4! tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-3xl tw:left-0! tw:sm:left-auto! tw:top-0 tw:bottom-0 tw:transition-opacity tw:duration-500 ${!selectPosition ? 'tw:opacity-100 tw:pointer-events-auto' : 'tw:opacity-0 tw:pointer-events-none'} tw:max-h-[1000px]`}
         >
           <>
             <div className={'tw:px-6 tw:pt-6'}>

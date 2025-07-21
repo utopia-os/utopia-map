@@ -27,6 +27,7 @@ import { useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useTags } from '#components/Map/hooks/useTags'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 import { decodeTag } from '#utils/FormatTags'
+import { markdownToPlainText } from '#utils/getTextFromMarkdown'
 import MarkerIconFactory from '#utils/MarkerIconFactory'
 
 import { LocateControl } from './LocateControl'
@@ -195,7 +196,7 @@ export const SearchControl = () => {
                       {item.name}
                     </div>
                     <div className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
-                      {item.text}
+                      {markdownToPlainText(item.text ?? '')}
                     </div>
                   </div>
                 </div>

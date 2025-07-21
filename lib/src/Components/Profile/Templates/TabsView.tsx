@@ -12,7 +12,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
 import { useItems } from '#components/Map/hooks/useItems'
-import { StartEndView, TextView } from '#components/Map/Subcomponents/ItemPopupComponents'
+import {
+  StartEndView,
+  TextPreview,
+  TextView,
+} from '#components/Map/Subcomponents/ItemPopupComponents'
 import { ActionButton } from '#components/Profile/Subcomponents/ActionsButton'
 import { LinkedItemsHeaderView } from '#components/Profile/Subcomponents/LinkedItemsHeaderView'
 import { TagView } from '#components/Templates/TagView'
@@ -104,9 +108,9 @@ export const TabsView = ({
             <StartEndView item={item}></StartEndView>
           </div>
         )}
-        <TextView text={item.text} itemId={item.id} />
+        <TextView rawText={item.text} />
         <div className='tw:h-4'></div>
-        <TextView text={item.contact} itemId={item.id} />
+        <TextView rawText={item.contact} />
       </div>
       {item.layer?.itemType.questlog && (
         <>
@@ -275,7 +279,7 @@ export const TabsView = ({
                         loading={loading}
                       />
                       <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
-                        <TextView truncate text={i.text} itemId={item.id} />
+                        <TextPreview item={i} />
                       </div>
                     </div>
                   ))}

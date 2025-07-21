@@ -1,0 +1,5 @@
+lib/node_modules/
+lib/dist/
+frontend/node_modules/
+frontend/dist/
+

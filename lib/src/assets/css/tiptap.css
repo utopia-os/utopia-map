@@ -1,4 +1,59 @@
+/* Basic editor styles */
+.tiptap {
+  :first-child {
+    margin-top: 0;
+  }
 
+  .mention {
+    background-color: var(--color-primary) 20%;
+    border-radius: var(--radius-box);
+    box-decoration-break: clone;
+    color: var(--color-primary);
+    padding: 0;
+    &::after {
+      content: "\200B";
+    }
+  }
+}
+
+.react-renderer .react-component[data-node-view-wrapper] {
+  display: inline-block;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  background: var(--color-base-100);
+  border: 1px solid var(--color-base-200);
+  border-radius: var(--radius-box);
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: auto;
+  padding: 0.4rem;
+  position: relative;
+
+  button {
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    gap: 0.25rem;
+    text-align: left;
+    width: 100%;
+    padding-left: var(--tw-spacing);
+    padding-right: var(--tw-spacing);
+    border-radius: var(--radius-box);
+
+    &:hover,
+    &:hover.is-selected {
+      background-color: var(--color-base-300);
+    }
+
+    &.is-selected {
+      background-color: var(--color-base-300);
+    }
+  }
+}
 
 .editor-wrapper div {
     min-height: 0;

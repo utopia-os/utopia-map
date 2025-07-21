@@ -25,7 +25,7 @@ export const ProfileTextView = ({
         <h2 className='tw:text-lg tw:font-semibold'>{heading}</h2>
       )}
       <div className='tw:mt-2 tw:text-sm'>
-        <TextView itemId={item.id} rawText={parsedText} />
+        <TextView rawText={parsedText} />
       </div>
     </div>
   )

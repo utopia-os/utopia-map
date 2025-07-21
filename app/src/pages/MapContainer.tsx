@@ -15,7 +15,7 @@ import {
   PopupView,
   PopupButton,
   StartEndView,
-  TextView,
+  TextPreview,
   PopupForm,
   PopupStartEndInput,
   PopupTextAreaInput,
@@ -116,7 +116,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 {layer.itemType.show_profile_button && (
                   <PopupButton url={'/item'} parameterField={'id'} text={'Profile'} />
                 )}
-                {layer.itemType.show_text && <TextView truncate></TextView>}
+                {layer.itemType.show_text && <TextPreview></TextPreview>}
               </PopupView>
               <PopupForm>
                 {layer.itemType.show_name_input && (

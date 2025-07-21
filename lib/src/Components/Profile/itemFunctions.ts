@@ -292,7 +292,7 @@ export const onUpdateItem = async (
         )
         .then(() => {
           setLoading(false)
-          navigate(`/${params && '?' + params}`)
+          navigate(`/item/${item.id}${params && '?' + params}`)
           return null
         }))
   }

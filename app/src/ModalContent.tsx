@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { TextView } from 'utopia-ui'
 
 interface ChapterProps {
@@ -27,8 +27,8 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           </div>
         </>
       ) : (
-        <>
-          <h3 className='tw:font-bold tw:text-lg'>Welcome to {map?.name || 'Utopia Map'}</h3>
+        <div className='tw:relative'>
+          <h3 className='tw:text-xl tw:font-bold'>Welcome to {map?.name || 'Utopia Map'}</h3>
           <img
             className='tw:float-right tw:w-32 tw:m-2'
             src={'https://api.utopia-lab.org/assets/' + map.logo}
@@ -48,18 +48,17 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
               Close
             </label>
           </div>
-        </>
+        </div>
       )}
     </>
   )
 }
 
-const close = () => {
-  const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
-  myModal.close()
-}
-
 export const ModalContent = ({ map }: { map: any }) => {
+  const navigate = useNavigate()
+  const close = () => {
+    navigate('/')
+  }
   useEffect(() => {
     const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
     if (map.info_open) {

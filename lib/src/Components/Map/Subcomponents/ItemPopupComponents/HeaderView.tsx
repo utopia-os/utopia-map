@@ -137,7 +137,7 @@ export function HeaderView({
                     editCallback && (
                       <li>
                         <a
-                          className='tw:text-base-content! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Edit'
                           onClick={(e) =>
                             item.layer?.customEditLink
@@ -147,7 +147,7 @@ export function HeaderView({
                               : editCallback(e)
                           }
                         >
-                          <PencilIcon className='tw:h-5 tw:w-5' />
+                          <PencilIcon className='tw:h-5 tw:w-5 tw:!z-0' />
                         </a>
                       </li>
                     )}
@@ -156,11 +156,11 @@ export function HeaderView({
                     setPositionCallback && (
                       <li>
                         <a
-                          className='tw:text-base-content! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Set position'
                           onClick={setPositionCallback}
                         >
-                          <SVG src={TargetDotSVG} className='tw:w-5 tw:h-5' />
+                          <SVG src={TargetDotSVG} className='tw:w-5 tw:h-5 tw:!z-0' />
                         </a>
                       </li>
                     )}
@@ -169,14 +169,14 @@ export function HeaderView({
                     deleteCallback && (
                       <li>
                         <a
-                          className='tw:text-error! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-error! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Delete'
                           onClick={openDeleteModal}
                         >
                           {loading ? (
                             <span className='tw:loading tw:loading-spinner tw:loading-sm'></span>
                           ) : (
-                            <TrashIcon className='tw:h-5 tw:w-5' />
+                            <TrashIcon className='tw:h-5 tw:w-5 tw:!z-0' />
                           )}
                         </a>
                       </li>

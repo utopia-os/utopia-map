@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 import { useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
-import { StartEndView, TextView } from '#components/Map/Subcomponents/ItemPopupComponents'
+import {
+  StartEndView,
+  LazyTextPreview,
+} from '#components/Map/Subcomponents/ItemPopupComponents'
 import { HeaderView } from '#components/Map/Subcomponents/ItemPopupComponents/HeaderView'
 
 import { DateUserInfo } from './DateUserInfo'
@@ -51,7 +54,7 @@ export const ItemCard = ({
       ></HeaderView>
       <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
         {i.layer?.itemType.show_start_end && <StartEndView item={i}></StartEndView>}
-        {i.layer?.itemType.show_text && <TextView truncate text={i.text} itemId={i.id} />}
+        {i.layer?.itemType.show_text && <LazyTextPreview item={i} />}
       </div>
       <DateUserInfo item={i}></DateUserInfo>
     </div>

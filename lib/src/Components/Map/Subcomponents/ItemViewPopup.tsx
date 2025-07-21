@@ -18,8 +18,8 @@ import { usePopupForm } from '#components/Map/hooks/usePopupForm'
 import { useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import { timeAgo } from '#utils/TimeAgo'
 
+import { TextPreview } from './ItemPopupComponents'
 import { HeaderView } from './ItemPopupComponents/HeaderView'
-import { TextView } from './ItemPopupComponents/TextView'
 
 import type { Item } from '#types/Item'
 
@@ -101,7 +101,7 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
           loading={loading}
         />
         <div className='tw:overflow-hidden tw:max-h-64 fade'>
-          {props.children ?? <TextView text={props.item.text} itemId={props.item.id} />}
+          {props.children ?? <TextPreview item={props.item} />}
         </div>
         <div className='tw:flex tw:-mb-1 tw:flex-row tw:mr-2 tw:mt-1'>
           {infoExpanded ? (

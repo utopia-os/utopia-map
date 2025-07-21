@@ -158,9 +158,6 @@ function App() {
               adminRole='8ed0b24e-3320-48cd-8444-bc152304e580'
             ></Permissions>
             {tagsApi && <Tags api={tagsApi}></Tags>}
-            <Modal>
-              <ModalContent map={map} />
-            </Modal>
             <SideBar routes={[...routes, ...layerPageRoutes]} bottomRoutes={bottomRoutes} />
             <Content>
               <Quests />
@@ -196,6 +193,14 @@ function App() {
                       <Suspense fallback={<LoadingMapOverlay />}>
                         <UserSettings />
                       </Suspense>
+                    }
+                  />
+                  <Route
+                    path='info'
+                    element={
+                      <Modal>
+                        <ModalContent map={map} />
+                      </Modal>
                     }
                   />
                   <Route path='landingpage' element={<Landingpage />} />

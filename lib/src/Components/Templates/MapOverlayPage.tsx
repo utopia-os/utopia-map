@@ -10,14 +10,18 @@ export function MapOverlayPage({
   className,
   backdrop,
   card = true,
+  showCloseButton = true,
+  closeButtonUrl,
 }: {
   children: React.ReactNode
   className?: string
   backdrop?: boolean
   card?: boolean
+  showCloseButton?: boolean
+  closeButtonUrl?: string
 }) {
   const closeScreen = () => {
-    navigate(`/${window.location.search ? window.location.search : ''}`)
+    navigate(closeButtonUrl ?? `/${window.location.search ? window.location.search : ''}`)
   }
 
   const navigate = useNavigate()
@@ -48,12 +52,14 @@ export function MapOverlayPage({
           className={`${card ? 'tw:card tw:card-body tw:shadow-xl' : ''} tw:bg-base-100 tw:p-6 ${className ?? ''} ${backdrop ? '' : 'tw:z-2000'} tw:absolute tw:top-0 tw:bottom-0 tw:right-0 tw:left-0 tw:m-auto`}
         >
           {children}
-          <button
-            className='tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-2 tw:top-2'
-            onClick={() => closeScreen()}
-          >
-            ✕
-          </button>
+          {showCloseButton && (
+            <button
+              className='tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-2 tw:top-2'
+              onClick={() => closeScreen()}
+            >
+              ✕
+            </button>
+          )}
         </div>
       </div>
     </div>

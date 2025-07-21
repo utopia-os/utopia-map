@@ -157,8 +157,8 @@ export const OverlayItemsIndexPage = ({
                       : 0
                   return dateB - dateA // Subtracts milliseconds which are numbers
                 })
-                .map((i, k) => (
-                  <div key={k} className='tw:break-inside-avoid tw:mb-6'>
+                .map((i) => (
+                  <div key={i.id} className='tw:break-inside-avoid tw:mb-6'>
                     <ItemCard
                       i={i}
                       loading={loading}

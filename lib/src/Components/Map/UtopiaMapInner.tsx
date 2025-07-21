@@ -102,10 +102,9 @@ export function UtopiaMapInner({
         setTimeout(() => {
           toast(
             <>
-              <TextView itemId='' rawText={'## Do you like this Map?'} />
+              <TextView rawText={'## Do you like this Map?'} />
               <div>
                 <TextView
-                  itemId=''
                   rawText={
                     'Support us building free opensource maps for communities and help us grow 🌱☀️'
                   }
