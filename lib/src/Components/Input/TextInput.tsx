@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
 
+import { InputLabel } from './InputLabel'
+
 interface InputTextProps {
   labelTitle?: string
-  labelStyle?: string
   type?: string
   dataField?: string
   containerStyle?: string
@@ -20,7 +21,6 @@ interface InputTextProps {
  */
 export function TextInput({
   labelTitle,
-  labelStyle,
   type,
   dataField,
   containerStyle,
@@ -48,13 +48,7 @@ export function TextInput({
 
   return (
     <div className={`tw:form-control ${containerStyle ?? ''}`}>
-      {labelTitle ? (
-        <label className='tw:label'>
-          <span className={`tw:label-text tw:text-base-content ${labelStyle ?? ''}`}>
-            {labelTitle}
-          </span>
-        </label>
-      ) : null}
+      {labelTitle ? <InputLabel label={labelTitle} /> : null}
       <input
         required={required}
         pattern={pattern}

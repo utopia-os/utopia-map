@@ -18,4 +18,6 @@ export interface UtopiaMapProps {
   donationWidget?: boolean
   defaultTheme?: string
   expandLayerControl?: boolean
+  tileServerUrl?: string
+  tileServerAttribution?: string
 }

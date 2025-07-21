@@ -6,7 +6,6 @@ import type { Item } from '#types/Item'
 export interface StartEndInputProps {
   item?: Item
   showLabels?: boolean
-  labelStyle?: string
   updateStartValue?: (value: string) => void
   updateEndValue?: (value: string) => void
   containerStyle?: string
@@ -18,7 +17,6 @@ export interface StartEndInputProps {
 export const PopupStartEndInput = ({
   item,
   showLabels = true,
-  labelStyle,
   updateStartValue,
   updateEndValue,
   containerStyle,
@@ -31,7 +29,6 @@ export const PopupStartEndInput = ({
         dataField='start'
         inputStyle='tw:text-sm tw:px-2'
         labelTitle={showLabels ? 'Start' : ''}
-        labelStyle={labelStyle}
         defaultValue={item && item.start ? item.start.substring(0, 10) : ''}
         autocomplete='one-time-code'
         updateFormValue={updateStartValue}
@@ -42,7 +39,6 @@ export const PopupStartEndInput = ({
         dataField='end'
         inputStyle='tw:text-sm tw:px-2'
         labelTitle={showLabels ? 'End' : ''}
-        labelStyle={labelStyle}
         defaultValue={item && item.end ? item.end.substring(0, 10) : ''}
         autocomplete='one-time-code'
         updateFormValue={updateEndValue}

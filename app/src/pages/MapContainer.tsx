@@ -84,6 +84,8 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         defaultTheme={map.default_theme}
         showZoomControl={map.show_zoom_control}
         expandLayerControl={map.expand_layer_control}
+        tileServerUrl={map.tile_server_url}
+        tileServerAttribution={map.tile_server_attribution}
       >
         {layers &&
           apis &&

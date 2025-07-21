@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { RichTextEditor } from '#components/Input/RichTextEditor/RichTextEditor'
+import { InputLabel, RichTextEditor } from '#components/Input'
 
 import { MarkdownHint } from './MarkdownHint'
 
@@ -13,11 +13,9 @@ import type { FormState } from '#types/FormState'
 export const ProfileTextForm = ({
   state,
   setState,
-  // Is this really used?
   dataField,
   heading,
   size,
-  hideInputLabel,
 }: {
   state: FormState
   setState: React.Dispatch<React.SetStateAction<FormState>>
@@ -36,15 +34,10 @@ export const ProfileTextForm = ({
 
   return (
     <div
-      className={`tw:max-h-124 tw:md:max-h-full tw:flex tw:flex-col tw:mt-2 ${size === 'full' ? 'tw:flex-1 tw:min-h-42' : 'tw:h-28 tw:flex-none'}`}
+      className={`tw:max-h-124 tw:md:max-h-full tw:flex tw:flex-col tw:mt-3 ${size === 'full' ? 'tw:flex-1 tw:min-h-42' : 'tw:h-30 tw:flex-none'}`}
     >
       <div className='tw:flex tw:justify-between tw:items-center'>
-        <label
-          htmlFor='nextAppointment'
-          className='tw:block tw:text-sm tw:font-medium tw:text-base-content/50 tw:mb-1'
-        >
-          {heading || 'Text'}:
-        </label>
+        <InputLabel label={heading || 'Text'} />
         <MarkdownHint />
       </div>
       <RichTextEditor
@@ -58,7 +51,6 @@ export const ProfileTextForm = ({
           }))
         }
         showMenu={size === 'full'}
-        labelStyle={hideInputLabel ? 'tw:hidden' : ''}
         containerStyle={size === 'full' ? 'tw:flex-1' : 'tw:h-24 tw:flex-none'}
       />
     </div>

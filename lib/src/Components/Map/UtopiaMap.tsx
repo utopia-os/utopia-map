@@ -56,6 +56,8 @@ function UtopiaMap({
   defaultTheme,
   donationWidget,
   expandLayerControl,
+  tileServerUrl,
+  tileServerAttribution,
 }: {
   /** height of the map (default '500px') */
   height?: string
@@ -85,6 +87,10 @@ function UtopiaMap({
   donationWidget?: boolean
   /** open layer control on map initialisation */
   expandLayerControl?: boolean
+  /** configure a custom tile server */
+  tileServerUrl?: string
+  /** configure a custom tile server attribution */
+  tileServerAttribution?: string
 }) {
   return (
     <ContextWrapper>
@@ -104,6 +110,8 @@ function UtopiaMap({
           showThemeControl={showThemeControl}
           defaultTheme={defaultTheme}
           expandLayerControl={expandLayerControl}
+          tileServerUrl={tileServerUrl}
+          tileServerAttribution={tileServerAttribution}
         >
           {children}
         </UtopiaMapInner>

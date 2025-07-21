@@ -17,6 +17,7 @@ const componentMap = {
   startEnd: ProfileStartEndForm,
   crowdfundings: CrowdfundingForm,
   gallery: GalleryForm,
+  inviteLinks: () => null, // Not needed for now
   // weitere Komponenten hier
 }
 

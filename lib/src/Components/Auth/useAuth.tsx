@@ -1,10 +1,12 @@
-import { createContext, useState, useContext, useEffect } from 'react'
+import { createContext, useState, useContext, useEffect, useCallback } from 'react'
 
+import type { InviteApi } from '#types/InviteApi'
 import type { UserApi } from '#types/UserApi'
 import type { UserItem } from '#types/UserItem'
 
 interface AuthProviderProps {
   userApi: UserApi
+  inviteApi: InviteApi
   children?: React.ReactNode
 }
 
@@ -16,6 +18,7 @@ interface AuthCredentials {
 
 interface AuthContextProps {
   isAuthenticated: boolean
+  isInitialized: boolean
   user: UserItem | null
   login: (credentials: AuthCredentials) => Promise<UserItem | undefined>
   register: (credentials: AuthCredentials, userName: string) => Promise<UserItem | undefined>
@@ -29,6 +32,7 @@ interface AuthContextProps {
 
 const AuthContext = createContext<AuthContextProps>({
   isAuthenticated: false,
+  isInitialized: false,
   user: null,
   login: () => Promise.reject(Error('Unimplemented')),
   register: () => Promise.reject(Error('Unimplemented')),
@@ -47,17 +51,10 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserItem | null>(null)
   const [token, setToken] = useState<string>()
   const [loading, setLoading] = useState<boolean>(false)
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const isAuthenticated = !!user
 
-  useEffect(() => {
-    setLoading(true)
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
-    loadUser()
-    setLoading(false)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  async function loadUser(): Promise<UserItem | undefined> {
+  const loadUser: () => Promise<UserItem | undefined> = useCallback(async () => {
     try {
       const token = await userApi.getToken()
       setToken(token)
@@ -66,20 +63,30 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
         setUser(me)
         setLoading(false)
         return me
-      } else return undefined
+      } else {
+        return undefined
+      }
       // eslint-disable-next-line no-catch-all/no-catch-all
     } catch (error) {
       setLoading(false)
       return undefined
+    } finally {
+      setIsInitialized(true)
     }
-  }
+  }, [userApi])
+
+  useEffect(() => {
+    void loadUser()
+  }, [loadUser])
 
   const login = async (credentials: AuthCredentials): Promise<UserItem | undefined> => {
     setLoading(true)
     try {
       const user = await userApi.login(credentials.email, credentials.password)
       setToken(user?.access_token)
-      return await loadUser()
+      const fullUser = await loadUser()
+
+      return fullUser
     } catch (error) {
       setLoading(false)
       throw error
@@ -150,6 +157,7 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         isAuthenticated,
+        isInitialized,
         user,
         login,
         register,

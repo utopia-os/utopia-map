@@ -3,99 +3,113 @@
 exports[`GalleryForm > with previous images > renders 1`] = `
 <div>
   <div
-    class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4 tw:my-4"
+    class="tw:mt-3"
   >
-    <div
-      class="tw:relative"
+    <label
+      class="tw:label tw:pb-1"
     >
-      <img
-        alt="Gallery image 1"
-        class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg "
-        src="undefined1.jpg"
-      />
-      <button
-        class="tw:m-2 tw:bg-red-500 tw:text-white tw:p-2 tw:rounded-full tw:absolute tw:top-0 tw:right-0 tw:hover:bg-red-600 tw:cursor-pointer"
-        type="button"
+      <span
+        class="tw:block tw:text-sm tw:font-medium tw:text-base-content/50 tw:mb-1"
       >
-        <svg
-          aria-hidden="true"
-          class="tw:h-5 tw:w-5"
-          data-slot="icon"
-          data-testid="trash"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
+        Media
+        :
+      </span>
+    </label>
     <div
-      class="tw:relative"
+      class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4"
     >
-      <img
-        alt="Gallery image 2"
-        class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg "
-        src="undefined2.jpg"
-      />
-      <button
-        class="tw:m-2 tw:bg-red-500 tw:text-white tw:p-2 tw:rounded-full tw:absolute tw:top-0 tw:right-0 tw:hover:bg-red-600 tw:cursor-pointer"
-        type="button"
+      <div
+        class="tw:relative"
       >
-        <svg
-          aria-hidden="true"
-          class="tw:h-5 tw:w-5"
-          data-slot="icon"
-          data-testid="trash"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+        <img
+          alt="Gallery image 1"
+          class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg "
+          src="undefined1.jpg"
+        />
+        <button
+          class="tw:m-2 tw:bg-red-500 tw:text-white tw:p-2 tw:rounded-full tw:absolute tw:top-0 tw:right-0 tw:hover:bg-red-600 tw:cursor-pointer"
+          type="button"
         >
-          <path
-            clip-rule="evenodd"
-            d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
-    <div
-      class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
-      role="presentation"
-      tabindex="0"
-    >
-      <input
-        accept="image/jpeg,image/png"
-        data-testid="gallery-upload-input"
-        multiple=""
-        style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-        tabindex="-1"
-        type="file"
-      />
-      <div>
-        <svg
-          class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
+          <svg
+            aria-hidden="true"
+            class="tw:h-5 tw:w-5"
+            data-slot="icon"
+            data-testid="trash"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="tw:relative"
+      >
+        <img
+          alt="Gallery image 2"
+          class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg "
+          src="undefined2.jpg"
+        />
+        <button
+          class="tw:m-2 tw:bg-red-500 tw:text-white tw:p-2 tw:rounded-full tw:absolute tw:top-0 tw:right-0 tw:hover:bg-red-600 tw:cursor-pointer"
+          type="button"
         >
-          <path
-            d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
-          />
-        </svg>
-        <span
-          class="tw:text-center"
-        >
-          Upload Image
-        </span>
+          <svg
+            aria-hidden="true"
+            class="tw:h-5 tw:w-5"
+            data-slot="icon"
+            data-testid="trash"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M16.5 4.478v.227a48.816 48.816 0 0 1 3.878.512.75.75 0 1 1-.256 1.478l-.209-.035-1.005 13.07a3 3 0 0 1-2.991 2.77H8.084a3 3 0 0 1-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 0 1-.256-1.478A48.567 48.567 0 0 1 7.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 0 1 3.369 0c1.603.051 2.815 1.387 2.815 2.951Zm-6.136-1.452a51.196 51.196 0 0 1 3.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 0 0-6 0v-.113c0-.794.609-1.428 1.364-1.452Zm-.355 5.945a.75.75 0 1 0-1.5.058l.347 9a.75.75 0 1 0 1.499-.058l-.346-9Zm5.48.058a.75.75 0 1 0-1.498-.058l-.347 9a.75.75 0 0 0 1.5.058l.345-9Z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
+        role="presentation"
+        tabindex="0"
+      >
+        <input
+          accept="image/jpeg,image/png"
+          data-testid="gallery-upload-input"
+          multiple=""
+          style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+          tabindex="-1"
+          type="file"
+        />
+        <div>
+          <svg
+            class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
+            />
+          </svg>
+          <span
+            class="tw:text-center"
+          >
+            Upload Image
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -105,77 +119,91 @@ exports[`GalleryForm > with previous images > renders 1`] = `
 exports[`GalleryForm > with uploading images > renders 1`] = `
 <div>
   <div
-    class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4 tw:my-4"
+    class="tw:mt-3"
   >
-    <div
-      class="tw:relative"
+    <label
+      class="tw:label tw:pb-1"
     >
-      <img
-        alt="Gallery image 1"
-        class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
-        src="blob-url-placeholder"
-      />
       <span
-        class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
-      />
-    </div>
+        class="tw:block tw:text-sm tw:font-medium tw:text-base-content/50 tw:mb-1"
+      >
+        Media
+        :
+      </span>
+    </label>
     <div
-      class="tw:relative"
+      class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4"
     >
-      <img
-        alt="Gallery image 2"
-        class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
-        src="blob-url-placeholder"
-      />
-      <span
-        class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
-      />
-    </div>
-    <div
-      class="tw:relative"
-    >
-      <img
-        alt="Gallery image 3"
-        class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
-        src="blob-url-placeholder"
-      />
-      <span
-        class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
-      />
-    </div>
-    <div
-      class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
-      role="presentation"
-      tabindex="0"
-    >
-      <input
-        accept="image/jpeg,image/png"
-        data-testid="gallery-upload-input"
-        multiple=""
-        style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-        tabindex="-1"
-        type="file"
-      />
-      <div>
-        <svg
-          class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
-          />
-        </svg>
+      <div
+        class="tw:relative"
+      >
+        <img
+          alt="Gallery image 1"
+          class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
+          src="blob-url-placeholder"
+        />
         <span
-          class="tw:text-center"
-        >
-          Upload Image
-        </span>
+          class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
+        />
+      </div>
+      <div
+        class="tw:relative"
+      >
+        <img
+          alt="Gallery image 2"
+          class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
+          src="blob-url-placeholder"
+        />
+        <span
+          class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
+        />
+      </div>
+      <div
+        class="tw:relative"
+      >
+        <img
+          alt="Gallery image 3"
+          class="tw:w-full tw:h-full tw:object-cover tw:rounded-lg tw:opacity-50"
+          src="blob-url-placeholder"
+        />
+        <span
+          class="tw:loading tw:loading-spinner tw:absolute tw:inset-0 tw:m-auto"
+        />
+      </div>
+      <div
+        class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
+        role="presentation"
+        tabindex="0"
+      >
+        <input
+          accept="image/jpeg,image/png"
+          data-testid="gallery-upload-input"
+          multiple=""
+          style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+          tabindex="-1"
+          type="file"
+        />
+        <div>
+          <svg
+            class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
+            />
+          </svg>
+          <span
+            class="tw:text-center"
+          >
+            Upload Image
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -185,41 +213,55 @@ exports[`GalleryForm > with uploading images > renders 1`] = `
 exports[`GalleryForm > without previous images > renders 1`] = `
 <div>
   <div
-    class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4 tw:my-4"
+    class="tw:mt-3"
   >
-    <div
-      class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
-      role="presentation"
-      tabindex="0"
+    <label
+      class="tw:label tw:pb-1"
     >
-      <input
-        accept="image/jpeg,image/png"
-        data-testid="gallery-upload-input"
-        multiple=""
-        style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
-        tabindex="-1"
-        type="file"
-      />
-      <div>
-        <svg
-          class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
-          fill="currentColor"
-          height="1em"
-          stroke="currentColor"
-          stroke-width="0"
-          viewBox="0 0 24 24"
-          width="1em"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
-          />
-        </svg>
-        <span
-          class="tw:text-center"
-        >
-          Upload Image
-        </span>
+      <span
+        class="tw:block tw:text-sm tw:font-medium tw:text-base-content/50 tw:mb-1"
+      >
+        Media
+        :
+      </span>
+    </label>
+    <div
+      class="tw:grid tw:grid-cols-2 tw:@md:grid-cols-3 tw:@lg:grid-cols-4 tw:gap-4"
+    >
+      <div
+        class="tw:flex tw:flex-col tw:items-center tw:justify-center tw:text-base-content/50 tw:w-full tw:h-full tw:cursor-pointer tw:card tw:card-body tw:border tw:border-current/50 tw:border-dashed tw:bg-base-200"
+        role="presentation"
+        tabindex="0"
+      >
+        <input
+          accept="image/jpeg,image/png"
+          data-testid="gallery-upload-input"
+          multiple=""
+          style="border: 0px; clip: rect(0, 0, 0, 0); clip-path: inset(50%); height: 1px; margin: 0px -1px -1px 0px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap;"
+          tabindex="-1"
+          type="file"
+        />
+        <div>
+          <svg
+            class="tw:h-16 tw:w-16 tw:m-auto tw:mb-2"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.999 4h-16c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-13.5 3a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3zm5.5 10h-7l4-5 1.5 2 3-4 5.5 7h-7z"
+            />
+          </svg>
+          <span
+            class="tw:text-center"
+          >
+            Upload Image
+          </span>
+        </div>
       </div>
     </div>
   </div>

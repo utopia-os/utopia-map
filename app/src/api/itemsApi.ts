@@ -45,6 +45,7 @@ export class itemsApi<T> implements ItemsApi<T> {
         readItems(this.collectionName as never, {
           fields: [
             '*',
+            'secrets.*',
             'to.*',
             'relations.*',
             'user_created.*',

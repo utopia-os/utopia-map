@@ -1,4 +1,4 @@
-import { TextInput } from '#components/Input'
+import { TextInput, InputLabel } from '#components/Input'
 
 import type { FormState } from '#types/FormState'
 
@@ -12,12 +12,7 @@ export const CrowdfundingForm = ({
   return (
     <div className='tw:mt-4 tw:space-y-4'>
       <div>
-        <label
-          htmlFor='OpenCollectiveSlug'
-          className='tw:block tw:text-sm tw:font-medium tw:text-gray-500 tw:mb-1'
-        >
-          Open Collective Slug:
-        </label>
+        <InputLabel label='Open Collective Slug' />
         <TextInput
           placeholder='Open Collective Slug'
           type='text'

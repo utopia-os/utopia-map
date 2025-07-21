@@ -1,6 +1,29 @@
- .leaflet-control-attribution {
-     display: none;
+ .leaflet-control-attribution{
+    color: #000 !important;
+    background-color: white/50 !important;
+    border-radius: 4px;
+    padding: 0 4px;
+    z-index: 400 !important;
+    font-size: 10px;
+    opacity: 0.5;
+}
+
+ .leaflet-control-attribution a{
+    color: #000 !important;
  }
+ 
+ .leaflet-attribution-flag {
+display: none !important;
+ }
+
+ .leaflet-control-attribution a:not([href*="openstreetmap"]) {
+    display: none !important;
+  }
+  
+  /* 2) Entfernt den Trenner “|” (liegt im span[aria-hidden]) */
+  .leaflet-control-attribution span[aria-hidden="true"] {
+    display: none !important;
+  }
 
  .leaflet-control-locate {
      display: none;

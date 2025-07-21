@@ -1,4 +1,4 @@
-import { TextInput } from '#components/Input'
+import { InputLabel, TextInput } from '#components/Input'
 
 import type { FormState } from '#types/FormState'
 
@@ -12,12 +12,7 @@ export const ContactInfoForm = ({
   return (
     <div className='tw:mt-2 tw:space-y-2'>
       <div>
-        <label
-          htmlFor='email'
-          className='tw:block tw:text-sm tw:font-medium tw:text-gray-500 tw:mb-1'
-        >
-          Email-Adresse (Kontakt):
-        </label>
+        <InputLabel label='Email-Adresse (Kontakt)' />
         <TextInput
           placeholder='Email'
           type='email'
@@ -33,12 +28,7 @@ export const ContactInfoForm = ({
       </div>
 
       <div>
-        <label
-          htmlFor='telephone'
-          className='tw:block tw:text-sm tw:font-medium tw:text-gray-500 tw:mb-1'
-        >
-          Telefonnummer (Kontakt):
-        </label>
+        <InputLabel label='Telefonnummer (Kontakt)' />
         <TextInput
           placeholder='Telefonnummer'
           type='tel'

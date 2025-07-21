@@ -44,7 +44,6 @@ export const TabsForm = ({
                   <PopupStartEndInput
                     item={item}
                     showLabels={true}
-                    labelStyle={'tw:text-base-content/50'}
                     updateEndValue={(e) =>
                       setState((prevState) => ({
                         ...prevState,
@@ -62,7 +61,6 @@ export const TabsForm = ({
 
                 <RichTextEditor
                   labelTitle='About'
-                  labelStyle={'tw:text-base-content/50'}
                   placeholder='about ...'
                   defaultValue={item?.text ? item.text : ''}
                   updateFormValue={(v) =>

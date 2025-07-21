@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useEffect } from 'react'
 
+import { InputLabel } from '#components/Input'
 import ComboBoxInput from '#components/Input/ComboBoxInput'
 
 import type { FormState } from '#types/FormState'
@@ -51,12 +52,7 @@ export const GroupSubheaderForm = ({
   return (
     <div className='tw:grid tw:grid-cols-1 tw:@sm:grid-cols-2 tw:gap-2'>
       <div>
-        <label
-          htmlFor='status'
-          className='tw:block tw:text-sm tw:font-medium tw:text-gray-500 tw:mb-1'
-        >
-          Gruppenstatus:
-        </label>
+        <InputLabel label='Gruppenstatus' />
         <ComboBoxInput
           id='status'
           options={groupStates || []}
@@ -70,12 +66,7 @@ export const GroupSubheaderForm = ({
         />
       </div>
       <div>
-        <label
-          htmlFor='groupType'
-          className='tw:block tw:text-sm tw:font-medium tw:text-gray-500 tw:mb-1'
-        >
-          Gruppenart:
-        </label>
+        <InputLabel label='Gruppenart' />
         <ComboBoxInput
           id='groupType'
           options={groupTypes?.map((gt) => gt.groupTypes_id.name) || []}

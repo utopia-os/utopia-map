@@ -5,12 +5,13 @@ exports[`<TextInput /> > labelTitle > sets label 1`] = `
   class="tw:form-control "
 >
   <label
-    class="tw:label"
+    class="tw:label tw:pb-1"
   >
     <span
-      class="tw:label-text tw:text-base-content "
+      class="tw:block tw:text-sm tw:font-medium tw:text-base-content/50 tw:mb-1"
     >
       My Title
+      :
     </span>
   </label>
   <input

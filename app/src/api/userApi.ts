@@ -8,7 +8,7 @@ import { createUser, passwordRequest, passwordReset, readMe, updateMe } from '@d
 
 import { directusClient } from './directus'
 
-import type { UserApi, UserItem } from 'utopia-ui'
+import type { UserItem } from 'utopia-ui'
 
 interface DirectusError {
   errors: {
@@ -17,7 +17,7 @@ interface DirectusError {
   }[]
 }
 
-export class userApi implements UserApi {
+export class UserApi {
   async register(email: string, password: string, userName: string): Promise<any> {
     try {
       return await directusClient.request(createUser({ email, password, first_name: userName }))

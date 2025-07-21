@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { InputLabel } from './InputLabel'
+
 interface TextAreaProps {
   labelTitle?: string
-  labelStyle?: string
   containerStyle?: string
   dataField?: string
   inputStyle?: string
@@ -18,7 +19,6 @@ interface TextAreaProps {
 export function TextAreaInput({
   labelTitle,
   dataField,
-  labelStyle,
   containerStyle,
   inputStyle,
   defaultValue,
@@ -43,13 +43,7 @@ export function TextAreaInput({
 
   return (
     <div className={`tw:form-control tw:w-full ${containerStyle ?? ''}`}>
-      {labelTitle ? (
-        <label className='tw:label'>
-          <span className={`tw:label-text tw:text-base-content ${labelStyle ?? ''}`}>
-            {labelTitle}
-          </span>
-        </label>
-      ) : null}
+      {labelTitle ? <InputLabel label={labelTitle} /> : null}
       <textarea
         required={required}
         ref={ref}

@@ -55,6 +55,8 @@ export function UtopiaMapInner({
   defaultTheme = '',
   donationWidget,
   expandLayerControl,
+  tileServerUrl,
+  tileServerAttribution,
 }: {
   children?: React.ReactNode
   geo?: GeoJsonObject
@@ -65,6 +67,8 @@ export function UtopiaMapInner({
   showThemeControl?: boolean
   defaultTheme?: string
   expandLayerControl?: boolean
+  tileServerUrl?: string
+  tileServerAttribution?: string
 }) {
   const selectNewItemPosition = useSelectPosition()
   const setSelectNewItemPosition = useSetSelectPosition()
@@ -277,8 +281,11 @@ export function UtopiaMapInner({
       </Control>
       <TileLayer
         maxZoom={19}
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url='https://tile.osmand.net/hd/{z}/{x}/{y}.png'
+        attribution={
+          tileServerAttribution ??
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }
+        url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
       />
       <MarkerClusterGroup
         ref={(r) => setClusterRef(r as any)}
