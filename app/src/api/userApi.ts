@@ -4,6 +4,7 @@
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable no-catch-all/no-catch-all */
 import { createUser, passwordRequest, passwordReset, readMe, updateMe } from '@directus/sdk'
 
 import { directusClient } from './directus'
@@ -78,9 +79,9 @@ export class UserApi {
       const token = await directusClient.getToken()
       return token
     } catch (error: any) {
-      console.log(error)
-      if (error.errors[0].message) throw error.errors[0].message
-      else throw error
+      console.warn('Failed to get token:', error)
+      // Don't throw error - return null instead to allow graceful fallback
+      return null
     }
   }
 
