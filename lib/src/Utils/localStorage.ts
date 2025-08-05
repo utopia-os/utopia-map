@@ -1,3 +1,6 @@
+/* eslint-disable no-catch-all/no-catch-all */
+/* eslint-disable no-console */
+
 /**
  * Safe localStorage utility that handles SecurityError gracefully
  * when localStorage is not available (e.g., private browsing mode)
