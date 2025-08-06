@@ -46,6 +46,7 @@ export interface Item {
   slug?: string
   user_created?: UserItem
   image?: string
+  image_external?: string
   group_type?: string
   offers?: TagIds
   needs?: TagIds
