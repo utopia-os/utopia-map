@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "pre-pr-create": {
+      "command": "cd /home/fritz/workspace/utopia-map && ./scripts/check-lint.sh",
+      "description": "Run linting checks before creating PR"
+    },
+    "pre-pr-update": {
+      "command": "cd /home/fritz/workspace/utopia-map && ./scripts/check-lint.sh", 
+      "description": "Run linting checks before updating PR"
+    }
+  }
+}
