@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import { safeLocalStorage } from '#utils/localStorage'
+
 const themes = [
   'default',
   'light',
@@ -15,14 +17,16 @@ const themes = [
 
 export const ThemeControl = () => {
   const [theme, setTheme] = useState<string>(() => {
-    const savedTheme = localStorage.getItem('theme')
+    const savedTheme = safeLocalStorage.getItem('theme')
     return savedTheme ? (JSON.parse(savedTheme) as string) : 'default'
   })
 
   useEffect(() => {
     if (theme !== 'default') {
-      localStorage.setItem('theme', JSON.stringify(theme))
-    } else localStorage.removeItem('theme')
+      safeLocalStorage.setItem('theme', JSON.stringify(theme))
+    } else {
+      safeLocalStorage.removeItem('theme')
+    }
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
