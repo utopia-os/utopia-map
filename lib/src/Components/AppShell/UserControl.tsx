@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
@@ -42,6 +43,11 @@ export const UserControl = () => {
       pending: 'logging out ..',
     })
   }
+  const avatar: string | undefined =
+    userProfile.image && appState.assetsApi.url
+      ? appState.assetsApi.url + userProfile.image
+      : userProfile.image_external
+
   return (
     <>
       {isAuthenticated ? (
@@ -50,10 +56,10 @@ export const UserControl = () => {
             to={`${userProfile.id && '/item/' + userProfile.id}`}
             className='tw:flex tw:items-center'
           >
-            {userProfile.image && (
+            {avatar && (
               <div className='tw:avatar'>
                 <div className='tw:w-10 tw:rounded-full'>
-                  <img src={appState.assetsApi.url + userProfile.image} />
+                  <img src={avatar} alt='User avatar' />
                 </div>
               </div>
             )}
