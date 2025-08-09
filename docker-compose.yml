@@ -1,11 +1,11 @@
 services:
-  frontend:
+  app:
     image: cupcakearmy/static
     restart: unless-stopped
     ports:
       - 8080:80
     volumes:
-      - ./dist:/srv:ro
+      - ./app/dist:/srv:ro
 
   database:
     image: postgis/postgis:13-master
@@ -38,7 +38,7 @@ services:
   backend:
     container_name: backend
     build:
-      context: ../backend
+      context: ./backend
     depends_on:
       database:
         condition: service_healthy
