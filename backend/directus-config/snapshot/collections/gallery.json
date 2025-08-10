@@ -1,0 +1,28 @@
+{
+  "collection": "gallery",
+  "meta": {
+    "accountability": "all",
+    "archive_app_filter": true,
+    "archive_field": null,
+    "archive_value": null,
+    "collapse": "open",
+    "collection": "gallery",
+    "color": null,
+    "display_template": null,
+    "group": "UI_Components",
+    "hidden": false,
+    "icon": "imagesmode",
+    "item_duplication_fields": null,
+    "note": null,
+    "preview_url": null,
+    "singleton": false,
+    "sort": 8,
+    "sort_field": null,
+    "translations": null,
+    "unarchive_value": null,
+    "versioning": false
+  },
+  "schema": {
+    "name": "gallery"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "collection": "groupSubheaders_groupTypes",
+  "field": "groupSubheaders_id",
+  "related_collection": "groupSubheaders",
+  "meta": {
+    "junction_field": "groupTypes_id",
+    "many_collection": "groupSubheaders_groupTypes",
+    "many_field": "groupSubheaders_id",
+    "one_allowed_collections": null,
+    "one_collection": "groupSubheaders",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "groupTypes",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "groupSubheaders_groupTypes",
+    "column": "groupSubheaders_id",
+    "foreign_key_table": "groupSubheaders",
+    "foreign_key_column": "id",
+    "constraint_name": "groupsubheaders_grouptypes_groupsubheaders_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

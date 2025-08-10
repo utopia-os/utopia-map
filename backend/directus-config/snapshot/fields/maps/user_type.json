@@ -1,0 +1,47 @@
+{
+  "collection": "maps",
+  "field": "user_type",
+  "type": "uuid",
+  "meta": {
+    "collection": "maps",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "user_type",
+    "group": null,
+    "hidden": true,
+    "interface": "select-dropdown-m2o",
+    "note": null,
+    "options": {
+      "template": "{{name}}"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 9,
+    "special": [
+      "m2o"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "user_type",
+    "table": "maps",
+    "data_type": "uuid",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": "types",
+    "foreign_key_column": "id"
+  }
+}
