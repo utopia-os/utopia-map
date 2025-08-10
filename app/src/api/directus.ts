@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+import { config } from '@/config'
 import { createDirectus, rest, authentication } from '@directus/sdk'
 
 import type { AuthenticationData, AuthenticationStorage } from '@directus/sdk'
@@ -94,7 +95,7 @@ export async function getRefreshToken() {
   return auth!.refresh_token
 }
 
-export const directusClient = createDirectus<MyCollections>('https://api.utopia-lab.org/')
+export const directusClient = createDirectus<MyCollections>(config.apiUrl)
   .with(rest())
   .with(
     authentication('json', {
