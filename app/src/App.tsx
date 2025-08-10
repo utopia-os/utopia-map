@@ -54,7 +54,7 @@ import { ModalContent } from './ModalContent'
 import { Landingpage } from './pages/Landingpage'
 import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
-import { config } from '@/config'
+import { config } from './config'
 import { InviteApi } from './api/inviteApi'
 
 const userApi = new UserApi()
@@ -82,7 +82,10 @@ function App() {
 
   useEffect(() => {
     setPermissionsApiInstance(new permissionsApi())
-    setMapApiInstance(new mapApi(window.location.origin))
+    // TODO: it should be mapId instead of mapUrl, which then in turn can be an URL
+    const mapUrl =
+      config.mapUrl === 'CURRENT_WINDOW_LOCATION' ? window.location.origin : config.mapUrl
+    setMapApiInstance(new mapApi(mapUrl))
     setAttestationApi(new itemsApi<any>('attestations'))
   }, [])
 

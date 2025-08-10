@@ -1,5 +1,6 @@
 export const config = {
   apiUrl: String(import.meta.env.VITE_API_URL ?? 'http://localhost:8055/'),
+  mapUrl: String(import.meta.env.VITE_MAP_URL ?? 'http://local.development'),
   validateInviteFlowId: String(
     import.meta.env.VITE_VALIDATE_INVITE_FLOW_ID ?? '01d61db0-25aa-4bfa-bc24-c6a8f208a455',
   ),
