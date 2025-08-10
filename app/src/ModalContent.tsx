@@ -6,6 +6,8 @@
 import { useEffect, useState } from 'react'
 import { TextView } from 'utopia-ui'
 
+import { config } from './config'
+
 interface ChapterProps {
   clickAction1: () => void
   map?: any
@@ -31,7 +33,7 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <h3 className='tw:font-bold tw:text-lg'>Welcome to {map?.name || 'Utopia Map'}</h3>
           <img
             className='tw:float-right tw:w-32 tw:m-2'
-            src={'https://api.utopia-lab.org/assets/' + map.logo}
+            src={config.apiUrl + 'assets/' + map.logo}
           ></img>
           <p className='tw:py-3'>
             It is a tool for collaborative mapping to connect local initiatives, people and events.
