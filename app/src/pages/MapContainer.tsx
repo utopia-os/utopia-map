@@ -28,6 +28,8 @@ import { config } from '../config'
 import type { Place } from '../api/directus'
 import type { LayerProps } from 'utopia-ui'
 
+import { config } from '@/config'
+
 interface layerApi {
   id: string
   api: itemsApi<Place>

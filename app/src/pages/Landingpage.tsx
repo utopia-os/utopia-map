@@ -14,6 +14,8 @@ import { MapOverlayPage } from 'utopia-ui'
 import { itemsApi } from '../api/itemsApi'
 import { config } from '../config'
 
+import { config } from '@/config'
+
 export const Landingpage = () => {
   const [isLandingpageVisible, setIsLandingpageVisible] = useState(true)
   const [isBoxVisible, setIsBoxVisible] = useState(true)
