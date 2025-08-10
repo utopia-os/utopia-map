@@ -2,8 +2,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { config } from '@/config'
 import { createDirectus, rest, authentication } from '@directus/sdk'
+
+// eslint-disable-next-line import/no-relative-parent-imports
+import { config } from '../config'
 
 import type { AuthenticationData, AuthenticationStorage } from '@directus/sdk'
 import type { Point } from 'geojson'
