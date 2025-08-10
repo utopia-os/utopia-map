@@ -1,0 +1,31 @@
+{
+  "collection": "layers",
+  "field": "Marker",
+  "type": "alias",
+  "meta": {
+    "collection": "layers",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "Marker",
+    "group": null,
+    "hidden": false,
+    "interface": "group-detail",
+    "note": null,
+    "options": {
+      "headerIcon": null
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

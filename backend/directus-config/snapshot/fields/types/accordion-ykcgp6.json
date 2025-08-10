@@ -1,0 +1,29 @@
+{
+  "collection": "types",
+  "field": "accordion-ykcgp6",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "accordion-ykcgp6",
+    "group": "Profile",
+    "hidden": false,
+    "interface": "group-accordion",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "collection": "maps",
+  "field": "default_theme",
+  "type": "string",
+  "meta": {
+    "collection": "maps",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "default_theme",
+    "group": null,
+    "hidden": false,
+    "interface": "select-dropdown-m2o",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 10,
+    "special": [
+      "m2o"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "default_theme",
+    "table": "maps",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": "Themes",
+    "foreign_key_column": "theme"
+  }
+}
