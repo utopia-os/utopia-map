@@ -41,24 +41,6 @@ npx directus-sync seed diff \
   --directus-password admin123
 ```
 
-## Seed Data for local development
-Seed the development data via:
-```
-npx directus-sync seed push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
-
-## Seed Data - find differences
-In order so see what changes would appear when seeding, you can execute:
-```
-npx directus-sync seed diff \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
-
 ## Manual Seed
 
 In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
