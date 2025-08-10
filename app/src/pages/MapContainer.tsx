@@ -23,11 +23,10 @@ import {
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
+import { config } from '../config'
 
 import type { Place } from '../api/directus'
 import type { LayerProps } from 'utopia-ui'
-
-import { config } from '@/config'
 
 interface layerApi {
   id: string
