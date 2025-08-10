@@ -22,6 +22,9 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), tsConfigPaths()],
   resolve: {
     dedupe: ['react', 'react-dom', 'react-router-dom'],
+    alias: {
+      'react-qr-code': 'node_modules/react-qr-code/lib/index.js',
+    },
   },
   build: {
     sourcemap: true,

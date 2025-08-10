@@ -39,7 +39,8 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "node_modules/react-qr-code"
   ],
   "references": [
     {
