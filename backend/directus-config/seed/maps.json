@@ -10,7 +10,7 @@
     },
     "data": [
         {
-            "_sync_id": "local-development",
+            "_sync_id": "map-local-development",
             "name": "Local Development",
             "url": "http://local.development",
 		    "zoom": 6,
