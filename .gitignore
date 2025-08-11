@@ -1,0 +1,3 @@
+# Claude Code configuration (local development only)
+.claude/
+scripts/
