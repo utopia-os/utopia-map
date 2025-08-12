@@ -3,6 +3,23 @@
 To run the backend you can simply execute
 `docker-compose up`
 
+To fill in all required data execute the following commands in order:
+```
+cd backend
+
+npx directus-sync push \
+  --directus-url http://localhost:8055 \
+  --directus-email admin@it4c.dev \
+  --directus-password admin123
+
+npx directus-sync seed push \
+  --directus-url http://localhost:8055 \
+  --directus-email admin@it4c.dev \
+  --directus-password admin123
+
+./directus-config/manual/seed.sh
+```
+
 ## Pull Data from Docker to Harddrive
 In order to pull data from your locally running backend (see [docker-compose](../app/docker-compose.yml)) to your local harddrive, you can run the following command
 
