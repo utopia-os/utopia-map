@@ -56,3 +56,17 @@ jobs:
           npm install
           npm run build
         working-directory: lib/
+
+  results:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Test Example Apps - results
+    needs: [build-examples]
+    steps:
+      - run: |
+          result="${{ needs.build-examples.result }}"
+          if [[ $result == "success" || $result == "skipped" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
