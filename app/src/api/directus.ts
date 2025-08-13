@@ -4,6 +4,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createDirectus, rest, authentication } from '@directus/sdk'
 
+// eslint-disable-next-line import/no-relative-parent-imports
+import { config } from '../config'
+
 import type { AuthenticationData, AuthenticationStorage } from '@directus/sdk'
 import type { Point } from 'geojson'
 import type { Item } from 'utopia-ui'
@@ -94,7 +97,7 @@ export async function getRefreshToken() {
   return auth!.refresh_token
 }
 
-export const directusClient = createDirectus<MyCollections>('https://api.utopia-lab.org/')
+export const directusClient = createDirectus<MyCollections>(config.apiUrl)
   .with(rest())
   .with(
     authentication('json', {
