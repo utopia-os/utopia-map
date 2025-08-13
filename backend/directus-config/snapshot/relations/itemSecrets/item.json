@@ -1,0 +1,25 @@
+{
+  "collection": "itemSecrets",
+  "field": "item",
+  "related_collection": "items",
+  "meta": {
+    "junction_field": null,
+    "many_collection": "itemSecrets",
+    "many_field": "item",
+    "one_allowed_collections": null,
+    "one_collection": "items",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "secrets",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "itemSecrets",
+    "column": "item",
+    "foreign_key_table": "items",
+    "foreign_key_column": "id",
+    "constraint_name": "itemsecrets_item_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

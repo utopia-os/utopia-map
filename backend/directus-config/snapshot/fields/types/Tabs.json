@@ -1,0 +1,31 @@
+{
+  "collection": "types",
+  "field": "Tabs",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "Tabs",
+    "group": "accordion-ykcgp6",
+    "hidden": false,
+    "interface": "group-detail",
+    "note": null,
+    "options": {
+      "headerColor": "#1A5FB4"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 3,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}
