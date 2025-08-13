@@ -23,6 +23,7 @@ import {
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
+import { config } from '../config'
 
 import type { Place } from '../api/directus'
 import type { LayerProps } from 'utopia-ui'
@@ -94,7 +95,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               id={layer.id}
               key={layer.id}
               name={layer.name}
-              menuIcon={'https://api.utopia-lab.org/assets/' + layer.menuIcon}
+              menuIcon={config.apiUrl + 'assets/' + layer.menuIcon}
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}
