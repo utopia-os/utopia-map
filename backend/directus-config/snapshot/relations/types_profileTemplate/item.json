@@ -1,0 +1,25 @@
+{
+  "collection": "types_profileTemplate",
+  "field": "item",
+  "related_collection": null,
+  "meta": {
+    "junction_field": "types_id",
+    "many_collection": "types_profileTemplate",
+    "many_field": "item",
+    "one_allowed_collections": [
+      "groupSubheaders",
+      "contactInfos",
+      "texts",
+      "startEnd",
+      "gallery",
+      "crowdfundings",
+      "inviteLinks",
+      "relations"
+    ],
+    "one_collection": null,
+    "one_collection_field": "collection",
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  }
+}

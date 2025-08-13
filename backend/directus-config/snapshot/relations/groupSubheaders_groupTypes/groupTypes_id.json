@@ -1,0 +1,25 @@
+{
+  "collection": "groupSubheaders_groupTypes",
+  "field": "groupTypes_id",
+  "related_collection": "groupTypes",
+  "meta": {
+    "junction_field": "groupSubheaders_id",
+    "many_collection": "groupSubheaders_groupTypes",
+    "many_field": "groupTypes_id",
+    "one_allowed_collections": null,
+    "one_collection": "groupTypes",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  },
+  "schema": {
+    "table": "groupSubheaders_groupTypes",
+    "column": "groupTypes_id",
+    "foreign_key_table": "groupTypes",
+    "foreign_key_column": "id",
+    "constraint_name": "groupsubheaders_grouptypes_grouptypes_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}
