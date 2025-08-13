@@ -14,3 +14,12 @@ npx directus-sync push \
   --directus-email admin@it4c.dev \
   --directus-password admin123
 ```
+
+## Access Data on local drive
+
+In order to access the postgress data mounted to the local drive at `/data/database` you need to make it accessible (assuming you are not root):
+```
+sudo chmod 777 -R ./data/
+```
+
+This process is to be repeated whenever you restart the database docker container
