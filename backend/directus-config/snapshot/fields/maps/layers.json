@@ -1,0 +1,29 @@
+{
+  "collection": "maps",
+  "field": "layers",
+  "type": "alias",
+  "meta": {
+    "collection": "maps",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "layers",
+    "group": null,
+    "hidden": false,
+    "interface": "list-m2m",
+    "note": null,
+    "options": {
+      "template": "{{layers_id.name}}"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 5,
+    "special": [
+      "m2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  }
+}

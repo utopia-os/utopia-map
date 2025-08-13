@@ -1,0 +1,54 @@
+{
+  "collection": "layers",
+  "field": "markerShape",
+  "type": "string",
+  "meta": {
+    "collection": "layers",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "markerShape",
+    "group": "Marker",
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": null,
+    "options": {
+      "choices": [
+        {
+          "text": "Circle",
+          "value": "circle"
+        },
+        {
+          "text": "Square",
+          "value": "square"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 1,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "markerShape",
+    "table": "layers",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}
