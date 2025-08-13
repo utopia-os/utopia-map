@@ -1,0 +1,25 @@
+{
+  "collection": "maps",
+  "field": "default_theme",
+  "related_collection": "Themes",
+  "meta": {
+    "junction_field": null,
+    "many_collection": "maps",
+    "many_field": "default_theme",
+    "one_allowed_collections": null,
+    "one_collection": "Themes",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  },
+  "schema": {
+    "table": "maps",
+    "column": "default_theme",
+    "foreign_key_table": "Themes",
+    "foreign_key_column": "theme",
+    "constraint_name": "maps_default_theme_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}
