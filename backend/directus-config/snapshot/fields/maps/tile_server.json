@@ -1,0 +1,31 @@
+{
+  "collection": "maps",
+  "field": "tile_server",
+  "type": "alias",
+  "meta": {
+    "collection": "maps",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "tile_server",
+    "group": null,
+    "hidden": false,
+    "interface": "group-detail",
+    "note": null,
+    "options": {
+      "start": "closed"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 16,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

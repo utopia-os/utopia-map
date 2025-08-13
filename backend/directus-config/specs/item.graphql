@@ -1,32 +1,439 @@
 type Query {
-  """There's no data to query."""
-  _empty: Void
+  contactInfos(filter: contactInfos_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [contactInfos!]!
+  contactInfos_by_id(id: ID!, version: String): contactInfos
+  contactInfos_aggregated(groupBy: [String], filter: contactInfos_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [contactInfos_aggregated!]!
+  contactInfos_by_version(version: String!, id: ID!): version_contactInfos
+  crowdfundings(filter: crowdfundings_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [crowdfundings!]!
+  crowdfundings_by_id(id: ID!, version: String): crowdfundings
+  crowdfundings_aggregated(groupBy: [String], filter: crowdfundings_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [crowdfundings_aggregated!]!
+  crowdfundings_by_version(version: String!, id: ID!): version_crowdfundings
+  Themes(filter: Themes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [Themes!]!
+  Themes_by_id(id: ID!, version: String): Themes
+  Themes_aggregated(groupBy: [String], filter: Themes_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [Themes_aggregated!]!
+  Themes_by_version(version: String!, id: ID!): version_Themes
+  attestations(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations!]!
+  attestations_by_id(id: ID!, version: String): attestations
+  attestations_aggregated(groupBy: [String], filter: attestations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_aggregated!]!
+  attestations_by_version(version: String!, id: ID!): version_attestations
+  items_items(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_items!]!
+  items_items_by_id(id: ID!, version: String): items_items
+  items_items_aggregated(groupBy: [String], filter: items_items_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_items_aggregated!]!
+  items_items_by_version(version: String!, id: ID!): version_items_items
+  gallery(filter: gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [gallery!]!
+  gallery_by_id(id: ID!, version: String): gallery
+  gallery_aggregated(groupBy: [String], filter: gallery_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [gallery_aggregated!]!
+  gallery_by_version(version: String!, id: ID!): version_gallery
+  groupSubheaders(filter: groupSubheaders_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [groupSubheaders!]!
+  groupSubheaders_by_id(id: ID!, version: String): groupSubheaders
+  groupSubheaders_aggregated(groupBy: [String], filter: groupSubheaders_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [groupSubheaders_aggregated!]!
+  groupSubheaders_by_version(version: String!, id: ID!): version_groupSubheaders
+  groupTypes(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [groupTypes!]!
+  groupTypes_by_id(id: ID!, version: String): groupTypes
+  groupTypes_aggregated(groupBy: [String], filter: groupTypes_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [groupTypes_aggregated!]!
+  groupTypes_by_version(version: String!, id: ID!): version_groupTypes
+  inviteLinks(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [inviteLinks!]!
+  inviteLinks_by_id(id: ID!, version: String): inviteLinks
+  inviteLinks_aggregated(groupBy: [String], filter: inviteLinks_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [inviteLinks_aggregated!]!
+  inviteLinks_by_version(version: String!, id: ID!): version_inviteLinks
+  items_files(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_files!]!
+  items_files_by_id(id: ID!, version: String): items_files
+  items_files_aggregated(groupBy: [String], filter: items_files_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_files_aggregated!]!
+  items_files_by_version(version: String!, id: ID!): version_items_files
+  items(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items!]!
+  items_by_id(id: ID!, version: String): items
+  items_aggregated(groupBy: [String], filter: items_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_aggregated!]!
+  items_by_version(version: String!, id: ID!): version_items
+  junction_directus_users_tags_1(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [junction_directus_users_tags_1!]!
+  junction_directus_users_tags_1_by_id(id: ID!, version: String): junction_directus_users_tags_1
+  junction_directus_users_tags_1_aggregated(groupBy: [String], filter: junction_directus_users_tags_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [junction_directus_users_tags_1_aggregated!]!
+  junction_directus_users_tags_1_by_version(version: String!, id: ID!): version_junction_directus_users_tags_1
+  layers(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers!]!
+  layers_by_id(id: ID!, version: String): layers
+  layers_aggregated(groupBy: [String], filter: layers_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_aggregated!]!
+  layers_by_version(version: String!, id: ID!): version_layers
+  items_tags_1(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_tags_1!]!
+  items_tags_1_by_id(id: ID!, version: String): items_tags_1
+  items_tags_1_aggregated(groupBy: [String], filter: items_tags_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_tags_1_aggregated!]!
+  items_tags_1_by_version(version: String!, id: ID!): version_items_tags_1
+  itemSecrets(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [itemSecrets!]!
+  itemSecrets_by_id(id: ID!, version: String): itemSecrets
+  itemSecrets_aggregated(groupBy: [String], filter: itemSecrets_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [itemSecrets_aggregated!]!
+  itemSecrets_by_version(version: String!, id: ID!): version_itemSecrets
+  items_tags(filter: items_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_tags!]!
+  items_tags_by_id(id: ID!, version: String): items_tags
+  items_tags_aggregated(groupBy: [String], filter: items_tags_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_tags_aggregated!]!
+  items_tags_by_version(version: String!, id: ID!): version_items_tags
+  layers_directus_users_1(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1!]!
+  layers_directus_users_1_by_id(id: ID!, version: String): layers_directus_users_1
+  layers_directus_users_1_aggregated(groupBy: [String], filter: layers_directus_users_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_directus_users_1_aggregated!]!
+  layers_directus_users_1_by_version(version: String!, id: ID!): version_layers_directus_users_1
+  junction_directus_users_tags(filter: junction_directus_users_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [junction_directus_users_tags!]!
+  junction_directus_users_tags_by_id(id: ID!, version: String): junction_directus_users_tags
+  junction_directus_users_tags_aggregated(groupBy: [String], filter: junction_directus_users_tags_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [junction_directus_users_tags_aggregated!]!
+  junction_directus_users_tags_by_version(version: String!, id: ID!): version_junction_directus_users_tags
+  layers_files(filter: layers_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_files!]!
+  layers_files_by_id(id: ID!, version: String): layers_files
+  layers_files_aggregated(groupBy: [String], filter: layers_files_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_files_aggregated!]!
+  layers_files_by_version(version: String!, id: ID!): version_layers_files
+  layers_maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps!]!
+  layers_maps_by_id(id: ID!, version: String): layers_maps
+  layers_maps_aggregated(groupBy: [String], filter: layers_maps_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_maps_aggregated!]!
+  layers_maps_by_version(version: String!, id: ID!): version_layers_maps
+  features(filter: features_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [features!]!
+  features_by_id(id: ID!, version: String): features
+  features_aggregated(groupBy: [String], filter: features_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [features_aggregated!]!
+  features_by_version(version: String!, id: ID!): version_features
+  startEnd(filter: startEnd_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [startEnd!]!
+  startEnd_by_id(id: ID!, version: String): startEnd
+  startEnd_aggregated(groupBy: [String], filter: startEnd_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [startEnd_aggregated!]!
+  startEnd_by_version(version: String!, id: ID!): version_startEnd
+  tags(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [tags!]!
+  tags_by_id(id: ID!, version: String): tags
+  tags_aggregated(groupBy: [String], filter: tags_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [tags_aggregated!]!
+  tags_by_version(version: String!, id: ID!): version_tags
+  oceannomads_profiles(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [oceannomads_profiles!]!
+  oceannomads_profiles_by_id(id: ID!, version: String): oceannomads_profiles
+  oceannomads_profiles_aggregated(groupBy: [String], filter: oceannomads_profiles_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [oceannomads_profiles_aggregated!]!
+  oceannomads_profiles_by_version(version: String!, id: ID!): version_oceannomads_profiles
+  relations(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [relations!]!
+  relations_by_id(id: ID!, version: String): relations
+  relations_aggregated(groupBy: [String], filter: relations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [relations_aggregated!]!
+  relations_by_version(version: String!, id: ID!): version_relations
+  team(filter: team_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [team!]!
+  team_by_id(id: ID!, version: String): team
+  team_aggregated(groupBy: [String], filter: team_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [team_aggregated!]!
+  team_by_version(version: String!, id: ID!): version_team
+  types(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types!]!
+  types_by_id(id: ID!, version: String): types
+  types_aggregated(groupBy: [String], filter: types_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [types_aggregated!]!
+  types_by_version(version: String!, id: ID!): version_types
+  texts(filter: texts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [texts!]!
+  texts_by_id(id: ID!, version: String): texts
+  texts_aggregated(groupBy: [String], filter: texts_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [texts_aggregated!]!
+  texts_by_version(version: String!, id: ID!): version_texts
+  maps(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [maps!]!
+  maps_by_id(id: ID!, version: String): maps
+  maps_aggregated(groupBy: [String], filter: maps_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [maps_aggregated!]!
+  maps_by_version(version: String!, id: ID!): version_maps
+  types_profileTemplate(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types_profileTemplate!]!
+  types_profileTemplate_by_id(id: ID!, version: String): types_profileTemplate
+  types_profileTemplate_aggregated(groupBy: [String], filter: types_profileTemplate_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [types_profileTemplate_aggregated!]!
+  types_profileTemplate_by_version(version: String!, id: ID!): version_types_profileTemplate
+  attestations_directus_users(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations_directus_users!]!
+  attestations_directus_users_by_id(id: ID!, version: String): attestations_directus_users
+  attestations_directus_users_aggregated(groupBy: [String], filter: attestations_directus_users_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_directus_users_aggregated!]!
+  attestations_directus_users_by_version(version: String!, id: ID!): version_attestations_directus_users
+  groupSubheaders_groupTypes(filter: groupSubheaders_groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [groupSubheaders_groupTypes!]!
+  groupSubheaders_groupTypes_by_id(id: ID!, version: String): groupSubheaders_groupTypes
+  groupSubheaders_groupTypes_aggregated(groupBy: [String], filter: groupSubheaders_groupTypes_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [groupSubheaders_groupTypes_aggregated!]!
+  groupSubheaders_groupTypes_by_version(version: String!, id: ID!): version_groupSubheaders_groupTypes
+  marker_icons(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [marker_icons!]!
+  marker_icons_by_id(id: ID!, version: String): marker_icons
+  marker_icons_aggregated(groupBy: [String], filter: marker_icons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [marker_icons_aggregated!]!
+  marker_icons_by_version(version: String!, id: ID!): version_marker_icons
+  directus_sync_id_map(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [directus_sync_id_map!]!
+  directus_sync_id_map_by_id(id: ID!, version: String): directus_sync_id_map
+  directus_sync_id_map_aggregated(groupBy: [String], filter: directus_sync_id_map_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [directus_sync_id_map_aggregated!]!
+  directus_sync_id_map_by_version(version: String!, id: ID!): version_directus_sync_id_map
 }
 
-type Mutation
+type Mutation {
+  create_contactInfos_items(filter: contactInfos_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_contactInfos_input!]): [contactInfos!]!
+  create_contactInfos_item(data: create_contactInfos_input!): contactInfos
+  create_crowdfundings_items(filter: crowdfundings_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_crowdfundings_input!]): [crowdfundings!]!
+  create_crowdfundings_item(data: create_crowdfundings_input!): crowdfundings
+  create_Themes_items(filter: Themes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_Themes_input!]): [Themes!]!
+  create_Themes_item(data: create_Themes_input!): Themes
+  create_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_input!]): [attestations!]!
+  create_attestations_item(data: create_attestations_input!): attestations
+  create_items_items_items(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_items_input!]): [items_items!]!
+  create_items_items_item(data: create_items_items_input!): items_items
+  create_gallery_items(filter: gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_gallery_input!]): [gallery!]!
+  create_gallery_item(data: create_gallery_input!): gallery
+  create_groupSubheaders_items(filter: groupSubheaders_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_groupSubheaders_input!]): [groupSubheaders!]!
+  create_groupSubheaders_item(data: create_groupSubheaders_input!): groupSubheaders
+  create_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_groupTypes_input!]): [groupTypes!]!
+  create_groupTypes_item(data: create_groupTypes_input!): groupTypes
+  create_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_inviteLinks_input!]): [inviteLinks!]!
+  create_inviteLinks_item(data: create_inviteLinks_input!): inviteLinks
+  create_items_files_items(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_files_input!]): [items_files!]!
+  create_items_files_item(data: create_items_files_input!): items_files
+  create_items_items(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_input!]): [items!]!
+  create_items_item(data: create_items_input!): items
+  create_junction_directus_users_tags_1_items(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_junction_directus_users_tags_1_input!]): [junction_directus_users_tags_1!]!
+  create_junction_directus_users_tags_1_item(data: create_junction_directus_users_tags_1_input!): junction_directus_users_tags_1
+  create_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_input!]): [layers!]!
+  create_layers_item(data: create_layers_input!): layers
+  create_items_tags_1_items(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_tags_1_input!]): [items_tags_1!]!
+  create_items_tags_1_item(data: create_items_tags_1_input!): items_tags_1
+  create_itemSecrets_items(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_itemSecrets_input!]): [itemSecrets!]!
+  create_itemSecrets_item(data: create_itemSecrets_input!): itemSecrets
+  create_items_tags_items(filter: items_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_tags_input!]): [items_tags!]!
+  create_items_tags_item(data: create_items_tags_input!): items_tags
+  create_layers_directus_users_1_items(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_directus_users_1_input!]): [layers_directus_users_1!]!
+  create_layers_directus_users_1_item(data: create_layers_directus_users_1_input!): layers_directus_users_1
+  create_junction_directus_users_tags_items(filter: junction_directus_users_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_junction_directus_users_tags_input!]): [junction_directus_users_tags!]!
+  create_junction_directus_users_tags_item(data: create_junction_directus_users_tags_input!): junction_directus_users_tags
+  create_layers_files_items(filter: layers_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_files_input!]): [layers_files!]!
+  create_layers_files_item(data: create_layers_files_input!): layers_files
+  create_layers_maps_items(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_maps_input!]): [layers_maps!]!
+  create_layers_maps_item(data: create_layers_maps_input!): layers_maps
+  create_features_items(filter: features_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_features_input!]): [features!]!
+  create_features_item(data: create_features_input!): features
+  create_startEnd_items(filter: startEnd_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_startEnd_input!]): [startEnd!]!
+  create_startEnd_item(data: create_startEnd_input!): startEnd
+  create_tags_items(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_tags_input!]): [tags!]!
+  create_tags_item(data: create_tags_input!): tags
+  create_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_oceannomads_profiles_input!]): [oceannomads_profiles!]!
+  create_oceannomads_profiles_item(data: create_oceannomads_profiles_input!): oceannomads_profiles
+  create_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_relations_input!]): [relations!]!
+  create_relations_item(data: create_relations_input!): relations
+  create_team_items(filter: team_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_team_input!]): [team!]!
+  create_team_item(data: create_team_input!): team
+  create_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_types_input!]): [types!]!
+  create_types_item(data: create_types_input!): types
+  create_texts_items(filter: texts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_texts_input!]): [texts!]!
+  create_texts_item(data: create_texts_input!): texts
+  create_maps_items(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_maps_input!]): [maps!]!
+  create_maps_item(data: create_maps_input!): maps
+  create_types_profileTemplate_items(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_types_profileTemplate_input!]): [types_profileTemplate!]!
+  create_types_profileTemplate_item(data: create_types_profileTemplate_input!): types_profileTemplate
+  create_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_directus_users_input!]): [attestations_directus_users!]!
+  create_attestations_directus_users_item(data: create_attestations_directus_users_input!): attestations_directus_users
+  create_groupSubheaders_groupTypes_items(filter: groupSubheaders_groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_groupSubheaders_groupTypes_input!]): [groupSubheaders_groupTypes!]!
+  create_groupSubheaders_groupTypes_item(data: create_groupSubheaders_groupTypes_input!): groupSubheaders_groupTypes
+  create_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_marker_icons_input!]): [marker_icons!]!
+  create_marker_icons_item(data: create_marker_icons_input!): marker_icons
+  create_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_directus_sync_id_map_input!]): [directus_sync_id_map!]!
+  create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
+  update_contactInfos_items(filter: contactInfos_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_contactInfos_input!): [contactInfos!]!
+  update_contactInfos_batch(filter: contactInfos_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_contactInfos_input!]): [contactInfos!]!
+  update_contactInfos_item(id: ID!, data: update_contactInfos_input!): contactInfos
+  update_crowdfundings_items(filter: crowdfundings_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_crowdfundings_input!): [crowdfundings!]!
+  update_crowdfundings_batch(filter: crowdfundings_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_crowdfundings_input!]): [crowdfundings!]!
+  update_crowdfundings_item(id: ID!, data: update_crowdfundings_input!): crowdfundings
+  update_Themes_items(filter: Themes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_Themes_input!): [Themes!]!
+  update_Themes_batch(filter: Themes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_Themes_input!]): [Themes!]!
+  update_Themes_item(id: ID!, data: update_Themes_input!): Themes
+  update_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_input!): [attestations!]!
+  update_attestations_batch(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_input!]): [attestations!]!
+  update_attestations_item(id: ID!, data: update_attestations_input!): attestations
+  update_items_items_items(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_items_input!): [items_items!]!
+  update_items_items_batch(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_items_input!]): [items_items!]!
+  update_items_items_item(id: ID!, data: update_items_items_input!): items_items
+  update_gallery_items(filter: gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_gallery_input!): [gallery!]!
+  update_gallery_batch(filter: gallery_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_gallery_input!]): [gallery!]!
+  update_gallery_item(id: ID!, data: update_gallery_input!): gallery
+  update_groupSubheaders_items(filter: groupSubheaders_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_groupSubheaders_input!): [groupSubheaders!]!
+  update_groupSubheaders_batch(filter: groupSubheaders_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_groupSubheaders_input!]): [groupSubheaders!]!
+  update_groupSubheaders_item(id: ID!, data: update_groupSubheaders_input!): groupSubheaders
+  update_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_groupTypes_input!): [groupTypes!]!
+  update_groupTypes_batch(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_groupTypes_input!]): [groupTypes!]!
+  update_groupTypes_item(id: ID!, data: update_groupTypes_input!): groupTypes
+  update_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_inviteLinks_input!): [inviteLinks!]!
+  update_inviteLinks_batch(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_inviteLinks_input!]): [inviteLinks!]!
+  update_inviteLinks_item(id: ID!, data: update_inviteLinks_input!): inviteLinks
+  update_items_files_items(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_files_input!): [items_files!]!
+  update_items_files_batch(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_files_input!]): [items_files!]!
+  update_items_files_item(id: ID!, data: update_items_files_input!): items_files
+  update_items_items(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_input!): [items!]!
+  update_items_batch(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_input!]): [items!]!
+  update_items_item(id: ID!, data: update_items_input!): items
+  update_junction_directus_users_tags_1_items(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_junction_directus_users_tags_1_input!): [junction_directus_users_tags_1!]!
+  update_junction_directus_users_tags_1_batch(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_junction_directus_users_tags_1_input!]): [junction_directus_users_tags_1!]!
+  update_junction_directus_users_tags_1_item(id: ID!, data: update_junction_directus_users_tags_1_input!): junction_directus_users_tags_1
+  update_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_input!): [layers!]!
+  update_layers_batch(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_input!]): [layers!]!
+  update_layers_item(id: ID!, data: update_layers_input!): layers
+  update_items_tags_1_items(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_tags_1_input!): [items_tags_1!]!
+  update_items_tags_1_batch(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_tags_1_input!]): [items_tags_1!]!
+  update_items_tags_1_item(id: ID!, data: update_items_tags_1_input!): items_tags_1
+  update_itemSecrets_items(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_itemSecrets_input!): [itemSecrets!]!
+  update_itemSecrets_batch(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_itemSecrets_input!]): [itemSecrets!]!
+  update_itemSecrets_item(id: ID!, data: update_itemSecrets_input!): itemSecrets
+  update_items_tags_items(filter: items_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_tags_input!): [items_tags!]!
+  update_items_tags_batch(filter: items_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_tags_input!]): [items_tags!]!
+  update_items_tags_item(id: ID!, data: update_items_tags_input!): items_tags
+  update_layers_directus_users_1_items(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_directus_users_1_input!): [layers_directus_users_1!]!
+  update_layers_directus_users_1_batch(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_directus_users_1_input!]): [layers_directus_users_1!]!
+  update_layers_directus_users_1_item(id: ID!, data: update_layers_directus_users_1_input!): layers_directus_users_1
+  update_junction_directus_users_tags_items(filter: junction_directus_users_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_junction_directus_users_tags_input!): [junction_directus_users_tags!]!
+  update_junction_directus_users_tags_batch(filter: junction_directus_users_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_junction_directus_users_tags_input!]): [junction_directus_users_tags!]!
+  update_junction_directus_users_tags_item(id: ID!, data: update_junction_directus_users_tags_input!): junction_directus_users_tags
+  update_layers_files_items(filter: layers_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_files_input!): [layers_files!]!
+  update_layers_files_batch(filter: layers_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_files_input!]): [layers_files!]!
+  update_layers_files_item(id: ID!, data: update_layers_files_input!): layers_files
+  update_layers_maps_items(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_maps_input!): [layers_maps!]!
+  update_layers_maps_batch(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_maps_input!]): [layers_maps!]!
+  update_layers_maps_item(id: ID!, data: update_layers_maps_input!): layers_maps
+  update_features_items(filter: features_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_features_input!): [features!]!
+  update_features_batch(filter: features_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_features_input!]): [features!]!
+  update_features_item(id: ID!, data: update_features_input!): features
+  update_startEnd_items(filter: startEnd_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_startEnd_input!): [startEnd!]!
+  update_startEnd_batch(filter: startEnd_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_startEnd_input!]): [startEnd!]!
+  update_startEnd_item(id: ID!, data: update_startEnd_input!): startEnd
+  update_tags_items(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_tags_input!): [tags!]!
+  update_tags_batch(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_tags_input!]): [tags!]!
+  update_tags_item(id: ID!, data: update_tags_input!): tags
+  update_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_oceannomads_profiles_input!): [oceannomads_profiles!]!
+  update_oceannomads_profiles_batch(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_oceannomads_profiles_input!]): [oceannomads_profiles!]!
+  update_oceannomads_profiles_item(id: ID!, data: update_oceannomads_profiles_input!): oceannomads_profiles
+  update_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_relations_input!): [relations!]!
+  update_relations_batch(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_relations_input!]): [relations!]!
+  update_relations_item(id: ID!, data: update_relations_input!): relations
+  update_team_items(filter: team_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_team_input!): [team!]!
+  update_team_batch(filter: team_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_team_input!]): [team!]!
+  update_team_item(id: ID!, data: update_team_input!): team
+  update_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_types_input!): [types!]!
+  update_types_batch(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_types_input!]): [types!]!
+  update_types_item(id: ID!, data: update_types_input!): types
+  update_texts_items(filter: texts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_texts_input!): [texts!]!
+  update_texts_batch(filter: texts_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_texts_input!]): [texts!]!
+  update_texts_item(id: ID!, data: update_texts_input!): texts
+  update_maps_items(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_maps_input!): [maps!]!
+  update_maps_batch(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_maps_input!]): [maps!]!
+  update_maps_item(id: ID!, data: update_maps_input!): maps
+  update_types_profileTemplate_items(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_types_profileTemplate_input!): [types_profileTemplate!]!
+  update_types_profileTemplate_batch(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_types_profileTemplate_input!]): [types_profileTemplate!]!
+  update_types_profileTemplate_item(id: ID!, data: update_types_profileTemplate_input!): types_profileTemplate
+  update_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_directus_users_input!): [attestations_directus_users!]!
+  update_attestations_directus_users_batch(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_directus_users_input!]): [attestations_directus_users!]!
+  update_attestations_directus_users_item(id: ID!, data: update_attestations_directus_users_input!): attestations_directus_users
+  update_groupSubheaders_groupTypes_items(filter: groupSubheaders_groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_groupSubheaders_groupTypes_input!): [groupSubheaders_groupTypes!]!
+  update_groupSubheaders_groupTypes_batch(filter: groupSubheaders_groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_groupSubheaders_groupTypes_input!]): [groupSubheaders_groupTypes!]!
+  update_groupSubheaders_groupTypes_item(id: ID!, data: update_groupSubheaders_groupTypes_input!): groupSubheaders_groupTypes
+  update_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_marker_icons_input!): [marker_icons!]!
+  update_marker_icons_batch(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_marker_icons_input!]): [marker_icons!]!
+  update_marker_icons_item(id: ID!, data: update_marker_icons_input!): marker_icons
+  update_directus_sync_id_map_items(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_directus_sync_id_map_input!): [directus_sync_id_map!]!
+  update_directus_sync_id_map_batch(filter: directus_sync_id_map_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_directus_sync_id_map_input!]): [directus_sync_id_map!]!
+  update_directus_sync_id_map_item(id: ID!, data: update_directus_sync_id_map_input!): directus_sync_id_map
+  delete_contactInfos_items(ids: [ID]!): delete_many
+  delete_contactInfos_item(id: ID!): delete_one
+  delete_crowdfundings_items(ids: [ID]!): delete_many
+  delete_crowdfundings_item(id: ID!): delete_one
+  delete_Themes_items(ids: [ID]!): delete_many
+  delete_Themes_item(id: ID!): delete_one
+  delete_attestations_items(ids: [ID]!): delete_many
+  delete_attestations_item(id: ID!): delete_one
+  delete_items_items_items(ids: [ID]!): delete_many
+  delete_items_items_item(id: ID!): delete_one
+  delete_gallery_items(ids: [ID]!): delete_many
+  delete_gallery_item(id: ID!): delete_one
+  delete_groupSubheaders_items(ids: [ID]!): delete_many
+  delete_groupSubheaders_item(id: ID!): delete_one
+  delete_groupTypes_items(ids: [ID]!): delete_many
+  delete_groupTypes_item(id: ID!): delete_one
+  delete_inviteLinks_items(ids: [ID]!): delete_many
+  delete_inviteLinks_item(id: ID!): delete_one
+  delete_items_files_items(ids: [ID]!): delete_many
+  delete_items_files_item(id: ID!): delete_one
+  delete_items_items(ids: [ID]!): delete_many
+  delete_items_item(id: ID!): delete_one
+  delete_junction_directus_users_tags_1_items(ids: [ID]!): delete_many
+  delete_junction_directus_users_tags_1_item(id: ID!): delete_one
+  delete_layers_items(ids: [ID]!): delete_many
+  delete_layers_item(id: ID!): delete_one
+  delete_items_tags_1_items(ids: [ID]!): delete_many
+  delete_items_tags_1_item(id: ID!): delete_one
+  delete_itemSecrets_items(ids: [ID]!): delete_many
+  delete_itemSecrets_item(id: ID!): delete_one
+  delete_items_tags_items(ids: [ID]!): delete_many
+  delete_items_tags_item(id: ID!): delete_one
+  delete_layers_directus_users_1_items(ids: [ID]!): delete_many
+  delete_layers_directus_users_1_item(id: ID!): delete_one
+  delete_junction_directus_users_tags_items(ids: [ID]!): delete_many
+  delete_junction_directus_users_tags_item(id: ID!): delete_one
+  delete_layers_files_items(ids: [ID]!): delete_many
+  delete_layers_files_item(id: ID!): delete_one
+  delete_layers_maps_items(ids: [ID]!): delete_many
+  delete_layers_maps_item(id: ID!): delete_one
+  delete_features_items(ids: [ID]!): delete_many
+  delete_features_item(id: ID!): delete_one
+  delete_startEnd_items(ids: [ID]!): delete_many
+  delete_startEnd_item(id: ID!): delete_one
+  delete_tags_items(ids: [ID]!): delete_many
+  delete_tags_item(id: ID!): delete_one
+  delete_oceannomads_profiles_items(ids: [ID]!): delete_many
+  delete_oceannomads_profiles_item(id: ID!): delete_one
+  delete_relations_items(ids: [ID]!): delete_many
+  delete_relations_item(id: ID!): delete_one
+  delete_team_items(ids: [ID]!): delete_many
+  delete_team_item(id: ID!): delete_one
+  delete_types_items(ids: [ID]!): delete_many
+  delete_types_item(id: ID!): delete_one
+  delete_texts_items(ids: [ID]!): delete_many
+  delete_texts_item(id: ID!): delete_one
+  delete_maps_items(ids: [ID]!): delete_many
+  delete_maps_item(id: ID!): delete_one
+  delete_types_profileTemplate_items(ids: [ID]!): delete_many
+  delete_types_profileTemplate_item(id: ID!): delete_one
+  delete_attestations_directus_users_items(ids: [ID]!): delete_many
+  delete_attestations_directus_users_item(id: ID!): delete_one
+  delete_groupSubheaders_groupTypes_items(ids: [ID]!): delete_many
+  delete_groupSubheaders_groupTypes_item(id: ID!): delete_one
+  delete_marker_icons_items(ids: [ID]!): delete_many
+  delete_marker_icons_item(id: ID!): delete_one
+  delete_directus_sync_id_map_items(ids: [ID]!): delete_many
+  delete_directus_sync_id_map_item(id: ID!): delete_one
+}
 
 type Subscription {
+  contactInfos_mutated(event: EventEnum): contactInfos_mutated
+  crowdfundings_mutated(event: EventEnum): crowdfundings_mutated
+  directus_access_mutated(event: EventEnum): directus_access_mutated
+  Themes_mutated(event: EventEnum): Themes_mutated
+  attestations_mutated(event: EventEnum): attestations_mutated
+  directus_comments_mutated(event: EventEnum): directus_comments_mutated
+  directus_dashboards_mutated(event: EventEnum): directus_dashboards_mutated
   directus_folders_mutated(event: EventEnum): directus_folders_mutated
-  directus_files_mutated(event: EventEnum): directus_files_mutated
-  directus_operations_mutated(event: EventEnum): directus_operations_mutated
+  directus_flows_mutated(event: EventEnum): directus_flows_mutated
   directus_notifications_mutated(event: EventEnum): directus_notifications_mutated
+  directus_operations_mutated(event: EventEnum): directus_operations_mutated
+  directus_panels_mutated(event: EventEnum): directus_panels_mutated
+  directus_permissions_mutated(event: EventEnum): directus_permissions_mutated
+  directus_activity_mutated(event: EventEnum): directus_activity_mutated
+  directus_files_mutated(event: EventEnum): directus_files_mutated
+  directus_roles_mutated(event: EventEnum): directus_roles_mutated
+  directus_presets_mutated(event: EventEnum): directus_presets_mutated
+  directus_revisions_mutated(event: EventEnum): directus_revisions_mutated
+  directus_versions_mutated(event: EventEnum): directus_versions_mutated
+  directus_settings_mutated(event: EventEnum): directus_settings_mutated
+  directus_webhooks_mutated(event: EventEnum): directus_webhooks_mutated
+  directus_policies_mutated(event: EventEnum): directus_policies_mutated
   directus_translations_mutated(event: EventEnum): directus_translations_mutated
   directus_shares_mutated(event: EventEnum): directus_shares_mutated
-  directus_versions_mutated(event: EventEnum): directus_versions_mutated
-  directus_revisions_mutated(event: EventEnum): directus_revisions_mutated
   directus_users_mutated(event: EventEnum): directus_users_mutated
-  directus_webhooks_mutated(event: EventEnum): directus_webhooks_mutated
-  directus_settings_mutated(event: EventEnum): directus_settings_mutated
-  directus_policies_mutated(event: EventEnum): directus_policies_mutated
-  directus_permissions_mutated(event: EventEnum): directus_permissions_mutated
-  directus_access_mutated(event: EventEnum): directus_access_mutated
-  directus_dashboards_mutated(event: EventEnum): directus_dashboards_mutated
-  directus_flows_mutated(event: EventEnum): directus_flows_mutated
-  directus_panels_mutated(event: EventEnum): directus_panels_mutated
-  directus_presets_mutated(event: EventEnum): directus_presets_mutated
-  directus_roles_mutated(event: EventEnum): directus_roles_mutated
-  directus_comments_mutated(event: EventEnum): directus_comments_mutated
-  directus_activity_mutated(event: EventEnum): directus_activity_mutated
+  items_items_mutated(event: EventEnum): items_items_mutated
+  gallery_mutated(event: EventEnum): gallery_mutated
+  groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
+  groupTypes_mutated(event: EventEnum): groupTypes_mutated
+  inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
+  items_files_mutated(event: EventEnum): items_files_mutated
+  items_mutated(event: EventEnum): items_mutated
+  junction_directus_users_tags_1_mutated(event: EventEnum): junction_directus_users_tags_1_mutated
+  layers_mutated(event: EventEnum): layers_mutated
+  items_tags_1_mutated(event: EventEnum): items_tags_1_mutated
+  itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
+  items_tags_mutated(event: EventEnum): items_tags_mutated
+  layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
+  junction_directus_users_tags_mutated(event: EventEnum): junction_directus_users_tags_mutated
+  layers_files_mutated(event: EventEnum): layers_files_mutated
+  layers_maps_mutated(event: EventEnum): layers_maps_mutated
+  features_mutated(event: EventEnum): features_mutated
+  startEnd_mutated(event: EventEnum): startEnd_mutated
+  tags_mutated(event: EventEnum): tags_mutated
+  oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  relations_mutated(event: EventEnum): relations_mutated
+  team_mutated(event: EventEnum): team_mutated
+  types_mutated(event: EventEnum): types_mutated
+  texts_mutated(event: EventEnum): texts_mutated
+  maps_mutated(event: EventEnum): maps_mutated
+  types_profileTemplate_mutated(event: EventEnum): types_profileTemplate_mutated
+  attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
+  groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
+  directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -35,8 +442,16 @@ scalar Boolean
 """ISO8601 Date values"""
 scalar Date
 
+"""
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+"""
+scalar Float
+
 """BigInt value"""
 scalar GraphQLBigInt
+
+"""GeoJSON value"""
+scalar GraphQLGeoJSON
 
 """A Float or a String"""
 scalar GraphQLStringOrFloat
@@ -64,17 +479,152 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 """
 scalar String
 
-"""Represents NULL values"""
-scalar Void
-
 enum EventEnum {
   create
   update
   delete
 }
 
+union types_profileTemplate_item_union = groupSubheaders | contactInfos | texts | startEnd | gallery | crowdfundings | inviteLinks | relations
+
+type attestations {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  text: String
+  color: String
+  emoji: String
+  shape: String
+  to(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations_directus_users]
+  to_func: count_functions
+}
+
+type attestations_aggregated {
+  group: JSON
+  countAll: Int
+  count: attestations_aggregated_count
+  countDistinct: attestations_aggregated_count
+}
+
+type attestations_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  text: Int
+  color: Int
+  emoji: Int
+  shape: Int
+  to: Int
+}
+
+type attestations_directus_users {
+  id: ID!
+  attestations_id(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): attestations
+  directus_users_id(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+}
+
+type attestations_directus_users_aggregated {
+  group: JSON
+  countAll: Int
+  count: attestations_directus_users_aggregated_count
+  countDistinct: attestations_directus_users_aggregated_count
+  avg: attestations_directus_users_aggregated_fields
+  sum: attestations_directus_users_aggregated_fields
+  avgDistinct: attestations_directus_users_aggregated_fields
+  sumDistinct: attestations_directus_users_aggregated_fields
+  min: attestations_directus_users_aggregated_fields
+  max: attestations_directus_users_aggregated_fields
+}
+
+type attestations_directus_users_aggregated_count {
+  id: Int
+  attestations_id: Int
+  directus_users_id: Int
+}
+
+type attestations_directus_users_aggregated_fields {
+  id: Float
+}
+
+type attestations_directus_users_mutated {
+  key: ID!
+  event: EventEnum
+  data: attestations_directus_users
+}
+
+type attestations_mutated {
+  key: ID!
+  event: EventEnum
+  data: attestations
+}
+
+type contactInfos {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  heading: String
+}
+
+type contactInfos_aggregated {
+  group: JSON
+  countAll: Int
+  count: contactInfos_aggregated_count
+  countDistinct: contactInfos_aggregated_count
+}
+
+type contactInfos_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  heading: Int
+}
+
+type contactInfos_mutated {
+  key: ID!
+  event: EventEnum
+  data: contactInfos
+}
+
 type count_functions {
   count: Int
+}
+
+type crowdfundings {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+}
+
+type crowdfundings_aggregated {
+  group: JSON
+  countAll: Int
+  count: crowdfundings_aggregated_count
+  countDistinct: crowdfundings_aggregated_count
+}
+
+type crowdfundings_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+}
+
+type crowdfundings_mutated {
+  key: ID!
+  event: EventEnum
+  data: crowdfundings
 }
 
 type datetime_functions {
@@ -86,6 +636,14 @@ type datetime_functions {
   hour: Int
   minute: Int
   second: Int
+}
+
+type delete_many {
+  ids: [ID]!
+}
+
+type delete_one {
+  id: ID!
 }
 
 type directus_access {
@@ -465,6 +1023,8 @@ type directus_settings {
   """$t:fields.directus_settings.public_registration_email_filter_note"""
   public_registration_email_filter: JSON
   public_registration_email_filter_func: count_functions
+  visual_editor_urls: JSON
+  visual_editor_urls_func: count_functions
 }
 
 type directus_settings_mutated {
@@ -503,6 +1063,46 @@ type directus_shares_mutated {
   key: ID!
   event: EventEnum
   data: directus_shares
+}
+
+type directus_sync_id_map {
+  id: ID!
+  table: String!
+  sync_id: String!
+  local_id: String!
+  created_at: Date
+  created_at_func: datetime_functions
+}
+
+type directus_sync_id_map_aggregated {
+  group: JSON
+  countAll: Int
+  count: directus_sync_id_map_aggregated_count
+  countDistinct: directus_sync_id_map_aggregated_count
+  avg: directus_sync_id_map_aggregated_fields
+  sum: directus_sync_id_map_aggregated_fields
+  avgDistinct: directus_sync_id_map_aggregated_fields
+  sumDistinct: directus_sync_id_map_aggregated_fields
+  min: directus_sync_id_map_aggregated_fields
+  max: directus_sync_id_map_aggregated_fields
+}
+
+type directus_sync_id_map_aggregated_count {
+  id: Int
+  table: Int
+  sync_id: Int
+  local_id: Int
+  created_at: Int
+}
+
+type directus_sync_id_map_aggregated_fields {
+  id: Float
+}
+
+type directus_sync_id_map_mutated {
+  key: ID!
+  event: EventEnum
+  data: directus_sync_id_map
 }
 
 type directus_translations {
@@ -550,6 +1150,10 @@ type directus_users {
   theme_light_overrides_func: count_functions
   theme_dark_overrides: JSON
   theme_dark_overrides_func: count_functions
+  imported: Boolean
+  wc_user: Boolean
+  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
+  notifications_func: count_functions
   policies(filter: directus_access_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [directus_access]
   policies_func: count_functions
 }
@@ -604,6 +1208,1626 @@ type directus_webhooks_mutated {
   data: directus_webhooks
 }
 
+type features {
+  id: ID!
+  status: String
+  sort: Int
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  heading: String
+  symbol: String
+  text: String
+}
+
+type features_aggregated {
+  group: JSON
+  countAll: Int
+  count: features_aggregated_count
+  countDistinct: features_aggregated_count
+  avg: features_aggregated_fields
+  sum: features_aggregated_fields
+  avgDistinct: features_aggregated_fields
+  sumDistinct: features_aggregated_fields
+  min: features_aggregated_fields
+  max: features_aggregated_fields
+}
+
+type features_aggregated_count {
+  id: Int
+  status: Int
+  sort: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  heading: Int
+  symbol: Int
+  text: Int
+}
+
+type features_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+type features_mutated {
+  key: ID!
+  event: EventEnum
+  data: features
+}
+
+type gallery {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  hideInputLabel: Boolean
+}
+
+type gallery_aggregated {
+  group: JSON
+  countAll: Int
+  count: gallery_aggregated_count
+  countDistinct: gallery_aggregated_count
+}
+
+type gallery_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  hideInputLabel: Int
+}
+
+type gallery_mutated {
+  key: ID!
+  event: EventEnum
+  data: gallery
+}
+
+type groupSubheaders {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  shareBaseUrl: String
+  groupStates: JSON
+  groupStates_func: count_functions
+  platforms: JSON
+  platforms_func: count_functions
+  groupTypes(filter: groupSubheaders_groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [groupSubheaders_groupTypes]
+  groupTypes_func: count_functions
+}
+
+type groupSubheaders_aggregated {
+  group: JSON
+  countAll: Int
+  count: groupSubheaders_aggregated_count
+  countDistinct: groupSubheaders_aggregated_count
+}
+
+type groupSubheaders_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  shareBaseUrl: Int
+  groupStates: Int
+  platforms: Int
+  groupTypes: Int
+}
+
+type groupSubheaders_groupTypes {
+  id: ID!
+  groupSubheaders_id(filter: groupSubheaders_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): groupSubheaders
+  groupTypes_id(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): groupTypes
+}
+
+type groupSubheaders_groupTypes_aggregated {
+  group: JSON
+  countAll: Int
+  count: groupSubheaders_groupTypes_aggregated_count
+  countDistinct: groupSubheaders_groupTypes_aggregated_count
+  avg: groupSubheaders_groupTypes_aggregated_fields
+  sum: groupSubheaders_groupTypes_aggregated_fields
+  avgDistinct: groupSubheaders_groupTypes_aggregated_fields
+  sumDistinct: groupSubheaders_groupTypes_aggregated_fields
+  min: groupSubheaders_groupTypes_aggregated_fields
+  max: groupSubheaders_groupTypes_aggregated_fields
+}
+
+type groupSubheaders_groupTypes_aggregated_count {
+  id: Int
+  groupSubheaders_id: Int
+  groupTypes_id: Int
+}
+
+type groupSubheaders_groupTypes_aggregated_fields {
+  id: Float
+}
+
+type groupSubheaders_groupTypes_mutated {
+  key: ID!
+  event: EventEnum
+  data: groupSubheaders_groupTypes
+}
+
+type groupSubheaders_mutated {
+  key: ID!
+  event: EventEnum
+  data: groupSubheaders
+}
+
+type groupTypes {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  name: String
+  color: String
+  image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  markerIcon(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): marker_icons
+}
+
+type groupTypes_aggregated {
+  group: JSON
+  countAll: Int
+  count: groupTypes_aggregated_count
+  countDistinct: groupTypes_aggregated_count
+}
+
+type groupTypes_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  name: Int
+  color: Int
+  image: Int
+  markerIcon: Int
+}
+
+type groupTypes_mutated {
+  key: ID!
+  event: EventEnum
+  data: groupTypes
+}
+
+type inviteLinks {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+}
+
+type inviteLinks_aggregated {
+  group: JSON
+  countAll: Int
+  count: inviteLinks_aggregated_count
+  countDistinct: inviteLinks_aggregated_count
+}
+
+type inviteLinks_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+}
+
+type inviteLinks_mutated {
+  key: ID!
+  event: EventEnum
+  data: inviteLinks
+}
+
+type items {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  name: String
+  text: String
+  position: GraphQLGeoJSON
+  image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  layer(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): layers
+  start: Date
+  start_func: datetime_functions
+  end: Date
+  end_func: datetime_functions
+  color: String
+  parent(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  subname: String
+  public_edit: Boolean
+  slug: String
+  status: String
+  markerIcon(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): marker_icons
+  telephone: String
+  group_type: String
+  next_appointment: String
+  contact: String
+  openCollectiveSlug: String
+  draft: Boolean
+  gallery(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_files]
+  gallery_func: count_functions
+  offers(filter: items_tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_tags]
+  offers_func: count_functions
+  needs(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_tags_1]
+  needs_func: count_functions
+  relations(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_items]
+  relations_func: count_functions
+  secrets(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [itemSecrets]
+  secrets_func: count_functions
+}
+
+type items_aggregated {
+  group: JSON
+  countAll: Int
+  count: items_aggregated_count
+  countDistinct: items_aggregated_count
+}
+
+type items_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  name: Int
+  text: Int
+  position: Int
+  image: Int
+  layer: Int
+  start: Int
+  end: Int
+  color: Int
+  parent: Int
+  subname: Int
+  public_edit: Int
+  slug: Int
+  status: Int
+  markerIcon: Int
+  telephone: Int
+  group_type: Int
+  next_appointment: Int
+  contact: Int
+  openCollectiveSlug: Int
+  draft: Int
+  gallery: Int
+  offers: Int
+  needs: Int
+  relations: Int
+  secrets: Int
+}
+
+type items_files {
+  id: ID!
+  items_id(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  directus_files_id(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+}
+
+type items_files_aggregated {
+  group: JSON
+  countAll: Int
+  count: items_files_aggregated_count
+  countDistinct: items_files_aggregated_count
+  avg: items_files_aggregated_fields
+  sum: items_files_aggregated_fields
+  avgDistinct: items_files_aggregated_fields
+  sumDistinct: items_files_aggregated_fields
+  min: items_files_aggregated_fields
+  max: items_files_aggregated_fields
+}
+
+type items_files_aggregated_count {
+  id: Int
+  items_id: Int
+  directus_files_id: Int
+}
+
+type items_files_aggregated_fields {
+  id: Float
+}
+
+type items_files_mutated {
+  key: ID!
+  event: EventEnum
+  data: items_files
+}
+
+type items_items {
+  id: ID!
+  items_id(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  related_items_id(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  type: String
+}
+
+type items_items_aggregated {
+  group: JSON
+  countAll: Int
+  count: items_items_aggregated_count
+  countDistinct: items_items_aggregated_count
+  avg: items_items_aggregated_fields
+  sum: items_items_aggregated_fields
+  avgDistinct: items_items_aggregated_fields
+  sumDistinct: items_items_aggregated_fields
+  min: items_items_aggregated_fields
+  max: items_items_aggregated_fields
+}
+
+type items_items_aggregated_count {
+  id: Int
+  items_id: Int
+  related_items_id: Int
+  type: Int
+}
+
+type items_items_aggregated_fields {
+  id: Float
+}
+
+type items_items_mutated {
+  key: ID!
+  event: EventEnum
+  data: items_items
+}
+
+type items_mutated {
+  key: ID!
+  event: EventEnum
+  data: items
+}
+
+type items_tags {
+  id: ID!
+  items_id(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  tags_id(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): tags
+}
+
+type items_tags_1 {
+  id: ID!
+  items_id(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+  tags_id(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): tags
+}
+
+type items_tags_1_aggregated {
+  group: JSON
+  countAll: Int
+  count: items_tags_1_aggregated_count
+  countDistinct: items_tags_1_aggregated_count
+  avg: items_tags_1_aggregated_fields
+  sum: items_tags_1_aggregated_fields
+  avgDistinct: items_tags_1_aggregated_fields
+  sumDistinct: items_tags_1_aggregated_fields
+  min: items_tags_1_aggregated_fields
+  max: items_tags_1_aggregated_fields
+}
+
+type items_tags_1_aggregated_count {
+  id: Int
+  items_id: Int
+  tags_id: Int
+}
+
+type items_tags_1_aggregated_fields {
+  id: Float
+}
+
+type items_tags_1_mutated {
+  key: ID!
+  event: EventEnum
+  data: items_tags_1
+}
+
+type items_tags_aggregated {
+  group: JSON
+  countAll: Int
+  count: items_tags_aggregated_count
+  countDistinct: items_tags_aggregated_count
+  avg: items_tags_aggregated_fields
+  sum: items_tags_aggregated_fields
+  avgDistinct: items_tags_aggregated_fields
+  sumDistinct: items_tags_aggregated_fields
+  min: items_tags_aggregated_fields
+  max: items_tags_aggregated_fields
+}
+
+type items_tags_aggregated_count {
+  id: Int
+  items_id: Int
+  tags_id: Int
+}
+
+type items_tags_aggregated_fields {
+  id: Float
+}
+
+type items_tags_mutated {
+  key: ID!
+  event: EventEnum
+  data: items_tags
+}
+
+type itemSecrets {
+  secret: ID!
+  item(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): items
+}
+
+type itemSecrets_aggregated {
+  group: JSON
+  countAll: Int
+  count: itemSecrets_aggregated_count
+  countDistinct: itemSecrets_aggregated_count
+}
+
+type itemSecrets_aggregated_count {
+  secret: Int
+  item: Int
+}
+
+type itemSecrets_mutated {
+  key: ID!
+  event: EventEnum
+  data: itemSecrets
+}
+
+type junction_directus_users_tags {
+  id: ID!
+  directus_users_id(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  tags_id(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): tags
+}
+
+type junction_directus_users_tags_1 {
+  id: ID!
+  directus_users_id(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  tags_id(filter: tags_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): tags
+}
+
+type junction_directus_users_tags_1_aggregated {
+  group: JSON
+  countAll: Int
+  count: junction_directus_users_tags_1_aggregated_count
+  countDistinct: junction_directus_users_tags_1_aggregated_count
+  avg: junction_directus_users_tags_1_aggregated_fields
+  sum: junction_directus_users_tags_1_aggregated_fields
+  avgDistinct: junction_directus_users_tags_1_aggregated_fields
+  sumDistinct: junction_directus_users_tags_1_aggregated_fields
+  min: junction_directus_users_tags_1_aggregated_fields
+  max: junction_directus_users_tags_1_aggregated_fields
+}
+
+type junction_directus_users_tags_1_aggregated_count {
+  id: Int
+  directus_users_id: Int
+  tags_id: Int
+}
+
+type junction_directus_users_tags_1_aggregated_fields {
+  id: Float
+}
+
+type junction_directus_users_tags_1_mutated {
+  key: ID!
+  event: EventEnum
+  data: junction_directus_users_tags_1
+}
+
+type junction_directus_users_tags_aggregated {
+  group: JSON
+  countAll: Int
+  count: junction_directus_users_tags_aggregated_count
+  countDistinct: junction_directus_users_tags_aggregated_count
+  avg: junction_directus_users_tags_aggregated_fields
+  sum: junction_directus_users_tags_aggregated_fields
+  avgDistinct: junction_directus_users_tags_aggregated_fields
+  sumDistinct: junction_directus_users_tags_aggregated_fields
+  min: junction_directus_users_tags_aggregated_fields
+  max: junction_directus_users_tags_aggregated_fields
+}
+
+type junction_directus_users_tags_aggregated_count {
+  id: Int
+  directus_users_id: Int
+  tags_id: Int
+}
+
+type junction_directus_users_tags_aggregated_fields {
+  id: Float
+}
+
+type junction_directus_users_tags_mutated {
+  key: ID!
+  event: EventEnum
+  data: junction_directus_users_tags
+}
+
+type layers {
+  id: ID!
+  name: String
+  markerShape: String
+  menuText: String
+  menuColor: String
+  indexIcon(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  menuIcon(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  onlyOnePerOwner: Boolean
+  itemType(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): types
+  index_plus_button: Boolean
+  public_edit_items: Boolean
+  markerIcon(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): marker_icons
+  markerDefaultColor2: String
+  listed: Boolean
+  item_presets: JSON
+  item_presets_func: count_functions
+  userProfileLayer: Boolean
+  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
+  maps_func: count_functions
+  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
+  notifications_func: count_functions
+}
+
+type layers_aggregated {
+  group: JSON
+  countAll: Int
+  count: layers_aggregated_count
+  countDistinct: layers_aggregated_count
+}
+
+type layers_aggregated_count {
+  id: Int
+  name: Int
+  markerShape: Int
+  menuText: Int
+  menuColor: Int
+  indexIcon: Int
+  menuIcon: Int
+  onlyOnePerOwner: Int
+  itemType: Int
+  index_plus_button: Int
+  public_edit_items: Int
+  markerIcon: Int
+  markerDefaultColor2: Int
+  listed: Int
+  item_presets: Int
+  userProfileLayer: Int
+  maps: Int
+  notifications: Int
+}
+
+type layers_directus_users_1 {
+  id: ID!
+  layers_id(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): layers
+  directus_users_id(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+}
+
+type layers_directus_users_1_aggregated {
+  group: JSON
+  countAll: Int
+  count: layers_directus_users_1_aggregated_count
+  countDistinct: layers_directus_users_1_aggregated_count
+  avg: layers_directus_users_1_aggregated_fields
+  sum: layers_directus_users_1_aggregated_fields
+  avgDistinct: layers_directus_users_1_aggregated_fields
+  sumDistinct: layers_directus_users_1_aggregated_fields
+  min: layers_directus_users_1_aggregated_fields
+  max: layers_directus_users_1_aggregated_fields
+}
+
+type layers_directus_users_1_aggregated_count {
+  id: Int
+  layers_id: Int
+  directus_users_id: Int
+}
+
+type layers_directus_users_1_aggregated_fields {
+  id: Float
+}
+
+type layers_directus_users_1_mutated {
+  key: ID!
+  event: EventEnum
+  data: layers_directus_users_1
+}
+
+type layers_files {
+  id: ID!
+  layers_id(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): layers
+  directus_files_id(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+}
+
+type layers_files_aggregated {
+  group: JSON
+  countAll: Int
+  count: layers_files_aggregated_count
+  countDistinct: layers_files_aggregated_count
+  avg: layers_files_aggregated_fields
+  sum: layers_files_aggregated_fields
+  avgDistinct: layers_files_aggregated_fields
+  sumDistinct: layers_files_aggregated_fields
+  min: layers_files_aggregated_fields
+  max: layers_files_aggregated_fields
+}
+
+type layers_files_aggregated_count {
+  id: Int
+  layers_id: Int
+  directus_files_id: Int
+}
+
+type layers_files_aggregated_fields {
+  id: Float
+}
+
+type layers_files_mutated {
+  key: ID!
+  event: EventEnum
+  data: layers_files
+}
+
+type layers_maps {
+  id: ID!
+  layers_id(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): layers
+  maps_id(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): maps
+}
+
+type layers_maps_aggregated {
+  group: JSON
+  countAll: Int
+  count: layers_maps_aggregated_count
+  countDistinct: layers_maps_aggregated_count
+  avg: layers_maps_aggregated_fields
+  sum: layers_maps_aggregated_fields
+  avgDistinct: layers_maps_aggregated_fields
+  sumDistinct: layers_maps_aggregated_fields
+  min: layers_maps_aggregated_fields
+  max: layers_maps_aggregated_fields
+}
+
+type layers_maps_aggregated_count {
+  id: Int
+  layers_id: Int
+  maps_id: Int
+}
+
+type layers_maps_aggregated_fields {
+  id: Float
+}
+
+type layers_maps_mutated {
+  key: ID!
+  event: EventEnum
+  data: layers_maps
+}
+
+type layers_mutated {
+  key: ID!
+  event: EventEnum
+  data: layers
+}
+
+type maps {
+  id: ID!
+  name: String
+  url: String
+  logo(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  zoom: Int
+  center: GraphQLGeoJSON
+  own_tag_space: Boolean
+
+  """You can include GeoJSON"""
+  geo: JSON
+  geo_func: count_functions
+  show_layer_control: Boolean
+  show_filter_control: Boolean
+  user_type(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): types
+
+  """Replace the info text in the info popup"""
+  custom_text: String
+  show_gratitude_control: Boolean
+
+  """Shows a donation widget after 10 minutes"""
+  donation_widget: Boolean
+  show_theme_control: Boolean
+  default_theme(filter: Themes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): Themes
+  show_zoom_control: Boolean!
+  expand_layer_control: Boolean
+  info_open: Boolean
+  tile_server_url: String
+  tile_server_attribution: String
+  layers(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
+  layers_func: count_functions
+}
+
+type maps_aggregated {
+  group: JSON
+  countAll: Int
+  count: maps_aggregated_count
+  countDistinct: maps_aggregated_count
+  avg: maps_aggregated_fields
+  sum: maps_aggregated_fields
+  avgDistinct: maps_aggregated_fields
+  sumDistinct: maps_aggregated_fields
+  min: maps_aggregated_fields
+  max: maps_aggregated_fields
+}
+
+type maps_aggregated_count {
+  id: Int
+  name: Int
+  url: Int
+
+  """Used as FavIcon"""
+  logo: Int
+  zoom: Int
+  center: Int
+  own_tag_space: Int
+
+  """You can include GeoJSON"""
+  geo: Int
+  show_layer_control: Int
+  show_filter_control: Int
+  user_type: Int
+
+  """Replace the info text in the info popup"""
+  custom_text: Int
+  show_gratitude_control: Int
+
+  """Shows a donation widget after 10 minutes"""
+  donation_widget: Int
+  show_theme_control: Int
+  default_theme: Int
+  show_zoom_control: Int
+  expand_layer_control: Int
+  info_open: Int
+  tile_server_url: Int
+  tile_server_attribution: Int
+  layers: Int
+}
+
+type maps_aggregated_fields {
+  zoom: Float
+}
+
+type maps_mutated {
+  key: ID!
+  event: EventEnum
+  data: maps
+}
+
+type marker_icons {
+  id: ID!
+  size: Float
+  image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+}
+
+type marker_icons_aggregated {
+  group: JSON
+  countAll: Int
+  count: marker_icons_aggregated_count
+  countDistinct: marker_icons_aggregated_count
+  avg: marker_icons_aggregated_fields
+  sum: marker_icons_aggregated_fields
+  avgDistinct: marker_icons_aggregated_fields
+  sumDistinct: marker_icons_aggregated_fields
+  min: marker_icons_aggregated_fields
+  max: marker_icons_aggregated_fields
+}
+
+type marker_icons_aggregated_count {
+  id: Int
+  size: Int
+  image: Int
+}
+
+type marker_icons_aggregated_fields {
+  size: Float
+}
+
+type marker_icons_mutated {
+  key: ID!
+  event: EventEnum
+  data: marker_icons
+}
+
+type oceannomads_profiles {
+  id: ID!
+  date_created: Date
+  date_created_func: datetime_functions
+  date_updated: Date
+  date_updated_func: datetime_functions
+  email: String
+  first_name: String
+  last_name: String
+  location: String
+  avatar_url: String
+}
+
+type oceannomads_profiles_aggregated {
+  group: JSON
+  countAll: Int
+  count: oceannomads_profiles_aggregated_count
+  countDistinct: oceannomads_profiles_aggregated_count
+}
+
+type oceannomads_profiles_aggregated_count {
+  id: Int
+  date_created: Int
+  date_updated: Int
+  email: Int
+  first_name: Int
+  last_name: Int
+  location: Int
+  avatar_url: Int
+}
+
+type oceannomads_profiles_mutated {
+  key: ID!
+  event: EventEnum
+  data: oceannomads_profiles
+}
+
+type relations {
+  id: ID!
+  relation: String
+}
+
+type relations_aggregated {
+  group: JSON
+  countAll: Int
+  count: relations_aggregated_count
+  countDistinct: relations_aggregated_count
+  avg: relations_aggregated_fields
+  sum: relations_aggregated_fields
+  avgDistinct: relations_aggregated_fields
+  sumDistinct: relations_aggregated_fields
+  min: relations_aggregated_fields
+  max: relations_aggregated_fields
+}
+
+type relations_aggregated_count {
+  id: Int
+  relation: Int
+}
+
+type relations_aggregated_fields {
+  id: Float
+}
+
+type relations_mutated {
+  key: ID!
+  event: EventEnum
+  data: relations
+}
+
+type startEnd {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+}
+
+type startEnd_aggregated {
+  group: JSON
+  countAll: Int
+  count: startEnd_aggregated_count
+  countDistinct: startEnd_aggregated_count
+}
+
+type startEnd_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+}
+
+type startEnd_mutated {
+  key: ID!
+  event: EventEnum
+  data: startEnd
+}
+
+type tags {
+  id: ID!
+  name: String
+  color: String
+  map(filter: maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): maps
+  offer_or_need: Boolean
+  user_created: ID
+  date_created: Date
+  date_created_func: datetime_functions
+}
+
+type tags_aggregated {
+  group: JSON
+  countAll: Int
+  count: tags_aggregated_count
+  countDistinct: tags_aggregated_count
+}
+
+type tags_aggregated_count {
+  id: Int
+  name: Int
+  color: Int
+  map: Int
+  offer_or_need: Int
+  user_created: Int
+  date_created: Int
+}
+
+type tags_mutated {
+  key: ID!
+  event: EventEnum
+  data: tags
+}
+
+type team {
+  id: ID!
+  status: String
+  sort: Int
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  name: String
+  role: String
+  text: String
+  image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+}
+
+type team_aggregated {
+  group: JSON
+  countAll: Int
+  count: team_aggregated_count
+  countDistinct: team_aggregated_count
+  avg: team_aggregated_fields
+  sum: team_aggregated_fields
+  avgDistinct: team_aggregated_fields
+  sumDistinct: team_aggregated_fields
+  min: team_aggregated_fields
+  max: team_aggregated_fields
+}
+
+type team_aggregated_count {
+  id: Int
+  status: Int
+  sort: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  name: Int
+  role: Int
+  text: Int
+  image: Int
+}
+
+type team_aggregated_fields {
+  sort: Float
+}
+
+type team_mutated {
+  key: ID!
+  event: EventEnum
+  data: team
+}
+
+type texts {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  heading: String
+  hideWhenEmpty: Boolean
+  dataField: String
+  size: String
+  showMarkdownHint: Boolean
+}
+
+type texts_aggregated {
+  group: JSON
+  countAll: Int
+  count: texts_aggregated_count
+  countDistinct: texts_aggregated_count
+}
+
+type texts_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  heading: Int
+  hideWhenEmpty: Int
+  dataField: Int
+  size: Int
+  showMarkdownHint: Int
+}
+
+type texts_mutated {
+  key: ID!
+  event: EventEnum
+  data: texts
+}
+
+type Themes {
+  theme: ID!
+}
+
+type Themes_aggregated {
+  group: JSON
+  countAll: Int
+  count: Themes_aggregated_count
+  countDistinct: Themes_aggregated_count
+}
+
+type Themes_aggregated_count {
+  theme: Int
+}
+
+type Themes_mutated {
+  key: ID!
+  event: EventEnum
+  data: Themes
+}
+
+type types {
+  id: ID!
+  user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_created: Date
+  date_created_func: datetime_functions
+  user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  date_updated: Date
+  date_updated_func: datetime_functions
+  name: String
+  show_text_input: Boolean
+  show_name_input: Boolean
+  show_profile_button: Boolean
+  show_text: Boolean
+  show_name: Boolean
+  custom_text: String
+  show_start_end_input: Boolean
+  show_start_end: Boolean
+  offers_and_needs: Boolean
+  relations: Boolean
+  onepager: Boolean
+  text_area: Boolean
+  text: Boolean
+  questlog: Boolean
+  icon_as_labels: Boolean
+  template: String
+  profileTemplate(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types_profileTemplate]
+  profileTemplate_func: count_functions
+}
+
+type types_aggregated {
+  group: JSON
+  countAll: Int
+  count: types_aggregated_count
+  countDistinct: types_aggregated_count
+}
+
+type types_aggregated_count {
+  id: Int
+  user_created: Int
+  date_created: Int
+  user_updated: Int
+  date_updated: Int
+  name: Int
+  show_text_input: Int
+  show_name_input: Int
+  show_profile_button: Int
+  show_text: Int
+  show_name: Int
+  custom_text: Int
+  show_start_end_input: Int
+  show_start_end: Int
+  offers_and_needs: Int
+  relations: Int
+  onepager: Int
+  text_area: Int
+  text: Int
+  questlog: Int
+  icon_as_labels: Int
+  template: Int
+  profileTemplate: Int
+}
+
+type types_mutated {
+  key: ID!
+  event: EventEnum
+  data: types
+}
+
+type types_profileTemplate {
+  id: ID!
+  types_id(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): types
+  item: types_profileTemplate_item_union
+  collection: String
+  sort: Int
+}
+
+type types_profileTemplate_aggregated {
+  group: JSON
+  countAll: Int
+  count: types_profileTemplate_aggregated_count
+  countDistinct: types_profileTemplate_aggregated_count
+  avg: types_profileTemplate_aggregated_fields
+  sum: types_profileTemplate_aggregated_fields
+  avgDistinct: types_profileTemplate_aggregated_fields
+  sumDistinct: types_profileTemplate_aggregated_fields
+  min: types_profileTemplate_aggregated_fields
+  max: types_profileTemplate_aggregated_fields
+}
+
+type types_profileTemplate_aggregated_count {
+  id: Int
+  types_id: Int
+  item: Int
+  collection: Int
+  sort: Int
+}
+
+type types_profileTemplate_aggregated_fields {
+  id: Float
+  sort: Float
+}
+
+type types_profileTemplate_mutated {
+  key: ID!
+  event: EventEnum
+  data: types_profileTemplate
+}
+
+""""""
+type version_attestations {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  text: String
+  color: String
+  emoji: String
+  shape: String
+  to: JSON
+}
+
+""""""
+type version_attestations_directus_users {
+  id: ID
+  attestations_id: JSON
+  directus_users_id: JSON
+}
+
+""""""
+type version_contactInfos {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  heading: String
+}
+
+""""""
+type version_crowdfundings {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+}
+
+""""""
+type version_directus_sync_id_map {
+  id: ID
+  table: String
+  sync_id: String
+  local_id: String
+  created_at: Date
+}
+
+""""""
+type version_features {
+  id: ID
+  status: String
+  sort: Int
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  heading: String
+  symbol: String
+  text: String
+}
+
+""""""
+type version_gallery {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  hideInputLabel: Boolean
+}
+
+""""""
+type version_groupSubheaders {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  shareBaseUrl: String
+  groupStates: JSON
+  platforms: JSON
+  groupTypes: JSON
+}
+
+""""""
+type version_groupSubheaders_groupTypes {
+  id: ID
+  groupSubheaders_id: JSON
+  groupTypes_id: JSON
+}
+
+""""""
+type version_groupTypes {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  name: String
+  color: String
+  image: JSON
+  markerIcon: JSON
+}
+
+""""""
+type version_inviteLinks {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+}
+
+""""""
+type version_items {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  name: String
+  text: String
+  position: GraphQLGeoJSON
+  image: JSON
+  layer: JSON
+  start: Date
+  end: Date
+  color: String
+  parent: JSON
+  subname: String
+  public_edit: Boolean
+  slug: String
+  status: String
+  markerIcon: JSON
+  telephone: String
+  group_type: String
+  next_appointment: String
+  contact: String
+  openCollectiveSlug: String
+  draft: Boolean
+  gallery: JSON
+  offers: JSON
+  needs: JSON
+  relations: JSON
+  secrets: JSON
+}
+
+""""""
+type version_items_files {
+  id: ID
+  items_id: JSON
+  directus_files_id: JSON
+}
+
+""""""
+type version_items_items {
+  id: ID
+  items_id: JSON
+  related_items_id: JSON
+  type: String
+}
+
+""""""
+type version_items_tags {
+  id: ID
+  items_id: JSON
+  tags_id: JSON
+}
+
+""""""
+type version_items_tags_1 {
+  id: ID
+  items_id: JSON
+  tags_id: JSON
+}
+
+""""""
+type version_itemSecrets {
+  secret: ID
+  item: JSON
+}
+
+""""""
+type version_junction_directus_users_tags {
+  id: ID
+  directus_users_id: JSON
+  tags_id: JSON
+}
+
+""""""
+type version_junction_directus_users_tags_1 {
+  id: ID
+  directus_users_id: JSON
+  tags_id: JSON
+}
+
+""""""
+type version_layers {
+  id: ID
+  name: String
+  markerShape: String
+  menuText: String
+  menuColor: String
+  indexIcon: JSON
+  menuIcon: JSON
+  onlyOnePerOwner: Boolean
+  itemType: JSON
+  index_plus_button: Boolean
+  public_edit_items: Boolean
+  markerIcon: JSON
+  markerDefaultColor2: String
+  listed: Boolean
+  item_presets: JSON
+  userProfileLayer: Boolean
+  maps: JSON
+  notifications: JSON
+}
+
+""""""
+type version_layers_directus_users_1 {
+  id: ID
+  layers_id: JSON
+  directus_users_id: JSON
+}
+
+""""""
+type version_layers_files {
+  id: ID
+  layers_id: JSON
+  directus_files_id: JSON
+}
+
+""""""
+type version_layers_maps {
+  id: ID
+  layers_id: JSON
+  maps_id: JSON
+}
+
+""""""
+type version_maps {
+  id: ID
+  name: String
+  url: String
+  logo: JSON
+  zoom: Int
+  center: GraphQLGeoJSON
+  own_tag_space: Boolean
+
+  """You can include GeoJSON"""
+  geo: JSON
+  show_layer_control: Boolean
+  show_filter_control: Boolean
+  user_type: JSON
+
+  """Replace the info text in the info popup"""
+  custom_text: String
+  show_gratitude_control: Boolean
+
+  """Shows a donation widget after 10 minutes"""
+  donation_widget: Boolean
+  show_theme_control: Boolean
+  default_theme: JSON
+  show_zoom_control: Boolean
+  expand_layer_control: Boolean
+  info_open: Boolean
+  tile_server_url: String
+  tile_server_attribution: String
+  layers: JSON
+}
+
+""""""
+type version_marker_icons {
+  id: ID
+  size: Float
+  image: JSON
+}
+
+""""""
+type version_oceannomads_profiles {
+  id: ID
+  date_created: Date
+  date_updated: Date
+  email: String
+  first_name: String
+  last_name: String
+  location: String
+  avatar_url: String
+}
+
+""""""
+type version_relations {
+  id: ID
+  relation: String
+}
+
+""""""
+type version_startEnd {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+}
+
+""""""
+type version_tags {
+  id: ID
+  name: String
+  color: String
+  map: JSON
+  offer_or_need: Boolean
+  user_created: ID
+  date_created: Date
+}
+
+""""""
+type version_team {
+  id: ID
+  status: String
+  sort: Int
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  name: String
+  role: String
+  text: String
+  image: JSON
+}
+
+""""""
+type version_texts {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  heading: String
+  hideWhenEmpty: Boolean
+  dataField: String
+  size: String
+  showMarkdownHint: Boolean
+}
+
+""""""
+type version_Themes {
+  theme: ID
+}
+
+""""""
+type version_types {
+  id: ID
+  user_created: JSON
+  date_created: Date
+  user_updated: JSON
+  date_updated: Date
+  name: String
+  show_text_input: Boolean
+  show_name_input: Boolean
+  show_profile_button: Boolean
+  show_text: Boolean
+  show_name: Boolean
+  custom_text: String
+  show_start_end_input: Boolean
+  show_start_end: Boolean
+  offers_and_needs: Boolean
+  relations: Boolean
+  onepager: Boolean
+  text_area: Boolean
+  text: Boolean
+  questlog: Boolean
+  icon_as_labels: Boolean
+  template: String
+  profileTemplate: JSON
+}
+
+""""""
+type version_types_profileTemplate {
+  id: ID
+  types_id: JSON
+  item: String
+  collection: String
+  sort: Int
+}
+
+input attestations_directus_users_filter {
+  id: number_filter_operators
+  attestations_id: attestations_filter
+  directus_users_id: directus_users_filter
+  _and: [attestations_directus_users_filter]
+  _or: [attestations_directus_users_filter]
+}
+
+""""""
+input attestations_directus_users_quantifier_filter {
+  id: number_filter_operators
+  attestations_id: attestations_filter
+  directus_users_id: directus_users_filter
+  _and: [attestations_directus_users_filter]
+  _or: [attestations_directus_users_filter]
+  _some: attestations_directus_users_filter
+  _none: attestations_directus_users_filter
+}
+
+input attestations_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  text: string_filter_operators
+  color: string_filter_operators
+  emoji: string_filter_operators
+  shape: string_filter_operators
+  to: attestations_directus_users_quantifier_filter
+  to_func: count_function_filter_operators
+  _and: [attestations_filter]
+  _or: [attestations_filter]
+}
+
 input big_int_filter_operators {
   _eq: GraphQLBigInt
   _neq: GraphQLBigInt
@@ -626,8 +2850,499 @@ input boolean_filter_operators {
   _nnull: Boolean
 }
 
+input contactInfos_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  heading: string_filter_operators
+  _and: [contactInfos_filter]
+  _or: [contactInfos_filter]
+}
+
 input count_function_filter_operators {
   count: number_filter_operators
+}
+
+input create_attestations_directus_users_input {
+  id: ID
+  attestations_id: create_attestations_input
+  directus_users_id: create_directus_users_input
+}
+
+input create_attestations_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  text: String
+  color: String
+  emoji: String
+  shape: String
+  to: [create_attestations_directus_users_input]
+}
+
+input create_contactInfos_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  heading: String
+}
+
+input create_crowdfundings_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+}
+
+input create_directus_access_input {
+  id: ID
+  role: create_directus_roles_input
+  user: create_directus_users_input
+  policy: create_directus_policies_input
+  sort: Int
+}
+
+input create_directus_files_input {
+  id: ID
+  storage: String!
+  filename_disk: String
+  filename_download: String!
+  title: String
+  type: String
+  folder: create_directus_folders_input
+  uploaded_by: create_directus_users_input
+  created_on: Date
+  modified_by: create_directus_users_input
+  modified_on: Date
+  charset: String
+  filesize: GraphQLBigInt
+  width: Int
+  height: Int
+  duration: Int
+  embed: String
+  description: String
+  location: String
+  tags: JSON
+  metadata: JSON
+  focal_point_x: Int
+  focal_point_y: Int
+  tus_id: String
+  tus_data: JSON
+  uploaded_on: Date
+}
+
+input create_directus_folders_input {
+  id: ID
+  name: String!
+  parent: create_directus_folders_input
+}
+
+input create_directus_permissions_input {
+  id: ID
+  collection: String!
+  action: String!
+  permissions: JSON
+  validation: JSON
+  presets: JSON
+  fields: [String]
+  policy: create_directus_policies_input
+}
+
+input create_directus_policies_input {
+  id: ID
+  name: String!
+  icon: String
+  description: String
+  ip_access: [String]
+
+  """$t:field_options.directus_policies.enforce_tfa"""
+  enforce_tfa: Boolean!
+  admin_access: Boolean!
+  app_access: Boolean!
+  permissions: [create_directus_permissions_input]
+  users: [create_directus_access_input]
+  roles: [create_directus_access_input]
+}
+
+input create_directus_roles_input {
+  id: ID
+  name: String!
+  icon: String
+  description: String
+  parent: create_directus_roles_input
+  children: [create_directus_roles_input]
+  policies: [create_directus_access_input]
+  users: [create_directus_users_input]
+}
+
+input create_directus_sync_id_map_input {
+  id: ID
+  table: String!
+  sync_id: String!
+  local_id: String!
+  created_at: Date
+}
+
+input create_directus_users_input {
+  id: ID
+  first_name: String
+  last_name: String
+  email: String
+  password: Hash
+  location: String
+  title: String
+  description: String
+  tags: JSON
+  avatar: create_directus_files_input
+  language: String
+  tfa_secret: Hash
+  status: String
+  role: create_directus_roles_input
+  token: Hash
+  last_access: Date
+  last_page: String
+  provider: String
+  external_identifier: String
+  auth_data: JSON
+  email_notifications: Boolean
+  appearance: String
+  theme_dark: String
+  theme_light: String
+  theme_light_overrides: JSON
+  theme_dark_overrides: JSON
+  imported: Boolean
+  wc_user: Boolean
+  notifications: [create_layers_directus_users_1_input]
+  policies: [create_directus_access_input]
+}
+
+input create_features_input {
+  id: ID
+  status: String
+  sort: Int
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  heading: String
+  symbol: String
+  text: String
+}
+
+input create_gallery_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  hideInputLabel: Boolean
+}
+
+input create_groupSubheaders_groupTypes_input {
+  id: ID
+  groupSubheaders_id: create_groupSubheaders_input
+  groupTypes_id: create_groupTypes_input
+}
+
+input create_groupSubheaders_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  shareBaseUrl: String
+  groupStates: JSON
+  platforms: JSON
+  groupTypes: [create_groupSubheaders_groupTypes_input]
+}
+
+input create_groupTypes_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  name: String
+  color: String
+  image: create_directus_files_input
+  markerIcon: create_marker_icons_input
+}
+
+input create_inviteLinks_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+}
+
+input create_items_files_input {
+  id: ID
+  items_id: create_items_input
+  directus_files_id: create_directus_files_input
+}
+
+input create_items_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  name: String
+  text: String
+  position: GraphQLGeoJSON
+  image: create_directus_files_input
+  layer: create_layers_input
+  start: Date
+  end: Date
+  color: String
+  parent: create_items_input
+  subname: String
+  public_edit: Boolean
+  slug: String
+  status: String
+  markerIcon: create_marker_icons_input
+  telephone: String
+  group_type: String
+  next_appointment: String
+  contact: String
+  openCollectiveSlug: String
+  draft: Boolean
+  gallery: [create_items_files_input]
+  offers: [create_items_tags_input]
+  needs: [create_items_tags_1_input]
+  relations: [create_items_items_input]
+  secrets: [create_itemSecrets_input]
+}
+
+input create_items_items_input {
+  id: ID
+  items_id: create_items_input
+  related_items_id: create_items_input
+  type: String
+}
+
+input create_items_tags_1_input {
+  id: ID
+  items_id: create_items_input
+  tags_id: create_tags_input
+}
+
+input create_items_tags_input {
+  id: ID
+  items_id: create_items_input
+  tags_id: create_tags_input
+}
+
+input create_itemSecrets_input {
+  secret: ID
+  item: create_items_input
+}
+
+input create_junction_directus_users_tags_1_input {
+  id: ID
+  directus_users_id: create_directus_users_input
+  tags_id: create_tags_input
+}
+
+input create_junction_directus_users_tags_input {
+  id: ID
+  directus_users_id: create_directus_users_input
+  tags_id: create_tags_input
+}
+
+input create_layers_directus_users_1_input {
+  id: ID
+  layers_id: create_layers_input
+  directus_users_id: create_directus_users_input
+}
+
+input create_layers_files_input {
+  id: ID
+  layers_id: create_layers_input
+  directus_files_id: create_directus_files_input
+}
+
+input create_layers_input {
+  id: ID
+  name: String
+  markerShape: String
+  menuText: String
+  menuColor: String
+  indexIcon: create_directus_files_input
+  menuIcon: create_directus_files_input
+  onlyOnePerOwner: Boolean
+  itemType: create_types_input
+  index_plus_button: Boolean
+  public_edit_items: Boolean
+  markerIcon: create_marker_icons_input
+  markerDefaultColor2: String
+  listed: Boolean
+  item_presets: JSON
+  userProfileLayer: Boolean
+  maps: [create_layers_maps_input]
+  notifications: [create_layers_directus_users_1_input]
+}
+
+input create_layers_maps_input {
+  id: ID
+  layers_id: create_layers_input
+  maps_id: create_maps_input
+}
+
+input create_maps_input {
+  id: ID
+  name: String
+  url: String
+  logo: create_directus_files_input
+  zoom: Int
+  center: GraphQLGeoJSON
+  own_tag_space: Boolean
+
+  """You can include GeoJSON"""
+  geo: JSON
+  show_layer_control: Boolean
+  show_filter_control: Boolean
+  user_type: create_types_input
+
+  """Replace the info text in the info popup"""
+  custom_text: String
+  show_gratitude_control: Boolean
+
+  """Shows a donation widget after 10 minutes"""
+  donation_widget: Boolean
+  show_theme_control: Boolean
+  default_theme: create_Themes_input
+  show_zoom_control: Boolean!
+  expand_layer_control: Boolean
+  info_open: Boolean
+  tile_server_url: String
+  tile_server_attribution: String
+  layers: [create_layers_maps_input]
+}
+
+input create_marker_icons_input {
+  id: ID!
+  size: Float
+  image: create_directus_files_input
+}
+
+input create_oceannomads_profiles_input {
+  id: ID!
+  date_created: Date
+  date_updated: Date
+  email: String
+  first_name: String
+  last_name: String
+  location: String
+  avatar_url: String
+}
+
+input create_relations_input {
+  id: ID
+  relation: String
+}
+
+input create_startEnd_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+}
+
+input create_tags_input {
+  id: ID
+  name: String
+  color: String
+  map: create_maps_input
+  offer_or_need: Boolean
+  user_created: ID
+  date_created: Date
+}
+
+input create_team_input {
+  id: ID
+  status: String
+  sort: Int
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  name: String
+  role: String
+  text: String
+  image: create_directus_files_input
+}
+
+input create_texts_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  heading: String
+  hideWhenEmpty: Boolean
+  dataField: String
+  size: String
+  showMarkdownHint: Boolean
+}
+
+input create_Themes_input {
+  theme: ID!
+}
+
+input create_types_input {
+  id: ID
+  user_created: create_directus_users_input
+  date_created: Date
+  user_updated: create_directus_users_input
+  date_updated: Date
+  name: String
+  show_text_input: Boolean
+  show_name_input: Boolean
+  show_profile_button: Boolean
+  show_text: Boolean
+  show_name: Boolean
+  custom_text: String
+  show_start_end_input: Boolean
+  show_start_end: Boolean
+  offers_and_needs: Boolean
+  relations: Boolean
+  onepager: Boolean
+  text_area: Boolean
+  text: Boolean
+  questlog: Boolean
+  icon_as_labels: Boolean
+  template: String
+  profileTemplate: [create_types_profileTemplate_input]
+}
+
+input create_types_profileTemplate_input {
+  id: ID
+  types_id: create_types_input
+  item: String
+  collection: String
+  sort: Int
+}
+
+input crowdfundings_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  _and: [crowdfundings_filter]
+  _or: [crowdfundings_filter]
 }
 
 input date_filter_operators {
@@ -657,13 +3372,26 @@ input datetime_function_filter_operators {
 }
 
 input directus_access_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   role: directus_roles_filter
   user: directus_users_filter
   policy: directus_policies_filter
   sort: number_filter_operators
   _and: [directus_access_filter]
   _or: [directus_access_filter]
+}
+
+""""""
+input directus_access_quantifier_filter {
+  id: id_filter_operators
+  role: directus_roles_filter
+  user: directus_users_filter
+  policy: directus_policies_filter
+  sort: number_filter_operators
+  _and: [directus_access_filter]
+  _or: [directus_access_filter]
+  _some: directus_access_filter
+  _none: directus_access_filter
 }
 
 input directus_activity_filter {
@@ -677,14 +3405,14 @@ input directus_activity_filter {
   collection: string_filter_operators
   item: string_filter_operators
   origin: string_filter_operators
-  revisions: directus_revisions_filter
+  revisions: directus_revisions_quantifier_filter
   revisions_func: count_function_filter_operators
   _and: [directus_activity_filter]
   _or: [directus_activity_filter]
 }
 
 input directus_dashboards_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   icon: string_filter_operators
   note: string_filter_operators
@@ -692,14 +3420,14 @@ input directus_dashboards_filter {
   date_created_func: datetime_function_filter_operators
   user_created: directus_users_filter
   color: string_filter_operators
-  panels: directus_panels_filter
+  panels: directus_panels_quantifier_filter
   panels_func: count_function_filter_operators
   _and: [directus_dashboards_filter]
   _or: [directus_dashboards_filter]
 }
 
 input directus_files_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   storage: string_filter_operators
   filename_disk: string_filter_operators
   filename_download: string_filter_operators
@@ -736,7 +3464,7 @@ input directus_files_filter {
 }
 
 input directus_flows_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   icon: string_filter_operators
   color: string_filter_operators
@@ -750,14 +3478,14 @@ input directus_flows_filter {
   date_created: date_filter_operators
   date_created_func: datetime_function_filter_operators
   user_created: directus_users_filter
-  operations: directus_operations_filter
+  operations: directus_operations_quantifier_filter
   operations_func: count_function_filter_operators
   _and: [directus_flows_filter]
   _or: [directus_flows_filter]
 }
 
 input directus_folders_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   parent: directus_folders_filter
   _and: [directus_folders_filter]
@@ -765,7 +3493,7 @@ input directus_folders_filter {
 }
 
 input directus_operations_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   key: string_filter_operators
   type: string_filter_operators
@@ -783,8 +3511,30 @@ input directus_operations_filter {
   _or: [directus_operations_filter]
 }
 
+""""""
+input directus_operations_quantifier_filter {
+  id: id_filter_operators
+  name: string_filter_operators
+  key: string_filter_operators
+  type: string_filter_operators
+  position_x: number_filter_operators
+  position_y: number_filter_operators
+  options: string_filter_operators
+  options_func: count_function_filter_operators
+  resolve: directus_operations_filter
+  reject: directus_operations_filter
+  flow: directus_flows_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_created: directus_users_filter
+  _and: [directus_operations_filter]
+  _or: [directus_operations_filter]
+  _some: directus_operations_filter
+  _none: directus_operations_filter
+}
+
 input directus_panels_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   dashboard: directus_dashboards_filter
   name: string_filter_operators
   icon: string_filter_operators
@@ -805,6 +3555,31 @@ input directus_panels_filter {
   _or: [directus_panels_filter]
 }
 
+""""""
+input directus_panels_quantifier_filter {
+  id: id_filter_operators
+  dashboard: directus_dashboards_filter
+  name: string_filter_operators
+  icon: string_filter_operators
+  color: string_filter_operators
+  show_header: boolean_filter_operators
+  note: string_filter_operators
+  type: string_filter_operators
+  position_x: number_filter_operators
+  position_y: number_filter_operators
+  width: number_filter_operators
+  height: number_filter_operators
+  options: string_filter_operators
+  options_func: count_function_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_created: directus_users_filter
+  _and: [directus_panels_filter]
+  _or: [directus_panels_filter]
+  _some: directus_panels_filter
+  _none: directus_panels_filter
+}
+
 input directus_permissions_filter {
   id: number_filter_operators
   collection: string_filter_operators
@@ -821,8 +3596,27 @@ input directus_permissions_filter {
   _or: [directus_permissions_filter]
 }
 
+""""""
+input directus_permissions_quantifier_filter {
+  id: number_filter_operators
+  collection: string_filter_operators
+  action: string_filter_operators
+  permissions: string_filter_operators
+  permissions_func: count_function_filter_operators
+  validation: string_filter_operators
+  validation_func: count_function_filter_operators
+  presets: string_filter_operators
+  presets_func: count_function_filter_operators
+  fields: string_filter_operators
+  policy: directus_policies_filter
+  _and: [directus_permissions_filter]
+  _or: [directus_permissions_filter]
+  _some: directus_permissions_filter
+  _none: directus_permissions_filter
+}
+
 input directus_policies_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   icon: string_filter_operators
   description: string_filter_operators
@@ -830,11 +3624,11 @@ input directus_policies_filter {
   enforce_tfa: boolean_filter_operators
   admin_access: boolean_filter_operators
   app_access: boolean_filter_operators
-  permissions: directus_permissions_filter
+  permissions: directus_permissions_quantifier_filter
   permissions_func: count_function_filter_operators
-  users: directus_access_filter
+  users: directus_access_quantifier_filter
   users_func: count_function_filter_operators
-  roles: directus_access_filter
+  roles: directus_access_quantifier_filter
   roles_func: count_function_filter_operators
   _and: [directus_policies_filter]
   _or: [directus_policies_filter]
@@ -855,24 +3649,72 @@ input directus_revisions_filter {
   _or: [directus_revisions_filter]
 }
 
+""""""
+input directus_revisions_quantifier_filter {
+  id: number_filter_operators
+  activity: directus_activity_filter
+  collection: string_filter_operators
+  item: string_filter_operators
+  data: string_filter_operators
+  data_func: count_function_filter_operators
+  delta: string_filter_operators
+  delta_func: count_function_filter_operators
+  parent: directus_revisions_filter
+  version: directus_versions_filter
+  _and: [directus_revisions_filter]
+  _or: [directus_revisions_filter]
+  _some: directus_revisions_filter
+  _none: directus_revisions_filter
+}
+
 input directus_roles_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   name: string_filter_operators
   icon: string_filter_operators
   description: string_filter_operators
   parent: directus_roles_filter
-  children: directus_roles_filter
+  children: directus_roles_quantifier_filter
   children_func: count_function_filter_operators
-  policies: directus_access_filter
+  policies: directus_access_quantifier_filter
   policies_func: count_function_filter_operators
-  users: directus_users_filter
+  users: directus_users_quantifier_filter
   users_func: count_function_filter_operators
   _and: [directus_roles_filter]
   _or: [directus_roles_filter]
 }
 
+""""""
+input directus_roles_quantifier_filter {
+  id: id_filter_operators
+  name: string_filter_operators
+  icon: string_filter_operators
+  description: string_filter_operators
+  parent: directus_roles_filter
+  children: directus_roles_quantifier_filter
+  children_func: count_function_filter_operators
+  policies: directus_access_quantifier_filter
+  policies_func: count_function_filter_operators
+  users: directus_users_quantifier_filter
+  users_func: count_function_filter_operators
+  _and: [directus_roles_filter]
+  _or: [directus_roles_filter]
+  _some: directus_roles_filter
+  _none: directus_roles_filter
+}
+
+input directus_sync_id_map_filter {
+  id: number_filter_operators
+  table: string_filter_operators
+  sync_id: string_filter_operators
+  local_id: string_filter_operators
+  created_at: date_filter_operators
+  created_at_func: datetime_function_filter_operators
+  _and: [directus_sync_id_map_filter]
+  _or: [directus_sync_id_map_filter]
+}
+
 input directus_users_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   first_name: string_filter_operators
   last_name: string_filter_operators
   email: string_filter_operators
@@ -903,14 +3745,63 @@ input directus_users_filter {
   theme_light_overrides_func: count_function_filter_operators
   theme_dark_overrides: string_filter_operators
   theme_dark_overrides_func: count_function_filter_operators
-  policies: directus_access_filter
+  imported: boolean_filter_operators
+  wc_user: boolean_filter_operators
+  notifications: layers_directus_users_1_quantifier_filter
+  notifications_func: count_function_filter_operators
+  policies: directus_access_quantifier_filter
   policies_func: count_function_filter_operators
   _and: [directus_users_filter]
   _or: [directus_users_filter]
 }
 
+""""""
+input directus_users_quantifier_filter {
+  id: id_filter_operators
+  first_name: string_filter_operators
+  last_name: string_filter_operators
+  email: string_filter_operators
+  password: hash_filter_operators
+  location: string_filter_operators
+  title: string_filter_operators
+  description: string_filter_operators
+  tags: string_filter_operators
+  tags_func: count_function_filter_operators
+  avatar: directus_files_filter
+  language: string_filter_operators
+  tfa_secret: hash_filter_operators
+  status: string_filter_operators
+  role: directus_roles_filter
+  token: hash_filter_operators
+  last_access: date_filter_operators
+  last_access_func: datetime_function_filter_operators
+  last_page: string_filter_operators
+  provider: string_filter_operators
+  external_identifier: string_filter_operators
+  auth_data: string_filter_operators
+  auth_data_func: count_function_filter_operators
+  email_notifications: boolean_filter_operators
+  appearance: string_filter_operators
+  theme_dark: string_filter_operators
+  theme_light: string_filter_operators
+  theme_light_overrides: string_filter_operators
+  theme_light_overrides_func: count_function_filter_operators
+  theme_dark_overrides: string_filter_operators
+  theme_dark_overrides_func: count_function_filter_operators
+  imported: boolean_filter_operators
+  wc_user: boolean_filter_operators
+  notifications: layers_directus_users_1_quantifier_filter
+  notifications_func: count_function_filter_operators
+  policies: directus_access_quantifier_filter
+  policies_func: count_function_filter_operators
+  _and: [directus_users_filter]
+  _or: [directus_users_filter]
+  _some: directus_users_filter
+  _none: directus_users_filter
+}
+
 input directus_versions_filter {
-  id: string_filter_operators
+  id: id_filter_operators
   key: string_filter_operators
   name: string_filter_operators
   collection: string_filter_operators
@@ -928,11 +3819,404 @@ input directus_versions_filter {
   _or: [directus_versions_filter]
 }
 
+input features_filter {
+  id: number_filter_operators
+  status: string_filter_operators
+  sort: number_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  heading: string_filter_operators
+  symbol: string_filter_operators
+  text: string_filter_operators
+  _and: [features_filter]
+  _or: [features_filter]
+}
+
+input gallery_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  hideInputLabel: boolean_filter_operators
+  _and: [gallery_filter]
+  _or: [gallery_filter]
+}
+
+input geometry_filter_operators {
+  _eq: GraphQLGeoJSON
+  _neq: GraphQLGeoJSON
+  _intersects: GraphQLGeoJSON
+  _nintersects: GraphQLGeoJSON
+  _intersects_bbox: GraphQLGeoJSON
+  _nintersects_bbox: GraphQLGeoJSON
+  _null: Boolean
+  _nnull: Boolean
+}
+
+input groupSubheaders_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  shareBaseUrl: string_filter_operators
+  groupStates: string_filter_operators
+  groupStates_func: count_function_filter_operators
+  platforms: string_filter_operators
+  platforms_func: count_function_filter_operators
+  groupTypes: groupSubheaders_groupTypes_quantifier_filter
+  groupTypes_func: count_function_filter_operators
+  _and: [groupSubheaders_filter]
+  _or: [groupSubheaders_filter]
+}
+
+input groupSubheaders_groupTypes_filter {
+  id: number_filter_operators
+  groupSubheaders_id: groupSubheaders_filter
+  groupTypes_id: groupTypes_filter
+  _and: [groupSubheaders_groupTypes_filter]
+  _or: [groupSubheaders_groupTypes_filter]
+}
+
+""""""
+input groupSubheaders_groupTypes_quantifier_filter {
+  id: number_filter_operators
+  groupSubheaders_id: groupSubheaders_filter
+  groupTypes_id: groupTypes_filter
+  _and: [groupSubheaders_groupTypes_filter]
+  _or: [groupSubheaders_groupTypes_filter]
+  _some: groupSubheaders_groupTypes_filter
+  _none: groupSubheaders_groupTypes_filter
+}
+
+input groupTypes_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  name: string_filter_operators
+  color: string_filter_operators
+  image: directus_files_filter
+  markerIcon: marker_icons_filter
+  _and: [groupTypes_filter]
+  _or: [groupTypes_filter]
+}
+
 input hash_filter_operators {
   _null: Boolean
   _nnull: Boolean
   _empty: Boolean
   _nempty: Boolean
+}
+
+input id_filter_operators {
+  _eq: ID
+  _neq: ID
+  _contains: ID
+  _icontains: ID
+  _ncontains: ID
+  _starts_with: ID
+  _nstarts_with: ID
+  _istarts_with: ID
+  _nistarts_with: ID
+  _ends_with: ID
+  _nends_with: ID
+  _iends_with: ID
+  _niends_with: ID
+  _in: [ID]
+  _nin: [ID]
+  _null: Boolean
+  _nnull: Boolean
+  _empty: Boolean
+  _nempty: Boolean
+}
+
+input inviteLinks_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  _and: [inviteLinks_filter]
+  _or: [inviteLinks_filter]
+}
+
+input items_files_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  directus_files_id: directus_files_filter
+  _and: [items_files_filter]
+  _or: [items_files_filter]
+}
+
+""""""
+input items_files_quantifier_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  directus_files_id: directus_files_filter
+  _and: [items_files_filter]
+  _or: [items_files_filter]
+  _some: items_files_filter
+  _none: items_files_filter
+}
+
+input items_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  name: string_filter_operators
+  text: string_filter_operators
+  position: geometry_filter_operators
+  image: directus_files_filter
+  layer: layers_filter
+  start: date_filter_operators
+  start_func: datetime_function_filter_operators
+  end: date_filter_operators
+  end_func: datetime_function_filter_operators
+  color: string_filter_operators
+  parent: items_filter
+  subname: string_filter_operators
+  public_edit: boolean_filter_operators
+  slug: string_filter_operators
+  status: string_filter_operators
+  markerIcon: marker_icons_filter
+  telephone: string_filter_operators
+  group_type: string_filter_operators
+  next_appointment: string_filter_operators
+  contact: string_filter_operators
+  openCollectiveSlug: string_filter_operators
+  draft: boolean_filter_operators
+  gallery: items_files_quantifier_filter
+  gallery_func: count_function_filter_operators
+  offers: items_tags_quantifier_filter
+  offers_func: count_function_filter_operators
+  needs: items_tags_1_quantifier_filter
+  needs_func: count_function_filter_operators
+  relations: items_items_quantifier_filter
+  relations_func: count_function_filter_operators
+  secrets: itemSecrets_quantifier_filter
+  secrets_func: count_function_filter_operators
+  _and: [items_filter]
+  _or: [items_filter]
+}
+
+input items_items_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  related_items_id: items_filter
+  type: string_filter_operators
+  _and: [items_items_filter]
+  _or: [items_items_filter]
+}
+
+""""""
+input items_items_quantifier_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  related_items_id: items_filter
+  type: string_filter_operators
+  _and: [items_items_filter]
+  _or: [items_items_filter]
+  _some: items_items_filter
+  _none: items_items_filter
+}
+
+input items_tags_1_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  tags_id: tags_filter
+  _and: [items_tags_1_filter]
+  _or: [items_tags_1_filter]
+}
+
+""""""
+input items_tags_1_quantifier_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  tags_id: tags_filter
+  _and: [items_tags_1_filter]
+  _or: [items_tags_1_filter]
+  _some: items_tags_1_filter
+  _none: items_tags_1_filter
+}
+
+input items_tags_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  tags_id: tags_filter
+  _and: [items_tags_filter]
+  _or: [items_tags_filter]
+}
+
+""""""
+input items_tags_quantifier_filter {
+  id: number_filter_operators
+  items_id: items_filter
+  tags_id: tags_filter
+  _and: [items_tags_filter]
+  _or: [items_tags_filter]
+  _some: items_tags_filter
+  _none: items_tags_filter
+}
+
+input itemSecrets_filter {
+  secret: id_filter_operators
+  item: items_filter
+  _and: [itemSecrets_filter]
+  _or: [itemSecrets_filter]
+}
+
+""""""
+input itemSecrets_quantifier_filter {
+  secret: id_filter_operators
+  item: items_filter
+  _and: [itemSecrets_filter]
+  _or: [itemSecrets_filter]
+  _some: itemSecrets_filter
+  _none: itemSecrets_filter
+}
+
+input junction_directus_users_tags_1_filter {
+  id: number_filter_operators
+  directus_users_id: directus_users_filter
+  tags_id: tags_filter
+  _and: [junction_directus_users_tags_1_filter]
+  _or: [junction_directus_users_tags_1_filter]
+}
+
+input junction_directus_users_tags_filter {
+  id: number_filter_operators
+  directus_users_id: directus_users_filter
+  tags_id: tags_filter
+  _and: [junction_directus_users_tags_filter]
+  _or: [junction_directus_users_tags_filter]
+}
+
+input layers_directus_users_1_filter {
+  id: number_filter_operators
+  layers_id: layers_filter
+  directus_users_id: directus_users_filter
+  _and: [layers_directus_users_1_filter]
+  _or: [layers_directus_users_1_filter]
+}
+
+""""""
+input layers_directus_users_1_quantifier_filter {
+  id: number_filter_operators
+  layers_id: layers_filter
+  directus_users_id: directus_users_filter
+  _and: [layers_directus_users_1_filter]
+  _or: [layers_directus_users_1_filter]
+  _some: layers_directus_users_1_filter
+  _none: layers_directus_users_1_filter
+}
+
+input layers_files_filter {
+  id: number_filter_operators
+  layers_id: layers_filter
+  directus_files_id: directus_files_filter
+  _and: [layers_files_filter]
+  _or: [layers_files_filter]
+}
+
+input layers_filter {
+  id: id_filter_operators
+  name: string_filter_operators
+  markerShape: string_filter_operators
+  menuText: string_filter_operators
+  menuColor: string_filter_operators
+  indexIcon: directus_files_filter
+  menuIcon: directus_files_filter
+  onlyOnePerOwner: boolean_filter_operators
+  itemType: types_filter
+  index_plus_button: boolean_filter_operators
+  public_edit_items: boolean_filter_operators
+  markerIcon: marker_icons_filter
+  markerDefaultColor2: string_filter_operators
+  listed: boolean_filter_operators
+  item_presets: string_filter_operators
+  item_presets_func: count_function_filter_operators
+  userProfileLayer: boolean_filter_operators
+  maps: layers_maps_quantifier_filter
+  maps_func: count_function_filter_operators
+  notifications: layers_directus_users_1_quantifier_filter
+  notifications_func: count_function_filter_operators
+  _and: [layers_filter]
+  _or: [layers_filter]
+}
+
+input layers_maps_filter {
+  id: number_filter_operators
+  layers_id: layers_filter
+  maps_id: maps_filter
+  _and: [layers_maps_filter]
+  _or: [layers_maps_filter]
+}
+
+""""""
+input layers_maps_quantifier_filter {
+  id: number_filter_operators
+  layers_id: layers_filter
+  maps_id: maps_filter
+  _and: [layers_maps_filter]
+  _or: [layers_maps_filter]
+  _some: layers_maps_filter
+  _none: layers_maps_filter
+}
+
+input maps_filter {
+  id: id_filter_operators
+  name: string_filter_operators
+  url: string_filter_operators
+  logo: directus_files_filter
+  zoom: number_filter_operators
+  center: geometry_filter_operators
+  own_tag_space: boolean_filter_operators
+  geo: string_filter_operators
+  geo_func: count_function_filter_operators
+  show_layer_control: boolean_filter_operators
+  show_filter_control: boolean_filter_operators
+  user_type: types_filter
+  custom_text: string_filter_operators
+  show_gratitude_control: boolean_filter_operators
+  donation_widget: boolean_filter_operators
+  show_theme_control: boolean_filter_operators
+  default_theme: Themes_filter
+  show_zoom_control: boolean_filter_operators
+  expand_layer_control: boolean_filter_operators
+  info_open: boolean_filter_operators
+  tile_server_url: string_filter_operators
+  tile_server_attribution: string_filter_operators
+  layers: layers_maps_quantifier_filter
+  layers_func: count_function_filter_operators
+  _and: [maps_filter]
+  _or: [maps_filter]
+}
+
+input marker_icons_filter {
+  id: string_filter_operators
+  size: number_filter_operators
+  image: directus_files_filter
+  _and: [marker_icons_filter]
+  _or: [marker_icons_filter]
 }
 
 input number_filter_operators {
@@ -948,6 +4232,40 @@ input number_filter_operators {
   _nnull: Boolean
   _between: [GraphQLStringOrFloat]
   _nbetween: [GraphQLStringOrFloat]
+}
+
+input oceannomads_profiles_filter {
+  id: string_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  email: string_filter_operators
+  first_name: string_filter_operators
+  last_name: string_filter_operators
+  location: string_filter_operators
+  avatar_url: string_filter_operators
+  _and: [oceannomads_profiles_filter]
+  _or: [oceannomads_profiles_filter]
+}
+
+input relations_filter {
+  id: number_filter_operators
+  relation: string_filter_operators
+  _and: [relations_filter]
+  _or: [relations_filter]
+}
+
+input startEnd_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  _and: [startEnd_filter]
+  _or: [startEnd_filter]
 }
 
 input string_filter_operators {
@@ -970,4 +4288,592 @@ input string_filter_operators {
   _nnull: Boolean
   _empty: Boolean
   _nempty: Boolean
+}
+
+input tags_filter {
+  id: id_filter_operators
+  name: string_filter_operators
+  color: string_filter_operators
+  map: maps_filter
+  offer_or_need: boolean_filter_operators
+  user_created: id_filter_operators
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  _and: [tags_filter]
+  _or: [tags_filter]
+}
+
+input team_filter {
+  id: id_filter_operators
+  status: string_filter_operators
+  sort: number_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  name: string_filter_operators
+  role: string_filter_operators
+  text: string_filter_operators
+  image: directus_files_filter
+  _and: [team_filter]
+  _or: [team_filter]
+}
+
+input texts_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  heading: string_filter_operators
+  hideWhenEmpty: boolean_filter_operators
+  dataField: string_filter_operators
+  size: string_filter_operators
+  showMarkdownHint: boolean_filter_operators
+  _and: [texts_filter]
+  _or: [texts_filter]
+}
+
+input Themes_filter {
+  theme: string_filter_operators
+  _and: [Themes_filter]
+  _or: [Themes_filter]
+}
+
+input types_filter {
+  id: id_filter_operators
+  user_created: directus_users_filter
+  date_created: date_filter_operators
+  date_created_func: datetime_function_filter_operators
+  user_updated: directus_users_filter
+  date_updated: date_filter_operators
+  date_updated_func: datetime_function_filter_operators
+  name: string_filter_operators
+  show_text_input: boolean_filter_operators
+  show_name_input: boolean_filter_operators
+  show_profile_button: boolean_filter_operators
+  show_text: boolean_filter_operators
+  show_name: boolean_filter_operators
+  custom_text: string_filter_operators
+  show_start_end_input: boolean_filter_operators
+  show_start_end: boolean_filter_operators
+  offers_and_needs: boolean_filter_operators
+  relations: boolean_filter_operators
+  onepager: boolean_filter_operators
+  text_area: boolean_filter_operators
+  text: boolean_filter_operators
+  questlog: boolean_filter_operators
+  icon_as_labels: boolean_filter_operators
+  template: string_filter_operators
+  profileTemplate: types_profileTemplate_quantifier_filter
+  profileTemplate_func: count_function_filter_operators
+  _and: [types_filter]
+  _or: [types_filter]
+}
+
+input types_profileTemplate_filter {
+  id: number_filter_operators
+  types_id: types_filter
+  collection: string_filter_operators
+  sort: number_filter_operators
+  _and: [types_profileTemplate_filter]
+  _or: [types_profileTemplate_filter]
+  item__groupSubheaders: groupSubheaders_filter
+  item__contactInfos: contactInfos_filter
+  item__texts: texts_filter
+  item__startEnd: startEnd_filter
+  item__gallery: gallery_filter
+  item__crowdfundings: crowdfundings_filter
+  item__inviteLinks: inviteLinks_filter
+  item__relations: relations_filter
+}
+
+""""""
+input types_profileTemplate_quantifier_filter {
+  id: number_filter_operators
+  types_id: types_filter
+  collection: string_filter_operators
+  sort: number_filter_operators
+  _and: [types_profileTemplate_filter]
+  _or: [types_profileTemplate_filter]
+  _some: types_profileTemplate_filter
+  _none: types_profileTemplate_filter
+  item__groupSubheaders: groupSubheaders_filter
+  item__contactInfos: contactInfos_filter
+  item__texts: texts_filter
+  item__startEnd: startEnd_filter
+  item__gallery: gallery_filter
+  item__crowdfundings: crowdfundings_filter
+  item__inviteLinks: inviteLinks_filter
+  item__relations: relations_filter
+}
+
+input update_attestations_directus_users_input {
+  id: ID
+  attestations_id: update_attestations_input
+  directus_users_id: update_directus_users_input
+}
+
+input update_attestations_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  text: String
+  color: String
+  emoji: String
+  shape: String
+  to: [update_attestations_directus_users_input]
+}
+
+input update_contactInfos_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  heading: String
+}
+
+input update_crowdfundings_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+}
+
+input update_directus_access_input {
+  id: ID
+  role: update_directus_roles_input
+  user: update_directus_users_input
+  policy: update_directus_policies_input
+  sort: Int
+}
+
+input update_directus_files_input {
+  id: ID
+  storage: String
+  filename_disk: String
+  filename_download: String
+  title: String
+  type: String
+  folder: update_directus_folders_input
+  uploaded_by: update_directus_users_input
+  created_on: Date
+  modified_by: update_directus_users_input
+  modified_on: Date
+  charset: String
+  filesize: GraphQLBigInt
+  width: Int
+  height: Int
+  duration: Int
+  embed: String
+  description: String
+  location: String
+  tags: JSON
+  metadata: JSON
+  focal_point_x: Int
+  focal_point_y: Int
+  tus_id: String
+  tus_data: JSON
+  uploaded_on: Date
+}
+
+input update_directus_folders_input {
+  id: ID
+  name: String
+  parent: update_directus_folders_input
+}
+
+input update_directus_permissions_input {
+  id: ID
+  collection: String
+  action: String
+  permissions: JSON
+  validation: JSON
+  presets: JSON
+  fields: [String]
+  policy: update_directus_policies_input
+}
+
+input update_directus_policies_input {
+  id: ID
+  name: String
+  icon: String
+  description: String
+  ip_access: [String]
+
+  """$t:field_options.directus_policies.enforce_tfa"""
+  enforce_tfa: Boolean
+  admin_access: Boolean
+  app_access: Boolean
+  permissions: [update_directus_permissions_input]
+  users: [update_directus_access_input]
+  roles: [update_directus_access_input]
+}
+
+input update_directus_roles_input {
+  id: ID
+  name: String
+  icon: String
+  description: String
+  parent: update_directus_roles_input
+  children: [update_directus_roles_input]
+  policies: [update_directus_access_input]
+  users: [update_directus_users_input]
+}
+
+input update_directus_sync_id_map_input {
+  id: ID
+  table: String
+  sync_id: String
+  local_id: String
+  created_at: Date
+}
+
+input update_directus_users_input {
+  id: ID
+  first_name: String
+  last_name: String
+  email: String
+  password: Hash
+  location: String
+  title: String
+  description: String
+  tags: JSON
+  avatar: update_directus_files_input
+  language: String
+  tfa_secret: Hash
+  status: String
+  role: update_directus_roles_input
+  token: Hash
+  last_access: Date
+  last_page: String
+  provider: String
+  external_identifier: String
+  auth_data: JSON
+  email_notifications: Boolean
+  appearance: String
+  theme_dark: String
+  theme_light: String
+  theme_light_overrides: JSON
+  theme_dark_overrides: JSON
+  imported: Boolean
+  wc_user: Boolean
+  notifications: [update_layers_directus_users_1_input]
+  policies: [update_directus_access_input]
+}
+
+input update_features_input {
+  id: ID
+  status: String
+  sort: Int
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  heading: String
+  symbol: String
+  text: String
+}
+
+input update_gallery_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  hideInputLabel: Boolean
+}
+
+input update_groupSubheaders_groupTypes_input {
+  id: ID
+  groupSubheaders_id: update_groupSubheaders_input
+  groupTypes_id: update_groupTypes_input
+}
+
+input update_groupSubheaders_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  shareBaseUrl: String
+  groupStates: JSON
+  platforms: JSON
+  groupTypes: [update_groupSubheaders_groupTypes_input]
+}
+
+input update_groupTypes_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  name: String
+  color: String
+  image: update_directus_files_input
+  markerIcon: update_marker_icons_input
+}
+
+input update_inviteLinks_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+}
+
+input update_items_files_input {
+  id: ID
+  items_id: update_items_input
+  directus_files_id: update_directus_files_input
+}
+
+input update_items_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  name: String
+  text: String
+  position: GraphQLGeoJSON
+  image: update_directus_files_input
+  layer: update_layers_input
+  start: Date
+  end: Date
+  color: String
+  parent: update_items_input
+  subname: String
+  public_edit: Boolean
+  slug: String
+  status: String
+  markerIcon: update_marker_icons_input
+  telephone: String
+  group_type: String
+  next_appointment: String
+  contact: String
+  openCollectiveSlug: String
+  draft: Boolean
+  gallery: [update_items_files_input]
+  offers: [update_items_tags_input]
+  needs: [update_items_tags_1_input]
+  relations: [update_items_items_input]
+  secrets: [update_itemSecrets_input]
+}
+
+input update_items_items_input {
+  id: ID
+  items_id: update_items_input
+  related_items_id: update_items_input
+  type: String
+}
+
+input update_items_tags_1_input {
+  id: ID
+  items_id: update_items_input
+  tags_id: update_tags_input
+}
+
+input update_items_tags_input {
+  id: ID
+  items_id: update_items_input
+  tags_id: update_tags_input
+}
+
+input update_itemSecrets_input {
+  secret: ID
+  item: update_items_input
+}
+
+input update_junction_directus_users_tags_1_input {
+  id: ID
+  directus_users_id: update_directus_users_input
+  tags_id: update_tags_input
+}
+
+input update_junction_directus_users_tags_input {
+  id: ID
+  directus_users_id: update_directus_users_input
+  tags_id: update_tags_input
+}
+
+input update_layers_directus_users_1_input {
+  id: ID
+  layers_id: update_layers_input
+  directus_users_id: update_directus_users_input
+}
+
+input update_layers_files_input {
+  id: ID
+  layers_id: update_layers_input
+  directus_files_id: update_directus_files_input
+}
+
+input update_layers_input {
+  id: ID
+  name: String
+  markerShape: String
+  menuText: String
+  menuColor: String
+  indexIcon: update_directus_files_input
+  menuIcon: update_directus_files_input
+  onlyOnePerOwner: Boolean
+  itemType: update_types_input
+  index_plus_button: Boolean
+  public_edit_items: Boolean
+  markerIcon: update_marker_icons_input
+  markerDefaultColor2: String
+  listed: Boolean
+  item_presets: JSON
+  userProfileLayer: Boolean
+  maps: [update_layers_maps_input]
+  notifications: [update_layers_directus_users_1_input]
+}
+
+input update_layers_maps_input {
+  id: ID
+  layers_id: update_layers_input
+  maps_id: update_maps_input
+}
+
+input update_maps_input {
+  id: ID
+  name: String
+  url: String
+  logo: update_directus_files_input
+  zoom: Int
+  center: GraphQLGeoJSON
+  own_tag_space: Boolean
+
+  """You can include GeoJSON"""
+  geo: JSON
+  show_layer_control: Boolean
+  show_filter_control: Boolean
+  user_type: update_types_input
+
+  """Replace the info text in the info popup"""
+  custom_text: String
+  show_gratitude_control: Boolean
+
+  """Shows a donation widget after 10 minutes"""
+  donation_widget: Boolean
+  show_theme_control: Boolean
+  default_theme: update_Themes_input
+  show_zoom_control: Boolean
+  expand_layer_control: Boolean
+  info_open: Boolean
+  tile_server_url: String
+  tile_server_attribution: String
+  layers: [update_layers_maps_input]
+}
+
+input update_marker_icons_input {
+  id: ID
+  size: Float
+  image: update_directus_files_input
+}
+
+input update_oceannomads_profiles_input {
+  id: ID
+  date_created: Date
+  date_updated: Date
+  email: String
+  first_name: String
+  last_name: String
+  location: String
+  avatar_url: String
+}
+
+input update_relations_input {
+  id: ID
+  relation: String
+}
+
+input update_startEnd_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+}
+
+input update_tags_input {
+  id: ID
+  name: String
+  color: String
+  map: update_maps_input
+  offer_or_need: Boolean
+  user_created: ID
+  date_created: Date
+}
+
+input update_team_input {
+  id: ID
+  status: String
+  sort: Int
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  name: String
+  role: String
+  text: String
+  image: update_directus_files_input
+}
+
+input update_texts_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  heading: String
+  hideWhenEmpty: Boolean
+  dataField: String
+  size: String
+  showMarkdownHint: Boolean
+}
+
+input update_Themes_input {
+  theme: ID
+}
+
+input update_types_input {
+  id: ID
+  user_created: update_directus_users_input
+  date_created: Date
+  user_updated: update_directus_users_input
+  date_updated: Date
+  name: String
+  show_text_input: Boolean
+  show_name_input: Boolean
+  show_profile_button: Boolean
+  show_text: Boolean
+  show_name: Boolean
+  custom_text: String
+  show_start_end_input: Boolean
+  show_start_end: Boolean
+  offers_and_needs: Boolean
+  relations: Boolean
+  onepager: Boolean
+  text_area: Boolean
+  text: Boolean
+  questlog: Boolean
+  icon_as_labels: Boolean
+  template: String
+  profileTemplate: [update_types_profileTemplate_input]
+}
+
+input update_types_profileTemplate_input {
+  id: ID
+  types_id: update_types_input
+  item: String
+  collection: String
+  sort: Int
 }

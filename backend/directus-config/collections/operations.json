@@ -1,1 +1,793 @@
-[]
+[
+  {
+    "name": "Backend-Operation",
+    "key": "backend_operation",
+    "type": "condition",
+    "position_x": 25,
+    "position_y": 22,
+    "options": {
+      "filter": {
+        "$accountability": {
+          "origin": {
+            "_neq": "https://api.utopia-lab.org"
+          }
+        }
+      }
+    },
+    "resolve": "8cc15ed4-8372-4a45-abaa-df19d560b01a",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "30c1dc02-2ccb-4b45-9668-dcf9fd2b6f1c"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_r2r2k",
+    "type": "condition",
+    "position_x": 36,
+    "position_y": 19,
+    "options": {
+      "filter": {
+        "$last": {
+          "result": {
+            "_eq": true
+          }
+        }
+      }
+    },
+    "resolve": "34a6106b-7789-4212-8bdc-e54798e2eca7",
+    "reject": "c548ce31-7864-4b71-af5f-9c6c0484f6a5",
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "c6568ed4-4a25-4439-b491-82b3924937b7"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_wl4bz",
+    "type": "condition",
+    "position_x": 58,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$last": {
+          "_eq": "0"
+        }
+      }
+    },
+    "resolve": "57f3b6fe-4cf9-4a11-984f-320d80246980",
+    "reject": "e58a5edc-0ecb-42f3-89b1-c0306af1ed15",
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "432dcfa2-28c5-4d75-884f-706877984bd6"
+  },
+  {
+    "name": "Create item secret",
+    "key": "create_item_secret",
+    "type": "item-create",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "payload": {
+        "item": "{{ $trigger.item }}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "234d13fe-112a-4408-9bdb-78dd8cbd6b82",
+    "_syncId": "491e552d-539e-4474-bcf5-a94dcc43e67e"
+  },
+  {
+    "name": "Create secret",
+    "key": "create_secret",
+    "type": "item-create",
+    "position_x": 25,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "payload": {
+        "item": "{{ $trigger.key }}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cbd7d15d-7f09-4f45-8060-3b24adabf82a",
+    "_syncId": "7b158384-5bce-4fd7-917a-4a61e53de6ec"
+  },
+  {
+    "name": "Run Script",
+    "key": "exec_a3592",
+    "type": "exec",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            item: item.id,\n        };\n    });\n}"
+    },
+    "resolve": "2d4009c7-0a19-4c55-813c-f1e0f3de1bf0",
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "34632268-e471-42d0-aede-292069da3ed2"
+  },
+  {
+    "name": "does_relation_exist",
+    "key": "exec_b85vb",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 19,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn {\n    \tresult: data['$last'].length > 0\n    };\n}"
+    },
+    "resolve": "c6568ed4-4a25-4439-b491-82b3924937b7",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "2532ca4a-8804-4d52-b656-1deedb7f2169"
+  },
+  {
+    "name": "get Creator",
+    "key": "get_creator",
+    "type": "item-read",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "fields:": "first_name"
+      },
+      "key": [
+        "{{$trigger.user_created}}"
+      ]
+    },
+    "resolve": "4ed7ef1e-df2c-4431-869c-5db36566c89e",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "df666750-86d0-4e92-b01c-d54bb25b5e10"
+  },
+  {
+    "name": "get_existing_relation",
+    "key": "get_existing_relation",
+    "type": "item-read",
+    "position_x": 2,
+    "position_y": 19,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items_items",
+      "query": {
+        "filter": {
+          "type": {
+            "_eq": "is_following"
+          },
+          "items_id": {
+            "_eq": "{{ $trigger.body.item }}"
+          },
+          "related_items_id": {
+            "_eq": "{{ $last[0].item }}"
+          }
+        }
+      }
+    },
+    "resolve": "2532ca4a-8804-4d52-b656-1deedb7f2169",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "0ef676a7-39b0-491e-8f42-21033af08078"
+  },
+  {
+    "name": "Get Item",
+    "key": "get_item",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "key": [
+        "{{$trigger.item}}"
+      ],
+      "query": {
+        "fields": "name"
+      }
+    },
+    "resolve": "7aedff00-97c2-4865-9202-6015188303dc",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "e41ca97f-b3f6-4baa-a910-db2913c9fe25"
+  },
+  {
+    "name": "Get Map",
+    "key": "get_map",
+    "type": "item-read",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "maps",
+      "query": {
+        "filter": {
+          "url": {
+            "_eq": "{{$trigger.map_url}}"
+          }
+        },
+        "fields": "name,logo"
+      }
+    },
+    "resolve": "df666750-86d0-4e92-b01c-d54bb25b5e10",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "7aedff00-97c2-4865-9202-6015188303dc"
+  },
+  {
+    "name": "Get Subscriber",
+    "key": "get_subscriber",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{$trigger.subscriber}}"
+      ],
+      "query": {
+        "fields": "email, first_name"
+      }
+    },
+    "resolve": "e41ca97f-b3f6-4baa-a910-db2913c9fe25",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "bb96dab8-08c7-4b39-8ead-c2ed5d5a906c"
+  },
+  {
+    "name": "Read Items",
+    "key": "item_create_jqtv7",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "query": {
+        "limit": -1
+      }
+    },
+    "resolve": "34632268-e471-42d0-aede-292069da3ed2",
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "c5b9aa76-b524-47b8-acc5-dd0350a3a12a"
+  },
+  {
+    "name": "Create Data",
+    "key": "item_create_x8h5h",
+    "type": "item-create",
+    "position_x": 37,
+    "position_y": 36,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items_items",
+      "payload": {
+        "items_id": "{{ $trigger.body.item }}",
+        "related_items_id": "{{ read_data[0].item }}",
+        "type": "is_following"
+      }
+    },
+    "resolve": "5583fd94-c481-4a08-8632-115a2ce85577",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "c548ce31-7864-4b71-af5f-9c6c0484f6a5"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_0u34g",
+    "type": "item-read",
+    "position_x": 4,
+    "position_y": 47,
+    "options": {
+      "collection": "layers",
+      "key": "{{$last.layer}}"
+    },
+    "resolve": "a0be4bc8-1fe0-40fd-8cc7-01be6b25f5cb",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "9823c564-3872-495a-b343-6108e328b0e4"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_3ku1k",
+    "type": "item-read",
+    "position_x": 38,
+    "position_y": 1,
+    "options": {
+      "collection": "items",
+      "query": {
+        "filter": {
+          "slug": {
+            "_starts_with": "{{$last}}"
+          }
+        },
+        "aggregate": {
+          "count": "*"
+        }
+      }
+    },
+    "resolve": "a1df90fb-43dd-4753-b1d5-437c2eb8ad9f",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "ac036523-bc4d-4230-9475-01085fa4f8e1"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_3udhm",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "key": [
+        "{{$trigger.payload.id}}"
+      ]
+    },
+    "resolve": "0be87499-c06d-4cf9-9212-27729ec5ad4e",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "b95390e0-fa4c-4b2f-b7ea-a151b333229f"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_9qv1c",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "query": {
+        "filter": {
+          "secret": {
+            "_eq": "{{$trigger.query.secret}}"
+          }
+        }
+      },
+      "key": []
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "01d61db0-25aa-4bfa-bc24-c6a8f208a455",
+    "_syncId": "8bf158c9-8540-4ce3-88da-0e5f17f76ed7"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_bls9m",
+    "type": "item-read",
+    "position_x": 5,
+    "position_y": 22,
+    "options": {
+      "collection": "items",
+      "key": "{{$trigger.payload.id}}"
+    },
+    "resolve": "9823c564-3872-495a-b343-6108e328b0e4",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "95ed41d5-f195-4ebb-b444-402cff7c4a12"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_p8h47",
+    "type": "item-read",
+    "position_x": 22,
+    "position_y": 49,
+    "options": {
+      "collection": "layers_maps"
+    },
+    "resolve": "373efd9a-c3c2-4bfc-b8d1-cd9b6f8492f9",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "a0be4bc8-1fe0-40fd-8cc7-01be6b25f5cb"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_q6u16",
+    "type": "item-read",
+    "position_x": 41,
+    "position_y": 49,
+    "options": {
+      "collection": "maps"
+    },
+    "resolve": "30c1dc02-2ccb-4b45-9668-dcf9fd2b6f1c",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "373efd9a-c3c2-4bfc-b8d1-cd9b6f8492f9"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_chszs",
+    "type": "item-update",
+    "position_x": 100,
+    "position_y": 17,
+    "options": {
+      "collection": "items",
+      "query": {
+        "filter": {
+          "id": {
+            "_eq": "{{$trigger.payload.id}}"
+          }
+        }
+      },
+      "payload": {
+        "slug": "{{slugify}}-{{singelton}}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "e58a5edc-0ecb-42f3-89b1-c0306af1ed15"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_pv6i8",
+    "type": "item-update",
+    "position_x": 99,
+    "position_y": 1,
+    "options": {
+      "payload": {
+        "slug": "{{slugify}}"
+      },
+      "query": {
+        "filter": {
+          "id": {
+            "_eq": "{{$trigger.payload.id}}"
+          }
+        }
+      },
+      "collection": "items"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "57f3b6fe-4cf9-4a11-984f-320d80246980"
+  },
+  {
+    "name": "Log to Console",
+    "key": "log_tj8ei",
+    "type": "log",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "message": "{{$last}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "f26cd8dd-9fda-4019-9f81-d2a9de999c14"
+  },
+  {
+    "name": "Send Email",
+    "key": "mail_kmf07",
+    "type": "mail",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "type": "markdown",
+      "subject": "{{get_item.name}} {{$trigger.event}}",
+      "to": [
+        "{{get_subscriber.email}}"
+      ],
+      "body": "Hi {{get_subscriber.first_name}},\n\n{{get_creator.first_name}} has {{$trigger.event}} [{{get_item.name}}]({{$trigger.map_url}}/item/{{$trigger.item}})  on [{{get_map[0].name}}]({{$trigger.map_url}}/item/{{$trigger.item}})."
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "4ed7ef1e-df2c-4431-869c-5db36566c89e"
+  },
+  {
+    "name": "prepare Mails",
+    "key": "prepare_mails",
+    "type": "exec",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            event: data['$trigger'].event === \"items.items.create\" ? \"created\" : \"updated\",\n            item: data['$trigger'].payload.id,\n            user_created: data['$accountability'].user,\n            subscriber: item.directus_users_id,\n   \t\t\tmap_url: data['$accountability'].origin,\n        };\n    });\n}"
+    },
+    "resolve": "661c5585-4833-46b0-82aa-72be37ec0ff2",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "00e09aa0-d3d3-492a-8a17-f9b74f421954"
+  },
+  {
+    "name": "Prepare Profile for Murmurations",
+    "key": "prepare_profile_for_murmurations",
+    "type": "transform",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "json": {
+        "linked_schemas": [
+          "people_schema-v0.1.0"
+        ],
+        "name": "{{$last.user_created.firstname}}",
+        "nickname": "{{$last.user_created.firstname}}",
+        "image": "{{$last.user_created.avatar}}",
+        "geolocation": {
+          "lat": 50.43312645607191,
+          "lon": 9.714832305908205
+        }
+      }
+    },
+    "resolve": "f26cd8dd-9fda-4019-9f81-d2a9de999c14",
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "c4d60433-bb2e-4d06-b10b-f3029b02963d"
+  },
+  {
+    "name": "read data",
+    "key": "read_data",
+    "type": "item-read",
+    "position_x": 52,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "query": {
+        "filter": {
+          "secret": {
+            "_eq": "{{$trigger.body.secret}}"
+          }
+        }
+      }
+    },
+    "resolve": "0ef676a7-39b0-491e-8f42-21033af08078",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "ae1677c8-3114-4015-9115-b9e763a7d5e1"
+  },
+  {
+    "name": "Read Layer IDs",
+    "key": "read_layers_ids",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "layers_directus_users_1",
+      "key": [],
+      "query": {
+        "filter": {
+          "layers_id": {
+            "_eq": "{{$last.layer}}"
+          }
+        },
+        "fields": "directus_users_id"
+      }
+    },
+    "resolve": "00e09aa0-d3d3-492a-8a17-f9b74f421954",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "0be87499-c06d-4cf9-9212-27729ec5ad4e"
+  },
+  {
+    "name": "read user items",
+    "key": "read_user_items",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
+      "query": {
+        "filter": {
+          "user_created": {
+            "_eq": "{{$accountability.user}}"
+          }
+        }
+      }
+    },
+    "resolve": "feca5834-de50-4593-9df4-7f9ec81f8c71",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "020070b2-cf09-4a0d-82d0-c90b334a70cc"
+  },
+  {
+    "name": "Webhook / Request URL",
+    "key": "request_dvnuy",
+    "type": "request",
+    "position_x": 31,
+    "position_y": 24,
+    "options": {
+      "method": "POST",
+      "url": "https://test-index.murmurations.network/v2/nodes",
+      "headers": [
+        {
+          "header": "accept",
+          "value": "application/json"
+        },
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": "{\n  \"profile_url\": \"https://somenode.org/optional-subdirectory/node-profile.json\"\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "6d14f1a8-cd2b-4dc1-9df3-5297f1e99cf0"
+  },
+  {
+    "name": "Webhook updated",
+    "key": "request_juotc",
+    "type": "request",
+    "position_x": 48,
+    "position_y": 1,
+    "options": {
+      "url": "https://telegram-bot.utopia-lab.org/send_message",
+      "method": "POST",
+      "body": "{\"message\": \"**[{{$trigger.payload.name}}]({{$accountability.origin}}/item/{{$trigger.payload.id}})** updated\"}",
+      "headers": [
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "4cd7018f-74a1-4cae-b185-3ee2b82ae1bd"
+  },
+  {
+    "name": "Webhook created",
+    "key": "request_juotc_izixm",
+    "type": "request",
+    "position_x": 48,
+    "position_y": 17,
+    "options": {
+      "url": "https://telegram-bot.utopia-lab.org/send_message",
+      "method": "POST",
+      "body": "{\"message\": \"**[{{$trigger.payload.name}}]({{$accountability.origin}}/item/{{$trigger.payload.id}})** created\"}",
+      "headers": [
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "05cdab2d-9373-494a-a13b-9a8cd6b9ea90"
+  },
+  {
+    "name": "return inviting item",
+    "key": "return_inviting_item",
+    "type": "exec",
+    "position_x": 56,
+    "position_y": 36,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.read_data[0].item\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "5583fd94-c481-4a08-8632-115a2ce85577"
+  },
+  {
+    "name": "return inviting item",
+    "key": "return_inviting_item_uxzvf",
+    "type": "exec",
+    "position_x": 54,
+    "position_y": 19,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.read_data[0].item\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "34a6106b-7789-4212-8bdc-e54798e2eca7"
+  },
+  {
+    "name": "singelton",
+    "key": "singelton",
+    "type": "exec",
+    "position_x": 57,
+    "position_y": 16,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.$last[0].count\n}"
+    },
+    "resolve": "432dcfa2-28c5-4d75-884f-706877984bd6",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "a1df90fb-43dd-4753-b1d5-437c2eb8ad9f"
+  },
+  {
+    "name": "slugify",
+    "key": "slugify",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function (data) {\n\tconst text = data.$trigger.payload.name;\n\n\tconst slug = text\n\t\t.toLowerCase()\n\t\t.trim()\n\t\t.replace(/[^\\w\\s-]/g, '')\n\t\t.replace(/[\\s_-]+/g, '-')\n\t\t.replace(/^-+|-+$/g, '');\n\n\treturn slug;\n};"
+    },
+    "resolve": "ac036523-bc4d-4230-9475-01085fa4f8e1",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "c7c8e08e-e94d-41f1-9b69-70251b2d3caf"
+  },
+  {
+    "name": "test item ownership",
+    "key": "test_item_ownership",
+    "type": "exec",
+    "position_x": 36,
+    "position_y": 2,
+    "options": {
+      "code": "module.exports = async function(data) {\n\tif (!data.$last.some(item => item.id === data.$trigger.body.item)) {\n        throw new Error('Not your item')\n    }\n    return {};\n}"
+    },
+    "resolve": "ae1677c8-3114-4015-9115-b9e763a7d5e1",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "feca5834-de50-4593-9df4-7f9ec81f8c71"
+  },
+  {
+    "name": "Trigger Send Email",
+    "key": "trigger_4tvps",
+    "type": "trigger",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "iterationMode": "parallel",
+      "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+      "payload": "{{$last}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "661c5585-4833-46b0-82aa-72be37ec0ff2"
+  },
+  {
+    "name": "trigger create secret flow",
+    "key": "trigger_create_secret_flow",
+    "type": "trigger",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "iterationMode": "parallel",
+      "payload": "{{ $last }}",
+      "flow": "234d13fe-112a-4408-9bdb-78dd8cbd6b82"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "2d4009c7-0a19-4c55-813c-f1e0f3de1bf0"
+  },
+  {
+    "name": "Updated?",
+    "key": "updated",
+    "type": "condition",
+    "position_x": 21,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "event": {
+            "_eq": "items.items.update"
+          }
+        }
+      }
+    },
+    "resolve": "4cd7018f-74a1-4cae-b185-3ee2b82ae1bd",
+    "reject": "05cdab2d-9373-494a-a13b-9a8cd6b9ea90",
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "8cc15ed4-8372-4a45-abaa-df19d560b01a"
+  }
+]
