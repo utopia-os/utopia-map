@@ -1,12 +1,12 @@
 {
   "collection": "directus_sync_id_map",
   "field": "created_at",
-  "type": "dateTime",
+  "type": "timestamp",
   "meta": null,
   "schema": {
     "name": "created_at",
     "table": "directus_sync_id_map",
-    "data_type": "datetime",
+    "data_type": "timestamp with time zone",
     "default_value": "CURRENT_TIMESTAMP",
     "max_length": null,
     "numeric_precision": null,

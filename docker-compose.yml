@@ -1,18 +1,16 @@
 services:
-  frontend:
+  app:
     image: cupcakearmy/static
     restart: unless-stopped
     ports:
       - 8080:80
     volumes:
-      - ./dist:/srv:ro
+      - ./app/dist:/srv:ro
 
   database:
     image: postgis/postgis:13-master
-    # Required when running on platform other than amd64, like Apple M1/M2:
-    # platform: linux/amd64
     volumes:
-      - ./data/database:/var/lib/postgresql/data
+      - ./data/database:/var/lib/postgresql/data:rw
     environment:
       POSTGRES_USER: 'directus'
       POSTGRES_PASSWORD: 'directus'
@@ -38,7 +36,7 @@ services:
   backend:
     container_name: backend
     build:
-      context: ../backend
+      context: ./backend
     depends_on:
       database:
         condition: service_healthy

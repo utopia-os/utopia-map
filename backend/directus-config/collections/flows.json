@@ -1,1 +1,191 @@
-[]
+[
+  {
+    "name": "get_item_by_secret",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {},
+    "operation": "8bf158c9-8540-4ce3-88da-0e5f17f76ed7",
+    "_syncId": "01d61db0-25aa-4bfa-bc24-c6a8f208a455"
+  },
+  {
+    "name": "Create initial secret",
+    "icon": "bolt",
+    "color": null,
+    "description": "Creates a secret for an existing item, triggered by another flow",
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "491e552d-539e-4474-bcf5-a94dcc43e67e",
+    "_syncId": "234d13fe-112a-4408-9bdb-78dd8cbd6b82"
+  },
+  {
+    "name": "Post Profiles to Murmurations",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create",
+        "items.update"
+      ],
+      "collections": [
+        "updates"
+      ]
+    },
+    "operation": "c4d60433-bb2e-4d06-b10b-f3029b02963d",
+    "_syncId": "5e320392-429d-4759-95ec-c5adcff61f01"
+  },
+  {
+    "name": "Request Profile",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "inactive",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {
+      "return": "$all"
+    },
+    "operation": null,
+    "_syncId": "6a48c246-2fb2-42ca-bebb-3f605e794d02"
+  },
+  {
+    "name": "Initial item secrets trigger",
+    "icon": "salinity",
+    "color": null,
+    "description": "Generate a secret for each item",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "itemSecrets"
+      ],
+      "requireSelection": false
+    },
+    "operation": "c5b9aa76-b524-47b8-acc5-dd0350a3a12a",
+    "_syncId": "9a1d1084-438f-471e-aac5-47e0749375e7"
+  },
+  {
+    "name": "Telegram-Bot-Trigger",
+    "icon": "mark_chat_read",
+    "color": "#3584E4",
+    "description": null,
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.update",
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "95ed41d5-f195-4ebb-b444-402cff7c4a12",
+    "_syncId": "a78d01a4-13b3-46a4-8938-9606bf26e329"
+  },
+  {
+    "name": "Item Notification Setup",
+    "icon": "outgoing_mail",
+    "color": "#C061CB",
+    "description": "Inform Users about new items in layers they subscripe to ",
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create",
+        "items.update"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "b95390e0-fa4c-4b2f-b7ea-a151b333229f",
+    "_syncId": "bff21ad9-d142-4a6e-96fe-8da016576bc7"
+  },
+  {
+    "name": "Create Secret",
+    "icon": "azm",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "7b158384-5bce-4fd7-917a-4a61e53de6ec",
+    "_syncId": "cbd7d15d-7f09-4f45-8060-3b24adabf82a"
+  },
+  {
+    "name": "redeem-invite",
+    "icon": "bolt",
+    "color": null,
+    "description": "Redeems an invite link (item secret)",
+    "status": "active",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {
+      "error_on_reject": true,
+      "method": "POST"
+    },
+    "operation": "020070b2-cf09-4a0d-82d0-c90b334a70cc",
+    "_syncId": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4"
+  },
+  {
+    "name": "Send Item Notification Mail",
+    "icon": "send",
+    "color": "#C061CB",
+    "description": null,
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "bb96dab8-08c7-4b39-8ead-c2ed5d5a906c",
+    "_syncId": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081"
+  },
+  {
+    "name": "Slug Generation",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "c7c8e08e-e94d-41f1-9b69-70251b2d3caf",
+    "_syncId": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1"
+  }
+]
