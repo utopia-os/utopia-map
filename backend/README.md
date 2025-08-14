@@ -3,7 +3,25 @@
 To run the backend you can simply execute
 `docker-compose up`
 
+To fill in all required data execute the following commands in order:
+```
+cd backend
+
+npx directus-sync push \
+  --directus-url http://localhost:8055 \
+  --directus-email admin@it4c.dev \
+  --directus-password admin123
+
+npx directus-sync seed push \
+  --directus-url http://localhost:8055 \
+  --directus-email admin@it4c.dev \
+  --directus-password admin123
+
+./directus-config/manual/seed.sh
+```
+
 ## Pull Data from Docker to Harddrive
+
 In order to pull data from your locally running backend (see [docker-compose](../app/docker-compose.yml)) to your local harddrive, you can run the following command
 
 
@@ -15,6 +33,7 @@ npx directus-sync pull \
 ```
 
 ## Push Data from Harddrive to Docker
+
 To push local changes or to seed directus use the following command
 ```
 npx directus-sync push \
@@ -24,6 +43,7 @@ npx directus-sync push \
 ```
 
 ## Seed Data for local development
+
 Seed the development data via:
 ```
 npx directus-sync seed push \
@@ -33,6 +53,7 @@ npx directus-sync seed push \
 ```
 
 ## Seed Data - find differences
+
 In order so see what changes would appear when seeding, you can execute:
 ```
 npx directus-sync seed diff \
@@ -46,6 +67,7 @@ npx directus-sync seed diff \
 In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
 
 ## Backup Database
+
 Either keep a copy of the `/data/database` folder or run the following command to get an sql dump
 
 ```
