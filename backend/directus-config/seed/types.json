@@ -16,7 +16,9 @@
             "user_updated": null,
             "date_updated": null,
             "name": "test",
-            "template": "flex"
+            "template": "flex",
+            "show_text": true,
+            "show_profile_button" : true
         }
     ]
 }

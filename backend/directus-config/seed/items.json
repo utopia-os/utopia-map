@@ -1,0 +1,26 @@
+{
+    "collection": "items",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "item-places-1",
+            "name": "Welcome to Utopia Map",
+            "text": "The opensource collaborative mapping plattform.\n\n[GitHub](https://github.com/utopia-os/utopia-map)",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    10.067625824315172,
+				    50.51565268622562
+			    ]
+		    },
+            "layer" : "layer-places"
+        }
+    ]
+}

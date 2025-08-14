@@ -15,7 +15,7 @@
             "itemType": "type-test",
             "userProfileLayer": false,
             "menuColor": "#2ECDA7",
-            "markerDefaultColor2": null,
+            "markerShape": "circle",
             "onlyOnePerOwner": false,
             "index_plus_button": true,
             "public_edit_items": false,
