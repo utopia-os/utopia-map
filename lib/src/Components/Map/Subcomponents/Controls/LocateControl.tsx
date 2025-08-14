@@ -60,16 +60,39 @@ export const LocateControl = (): JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Check if user logged in while location is active and found
+  useEffect(() => {
+    if (
+      myProfile.myProfile &&
+      foundLocation &&
+      active &&
+      !hasUpdatedPosition &&
+      !showLocationModal
+    ) {
+      if (myProfile.myProfile.position) {
+        const currentPos = myProfile.myProfile.position.coordinates
+        const distance = foundLocation.distanceTo([currentPos[1], currentPos[0]])
+
+        if (distance >= 100) {
+          setShowLocationModal(true)
+        }
+      } else {
+        // Show modal if user has no current position
+        setShowLocationModal(true)
+      }
+    }
+  }, [myProfile.myProfile, foundLocation, active, hasUpdatedPosition, showLocationModal])
+
   useMapEvents({
     locationfound: (e) => {
       setLoading(false)
       setActive(true)
       setFoundLocation(e.latlng)
 
-      // Only show modal if user is at least 100m away from their current profile position
+      // Only show modal if user is logged in and at least 100m away from their current profile position
       // and hasn't just updated their position
-      if (!hasUpdatedPosition) {
-        if (myProfile.myProfile?.position) {
+      if (!hasUpdatedPosition && myProfile.myProfile) {
+        if (myProfile.myProfile.position) {
           const currentPos = myProfile.myProfile.position.coordinates
           const distance = e.latlng.distanceTo([currentPos[1], currentPos[0]])
 
@@ -199,11 +222,12 @@ export const LocateControl = (): JSX.Element => {
         </div>
       </div>
       <DialogModal
-        title='Location found!'
+        title='Location found'
         isOpened={showLocationModal}
         onClose={() => setShowLocationModal(false)}
         showCloseButton={true}
         closeOnClickOutside={true}
+        className='tw:bottom-1/3 tw:mx-4 tw:sm:mx-auto'
       >
         <div className='tw:text-center'>
           <p className='tw:mb-4'>Do you like to place your profile at your current location?</p>
