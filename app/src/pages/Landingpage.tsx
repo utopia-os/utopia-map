@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { MapOverlayPage } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
+import { config } from '../config'
 
 export const Landingpage = () => {
   const [isLandingpageVisible, setIsLandingpageVisible] = useState(true)
@@ -137,7 +138,7 @@ export const Landingpage = () => {
                     <li key={idx}>
                       <div className='w-24 h-24 mx-auto'>
                         <img
-                          src={`https://api.utopia-lab.org/assets/${item.image}`}
+                          src={`${config.apiUrl}assets/${item.image}`}
                           className='w-full h-full rounded-full'
                           alt=''
                         />

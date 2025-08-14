@@ -1,0 +1,25 @@
+{
+  "collection": "junction_directus_users_tags",
+  "field": "tags_id",
+  "related_collection": "tags",
+  "meta": {
+    "junction_field": "directus_users_id",
+    "many_collection": "junction_directus_users_tags",
+    "many_field": "tags_id",
+    "one_allowed_collections": null,
+    "one_collection": "tags",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  },
+  "schema": {
+    "table": "junction_directus_users_tags",
+    "column": "tags_id",
+    "foreign_key_table": "tags",
+    "foreign_key_column": "id",
+    "constraint_name": "junction_directus_users_tags_tags_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "CASCADE"
+  }
+}
