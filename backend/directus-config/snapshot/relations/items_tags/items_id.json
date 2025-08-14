@@ -1,0 +1,25 @@
+{
+  "collection": "items_tags",
+  "field": "items_id",
+  "related_collection": "items",
+  "meta": {
+    "junction_field": "tags_id",
+    "many_collection": "items_tags",
+    "many_field": "items_id",
+    "one_allowed_collections": null,
+    "one_collection": "items",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "offers",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "items_tags",
+    "column": "items_id",
+    "foreign_key_table": "items",
+    "foreign_key_column": "id",
+    "constraint_name": "items_tags_items_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

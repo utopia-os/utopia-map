@@ -1,0 +1,25 @@
+{
+  "collection": "layers_files",
+  "field": "layers_id",
+  "related_collection": "layers",
+  "meta": {
+    "junction_field": "directus_files_id",
+    "many_collection": "layers_files",
+    "many_field": "layers_id",
+    "one_allowed_collections": null,
+    "one_collection": "layers",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": null,
+    "sort_field": null
+  },
+  "schema": {
+    "table": "layers_files",
+    "column": "layers_id",
+    "foreign_key_table": "layers",
+    "foreign_key_column": "id",
+    "constraint_name": "layers_files_layers_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

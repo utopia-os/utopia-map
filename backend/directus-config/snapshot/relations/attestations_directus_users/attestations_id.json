@@ -1,0 +1,25 @@
+{
+  "collection": "attestations_directus_users",
+  "field": "attestations_id",
+  "related_collection": "attestations",
+  "meta": {
+    "junction_field": "directus_users_id",
+    "many_collection": "attestations_directus_users",
+    "many_field": "attestations_id",
+    "one_allowed_collections": null,
+    "one_collection": "attestations",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "to",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "attestations_directus_users",
+    "column": "attestations_id",
+    "foreign_key_table": "attestations",
+    "foreign_key_column": "id",
+    "constraint_name": "attestations_directus_users_attestations_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}

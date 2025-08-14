@@ -1,0 +1,80 @@
+{
+  "collection": "features",
+  "field": "status",
+  "type": "string",
+  "meta": {
+    "collection": "features",
+    "conditions": null,
+    "display": "labels",
+    "display_options": {
+      "choices": [
+        {
+          "background": "var(--theme--primary)",
+          "foreground": "#FFFFFF",
+          "text": "$t:published",
+          "value": "published"
+        },
+        {
+          "background": "#D3DAE4",
+          "foreground": "#18222F",
+          "text": "$t:draft",
+          "value": "draft"
+        },
+        {
+          "background": "var(--theme--warning)",
+          "foreground": "#FFFFFF",
+          "text": "$t:archived",
+          "value": "archived"
+        }
+      ],
+      "showAsDot": true
+    },
+    "field": "status",
+    "group": null,
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": null,
+    "options": {
+      "choices": [
+        {
+          "text": "$t:published",
+          "value": "published"
+        },
+        {
+          "text": "$t:draft",
+          "value": "draft"
+        },
+        {
+          "text": "$t:archived",
+          "value": "archived"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "status",
+    "table": "features",
+    "data_type": "character varying",
+    "default_value": "draft",
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": false,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

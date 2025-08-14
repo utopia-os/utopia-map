@@ -1,0 +1,25 @@
+{
+  "collection": "layers_maps",
+  "field": "maps_id",
+  "related_collection": "maps",
+  "meta": {
+    "junction_field": "layers_id",
+    "many_collection": "layers_maps",
+    "many_field": "maps_id",
+    "one_allowed_collections": null,
+    "one_collection": "maps",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "layers",
+    "sort_field": null
+  },
+  "schema": {
+    "table": "layers_maps",
+    "column": "maps_id",
+    "foreign_key_table": "maps",
+    "foreign_key_column": "id",
+    "constraint_name": "layers_maps_maps_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}
