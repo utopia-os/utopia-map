@@ -42,6 +42,7 @@ export const LocateControl = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false)
   const [showLocationModal, setShowLocationModal] = useState<boolean>(false)
   const [foundLocation, setFoundLocation] = useState<LatLng | null>(null)
+  const [hasUpdatedPosition, setHasUpdatedPosition] = useState<boolean>(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
@@ -64,9 +65,26 @@ export const LocateControl = (): JSX.Element => {
       setLoading(false)
       setActive(true)
       setFoundLocation(e.latlng)
-      timeoutRef.current = setTimeout(() => {
-        setShowLocationModal(true)
-      }, 1000)
+
+      // Only show modal if user is at least 100m away from their current profile position
+      // and hasn't just updated their position
+      if (!hasUpdatedPosition) {
+        if (myProfile.myProfile?.position) {
+          const currentPos = myProfile.myProfile.position.coordinates
+          const distance = e.latlng.distanceTo([currentPos[1], currentPos[0]])
+
+          if (distance >= 100) {
+            timeoutRef.current = setTimeout(() => {
+              setShowLocationModal(true)
+            }, 1000)
+          }
+        } else {
+          // Show modal if user has no current position
+          timeoutRef.current = setTimeout(() => {
+            setShowLocationModal(true)
+          }, 1000)
+        }
+      }
     },
     locationerror: () => {
       setLoading(false)
@@ -101,7 +119,9 @@ export const LocateControl = (): JSX.Element => {
       }
       const toastId = toast.loading('Updating item position')
       try {
-        await myProfile.myProfile.layer?.api?.updateItem!(updatedProfile as Item)
+        if (myProfile.myProfile.layer?.api?.updateItem) {
+          await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
+        }
         success = true
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -138,7 +158,15 @@ export const LocateControl = (): JSX.Element => {
         })
         setFoundLocation(null)
         setActive(false)
-        lc.stop()
+        setHasUpdatedPosition(true)
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current)
+          timeoutRef.current = null
+        }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        if (lc) lc.stop()
+        // Reset flag after a delay to allow future updates
+        setTimeout(() => setHasUpdatedPosition(false), 5000)
       }
     }
   }
@@ -183,7 +211,7 @@ export const LocateControl = (): JSX.Element => {
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'
               onClick={() => {
-                itemUpdatePosition().then(() => setShowLocationModal(false))
+                void itemUpdatePosition().then(() => setShowLocationModal(false))
               }}
             >
               Yes
