@@ -2,8 +2,15 @@ import { control } from 'leaflet'
 import { useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 import { useMap, useMapEvents } from 'react-leaflet'
+import { toast } from 'react-toastify'
 
 import TargetSVG from '#assets/target.svg'
+import { useUpdateItem } from '#components/Map/hooks/useItems'
+import { useMyProfile } from '#components/Map/hooks/useMyProfile'
+import DialogModal from '#components/Templates/DialogModal'
+
+import type { Item } from '#types/Item'
+import type { LatLng } from 'leaflet'
 
 // eslint-disable-next-line import/no-unassigned-import
 import 'leaflet.locatecontrol'
@@ -23,6 +30,8 @@ declare module 'leaflet' {
  */
 export const LocateControl = (): JSX.Element => {
   const map = useMap()
+  const myProfile = useMyProfile()
+  const updateItem = useUpdateItem()
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
@@ -31,19 +40,33 @@ export const LocateControl = (): JSX.Element => {
   const [lc, setLc] = useState<any>(null)
   const [active, setActive] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [showLocationModal, setShowLocationModal] = useState<boolean>(false)
+  const [foundLocation, setFoundLocation] = useState<LatLng | null>(null)
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     if (!init.current) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       setLc(control.locate().addTo(map))
       init.current = true
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useMapEvents({
-    locationfound: () => {
+    locationfound: (e) => {
       setLoading(false)
       setActive(true)
+      setFoundLocation(e.latlng)
+      timeoutRef.current = setTimeout(() => {
+        setShowLocationModal(true)
+      }, 1000)
     },
     locationerror: () => {
       setLoading(false)
@@ -58,6 +81,10 @@ export const LocateControl = (): JSX.Element => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.stop()
       setActive(false)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
@@ -65,31 +92,108 @@ export const LocateControl = (): JSX.Element => {
     }
   }
 
+  const itemUpdatePosition = async () => {
+    if (myProfile.myProfile && foundLocation) {
+      let success = false
+      const updatedProfile = {
+        id: myProfile.myProfile.id,
+        position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
+      }
+      const toastId = toast.loading('Updating item position')
+      try {
+        await myProfile.myProfile.layer?.api?.updateItem!(updatedProfile as Item)
+        success = true
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          toast.update(toastId, {
+            render: error.message,
+            type: 'error',
+            isLoading: false,
+            autoClose: 5000,
+            closeButton: true,
+          })
+        } else if (typeof error === 'string') {
+          toast.update(toastId, {
+            render: error,
+            type: 'error',
+            isLoading: false,
+            autoClose: 5000,
+            closeButton: true,
+          })
+        } else {
+          throw error
+        }
+      }
+      if (success) {
+        updateItem({
+          ...myProfile.myProfile,
+          position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
+        })
+        toast.update(toastId, {
+          render: 'Item position updated',
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+        setFoundLocation(null)
+        setActive(false)
+        lc.stop()
+      }
+    }
+  }
+
   return (
-    <div className='tw:card tw:flex-none tw:h-12 tw:w-12 tw:bg-base-100 tw:shadow-xl tw:items-center tw:justify-center tw:hover:bg-slate-300 tw:hover:cursor-pointer tw:transition-all tw:duration-300 tw:ml-2'>
-      <div
-        className='tw:card-body tw:card tw:p-2 tw:h-10 tw:w-10'
-        onClick={handleLocateClick}
-        role='button'
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            handleLocateClick()
-          }
-        }}
-        aria-label={active ? 'Stop location tracking' : 'Start location tracking'}
-      >
-        {loading ? (
-          <span className='tw:loading tw:loading-spinner tw:loading-md tw:mt-1' />
-        ) : (
-          <SVG
-            src={TargetSVG}
-            className='tw:mt-1 tw:p-[1px]'
-            style={{ fill: active ? '#fc8702' : 'currentColor' }}
-          />
-        )}
+    <>
+      <div className='tw:card tw:flex-none tw:h-12 tw:w-12 tw:bg-base-100 tw:shadow-xl tw:items-center tw:justify-center tw:hover:bg-slate-300 tw:hover:cursor-pointer tw:transition-all tw:duration-300 tw:ml-2'>
+        <div
+          className='tw:card-body tw:card tw:p-2 tw:h-10 tw:w-10'
+          onClick={handleLocateClick}
+          role='button'
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault()
+              handleLocateClick()
+            }
+          }}
+          aria-label={active ? 'Stop location tracking' : 'Start location tracking'}
+        >
+          {loading ? (
+            <span className='tw:loading tw:loading-spinner tw:loading-md tw:mt-1' />
+          ) : (
+            <SVG
+              src={TargetSVG}
+              className='tw:mt-1 tw:p-[1px]'
+              style={{ fill: active ? '#fc8702' : 'currentColor' }}
+            />
+          )}
+        </div>
       </div>
-    </div>
+      <DialogModal
+        title='Location found!'
+        isOpened={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
+        showCloseButton={true}
+        closeOnClickOutside={true}
+      >
+        <div className='tw:text-center'>
+          <p className='tw:mb-4'>Do you like to place your profile at your current location?</p>
+          <div className='tw:flex tw:justify-between'>
+            <label
+              className='tw:btn tw:mt-4 tw:btn-primary'
+              onClick={() => {
+                itemUpdatePosition().then(() => setShowLocationModal(false))
+              }}
+            >
+              Yes
+            </label>
+            <label className='tw:btn tw:mt-4' onClick={() => setShowLocationModal(false)}>
+              No
+            </label>
+          </div>
+        </div>
+      </DialogModal>
+    </>
   )
 }

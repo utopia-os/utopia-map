@@ -123,3 +123,9 @@ Uses **Directus** as headless CMS with:
 - Pre-commit hooks run linting checks via `scripts/check-lint.sh`
 - Coverage reporting for unit tests
 - Automated dependency updates via `npm-check-updates`
+
+## CSS and Styling Conventions
+
+- **Tailwind CSS Prefix**: Always use the `tw:` prefix for all Tailwind CSS classes (e.g., `tw:flex`, `tw:bg-base-100`)
+- **DaisyUI Components**: Use the `tw:` prefix for all DaisyUI component classes (e.g., `tw:btn`, `tw:card`, `tw:modal`)
+- This prefix system prevents conflicts with other CSS frameworks and maintains consistent styling across the codebase
