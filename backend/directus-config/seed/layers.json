@@ -1,0 +1,26 @@
+{
+    "collection": "layers",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "layer-places",
+            "name": "Places",
+            "itemType": "type-test",
+            "userProfileLayer": false,
+            "menuColor": "#2ECDA7",
+            "markerDefaultColor2": null,
+            "onlyOnePerOwner": false,
+            "index_plus_button": true,
+            "public_edit_items": false,
+            "listed": true,
+            "item_presets": null
+        }
+    ]
+}

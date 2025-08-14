@@ -5,5 +5,26 @@
     "description": "$t:admin_description",
     "parent": null,
     "_syncId": "_sync_default_admin_role"
+  },
+  {
+    "name": "Registrated",
+    "icon": "paragliding",
+    "description": null,
+    "parent": null,
+    "_syncId": "9865ace7-27fe-4d1f-be88-99ee6410fca2"
+  },
+  {
+    "name": "Editor",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "parent": null,
+    "_syncId": "a65f6094-ba98-42d3-940b-07934959e3fb"
+  },
+  {
+    "name": "Würdekompass Admin",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "parent": null,
+    "_syncId": "faa59737-2277-4f8a-a2ab-23940f566ab5"
   }
 ]

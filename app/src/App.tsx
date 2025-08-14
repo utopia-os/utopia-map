@@ -54,7 +54,7 @@ import { ModalContent } from './ModalContent'
 import { Landingpage } from './pages/Landingpage'
 import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
-import { config } from '@/config'
+import { config } from './config'
 import { InviteApi } from './api/inviteApi'
 
 const userApi = new UserApi()
@@ -82,7 +82,10 @@ function App() {
 
   useEffect(() => {
     setPermissionsApiInstance(new permissionsApi())
-    setMapApiInstance(new mapApi(window.location.origin))
+    // TODO: it should be mapId instead of mapUrl, which then in turn can be an URL
+    const mapUrl =
+      config.mapUrl === 'CURRENT_WINDOW_LOCATION' ? window.location.origin : config.mapUrl
+    setMapApiInstance(new mapApi(mapUrl))
     setAttestationApi(new itemsApi<any>('attestations'))
   }, [])
 
@@ -113,7 +116,7 @@ function App() {
           path: '/' + l.name, // url
           icon: (
             <SVG
-              src={'https://api.utopia-lab.org/assets/' + l.indexIcon}
+              src={config.apiUrl + 'assets/' + l.indexIcon}
               className='tw:w-6 tw:h-6'
               preProcessor={(code: string) =>
                 code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
@@ -134,7 +137,7 @@ function App() {
         link.rel = 'icon'
         document.getElementsByTagName('head')[0].appendChild(link)
       }
-      link.href = map?.logo && 'https://api.utopia-lab.org/assets/' + map.logo // Specify the path to your favicon
+      link.href = map?.logo && config.apiUrl + 'assets/' + map.logo // Specify the path to your favicon
     }
 
     setLoading(false)
@@ -148,7 +151,7 @@ function App() {
       <div className='App tw:overflow-x-hidden'>
         <AuthProvider userApi={userApi} inviteApi={inviteApi}>
           <AppShell
-            assetsApi={new assetsApi('https://api.utopia-lab.org/assets/')}
+            assetsApi={new assetsApi(config.apiUrl + 'assets/')}
             appName={map.name}
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
