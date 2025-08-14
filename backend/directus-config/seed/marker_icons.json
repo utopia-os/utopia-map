@@ -1,0 +1,138 @@
+{
+    "collection": "marker_icons",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "id": "bicycle",
+            "size": "20.00000",
+            "image": "8ab687af-b4ac-4c0c-8ef1-929b6d526d1f"
+        },
+        {
+            "id": "boat",
+            "size": "18.00000",
+            "image": "4d82d5e0-bea8-44f2-80ce-f647a318507c"
+        },
+        {
+            "id": "cafe",
+            "size": "18.00000",
+            "image": "03e4d8fa-fb67-45a8-9027-c5ebab0aeb3d"
+        },
+        {
+            "id": "calendar",
+            "size": "14.00000",
+            "image": "02d537fb-6cc0-4628-82c4-ac1e933b3ccd"
+        },
+        {
+            "id": "camp",
+            "size": "18.00000",
+            "image": "c5da228f-7946-4318-8a6b-63b1ae5adbdc"
+        },
+        {
+            "id": "cannabis",
+            "size": "18.00000",
+            "image": "993db29f-514d-42f7-983f-f8076f6dfe34"
+        },
+        {
+            "id": "circle-dot",
+            "size": "18.00000",
+            "image": "97533fd9-7430-49dd-940c-0b383cb12ded"
+        },
+        {
+            "id": "crosshair",
+            "size": "18.00000",
+            "image": "91112a8b-e7f8-4e0a-9d40-bb4af5c9b341"
+        },
+        {
+            "id": "document",
+            "size": "16.00000",
+            "image": "356760d0-8eb4-4d7d-8048-b1652f1337cc"
+        },
+        {
+            "id": "drum",
+            "size": "20.00000",
+            "image": "4b5a6c79-75f6-4128-a47c-bd61ccb771fa"
+        },
+        {
+            "id": "fire",
+            "size": "12.00000",
+            "image": "96917ed1-66bf-4477-871b-0489961d7290"
+        },
+        {
+            "id": "flower",
+            "size": "18.00000",
+            "image": "32d94de1-fcf5-499c-9162-1746e2757290"
+        },
+        {
+            "id": "group",
+            "size": "18.00000",
+            "image": "5f8edc00-1fea-4223-8abf-5039db7508aa"
+        },
+        {
+            "id": "house",
+            "size": "16.00000",
+            "image": "370e1394-5ffb-4824-bbe3-6fd9b08679b3"
+        },
+        {
+            "id": "liebevoll.jetzt",
+            "size": "16.00000",
+            "image": "2509e886-2294-4909-bb95-39d89ec74796"
+        },
+        {
+            "id": "music",
+            "size": "12.00000",
+            "image": "82e86b83-28dc-42ac-8fe4-ada56ab8fcab"
+        },
+        {
+            "id": "network",
+            "size": "18.00000",
+            "image": "6deab20b-b943-4e1f-bb17-93b1a41e0e9f"
+        },
+        {
+            "id": "offer",
+            "size": "16.00000",
+            "image": "9e30fff7-fa8f-4a26-bbae-01dd0f9a2ee6"
+        },
+        {
+            "id": "plant",
+            "size": "18.00000",
+            "image": "d820efaa-5b08-43bb-a4e3-a0c326e43485"
+        },
+        {
+            "id": "point",
+            "size": "12.00000",
+            "image": "0862d48a-6606-48bd-b059-f31aae2a6d88"
+        },
+        {
+            "id": "puzzle",
+            "size": "18.00000",
+            "image": "0f5d3246-8b5a-4717-8dde-4857848e1d5f"
+        },
+        {
+            "id": "quest",
+            "size": "14.00000",
+            "image": "fe18ed4e-655a-4a4d-b885-c70bd1636574"
+        },
+        {
+            "id": "shop",
+            "size": "18.00000",
+            "image": "f204e5c4-b890-440b-9116-f5690ab0fd5d"
+        },
+        {
+            "id": "staff-snake",
+            "size": "12.00000",
+            "image": "9b037e04-033f-482d-b5bb-8e46c9ff2e9a"
+        },
+        {
+            "id": "star",
+            "size": "18.00000",
+            "image": "d60f4478-d3dc-4c03-b139-3143f85325d7"
+        }
+    ]
+}
