@@ -1,0 +1,27 @@
+{
+  "collection": "layers",
+  "field": "notifications",
+  "type": "alias",
+  "meta": {
+    "collection": "layers",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "notifications",
+    "group": null,
+    "hidden": false,
+    "interface": "list-m2m",
+    "note": null,
+    "options": {},
+    "readonly": false,
+    "required": false,
+    "sort": 17,
+    "special": [
+      "m2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

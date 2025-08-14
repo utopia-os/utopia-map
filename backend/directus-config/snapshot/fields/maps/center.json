@@ -1,0 +1,54 @@
+{
+  "collection": "maps",
+  "field": "center",
+  "type": "geometry.Point",
+  "meta": {
+    "collection": "maps",
+    "conditions": null,
+    "display": "raw",
+    "display_options": null,
+    "field": "center",
+    "group": null,
+    "hidden": false,
+    "interface": "map",
+    "note": null,
+    "options": {
+      "defaultView": {
+        "bearing": 0,
+        "center": {
+          "lat": 51.848550055383214,
+          "lng": 11.512749260504052
+        },
+        "pitch": 0,
+        "zoom": 3.8841411017305782
+      },
+      "geometryType": "Point"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 8,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "center",
+    "table": "maps",
+    "data_type": "POINT",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}
