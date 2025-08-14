@@ -10,13 +10,28 @@
     },
     "data": [
         {
-            "_sync_id": "type-test",
+            "_sync_id": "type-simple",
+            "name": "simple",
             "user_created": null,
             "date_created": "2025-01-01T00:00:00.000Z",
             "user_updated": null,
             "date_updated": null,
-            "name": "test",
-            "template": "flex"
+            "template": "simple",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : false
+        },
+        {
+            "_sync_id": "type-event",
+            "name": "event",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "tabs",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : true
         }
     ]
 }
