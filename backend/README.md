@@ -41,6 +41,10 @@ npx directus-sync seed diff \
   --directus-password admin123
 ```
 
+## Manual Seed
+
+In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
+
 ## Backup Database
 Either keep a copy of the `/data/database` folder or run the following command to get an sql dump
 
@@ -118,8 +122,3 @@ sudo chmod 777 -R ./data/
 This process is to be repeated whenever you restart the database docker container
 
 The same applies for the uploads and extension folder - ensure that the folder is writeable or file uploads will fail.
-
-## Manual Seed
-
-In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
-
