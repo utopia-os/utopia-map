@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable no-catch-all/no-catch-all */
+/* eslint-disable no-console */
 import { createDirectus, rest, authentication } from '@directus/sdk'
 
 // eslint-disable-next-line import/no-relative-parent-imports
@@ -77,24 +78,36 @@ export const authLocalStorage = (mainKey = 'directus_storage') =>
   ({
     // implementation of get, here return json parsed data from localStorage at mainKey (or null if not found)
     get: async () => {
-      const data = window.localStorage.getItem(mainKey)
-      if (data) {
-        return JSON.parse(data)
+      try {
+        const data = window.localStorage.getItem(mainKey)
+        if (data) {
+          return JSON.parse(data)
+        }
+        return null
+      } catch (error) {
+        // Handle SecurityError when localStorage is not available (e.g., in private browsing mode)
+        console.warn('localStorage not available:', error)
+        return null
       }
-      return null
     },
     // implementation of set, here set the value at mainKey in localStorage, or remove it if value is null
     set: async (value: AuthenticationData | null) => {
-      if (!value) {
-        return window.localStorage.removeItem(mainKey)
+      try {
+        if (!value) {
+          return window.localStorage.removeItem(mainKey)
+        }
+        return window.localStorage.setItem(mainKey, JSON.stringify(value))
+      } catch (error) {
+        // Handle SecurityError when localStorage is not available (e.g., in private browsing mode)
+        console.warn('localStorage not available:', error)
+        // Silently fail - authentication will fall back to memory-only storage
       }
-      return window.localStorage.setItem(mainKey, JSON.stringify(value))
     },
   }) as AuthenticationStorage
 
 export async function getRefreshToken() {
   const auth = await authLocalStorage().get()
-  return auth!.refresh_token
+  return auth?.refresh_token ?? null
 }
 
 export const directusClient = createDirectus<MyCollections>(config.apiUrl)

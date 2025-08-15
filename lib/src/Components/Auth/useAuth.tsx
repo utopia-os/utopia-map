@@ -64,10 +64,13 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
         setLoading(false)
         return me
       } else {
+        setLoading(false)
         return undefined
       }
       // eslint-disable-next-line no-catch-all/no-catch-all
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.warn('Failed to load user token:', error)
       setLoading(false)
       return undefined
     } finally {
