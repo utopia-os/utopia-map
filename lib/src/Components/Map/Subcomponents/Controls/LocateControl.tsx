@@ -1,5 +1,5 @@
 import { control } from 'leaflet'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 import { useMap, useMapEvents } from 'react-leaflet'
 import { toast } from 'react-toastify'
@@ -45,6 +45,21 @@ export const LocateControl = (): JSX.Element => {
   const [hasUpdatedPosition, setHasUpdatedPosition] = useState<boolean>(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
+  const currentPosition = myProfile.myProfile?.position?.coordinates ?? null
+
+  // Determine if modal should be shown based on distance and conditions
+  const shouldShowModal = useCallback(
+    (targetLocation: LatLng | null, hasUpdated: boolean): boolean => {
+      if (!myProfile.myProfile || !targetLocation || hasUpdated) return false
+
+      if (!currentPosition) return true // Show modal if user has no current position
+
+      const distance = targetLocation.distanceTo([currentPosition[1], currentPosition[0]])
+      return distance >= 100
+    },
+    [myProfile.myProfile, currentPosition],
+  )
+
   useEffect(() => {
     if (!init.current) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -63,25 +78,14 @@ export const LocateControl = (): JSX.Element => {
   // Check if user logged in while location is active and found
   useEffect(() => {
     if (
-      myProfile.myProfile &&
-      foundLocation &&
       active &&
-      !hasUpdatedPosition &&
-      !showLocationModal
+      foundLocation &&
+      !showLocationModal &&
+      shouldShowModal(foundLocation, hasUpdatedPosition)
     ) {
-      if (myProfile.myProfile.position) {
-        const currentPos = myProfile.myProfile.position.coordinates
-        const distance = foundLocation.distanceTo([currentPos[1], currentPos[0]])
-
-        if (distance >= 100) {
-          setShowLocationModal(true)
-        }
-      } else {
-        // Show modal if user has no current position
-        setShowLocationModal(true)
-      }
+      setShowLocationModal(true)
     }
-  }, [myProfile.myProfile, foundLocation, active, hasUpdatedPosition, showLocationModal])
+  }, [active, foundLocation, showLocationModal, hasUpdatedPosition, shouldShowModal])
 
   useMapEvents({
     locationfound: (e) => {
@@ -89,24 +93,11 @@ export const LocateControl = (): JSX.Element => {
       setActive(true)
       setFoundLocation(e.latlng)
 
-      // Only show modal if user is logged in and at least 100m away from their current profile position
-      // and hasn't just updated their position
-      if (!hasUpdatedPosition && myProfile.myProfile) {
-        if (myProfile.myProfile.position) {
-          const currentPos = myProfile.myProfile.position.coordinates
-          const distance = e.latlng.distanceTo([currentPos[1], currentPos[0]])
-
-          if (distance >= 100) {
-            timeoutRef.current = setTimeout(() => {
-              setShowLocationModal(true)
-            }, 1000)
-          }
-        } else {
-          // Show modal if user has no current position
-          timeoutRef.current = setTimeout(() => {
-            setShowLocationModal(true)
-          }, 1000)
-        }
+      // Show modal after delay if conditions are met
+      if (shouldShowModal(e.latlng, hasUpdatedPosition)) {
+        timeoutRef.current = setTimeout(() => {
+          setShowLocationModal(true)
+        }, 1000)
       }
     },
     locationerror: () => {
@@ -133,7 +124,7 @@ export const LocateControl = (): JSX.Element => {
     }
   }
 
-  const itemUpdatePosition = async () => {
+  const itemUpdatePosition = useCallback(async () => {
     if (myProfile.myProfile && foundLocation) {
       let success = false
       const updatedProfile = {
@@ -192,7 +183,7 @@ export const LocateControl = (): JSX.Element => {
         setTimeout(() => setHasUpdatedPosition(false), 5000)
       }
     }
-  }
+  }, [myProfile.myProfile, foundLocation, updateItem, lc])
 
   return (
     <>
