@@ -167,7 +167,7 @@ export function ItemFormPopup(props: Props) {
       if (result.success && result.data) {
         // Ensure the item has the layer object attached
         const itemWithLayer = { ...result.data, layer: popupForm.layer }
-        
+
         if (isUserProfileUpdate) {
           updateItem(itemWithLayer)
         } else {
