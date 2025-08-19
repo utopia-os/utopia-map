@@ -2,10 +2,13 @@ import { control } from 'leaflet'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 import { useMap, useMapEvents } from 'react-leaflet'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import TargetSVG from '#assets/target.svg'
-import { useUpdateItem } from '#components/Map/hooks/useItems'
+import { useAuth } from '#components/Auth/useAuth'
+import { useAddItem, useUpdateItem } from '#components/Map/hooks/useItems'
+import { useLayers } from '#components/Map/hooks/useLayers'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
 import DialogModal from '#components/Templates/DialogModal'
 
@@ -32,6 +35,10 @@ export const LocateControl = (): JSX.Element => {
   const map = useMap()
   const myProfile = useMyProfile()
   const updateItem = useUpdateItem()
+  const addItem = useAddItem()
+  const layers = useLayers()
+  const { user } = useAuth()
+  const navigate = useNavigate()
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
@@ -43,6 +50,7 @@ export const LocateControl = (): JSX.Element => {
   const [showLocationModal, setShowLocationModal] = useState<boolean>(false)
   const [foundLocation, setFoundLocation] = useState<LatLng | null>(null)
   const [hasUpdatedPosition, setHasUpdatedPosition] = useState<boolean>(false)
+  const [hasDeclinedModal, setHasDeclinedModal] = useState<boolean>(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   const currentPosition = myProfile.myProfile?.position?.coordinates ?? null
@@ -50,14 +58,18 @@ export const LocateControl = (): JSX.Element => {
   // Determine if modal should be shown based on distance and conditions
   const shouldShowModal = useCallback(
     (targetLocation: LatLng | null, hasUpdated: boolean): boolean => {
-      if (!myProfile.myProfile || !targetLocation || hasUpdated) return false
+      if (!targetLocation || hasUpdated || hasDeclinedModal || !user) return false
 
-      if (!currentPosition) return true // Show modal if user has no current position
+      // Show modal if user has no profile (new user)
+      if (!myProfile.myProfile) return true
+
+      // Show modal if user has no current position
+      if (!currentPosition) return true
 
       const distance = targetLocation.distanceTo([currentPosition[1], currentPosition[0]])
       return distance >= 100
     },
-    [myProfile.myProfile, currentPosition],
+    [myProfile.myProfile, currentPosition, hasDeclinedModal, user],
   )
 
   useEffect(() => {
@@ -113,6 +125,7 @@ export const LocateControl = (): JSX.Element => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.stop()
       setActive(false)
+      setHasDeclinedModal(false) // Reset declined state when turning off location
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current)
         timeoutRef.current = null
@@ -121,69 +134,106 @@ export const LocateControl = (): JSX.Element => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
       setLoading(true)
+      setHasDeclinedModal(false) // Reset declined state when turning on location
     }
   }
 
   const itemUpdatePosition = useCallback(async () => {
-    if (myProfile.myProfile && foundLocation) {
-      let success = false
-      const updatedProfile = {
-        id: myProfile.myProfile.id,
-        position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
-      }
-      const toastId = toast.loading('Updating item position')
-      try {
-        if (myProfile.myProfile.layer?.api?.updateItem) {
-          await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
-        }
-        success = true
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.update(toastId, {
-            render: error.message,
-            type: 'error',
-            isLoading: false,
-            autoClose: 5000,
-            closeButton: true,
-          })
-        } else if (typeof error === 'string') {
-          toast.update(toastId, {
-            render: error,
-            type: 'error',
-            isLoading: false,
-            autoClose: 5000,
-            closeButton: true,
-          })
-        } else {
-          throw error
-        }
-      }
-      if (success) {
-        updateItem({
-          ...myProfile.myProfile,
+    if (!foundLocation || !user) return
+
+    const toastId = toast.loading(
+      myProfile.myProfile ? 'Updating position' : 'Creating profile at location',
+    )
+
+    try {
+      let result: Item
+
+      if (myProfile.myProfile) {
+        // Update existing profile
+        const updatedProfile = {
+          id: myProfile.myProfile.id,
           position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
-        })
+        }
+        if (!myProfile.myProfile.layer?.api?.updateItem) {
+          throw new Error('Update API not available')
+        }
+        result = await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
+        // Use server response for local state update
+        updateItem({ ...result, layer: myProfile.myProfile.layer })
         toast.update(toastId, {
-          render: 'Item position updated',
+          render: 'Position updated',
           type: 'success',
           isLoading: false,
           autoClose: 5000,
           closeButton: true,
         })
-        setFoundLocation(null)
-        setActive(false)
-        setHasUpdatedPosition(true)
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current)
-          timeoutRef.current = null
+      } else {
+        // Create new profile
+        const userLayer = layers.find((l) => l.userProfileLayer === true)
+        if (!userLayer?.api?.createItem) {
+          throw new Error('User profile layer or create API not available')
         }
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-        if (lc) lc.stop()
-        // Reset flag after a delay to allow future updates
-        setTimeout(() => setHasUpdatedPosition(false), 5000)
+
+        const newProfile = {
+          id: crypto.randomUUID(),
+          name: user.first_name ?? 'User',
+          position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
+        }
+
+        result = await userLayer.api.createItem(newProfile as Item)
+        // Use server response for local state update
+        addItem({
+          ...result,
+          user_created: user,
+          layer: userLayer,
+          public_edit: false,
+        })
+        toast.update(toastId, {
+          render: 'Profile created at location',
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+      }
+
+      // Navigate to the profile to show the popup
+      navigate(`/${result.id}`)
+
+      // Clean up and reset state
+      setFoundLocation(null)
+      setActive(false)
+      setHasUpdatedPosition(true)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      if (lc) lc.stop()
+      // Reset flag after a delay to allow future updates
+      setTimeout(() => setHasUpdatedPosition(false), 5000)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.update(toastId, {
+          render: error.message,
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+      } else if (typeof error === 'string') {
+        toast.update(toastId, {
+          render: error,
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+      } else {
+        throw error
       }
     }
-  }, [myProfile.myProfile, foundLocation, updateItem, lc])
+  }, [myProfile.myProfile, foundLocation, updateItem, addItem, layers, user, lc, navigate])
 
   return (
     <>
@@ -221,7 +271,11 @@ export const LocateControl = (): JSX.Element => {
         className='tw:bottom-1/3 tw:mx-4 tw:sm:mx-auto'
       >
         <div className='tw:text-center'>
-          <p className='tw:mb-4'>Do you like to place your profile at your current location?</p>
+          <p className='tw:mb-4'>
+            {myProfile.myProfile
+              ? 'Do you like to place your profile at your current location?'
+              : 'Do you like to create your profile at your current location?'}
+          </p>
           <div className='tw:flex tw:justify-between'>
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'
@@ -231,7 +285,13 @@ export const LocateControl = (): JSX.Element => {
             >
               Yes
             </label>
-            <label className='tw:btn tw:mt-4' onClick={() => setShowLocationModal(false)}>
+            <label
+              className='tw:btn tw:mt-4'
+              onClick={() => {
+                setShowLocationModal(false)
+                setHasDeclinedModal(true)
+              }}
+            >
               No
             </label>
           </div>
