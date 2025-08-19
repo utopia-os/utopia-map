@@ -105,7 +105,7 @@ export const submitNewItem = async (
 
   if (result.success && result.data) {
     // Find the layer object by ID from server response
-    const layerForItem = layers.find((l) => l.id === result.data.layer) || layer
+    const layerForItem = layers.find((l) => l.id === result.data!.layer) || layer
     const itemWithLayer = { ...result.data, layer: layerForItem }
     addItem(itemWithLayer)
     await linkItem(uuid)

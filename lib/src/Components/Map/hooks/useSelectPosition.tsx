@@ -140,7 +140,7 @@ function useSelectPositionManager(): {
 
       if (result.success && result.data) {
         // Find the layer object by ID from server response
-        const layer = layers.find((l) => l.id === (result.data.layer as unknown as string))
+        const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
         const itemWithLayer = { ...result.data, layer }
         updateItem(itemWithLayer)
         await linkItem(updatedItem.id)
@@ -176,7 +176,7 @@ function useSelectPositionManager(): {
 
     if (result.success && result.data) {
       // Find the layer object by ID from server response
-      const layer = layers.find((l) => l.id === (result.data.layer as unknown as string))
+      const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
       const itemWithLayer = { ...result.data, layer }
       updateItem(itemWithLayer)
     }
@@ -202,7 +202,7 @@ function useSelectPositionManager(): {
 
         if (result.success && result.data) {
           // Find the layer object by ID from server response
-          const layer = layers.find((l) => l.id === (result.data.layer as unknown as string))
+          const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
           const itemWithLayer = { ...result.data, layer }
           updateItem(itemWithLayer)
         }
