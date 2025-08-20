@@ -337,7 +337,6 @@ describe('<LocateControl />', () => {
         screen.queryByText(/create your profile at your current location/i),
       ).not.toBeInTheDocument()
     })
-
   })
 
   describe('Profile Creation', () => {
