@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable security/detect-object-injection */
 /* eslint-disable no-catch-all/no-catch-all */
 
 import { useCallback, useContext, useEffect, useRef, useState } from 'react'
@@ -60,6 +59,7 @@ export function ItemFormPopup(props: Props) {
 
       for (const [key, value] of formData.entries()) {
         if (key && typeof value === 'string') {
+          // eslint-disable-next-line security/detect-object-injection
           ;(formItem as unknown as Record<string, unknown>)[key] = value
         }
       }
@@ -149,14 +149,13 @@ export function ItemFormPopup(props: Props) {
       }
 
       const isUserProfileUpdate = popupForm.layer.userProfileLayer && existingUserItem
-      const uuid = crypto.randomUUID()
 
       const operation = isUserProfileUpdate
         ? () =>
             popupForm.layer.api?.updateItem!({ ...formItem, id: existingUserItem.id }) ??
             Promise.resolve({} as Item)
         : () =>
-            popupForm.layer.api?.createItem!({ ...formItem, name: itemName, id: uuid }) ??
+            popupForm.layer.api?.createItem!({ ...formItem, name: itemName }) ??
             Promise.resolve({} as Item)
 
       const result = await handleApiOperation(
