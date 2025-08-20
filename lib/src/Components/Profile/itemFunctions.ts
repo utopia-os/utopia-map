@@ -3,12 +3,12 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable no-catch-all/no-catch-all */
 import { toast } from 'react-toastify'
 
 import { encodeTag } from '#utils/FormatTags'
@@ -18,6 +18,34 @@ import { randomColor } from '#utils/RandomColor'
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
 
+// Handle API operations with consistent error handling and return response data
+const handleApiOperation = async (
+  operation: () => Promise<Item>,
+  toastId: string | number,
+  successMessage: string,
+): Promise<{ success: boolean; data?: Item }> => {
+  try {
+    const data = await operation()
+    toast.update(toastId, {
+      render: successMessage,
+      type: 'success',
+      isLoading: false,
+      autoClose: 5000,
+    })
+    return { success: true, data }
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    toast.update(toastId, {
+      render: errorMessage,
+      type: 'error',
+      isLoading: false,
+      autoClose: 5000,
+      closeButton: true,
+    })
+    return { success: false }
+  }
+}
+
 // eslint-disable-next-line promise/avoid-new
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -25,7 +53,6 @@ export const submitNewItem = async (
   evt: any,
   type: string,
   item,
-  user,
   setLoading,
   tags,
   addTag,
@@ -35,6 +62,7 @@ export const submitNewItem = async (
   layers,
   addItemPopupType,
   setAddItemPopupType,
+  user,
 ) => {
   evt.preventDefault()
   const formItem: Item = {} as Item
@@ -60,58 +88,83 @@ export const submitNewItem = async (
     (l) => l.name.toLocaleLowerCase().replace('s', '') === addItemPopupType.toLocaleLowerCase(),
   )
 
-  let success = false
-  try {
-    await layer?.api?.createItem!({ ...formItem, id: uuid, type, parent: item.id })
+  const toastId = toast.loading('Creating new item...')
+
+  const result = await handleApiOperation(
+    async () => {
+      const serverResult = await layer?.api?.createItem!({
+        ...formItem,
+        id: uuid,
+        type,
+        parent: item.id,
+      })
+      return serverResult as Item
+    },
+    toastId,
+    'New item created',
+  )
+
+  if (result.success && result.data) {
+    // Find the layer object by ID from server response
+    const layerForItem = layers.find((l) => l.id === result.data!.layer) || layer
+    const itemWithLayer = { ...result.data, layer: layerForItem, user_created: user ?? undefined }
+    addItem(itemWithLayer)
     await linkItem(uuid)
-    success = true
-    // eslint-disable-next-line no-catch-all/no-catch-all
-  } catch (error) {
-    toast.error(error.toString())
-  }
-  if (success) {
-    addItem({ ...formItem, id: uuid, type, layer, user_created: user, parent: item.id })
-    toast.success('New item created')
     resetFilterTags()
   }
   setLoading(false)
   setAddItemPopupType('')
 }
 
-export const linkItem = async (id: string, item: Item, updateItem) => {
+export const linkItem = async (id: string, item: Item, updateItem, user) => {
   const newRelations = item.relations ?? []
   newRelations?.push({ items_id: item.id, related_items_id: id })
   const updatedItem = { id: item.id, relations: newRelations }
 
-  let success = false
-  try {
-    await item?.layer?.api?.updateItem!(updatedItem)
-    success = true
-    // eslint-disable-next-line no-catch-all/no-catch-all
-  } catch (error) {
-    toast.error(error.toString())
-  }
-  if (success) {
-    updateItem({ ...item, relations: newRelations })
-    toast.success('Item linked')
+  const toastId = toast.loading('Linking item...')
+
+  const result = await handleApiOperation(
+    async () => {
+      const serverResult = await item?.layer?.api?.updateItem!(updatedItem)
+      return serverResult!
+    },
+    toastId,
+    'Item linked',
+  )
+
+  if (result.success && result.data) {
+    // Find the layer object by ID from server response or use existing layer
+    const layer = item.layer
+    const itemWithLayer = {
+      ...result.data,
+      layer,
+      relations: newRelations,
+      user_created: user ?? undefined,
+    }
+    updateItem(itemWithLayer)
   }
 }
 
-export const unlinkItem = async (id: string, item: Item, updateItem) => {
+export const unlinkItem = async (id: string, item: Item, updateItem, user) => {
   const newRelations = item.relations?.filter((r) => r.related_items_id !== id)
   const updatedItem = { id: item.id, relations: newRelations }
 
-  let success = false
-  try {
-    await item?.layer?.api?.updateItem!(updatedItem)
-    success = true
-    // eslint-disable-next-line no-catch-all/no-catch-all
-  } catch (error) {
-    toast.error(error.toString())
-  }
-  if (success) {
-    updateItem({ ...item, relations: newRelations })
-    toast.success('Item unlinked')
+  const toastId = toast.loading('Unlinking item...')
+
+  const result = await handleApiOperation(
+    async () => {
+      const serverResult = await item?.layer?.api?.updateItem!(updatedItem)
+      return serverResult!
+    },
+    toastId,
+    'Item unlinked',
+  )
+
+  if (result.success && result.data) {
+    // Find the layer object by ID from server response or use existing layer
+    const layer = item.layer
+    const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+    updateItem(itemWithLayer)
   }
 }
 
@@ -125,23 +178,21 @@ export const handleDelete = async (
 ) => {
   event.stopPropagation()
   setLoading(true)
-  let success = false
+
   try {
     await item.layer?.api?.deleteItem!(item.id)
-    success = true
-    // eslint-disable-next-line no-catch-all/no-catch-all
-  } catch (error) {
-    toast.error(error.toString())
-  }
-  if (success) {
     removeItem(item)
     toast.success('Item deleted')
+
+    map.closePopup()
+    const params = new URLSearchParams(window.location.search)
+    window.history.pushState({}, '', '/' + `${params ? `?${params}` : ''}`)
+    navigate('/')
+  } catch (error) {
+    toast.error(error instanceof Error ? error.message : String(error))
   }
+
   setLoading(false)
-  map.closePopup()
-  const params = new URLSearchParams(window.location.search)
-  window.history.pushState({}, '', '/' + `${params ? `?${params}` : ''}`)
-  navigate('/')
 }
 
 export const onUpdateItem = async (
@@ -239,61 +290,53 @@ export const onUpdateItem = async (
   await sleep(200)
 
   if (!item.new) {
-    await (item?.layer?.api?.updateItem &&
-      toast
-        .promise(item?.layer?.api?.updateItem(changedItem), {
-          pending: 'updating Item  ...',
-          success: 'Item updated',
-          error: {
-            render({ data }) {
-              return `${data}`
-            },
-          },
-        })
-        .catch(setLoading(false))
-        .then(
-          () =>
-            item &&
-            updateItem({
-              ...item,
-              ...changedItem,
-              markerIcon: state.marker_icon,
-              gallery: state.gallery,
-            }),
-        )
-        .then(() => {
-          setLoading(false)
-          navigate(`/item/${item.id}${params && '?' + params}`)
-          return null
-        }))
+    const toastId = toast.loading('updating Item  ...')
+
+    const result = await handleApiOperation(
+      async () => {
+        const serverResult = await item?.layer?.api?.updateItem!(changedItem)
+        return serverResult!
+      },
+      toastId,
+      'Item updated',
+    )
+
+    if (result.success && result.data) {
+      // Use server response with additional client-side data
+      const itemWithLayer = {
+        ...result.data,
+        layer: item.layer,
+        markerIcon: state.marker_icon,
+        gallery: state.gallery,
+        user_created: user ?? undefined,
+      }
+      updateItem(itemWithLayer)
+      navigate(`/item/${item.id}${params && '?' + params}`)
+    }
+    setLoading(false)
   } else {
     item.new = false
-    await (item.layer?.api?.createItem &&
-      toast
-        .promise(item.layer?.api?.createItem(changedItem), {
-          pending: 'updating Item  ...',
-          success: 'Item updated',
-          error: {
-            render({ data }) {
-              return `${data}`
-            },
-          },
-        })
-        .catch(setLoading(false))
-        .then(
-          () =>
-            item &&
-            addItem({
-              ...item,
-              ...changedItem,
-              layer: item.layer,
-              user_created: user,
-            }),
-        )
-        .then(() => {
-          setLoading(false)
-          navigate(`/${params && '?' + params}`)
-          return null
-        }))
+    const toastId = toast.loading('updating Item  ...')
+
+    const result = await handleApiOperation(
+      async () => {
+        const serverResult = await item.layer?.api?.createItem!(changedItem)
+        return serverResult!
+      },
+      toastId,
+      'Item updated',
+    )
+
+    if (result.success && result.data) {
+      // Use server response with additional client-side data
+      const itemWithLayer = {
+        ...result.data,
+        layer: item.layer,
+        user_created: user,
+      }
+      addItem(itemWithLayer)
+      navigate(`/${params && '?' + params}`)
+    }
+    setLoading(false)
   }
 }

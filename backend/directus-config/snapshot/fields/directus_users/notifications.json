@@ -1,0 +1,27 @@
+{
+  "collection": "directus_users",
+  "field": "notifications",
+  "type": "alias",
+  "meta": {
+    "collection": "directus_users",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "notifications",
+    "group": null,
+    "hidden": false,
+    "interface": "list-m2m",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 9,
+    "special": [
+      "m2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

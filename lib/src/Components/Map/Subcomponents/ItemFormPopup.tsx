@@ -1,11 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { useContext, useEffect, useRef, useState } from 'react'
+/* eslint-disable no-catch-all/no-catch-all */
+
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { Popup as LeafletPopup, useMap } from 'react-leaflet'
 import { toast } from 'react-toastify'
 
@@ -50,95 +47,178 @@ export function ItemFormPopup(props: Props) {
 
   const { user } = useAuth()
 
-  const handleSubmit = async (evt: any) => {
-    if (!popupForm) {
-      throw new Error('Popup form is not defined')
-    }
-    const formItem: Item = {} as Item
-    Array.from(evt.target).forEach((input: HTMLInputElement) => {
-      if (input.name) {
-        formItem[input.name] = input.value
+  // Extract form data into Item object
+  const parseFormData = useCallback(
+    (evt: React.FormEvent<HTMLFormElement>): Item => {
+      if (!popupForm) {
+        throw new Error('Popup form is not defined')
       }
-    })
-    formItem.position = {
-      type: 'Point',
-      coordinates: [popupForm.position.lng, popupForm.position.lat],
-    }
+
+      const formItem: Item = {} as Item
+      const formData = new FormData(evt.currentTarget)
+
+      for (const [key, value] of formData.entries()) {
+        if (key && typeof value === 'string') {
+          // eslint-disable-next-line security/detect-object-injection
+          ;(formItem as unknown as Record<string, unknown>)[key] = value
+        }
+      }
+
+      formItem.position = {
+        type: 'Point',
+        coordinates: [popupForm.position.lng, popupForm.position.lat],
+      }
+
+      return formItem
+    },
+    [popupForm],
+  )
+
+  // Process hashtags in text and create new tags if needed
+  const processHashtags = useCallback(
+    (text: string) => {
+      if (!text) return
+
+      text
+        .toLocaleLowerCase()
+        .match(hashTagRegex)
+        ?.forEach((tag) => {
+          const tagName = tag.slice(1).toLocaleLowerCase()
+          if (!tags.find((t) => t.name.toLocaleLowerCase() === tagName)) {
+            addTag({ id: crypto.randomUUID(), name: tag.slice(1), color: randomColor() })
+          }
+        })
+    },
+    [tags, addTag],
+  )
+
+  // Handle API operations with consistent error handling and return response data
+  const handleApiOperation = useCallback(
+    async (
+      operation: () => Promise<Item>,
+      successMessage: string,
+    ): Promise<{ success: boolean; data?: Item }> => {
+      try {
+        const data = await operation()
+        toast.success(successMessage)
+        return { success: true, data }
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : String(error))
+        return { success: false }
+      }
+    },
+    [],
+  )
+
+  // Update existing item
+  const handleUpdateItem = useCallback(
+    async (formItem: Item) => {
+      if (!popupForm?.item) return false
+
+      const result = await handleApiOperation(
+        () =>
+          popupForm.layer.api?.updateItem!({ ...formItem, id: popupForm.item!.id }) ??
+          Promise.resolve({} as Item),
+        'Item updated',
+      )
+
+      if (result.success && result.data) {
+        // Ensure the item has the layer object attached
+        const itemWithLayer = {
+          ...result.data,
+          layer: popupForm.layer,
+          user_created: user ?? undefined,
+        }
+        updateItem(itemWithLayer)
+      }
+
+      return result.success
+    },
+    [popupForm, handleApiOperation, updateItem, user],
+  )
+
+  // Create new item or update existing user profile
+  const handleCreateItem = useCallback(
+    async (formItem: Item) => {
+      if (!popupForm) return false
+
+      const existingUserItem = items.find(
+        (i) => i.user_created?.id === user?.id && i.layer === popupForm.layer,
+      )
+
+      const itemName = formItem.name || user?.first_name
+      if (!itemName) {
+        toast.error('Name must be defined')
+        return false
+      }
+
+      const isUserProfileUpdate = popupForm.layer.userProfileLayer && existingUserItem
+
+      const operation = isUserProfileUpdate
+        ? () =>
+            popupForm.layer.api?.updateItem!({ ...formItem, id: existingUserItem.id }) ??
+            Promise.resolve({} as Item)
+        : () =>
+            popupForm.layer.api?.createItem!({ ...formItem, name: itemName }) ??
+            Promise.resolve({} as Item)
+
+      const result = await handleApiOperation(
+        operation,
+        isUserProfileUpdate ? 'Profile updated' : 'New item created',
+      )
+
+      if (result.success && result.data) {
+        // Ensure the item has the layer object attached
+        const itemWithLayer = {
+          ...result.data,
+          layer: popupForm.layer,
+          user_created: user ?? undefined,
+        }
+
+        if (isUserProfileUpdate) {
+          updateItem(itemWithLayer)
+        } else {
+          addItem(itemWithLayer)
+        }
+        resetFilterTags()
+      }
+
+      return result.success
+    },
+    [popupForm, items, user, handleApiOperation, updateItem, addItem, resetFilterTags],
+  )
+
+  const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
 
-    const name = formItem.name ? formItem.name : user?.first_name
-    if (!name) {
-      toast.error('Name is must be defined')
-      return
+    if (!popupForm) {
+      throw new Error('Popup form is not defined')
     }
 
     setSpinner(true)
 
-    formItem.text &&
-      formItem.text
-        .toLocaleLowerCase()
-        .match(hashTagRegex)
-        ?.map((tag) => {
-          if (!tags.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase())) {
-            addTag({ id: crypto.randomUUID(), name: tag.slice(1), color: randomColor() })
-          }
-          return null
-        })
+    try {
+      const formItem = parseFormData(evt)
 
-    if (popupForm.item) {
-      let success = false
-      try {
-        await popupForm.layer.api?.updateItem!({ ...formItem, id: popupForm.item.id })
-        success = true
-        // eslint-disable-next-line no-catch-all/no-catch-all
-      } catch (error) {
-        toast.error(error.toString())
+      // Process hashtags if text exists
+      if (formItem.text) {
+        processHashtags(formItem.text)
       }
-      if (success) {
-        updateItem({ ...popupForm.item, ...formItem })
-        toast.success('Item updated')
-      }
-      setSpinner(false)
-      map.closePopup()
-    } else {
-      const item = items.find((i) => i.user_created?.id === user?.id && i.layer === popupForm.layer)
 
-      const uuid = crypto.randomUUID()
-      let success = false
-      try {
-        popupForm.layer.userProfileLayer &&
-          item &&
-          (await popupForm.layer.api?.updateItem!({ ...formItem, id: item.id }))
-        ;(!popupForm.layer.userProfileLayer || !item) &&
-          (await popupForm.layer.api?.createItem!({
-            ...formItem,
-            name,
-            id: uuid,
-          }))
-        success = true
-        // eslint-disable-next-line no-catch-all/no-catch-all
-      } catch (error) {
-        toast.error(error.toString())
+      let success: boolean
+      if (popupForm.item) {
+        success = await handleUpdateItem(formItem)
+      } else {
+        success = await handleCreateItem(formItem)
       }
+
       if (success) {
-        if (popupForm.layer.userProfileLayer && item) updateItem({ ...item, ...formItem })
-        if (!popupForm.layer.userProfileLayer || !item) {
-          addItem({
-            ...formItem,
-            name: (formItem.name ? formItem.name : user?.first_name) ?? '',
-            user_created: user ?? undefined,
-            id: uuid,
-            layer: popupForm.layer,
-            public_edit: !user,
-          })
-        }
-        toast.success('New item created')
-        resetFilterTags()
+        map.closePopup()
+        setPopupForm(null)
       }
+    } finally {
       setSpinner(false)
-      map.closePopup()
     }
-    setPopupForm(null)
   }
 
   const resetPopup = () => {

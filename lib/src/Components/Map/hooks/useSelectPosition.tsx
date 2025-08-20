@@ -3,14 +3,18 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/await-thenable */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createContext, useContext, useEffect, useState } from 'react'
+/* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
+/* eslint-disable no-catch-all/no-catch-all */
+
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { toast } from 'react-toastify'
 
+import { useAuth } from '#components/Auth/useAuth'
+
 import { useUpdateItem } from './useItems'
+import { useLayers } from './useLayers'
 import { useHasUserPermission } from './usePermissions'
 
 import type { Item } from '#types/Item'
@@ -44,6 +48,39 @@ function useSelectPositionManager(): {
   const [mapClicked, setMapClicked] = useState<PolygonClickedProps>()
   const updateItem = useUpdateItem()
   const hasUserPermission = useHasUserPermission()
+  const layers = useLayers()
+  const { user } = useAuth()
+
+  // Handle API operations with consistent error handling and return response data
+  const handleApiOperation = useCallback(
+    async (
+      operation: () => Promise<Item>,
+      toastId: string | number,
+      successMessage: string,
+    ): Promise<{ success: boolean; data?: Item }> => {
+      try {
+        const data = await operation()
+        toast.update(toastId, {
+          render: successMessage,
+          type: 'success',
+          isLoading: false,
+          autoClose: 5000,
+        })
+        return { success: true, data }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error)
+        toast.update(toastId, {
+          render: errorMessage,
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+        return { success: false }
+      }
+    },
+    [],
+  )
 
   useEffect(() => {
     if (
@@ -91,32 +128,25 @@ function useSelectPositionManager(): {
       markerClicked?.layer?.api?.collectionName &&
       hasUserPermission(markerClicked.layer.api.collectionName, 'update', markerClicked)
     ) {
-      let success = false
-      try {
-        await updatedItem.layer?.api?.updateItem!({
-          id: updatedItem.id,
-          parent: updatedItem.parent,
-          position: null,
-        })
-        success = true
-      } catch (error: unknown) {
-        if (error instanceof Error) {
-          toast.update(toastId, { render: error.message, type: 'error', autoClose: 5000 })
-        } else if (typeof error === 'string') {
-          toast.update(toastId, { render: error, type: 'error', autoClose: 5000 })
-        } else {
-          throw error
-        }
-      }
-      if (success) {
-        await updateItem({ ...updatedItem, parent: updatedItem.parent, position: undefined })
+      const result = await handleApiOperation(
+        async () => {
+          const updateResult = await updatedItem.layer?.api?.updateItem!({
+            id: updatedItem.id,
+            parent: updatedItem.parent,
+            position: null,
+          })
+          return updateResult as Item
+        },
+        toastId,
+        'Item position updated',
+      )
+
+      if (result.success && result.data) {
+        // Find the layer object by ID from server response
+        const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
+        const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+        updateItem(itemWithLayer)
         await linkItem(updatedItem.id)
-        toast.update(toastId, {
-          render: 'Item position updated',
-          type: 'success',
-          isLoading: false,
-          autoClose: 5000,
-        })
         setSelectPosition(null)
         setMarkerClicked(null)
       }
@@ -133,44 +163,25 @@ function useSelectPositionManager(): {
   }
 
   const itemUpdatePosition = async (updatedItem: Item) => {
-    let success = false
     const toastId = toast.loading('Updating item position')
-    try {
-      await updatedItem.layer?.api?.updateItem!({
-        id: updatedItem.id,
-        position: updatedItem.position,
-      })
-      success = true
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.update(toastId, {
-          render: error.message,
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
+
+    const result = await handleApiOperation(
+      async () => {
+        const updateResult = await updatedItem.layer?.api?.updateItem!({
+          id: updatedItem.id,
+          position: updatedItem.position,
         })
-      } else if (typeof error === 'string') {
-        toast.update(toastId, {
-          render: error,
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
-      } else {
-        throw error
-      }
-    }
-    if (success) {
-      updateItem(updatedItem)
-      toast.update(toastId, {
-        render: 'Item position updated',
-        type: 'success',
-        isLoading: false,
-        autoClose: 5000,
-        closeButton: true,
-      })
+        return updateResult as Item
+      },
+      toastId,
+      'Item position updated',
+    )
+
+    if (result.success && result.data) {
+      // Find the layer object by ID from server response
+      const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
+      const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+      updateItem(itemWithLayer)
     }
   }
 
@@ -182,41 +193,21 @@ function useSelectPositionManager(): {
         newRelations.push({ items_id: markerClicked.id, related_items_id: id })
         const updatedItem = { id: markerClicked.id, relations: newRelations }
 
-        let success = false
         const toastId = toast.loading('Linking item')
-        try {
-          await markerClicked.layer?.api?.updateItem!(updatedItem)
-          success = true
-        } catch (error: unknown) {
-          if (error instanceof Error) {
-            toast.update(toastId, {
-              render: error.message,
-              type: 'error',
-              isLoading: false,
-              autoClose: 5000,
-              closeButton: true,
-            })
-          } else if (typeof error === 'string') {
-            toast.update(toastId, {
-              render: error,
-              type: 'error',
-              isLoading: false,
-              autoClose: 5000,
-              closeButton: true,
-            })
-          } else {
-            throw error
-          }
-        }
-        if (success) {
-          updateItem({ ...markerClicked, relations: newRelations })
-          toast.update(toastId, {
-            render: 'Item linked',
-            type: 'success',
-            isLoading: false,
-            autoClose: 5000,
-            closeButton: true,
-          })
+        const result = await handleApiOperation(
+          async () => {
+            const updateResult = await markerClicked.layer?.api?.updateItem!(updatedItem)
+            return updateResult as Item
+          },
+          toastId,
+          'Item linked',
+        )
+
+        if (result.success && result.data) {
+          // Find the layer object by ID from server response
+          const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
+          const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+          updateItem(itemWithLayer)
         }
       }
     }

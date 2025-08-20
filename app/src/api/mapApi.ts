@@ -17,7 +17,7 @@ export class mapApi {
     try {
       const map = await directusClient.request(
         readItems('maps' as any, {
-          fields: ['*', { user_type: ['name'] }],
+          fields: ['*'],
           filter: { url: { _eq: this.url } } as any,
           limit: 500,
         }),

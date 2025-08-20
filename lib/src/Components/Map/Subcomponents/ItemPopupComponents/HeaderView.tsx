@@ -57,7 +57,9 @@ export function HeaderView({
 
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  const avatar = item.image && appState.assetsApi.url + item.image + '?width=160&heigth=160'
+  const avatar =
+    (item.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
+    item.image_external
   const title = item.name
   const subtitle = item.subname
 

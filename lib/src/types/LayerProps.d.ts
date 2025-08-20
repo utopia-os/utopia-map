@@ -7,7 +7,7 @@ import type { MarkerIcon } from './MarkerIcon'
  * @category Types
  */
 export interface LayerProps {
-  id?: string
+  id: string
   data?: Item[]
   children?: React.ReactNode
   name: string

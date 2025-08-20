@@ -1,0 +1,137 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`<LocateControl /> > Component Rendering > matches snapshot 1`] = `
+<div
+  class="leaflet-container leaflet-touch leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
+  style="position: relative;"
+  tabindex="0"
+>
+  <div
+    class="leaflet-pane leaflet-map-pane"
+    style="left: 0px; top: 0px;"
+  >
+    <div
+      class="leaflet-pane leaflet-tile-pane"
+    />
+    <div
+      class="leaflet-pane leaflet-overlay-pane"
+    />
+    <div
+      class="leaflet-pane leaflet-shadow-pane"
+    />
+    <div
+      class="leaflet-pane leaflet-marker-pane"
+    />
+    <div
+      class="leaflet-pane leaflet-tooltip-pane"
+    />
+    <div
+      class="leaflet-pane leaflet-popup-pane"
+    />
+  </div>
+  <div
+    class="leaflet-control-container"
+  >
+    <div
+      class="leaflet-top leaflet-left"
+    >
+      <div
+        class="leaflet-control-zoom leaflet-bar leaflet-control"
+      >
+        <a
+          aria-disabled="false"
+          aria-label="Zoom in"
+          class="leaflet-control-zoom-in"
+          href="#"
+          role="button"
+          title="Zoom in"
+        >
+          <span
+            aria-hidden="true"
+          >
+            +
+          </span>
+        </a>
+        <a
+          aria-disabled="false"
+          aria-label="Zoom out"
+          class="leaflet-control-zoom-out"
+          href="#"
+          role="button"
+          title="Zoom out"
+        >
+          <span
+            aria-hidden="true"
+          >
+            −
+          </span>
+        </a>
+      </div>
+    </div>
+    <div
+      class="leaflet-top leaflet-right"
+    />
+    <div
+      class="leaflet-bottom leaflet-left"
+    />
+    <div
+      class="leaflet-bottom leaflet-right"
+    >
+      <div
+        class="leaflet-control-attribution leaflet-control"
+      >
+        <a
+          href="https://leafletjs.com"
+          title="A JavaScript library for interactive maps"
+        >
+          <svg
+            aria-hidden="true"
+            class="leaflet-attribution-flag"
+            height="8"
+            viewBox="0 0 12 8"
+            width="12"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M0 0h12v4H0z"
+              fill="#4C7BE1"
+            />
+            <path
+              d="M0 4h12v3H0z"
+              fill="#FFD500"
+            />
+            <path
+              d="M0 7h12v1H0z"
+              fill="#E0BC00"
+            />
+          </svg>
+           Leaflet
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="tw:card tw:flex-none tw:h-12 tw:w-12 tw:bg-base-100 tw:shadow-xl tw:items-center tw:justify-center tw:hover:bg-slate-300 tw:hover:cursor-pointer tw:transition-all tw:duration-300 tw:ml-2"
+  >
+    <div
+      aria-label="Start location tracking"
+      class="tw:card-body tw:card tw:p-2 tw:h-10 tw:w-10"
+      role="button"
+      tabindex="0"
+    >
+      <svg
+        class="tw:mt-1 tw:p-[1px]"
+        fill="currentColor"
+        style="fill: currentColor;"
+        version="1.1"
+        viewBox="0 0 32 32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M30 14.75h-2.824c-0.608-5.219-4.707-9.318-9.874-9.921l-0.053-0.005v-2.824c0-0.69-0.56-1.25-1.25-1.25s-1.25 0.56-1.25 1.25v0 2.824c-5.219 0.608-9.318 4.707-9.921 9.874l-0.005 0.053h-2.824c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h2.824c0.608 5.219 4.707 9.318 9.874 9.921l0.053 0.005v2.824c0 0.69 0.56 1.25 1.25 1.25s1.25-0.56 1.25-1.25v0-2.824c5.219-0.608 9.318-4.707 9.921-9.874l0.005-0.053h2.824c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0zM17.25 24.624v-2.624c0-0.69-0.56-1.25-1.25-1.25s-1.25 0.56-1.25 1.25v0 2.624c-3.821-0.57-6.803-3.553-7.368-7.326l-0.006-0.048h2.624c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0h-2.624c0.57-3.821 3.553-6.804 7.326-7.368l0.048-0.006v2.624c0 0.69 0.56 1.25 1.25 1.25s1.25-0.56 1.25-1.25v0-2.624c3.821 0.57 6.803 3.553 7.368 7.326l0.006 0.048h-2.624c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h2.624c-0.571 3.821-3.553 6.803-7.326 7.368l-0.048 0.006z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
