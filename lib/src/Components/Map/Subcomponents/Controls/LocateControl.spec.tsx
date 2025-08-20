@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
+import { render, screen, fireEvent, act } from '@testing-library/react'
 import { MapContainer } from 'react-leaflet'
 import { MemoryRouter } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -311,13 +311,17 @@ describe('<LocateControl />', () => {
       expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
-      fireEvent.click(yesButton)
 
-      await waitFor(() => {
-        expect(mockCreateItem).toHaveBeenCalled()
-        expect(mockAddItem).toHaveBeenCalled()
-        expect(toast.loading).toHaveBeenCalledWith('Creating profile at location')
+      await act(async () => {
+        fireEvent.click(yesButton)
+        // Allow promises to resolve
+        await vi.runAllTimersAsync()
       })
+
+      // Verify API calls were made
+      expect(mockCreateItem).toHaveBeenCalled()
+      expect(mockAddItem).toHaveBeenCalled()
+      expect(toast.loading).toHaveBeenCalledWith('Creating profile at location')
     })
 
     it('updates existing profile position', async () => {
@@ -361,9 +365,8 @@ describe('<LocateControl />', () => {
       })
 
       // Verify distanceTo was called with swapped coordinates [lat, lng]
-      await waitFor(() => {
-        expect(mockDistanceTo).toHaveBeenCalledWith([50.0, 10.0])
-      })
+      // Verify distanceTo was called with swapped coordinates [lat, lng]
+      expect(mockDistanceTo).toHaveBeenCalledWith([50.0, 10.0])
 
       act(() => {
         vi.runAllTimers()
@@ -374,13 +377,17 @@ describe('<LocateControl />', () => {
 
       // Find the Yes button by text content instead of role
       const yesButton = screen.getByText('Yes')
-      fireEvent.click(yesButton)
 
-      await waitFor(() => {
-        expect(mockUpdateItem).toHaveBeenCalled()
-        expect(mockUpdateItemHook).toHaveBeenCalled()
-        expect(toast.loading).toHaveBeenCalledWith('Updating position')
+      await act(async () => {
+        fireEvent.click(yesButton)
+        // Allow promises to resolve
+        await vi.runAllTimersAsync()
       })
+
+      // Verify API calls were made
+      expect(mockUpdateItem).toHaveBeenCalled()
+      expect(mockUpdateItemHook).toHaveBeenCalled()
+      expect(toast.loading).toHaveBeenCalledWith('Updating position')
     })
   })
 
@@ -417,11 +424,15 @@ describe('<LocateControl />', () => {
       expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
-      fireEvent.click(yesButton)
 
-      await waitFor(() => {
-        expect(mockNavigate).toHaveBeenCalledWith('/new-profile-1')
+      await act(async () => {
+        fireEvent.click(yesButton)
+        // Allow promises to resolve
+        await vi.runAllTimersAsync()
       })
+
+      // Verify navigation was called
+      expect(mockNavigate).toHaveBeenCalledWith('/new-profile-1')
     })
   })
 
@@ -453,16 +464,20 @@ describe('<LocateControl />', () => {
       expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
-      fireEvent.click(yesButton)
 
-      await waitFor(() => {
-        expect(toast.update).toHaveBeenCalledWith('toast-id', {
-          render: 'Network error',
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
+      await act(async () => {
+        fireEvent.click(yesButton)
+        // Allow promises to resolve
+        await vi.runAllTimersAsync()
+      })
+
+      // Verify error toast was shown
+      expect(toast.update).toHaveBeenCalledWith('toast-id', {
+        render: 'Network error',
+        type: 'error',
+        isLoading: false,
+        autoClose: 5000,
+        closeButton: true,
       })
     })
   })
