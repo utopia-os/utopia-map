@@ -95,7 +95,9 @@ export const LocateControl = (): JSX.Element => {
       !showLocationModal &&
       shouldShowModal(foundLocation, hasUpdatedPosition)
     ) {
-      setShowLocationModal(true)
+      timeoutRef.current = setTimeout(() => {
+        setShowLocationModal(true)
+      }, 1000)
     }
   }, [active, foundLocation, showLocationModal, hasUpdatedPosition, shouldShowModal])
 
@@ -104,13 +106,6 @@ export const LocateControl = (): JSX.Element => {
       setLoading(false)
       setActive(true)
       setFoundLocation(e.latlng)
-
-      // Show modal after delay if conditions are met
-      if (shouldShowModal(e.latlng, hasUpdatedPosition)) {
-        timeoutRef.current = setTimeout(() => {
-          setShowLocationModal(true)
-        }, 1000)
-      }
     },
     locationerror: () => {
       setLoading(false)
