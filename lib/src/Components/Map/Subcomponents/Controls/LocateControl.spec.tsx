@@ -274,6 +274,69 @@ describe('<LocateControl />', () => {
       // Check if modal appears after timeout
       expect(screen.getByText(/place your profile at your current location/i)).toBeInTheDocument()
     })
+
+    it('does not show modal when distance is less than 100m', () => {
+      const profileWithPosition = {
+        ...mockProfile,
+        position: {
+          type: 'Point' as const,
+          coordinates: [10.0, 50.0],
+        },
+      }
+      mockUseMyProfile.mockReturnValue({ myProfile: profileWithPosition, isMyProfileLoaded: true })
+
+      render(
+        <TestWrapper>
+          <LocateControl />
+        </TestWrapper>,
+      )
+
+      // Mock distanceTo to return a distance < 100m
+      const locationEvent = {
+        latlng: {
+          lat: 50.001, // Very close to current position
+          lng: 10.001,
+          distanceTo: vi.fn(() => 50), // Distance less than 100m
+        },
+      }
+
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
+      })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Modal should not appear
+      expect(
+        screen.queryByText(/place your profile at your current location/i),
+      ).not.toBeInTheDocument()
+    })
+
+    it('does not show modal when location error occurs', () => {
+      mockUseMyProfile.mockReturnValue({ myProfile: null, isMyProfileLoaded: true })
+
+      render(
+        <TestWrapper>
+          <LocateControl />
+        </TestWrapper>,
+      )
+
+      // Simulate location error
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationerror?.()
+      })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Modal should not appear
+      expect(
+        screen.queryByText(/create your profile at your current location/i),
+      ).not.toBeInTheDocument()
+    })
   })
 
   describe('Profile Creation', () => {
