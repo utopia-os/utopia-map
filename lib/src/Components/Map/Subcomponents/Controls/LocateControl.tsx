@@ -262,7 +262,7 @@ export const LocateControl = (): JSX.Element => {
         isOpened={showLocationModal}
         onClose={() => setShowLocationModal(false)}
         showCloseButton={true}
-        closeOnClickOutside={true}
+        closeOnClickOutside={false}
         className='tw:bottom-1/3 tw:mx-4 tw:sm:mx-auto'
       >
         <div className='tw:text-center'>
