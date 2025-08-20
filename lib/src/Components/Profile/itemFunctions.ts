@@ -62,6 +62,7 @@ export const submitNewItem = async (
   layers,
   addItemPopupType,
   setAddItemPopupType,
+  user,
 ) => {
   evt.preventDefault()
   const formItem: Item = {} as Item
@@ -106,7 +107,7 @@ export const submitNewItem = async (
   if (result.success && result.data) {
     // Find the layer object by ID from server response
     const layerForItem = layers.find((l) => l.id === result.data!.layer) || layer
-    const itemWithLayer = { ...result.data, layer: layerForItem }
+    const itemWithLayer = { ...result.data, layer: layerForItem, user_created: user ?? undefined }
     addItem(itemWithLayer)
     await linkItem(uuid)
     resetFilterTags()
@@ -115,7 +116,7 @@ export const submitNewItem = async (
   setAddItemPopupType('')
 }
 
-export const linkItem = async (id: string, item: Item, updateItem) => {
+export const linkItem = async (id: string, item: Item, updateItem, user) => {
   const newRelations = item.relations ?? []
   newRelations?.push({ items_id: item.id, related_items_id: id })
   const updatedItem = { id: item.id, relations: newRelations }
@@ -134,12 +135,17 @@ export const linkItem = async (id: string, item: Item, updateItem) => {
   if (result.success && result.data) {
     // Find the layer object by ID from server response or use existing layer
     const layer = item.layer
-    const itemWithLayer = { ...result.data, layer, relations: newRelations }
+    const itemWithLayer = {
+      ...result.data,
+      layer,
+      relations: newRelations,
+      user_created: user ?? undefined,
+    }
     updateItem(itemWithLayer)
   }
 }
 
-export const unlinkItem = async (id: string, item: Item, updateItem) => {
+export const unlinkItem = async (id: string, item: Item, updateItem, user) => {
   const newRelations = item.relations?.filter((r) => r.related_items_id !== id)
   const updatedItem = { id: item.id, relations: newRelations }
 
@@ -157,7 +163,7 @@ export const unlinkItem = async (id: string, item: Item, updateItem) => {
   if (result.success && result.data) {
     // Find the layer object by ID from server response or use existing layer
     const layer = item.layer
-    const itemWithLayer = { ...result.data, layer }
+    const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
     updateItem(itemWithLayer)
   }
 }
@@ -302,6 +308,7 @@ export const onUpdateItem = async (
         layer: item.layer,
         markerIcon: state.marker_icon,
         gallery: state.gallery,
+        user_created: user ?? undefined,
       }
       updateItem(itemWithLayer)
       navigate(`/item/${item.id}${params && '?' + params}`)

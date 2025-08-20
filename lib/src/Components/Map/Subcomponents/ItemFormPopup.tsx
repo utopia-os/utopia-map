@@ -124,13 +124,17 @@ export function ItemFormPopup(props: Props) {
 
       if (result.success && result.data) {
         // Ensure the item has the layer object attached
-        const itemWithLayer = { ...result.data, layer: popupForm.layer }
+        const itemWithLayer = {
+          ...result.data,
+          layer: popupForm.layer,
+          user_created: user ?? undefined,
+        }
         updateItem(itemWithLayer)
       }
 
       return result.success
     },
-    [popupForm, handleApiOperation, updateItem],
+    [popupForm, handleApiOperation, updateItem, user],
   )
 
   // Create new item or update existing user profile
@@ -165,7 +169,11 @@ export function ItemFormPopup(props: Props) {
 
       if (result.success && result.data) {
         // Ensure the item has the layer object attached
-        const itemWithLayer = { ...result.data, layer: popupForm.layer }
+        const itemWithLayer = {
+          ...result.data,
+          layer: popupForm.layer,
+          user_created: user ?? undefined,
+        }
 
         if (isUserProfileUpdate) {
           updateItem(itemWithLayer)

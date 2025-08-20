@@ -154,7 +154,7 @@ export const LocateControl = (): JSX.Element => {
         }
         result = await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
         // Use server response for local state update
-        updateItem({ ...result, layer: myProfile.myProfile.layer })
+        updateItem({ ...result, layer: myProfile.myProfile.layer, user_created: user })
         toast.update(toastId, {
           render: 'Position updated',
           type: 'success',

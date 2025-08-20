@@ -22,6 +22,12 @@ vi.mock('react-toastify', () => ({
 describe('linkItem', () => {
   const id = 'some-id'
   let updateApi: (item: Partial<Item>) => Promise<Item> = vi.fn()
+  const mockUser = {
+    id: 'user-1',
+    first_name: 'Test',
+    last_name: 'User',
+    email: 'test@example.com',
+  }
   const item: Item = {
     layer: {
       id: 'test-layer-id',
@@ -71,7 +77,7 @@ describe('linkItem', () => {
   describe('api rejects', () => {
     it('toasts an error', async () => {
       updateApi = vi.fn().mockRejectedValue('autsch')
-      await linkItem(id, item, updateItem)
+      await linkItem(id, item, updateItem, mockUser)
       expect(toastUpdateMock).toHaveBeenCalledWith(123, expect.objectContaining({ type: 'error' }))
       expect(updateItem).not.toHaveBeenCalled()
       expect(toastSuccessMock).not.toHaveBeenCalled()
@@ -87,7 +93,7 @@ describe('linkItem', () => {
       }
       updateApi = vi.fn().mockResolvedValue(serverResponse)
 
-      await linkItem(id, item, updateItem)
+      await linkItem(id, item, updateItem, mockUser)
 
       expect(toastUpdateMock).toHaveBeenCalledWith(
         123,
