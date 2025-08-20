@@ -17,6 +17,7 @@ export type { Popup } from 'leaflet'
  * @category Map
  */
 export const Layer = ({
+  id,
   data,
   children,
   name = 'places',
@@ -46,6 +47,7 @@ export const Layer = ({
   useEffect(() => {
     data &&
       setItemsData({
+        id,
         data,
         children,
         name,
@@ -68,6 +70,7 @@ export const Layer = ({
       })
     api &&
       setItemsApi({
+        id,
         data,
         children,
         name,

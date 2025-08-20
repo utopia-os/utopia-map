@@ -2,6 +2,7 @@ import { UtopiaMap, Layer } from "utopia-ui"
 import { events, places } from "./sample-data"
 
 const itemTypeEvent = {
+  id: "a6dbf1a7-adf2-4ff5-8e20-d3aad66635fb",
   name: "event",
   show_name_input: false,
   show_profile_button: false,
@@ -39,6 +40,7 @@ function App() {
   return (
     <UtopiaMap center={[50.6, 15.5]} zoom={5} height='100dvh' width="100dvw">
     <Layer
+      id="8b6892ea-4ca3-4b86-8060-b0371a8dd375"
       name='events'
       markerIcon={
         {image: "calendar.svg",
@@ -54,6 +56,7 @@ function App() {
       itemType={itemTypeEvent}
       />
     <Layer
+      id="eea49637-1232-42f9-aec9-77b3187d5d7c"
       name='places'
       markerIcon={
         {image: "point.svg"}
