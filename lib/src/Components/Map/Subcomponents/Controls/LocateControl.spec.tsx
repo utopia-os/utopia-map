@@ -3,11 +3,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react'
 import { MapContainer } from 'react-leaflet'
 import { MemoryRouter } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 
 import { LocateControl } from './LocateControl'
 
@@ -153,6 +153,7 @@ describe('<LocateControl />', () => {
 
   beforeEach(async () => {
     vi.clearAllMocks()
+    vi.useFakeTimers()
     mockNavigate.mockClear()
     ;(global as any).mockMapEventHandlers = {}
 
@@ -172,6 +173,10 @@ describe('<LocateControl />', () => {
     mockUseUpdateItem.mockReturnValue(vi.fn())
     mockUseAddItem.mockReturnValue(vi.fn())
     mockUseLayers.mockReturnValue([mockLayer])
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   describe('Component Rendering', () => {
@@ -209,7 +214,7 @@ describe('<LocateControl />', () => {
   })
 
   describe('Modal Display Logic', () => {
-    it('shows modal for new user without profile when location is found', async () => {
+    it('shows modal for new user without profile when location is found', () => {
       mockUseMyProfile.mockReturnValue({ myProfile: null, isMyProfileLoaded: true })
 
       render(
@@ -222,16 +227,19 @@ describe('<LocateControl />', () => {
         latlng: { lat: 52.5, lng: 13.4, distanceTo: vi.fn(() => 200) },
       }
 
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
-
-      await waitFor(() => {
-        expect(
-          screen.getByText(/create your profile at your current location/i),
-        ).toBeInTheDocument()
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
       })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/create your profile at your current location/i)).toBeInTheDocument()
     })
 
-    it('shows modal for existing user when location is far from current position', async () => {
+    it('shows modal for existing user when location is far from current position', () => {
       const profileWithPosition = {
         ...mockProfile,
         position: {
@@ -255,11 +263,16 @@ describe('<LocateControl />', () => {
         },
       }
 
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
-
-      await waitFor(() => {
-        expect(screen.getByText(/place your profile at your current location/i)).toBeInTheDocument()
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
       })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/place your profile at your current location/i)).toBeInTheDocument()
     })
   })
 
@@ -285,11 +298,17 @@ describe('<LocateControl />', () => {
       const locationEvent = {
         latlng: { lat: 52.5, lng: 13.4, distanceTo: vi.fn(() => 200) },
       }
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
 
-      await waitFor(() => {
-        expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
       })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
       fireEvent.click(yesButton)
@@ -337,19 +356,21 @@ describe('<LocateControl />', () => {
       const locationEvent = {
         latlng: { lat: 52.5, lng: 13.4, distanceTo: mockDistanceTo },
       }
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
+      })
 
       // Verify distanceTo was called with swapped coordinates [lat, lng]
       await waitFor(() => {
         expect(mockDistanceTo).toHaveBeenCalledWith([50.0, 10.0])
       })
 
-      await waitFor(
-        () => {
-          expect(screen.getByText(/place your profile/i)).toBeInTheDocument()
-        },
-        { timeout: 3000 },
-      )
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/place your profile/i)).toBeInTheDocument()
 
       // Find the Yes button by text content instead of role
       const yesButton = screen.getByText('Yes')
@@ -383,11 +404,17 @@ describe('<LocateControl />', () => {
       const locationEvent = {
         latlng: { lat: 52.5, lng: 13.4, distanceTo: vi.fn(() => 200) },
       }
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
 
-      await waitFor(() => {
-        expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
       })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
       fireEvent.click(yesButton)
@@ -413,11 +440,17 @@ describe('<LocateControl />', () => {
       const locationEvent = {
         latlng: { lat: 52.5, lng: 13.4, distanceTo: vi.fn(() => 200) },
       }
-      ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
 
-      await waitFor(() => {
-        expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
+      act(() => {
+        ;(global as any).mockMapEventHandlers?.locationfound?.(locationEvent)
       })
+
+      act(() => {
+        vi.runAllTimers()
+      })
+
+      // Check if modal appears after timeout
+      expect(screen.getByText(/create your profile/i)).toBeInTheDocument()
 
       const yesButton = screen.getByText('Yes')
       fireEvent.click(yesButton)
