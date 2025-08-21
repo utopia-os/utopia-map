@@ -13,7 +13,6 @@ npx directus-sync push \
   --directus-password admin123
 
 ./seed.sh
-
 ```
 
 ## Pull Data from Docker to Harddrive
@@ -41,7 +40,6 @@ npx directus-sync push \
 ## Seed Data for local development
 
 In order to seed the development data, run the script `backend/seed.sh`.
-
 
 ## Backup Database
 
