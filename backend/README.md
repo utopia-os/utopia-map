@@ -17,7 +17,7 @@ npx directus-sync seed push \
   --directus-email admin@it4c.dev \
   --directus-password admin123
 
-./directus-config/manual/seed.sh
+./directus-config/seed-manual/seed.sh
 ```
 
 ## Pull Data from Docker to Harddrive
@@ -64,7 +64,7 @@ npx directus-sync seed diff \
 
 ## Manual Seed
 
-In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
+In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/seed-manual/seed.sh`.
 
 ## Backup Database
 
