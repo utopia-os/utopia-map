@@ -16,4 +16,5 @@ export interface ItemType {
   relations: boolean
   template: string
   questlog: boolean
+  custom_profile_url: string
 }
