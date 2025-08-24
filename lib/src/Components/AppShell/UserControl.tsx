@@ -93,9 +93,11 @@ export const UserControl = () => {
               <div className='tw:self-center tw:btn tw:btn-ghost tw:mr-2'>Login</div>
             </Link>
 
-            <Link to={'/signup'}>
-              <div className='tw:btn tw:btn-ghost tw:mr-2'>Sign Up</div>
-            </Link>
+            {!appState.hideSignup && (
+              <Link to={'/signup'}>
+                <div className='tw:btn tw:btn-ghost tw:mr-2'>Sign Up</div>
+              </Link>
+            )}
           </div>
           <div className='tw:dropdown tw:dropdown-end'>
             <label tabIndex={1} className='tw:btn tw:btn-ghost tw:md:hidden'>
@@ -108,9 +110,11 @@ export const UserControl = () => {
               <li>
                 <Link to={'/login'}>Login</Link>
               </li>
-              <li>
-                <Link to={'/signup'}>Sign Up</Link>
-              </li>
+              {!appState.hideSignup && (
+                <li>
+                  <Link to={'/signup'}>Sign Up</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>
