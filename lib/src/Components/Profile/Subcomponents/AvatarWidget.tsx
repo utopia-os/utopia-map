@@ -10,14 +10,16 @@ import UserSVG from '#assets/user.svg'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import DialogModal from '#components/Templates/DialogModal'
 
+import type { Item } from '#types/Item'
 import type { Crop } from 'react-image-crop'
 
 interface AvatarWidgetProps {
   avatar?: string
   setAvatar: React.Dispatch<React.SetStateAction<any>>
+  item?: Item
 }
 
-export const AvatarWidget: React.FC<AvatarWidgetProps> = ({ avatar, setAvatar }) => {
+export const AvatarWidget: React.FC<AvatarWidgetProps> = ({ avatar, setAvatar, item }) => {
   const [crop, setCrop] = useState<Crop>()
   const [image, setImage] = useState<string>('')
   const [cropModalOpen, setCropModalOpen] = useState<boolean>(false)
@@ -181,7 +183,7 @@ export const AvatarWidget: React.FC<AvatarWidgetProps> = ({ avatar, setAvatar })
             </div>
           ) : (
             <div className='tw:h-20 tw:w-20'>
-              <img src={UserSVG} className='tw:rounded-full'></img>
+              <img src={item?.image_external ?? UserSVG} className='tw:rounded-full'></img>
             </div>
           )}
         </label>
