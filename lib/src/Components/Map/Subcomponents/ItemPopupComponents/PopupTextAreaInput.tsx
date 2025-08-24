@@ -22,6 +22,7 @@ export const PopupTextAreaInput = ({
       dataField={dataField}
       placeholder={placeholder}
       inputStyle={style}
+      required={false}
     ></TextAreaInput>
   )
 }

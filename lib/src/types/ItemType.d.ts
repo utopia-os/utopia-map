@@ -16,4 +16,5 @@ export interface ItemType {
   relations: boolean
   template: string
   questlog: boolean
+  small_form_edit?: boolean
 }

@@ -106,7 +106,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 layer.markerDefaultColor2 ? layer.markerDefaultColor2 : 'RGBA(35, 31, 32, 0.2)'
               }
               itemType={layer.itemType}
-              customEditLink='/edit-item'
+              customEditLink={layer.itemType.small_form_edit ? undefined : '/edit-item'}
               customEditParameter='id'
               public_edit_items={layer.public_edit_items}
               listed={layer.listed}
