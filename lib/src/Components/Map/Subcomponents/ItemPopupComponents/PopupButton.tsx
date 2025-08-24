@@ -26,7 +26,7 @@ export const PopupButton = ({
   const parameter = get(item, parameterField ?? 'id')
 
   return (
-    <Link to={`${url}/${parameter || item?.id}?${params}`}>
+    <Link to={`${url}/${parameter || item?.id}?${params}`} target='_parent'>
       <button
         style={{
           backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
