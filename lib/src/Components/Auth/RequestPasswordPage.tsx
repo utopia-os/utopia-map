@@ -37,7 +37,7 @@ export function RequestPasswordPage({ resetUrl }: { resetUrl: string }) {
 
   return (
     <MapOverlayPage backdrop className='tw:max-w-xs  tw:h-fit'>
-      <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>Reset Password</h2>
+      <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>Request Password</h2>
       <input
         type='email'
         placeholder='E-Mail'
