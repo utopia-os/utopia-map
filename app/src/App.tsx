@@ -157,10 +157,7 @@ function App() {
             openCollectiveApiKey={config.openCollectiveApiKey}
             hideSignup={map.hide_signup}
           >
-            <Permissions
-              api={permissionsApiInstance}
-              adminRole='8ed0b24e-3320-48cd-8444-bc152304e580'
-            ></Permissions>
+            <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
             <Modal>
               <ModalContent map={map} />
