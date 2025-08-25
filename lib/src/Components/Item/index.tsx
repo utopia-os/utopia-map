@@ -6,6 +6,7 @@ import {
   PopupCheckboxInput as PlainPopupCheckboxInput,
   PopupTextAreaInput as PlainPopupTextAreaInput,
   PopupStartEndInput as PlainPopupStartEndInput,
+  HeaderView as PlainHeaderView,
 } from '#components/Map/Subcomponents/ItemPopupComponents'
 
 import { templateify } from './templateify'
@@ -20,3 +21,4 @@ export const PopupButton = templateify(PlainPopupButton)
 export const PopupCheckboxInput = templateify(PlainPopupCheckboxInput)
 export const PopupTextAreaInput = templateify(PlainPopupTextAreaInput)
 export const PopupStartEndInput = templateify(PlainPopupStartEndInput)
+export const HeaderView = templateify(PlainHeaderView)
