@@ -17,4 +17,6 @@ export interface ItemType {
   template: string
   questlog: boolean
   small_form_edit?: boolean
+  botton_label?: string
+  text_input_label?: string
 }

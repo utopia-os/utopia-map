@@ -114,7 +114,11 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
                 {layer.itemType.show_profile_button && (
-                  <PopupButton url={'/item'} parameterField={'id'} text={'Profile'} />
+                  <PopupButton
+                    url={'/item'}
+                    parameterField={'id'}
+                    text={layer.itemType.botton_label ?? 'Profile'}
+                  />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}
               </PopupView>
