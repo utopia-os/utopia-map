@@ -26,6 +26,7 @@ export const FormHeader = ({ item, state, setState }: Props) => {
               image: i,
             }))
           }
+          item={item}
         />
         <ColorPicker
           color={state.color}
