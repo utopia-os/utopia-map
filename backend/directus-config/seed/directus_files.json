@@ -1,0 +1,14 @@
+{
+  "collection": "directus_files",
+  "data": [
+    {
+      "_sync_id": "utopia-logo",
+      "_file_path": "./files/utopia-logo.svg",
+      "storage": "local",
+      "filename_download": "utopia-logo.svg",
+      "title": "Utopia Logo",
+      "tags": [],
+      "description": "Utopia Logo"
+    }
+  ]
+}
