@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
@@ -47,7 +47,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         setApis((current) => [
           ...current,
           {
-            id: layer.id!,
+            id: layer.id,
             api: new itemsApi<Place>('items', layer.id, undefined, {
               _or: [
                 {
@@ -115,7 +115,11 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
                 {layer.itemType.show_profile_button && (
-                  <PopupButton url={'/item'} parameterField={'id'} text={'Profile'} />
+                  <PopupButton
+                    url={layer.itemType.custom_profile_url ?? '/item'}
+                    parameterField={'extended.external_profile_id'}
+                    text={'Profile'}
+                  />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}
               </PopupView>
