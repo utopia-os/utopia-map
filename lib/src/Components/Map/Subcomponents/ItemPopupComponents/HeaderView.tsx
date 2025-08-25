@@ -37,7 +37,7 @@ export function HeaderView({
   hideSubname = false,
   showAddress = false,
 }: {
-  item: Item
+  item?: Item
   api?: ItemsApi<any>
   editCallback?: any
   deleteCallback?: any
@@ -58,10 +58,10 @@ export function HeaderView({
   const [imageLoaded, setImageLoaded] = useState(false)
 
   const avatar =
-    (item.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
-    item.image_external
-  const title = item.name
-  const subtitle = item.subname
+    (item?.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
+    item?.image_external
+  const title = item?.name
+  const subtitle = item?.subname
 
   const [address] = useState<string>('')
 
@@ -71,7 +71,7 @@ export function HeaderView({
     setModalOpen(true)
     event.stopPropagation()
   }
-
+  if (!item) return null
   return (
     <>
       <div className='tw:flex tw:flex-row'>

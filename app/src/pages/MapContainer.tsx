@@ -19,6 +19,7 @@ import {
   PopupStartEndInput,
   PopupTextAreaInput,
   PopupTextInput,
+  HeaderView,
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
@@ -123,6 +124,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 {layer.itemType.show_text && <TextView truncate></TextView>}
               </PopupView>
               <PopupForm>
+                {layer.itemType.show_header_view_in_form && <HeaderView hideMenu />}
                 {layer.itemType.show_name_input && (
                   <PopupTextInput dataField='name' placeholder='Name'></PopupTextInput>
                 )}
@@ -133,7 +135,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                   <div className='tw:mt-4'>
                     <PopupTextAreaInput
                       dataField='text'
-                      placeholder={'Text ...'}
+                      placeholder={layer.itemType.text_input_label ?? 'Text ...'}
                       style='tw:h-40'
                     ></PopupTextAreaInput>
                   </div>
