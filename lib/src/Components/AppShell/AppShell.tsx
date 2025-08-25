@@ -15,12 +15,14 @@ export function AppShell({
   assetsApi,
   embedded,
   openCollectiveApiKey,
+  hideSignup,
 }: {
   appName: string
   children: React.ReactNode
   assetsApi: AssetsApi
   embedded?: boolean
   openCollectiveApiKey?: string
+  hideSignup?: boolean
 }) {
   return (
     <ContextWrapper>
@@ -29,6 +31,7 @@ export function AppShell({
           assetsApi={assetsApi}
           embedded={embedded}
           openCollectiveApiKey={openCollectiveApiKey}
+          hideSignup={hideSignup}
         />
         <NavBar appName={appName}></NavBar>
         <div id='app-content' className='tw:flex'>

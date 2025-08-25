@@ -11,6 +11,7 @@ interface AppState {
   showThemeControl: boolean
   embedded: boolean
   openCollectiveApiKey: string
+  hideSignup: boolean
 }
 
 type UseAppManagerResult = ReturnType<typeof useAppManager>
@@ -22,6 +23,7 @@ const initialAppState: AppState = {
   showThemeControl: false,
   embedded: false,
   openCollectiveApiKey: '',
+  hideSignup: false,
 }
 
 const AppContext = createContext<UseAppManagerResult>({

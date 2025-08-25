@@ -20,4 +20,5 @@ export interface UtopiaMapProps {
   expandLayerControl?: boolean
   tileServerUrl?: string
   tileServerAttribution?: string
+  hideSignup?: boolean
 }
