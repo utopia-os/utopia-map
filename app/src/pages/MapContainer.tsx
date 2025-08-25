@@ -47,7 +47,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         setApis((current) => [
           ...current,
           {
-            id: layer.id!,
+            id: layer.id,
             api: new itemsApi<Place>('items', layer.id, undefined, {
               _or: [
                 {
