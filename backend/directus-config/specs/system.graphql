@@ -265,6 +265,7 @@ type Subscription {
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  maps_mutated(event: EventEnum): maps_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -290,7 +291,6 @@ type Subscription {
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
-  maps_mutated(event: EventEnum): maps_mutated
   Themes_mutated(event: EventEnum): Themes_mutated
   startEnd_mutated(event: EventEnum): startEnd_mutated
   team_mutated(event: EventEnum): team_mutated
@@ -2039,6 +2039,8 @@ type maps {
   tile_server_url: String
   url: String
   zoom: Int
+  hide_signup: Boolean
+  show_request_password: Boolean
   layers(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   layers_func: count_functions
 }
@@ -2783,6 +2785,8 @@ input create_maps_input {
   tile_server_url: String
   url: String
   zoom: Int
+  hide_signup: Boolean
+  show_request_password: Boolean
   layers: [create_layers_maps_input]
 }
 
@@ -3746,6 +3750,8 @@ input maps_filter {
   tile_server_url: string_filter_operators
   url: string_filter_operators
   zoom: number_filter_operators
+  hide_signup: boolean_filter_operators
+  show_request_password: boolean_filter_operators
   layers: layers_maps_quantifier_filter
   layers_func: count_function_filter_operators
   _and: [maps_filter]
@@ -4304,6 +4310,8 @@ input update_maps_input {
   tile_server_url: String
   url: String
   zoom: Int
+  hide_signup: Boolean
+  show_request_password: Boolean
   layers: [update_layers_maps_input]
 }
 

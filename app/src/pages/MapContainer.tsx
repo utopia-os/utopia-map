@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
