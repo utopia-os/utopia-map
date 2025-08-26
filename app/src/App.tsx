@@ -155,11 +155,9 @@ function App() {
             appName={map.name}
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
+            hideSignup={map.hide_signup}
           >
-            <Permissions
-              api={permissionsApiInstance}
-              adminRole='8ed0b24e-3320-48cd-8444-bc152304e580'
-            ></Permissions>
+            <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
             <Modal>
               <ModalContent map={map} />
@@ -170,7 +168,15 @@ function App() {
               <Routes>
                 <Route path='/*' element={<MapContainer map={map} layers={layers} />}>
                   <Route path='invite/:id' element={<InvitePage inviteApi={inviteApi} />} />
-                  <Route path='login' element={<LoginPage inviteApi={inviteApi} />} />
+                  <Route
+                    path='login'
+                    element={
+                      <LoginPage
+                        showRequestPassword={map.show_request_password}
+                        inviteApi={inviteApi}
+                      />
+                    }
+                  />
                   <Route path='signup' element={<SignupPage />} />
                   <Route
                     path='reset-password'
