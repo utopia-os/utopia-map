@@ -1697,7 +1697,7 @@
     "permissions": null,
     "validation": null,
     "presets": {
-      "role": "cccbc503-ecab-4ef1-8cf9-b6ac0f2be240"
+      "role": "REPLACEME-WITH-REGISTRATED-ROLE_UUID"
     },
     "fields": [
       "first_name",

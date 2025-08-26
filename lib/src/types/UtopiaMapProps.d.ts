@@ -21,4 +21,5 @@ export interface UtopiaMapProps {
   tileServerUrl?: string
   tileServerAttribution?: string
   show_request_password?: boolean
+  hideSignup?: boolean
 }
