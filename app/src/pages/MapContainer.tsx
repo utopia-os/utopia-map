@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
@@ -47,7 +47,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         setApis((current) => [
           ...current,
           {
-            id: layer.id!,
+            id: layer.id,
             api: new itemsApi<Place>('items', layer.id, undefined, {
               _or: [
                 {
@@ -95,7 +95,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               id={layer.id}
               key={layer.id}
               name={layer.name}
-              menuIcon={config.apiUrl + 'assets/' + layer.menuIcon}
+              menuIcon={layer.menuIcon && config.apiUrl + 'assets/' + layer.menuIcon}
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}
