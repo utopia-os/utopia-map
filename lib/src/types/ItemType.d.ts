@@ -16,6 +16,7 @@ export interface ItemType {
   relations: boolean
   template: string
   questlog: boolean
+  custom_profile_url?: string
   small_form_edit?: boolean
   botton_label?: string
   text_input_label?: string

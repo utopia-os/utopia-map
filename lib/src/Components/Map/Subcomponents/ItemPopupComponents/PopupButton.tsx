@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+import { get } from 'radash'
 import { Link } from 'react-router-dom'
 
 import { useGetItemTags } from '#components/Map/hooks/useTags'
@@ -22,9 +23,10 @@ export const PopupButton = ({
 }) => {
   const params = new URLSearchParams(window.location.search)
   const getItemTags = useGetItemTags()
+  const parameter = get(item, parameterField ?? 'id')
 
   return (
-    <Link to={`${url}/${parameterField ? item?.id : ''}?${params}`}>
+    <Link to={`${url}/${parameter || item?.id}?${params}`} target='_parent'>
       <button
         style={{
           backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,

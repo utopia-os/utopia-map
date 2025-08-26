@@ -61,6 +61,7 @@ export interface Item {
   gallery?: GalleryItem[]
   openCollectiveSlug?: string
   secrets?: ItemSecret[]
+  extended?: JSON
 
   // {
   // coordinates: [number, number]
