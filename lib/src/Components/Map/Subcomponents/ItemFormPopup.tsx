@@ -254,7 +254,7 @@ export function ItemFormPopup(props: Props) {
           onSubmit={(e) => handleSubmit(e)}
         >
           {popupForm.item ? (
-            <div className='tw:h-3'></div>
+            <div className=''></div>
           ) : (
             <div className='tw:flex tw:justify-center'>
               <b className='tw:text-xl tw:text-center tw:font-bold'>{menuText}</b>
