@@ -19,6 +19,7 @@ import {
   PopupStartEndInput,
   PopupTextAreaInput,
   PopupTextInput,
+  HeaderView,
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
@@ -105,7 +106,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 layer.markerDefaultColor2 ? layer.markerDefaultColor2 : 'RGBA(35, 31, 32, 0.2)'
               }
               itemType={layer.itemType}
-              customEditLink='/edit-item'
+              customEditLink={layer.itemType.small_form_edit ? undefined : '/edit-item'}
               customEditParameter='id'
               public_edit_items={layer.public_edit_items}
               listed={layer.listed}
@@ -117,12 +118,13 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                   <PopupButton
                     url={layer.itemType.custom_profile_url ?? '/item'}
                     parameterField={'extended.external_profile_id'}
-                    text={'Profile'}
+                    text={layer.itemType.botton_label ?? 'Profile'}
                   />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}
               </PopupView>
               <PopupForm>
+                {layer.itemType.show_header_view_in_form && <HeaderView hideMenu />}
                 {layer.itemType.show_name_input && (
                   <PopupTextInput dataField='name' placeholder='Name'></PopupTextInput>
                 )}
@@ -133,7 +135,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                   <div className='tw:mt-4'>
                     <PopupTextAreaInput
                       dataField='text'
-                      placeholder={'Text ...'}
+                      placeholder={layer.itemType.text_input_label ?? 'Text ...'}
                       style='tw:h-40'
                     ></PopupTextAreaInput>
                   </div>
