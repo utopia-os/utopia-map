@@ -12,12 +12,8 @@ npx directus-sync push \
   --directus-email admin@it4c.dev \
   --directus-password admin123
 
-npx directus-sync seed push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
+./seed.sh
 
-./directus-config/seed-manual/seed.sh
 ```
 
 ## Pull Data from Docker to Harddrive
@@ -44,27 +40,8 @@ npx directus-sync push \
 
 ## Seed Data for local development
 
-Seed the development data via:
-```
-npx directus-sync seed push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
+In order to seed the development data, run the script `backend/seed.sh`.
 
-## Seed Data - find differences
-
-In order so see what changes would appear when seeding, you can execute:
-```
-npx directus-sync seed diff \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
-
-## Manual Seed
-
-In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/seed-manual/seed.sh`.
 
 ## Backup Database
 
