@@ -155,6 +155,7 @@ function App() {
             appName={map.name}
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
+            hideSignup={map.hide_signup}
           >
             <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
