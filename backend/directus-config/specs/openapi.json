@@ -23103,6 +23103,10 @@
             "nullable": true,
             "type": "boolean"
           },
+          "show_request_password": {
+            "nullable": true,
+            "type": "boolean"
+          },
           "layers": {
             "nullable": true,
             "type": "array",
