@@ -168,7 +168,15 @@ function App() {
               <Routes>
                 <Route path='/*' element={<MapContainer map={map} layers={layers} />}>
                   <Route path='invite/:id' element={<InvitePage inviteApi={inviteApi} />} />
-                  <Route path='login' element={<LoginPage inviteApi={inviteApi} />} />
+                  <Route
+                    path='login'
+                    element={
+                      <LoginPage
+                        showRequestPassword={map.show_request_password}
+                        inviteApi={inviteApi}
+                      />
+                    }
+                  />
                   <Route path='signup' element={<SignupPage />} />
                   <Route
                     path='reset-password'
