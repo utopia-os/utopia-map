@@ -156,10 +156,7 @@ function App() {
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
           >
-            <Permissions
-              api={permissionsApiInstance}
-              adminRole='8ed0b24e-3320-48cd-8444-bc152304e580'
-            ></Permissions>
+            <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
             <Modal>
               <ModalContent map={map} />
