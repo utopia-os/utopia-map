@@ -98,21 +98,5 @@
       }
     ],
     "_syncId": "b16453e3-676b-49d6-917b-6d6f81089114"
-  },
-  {
-    "name": "Würdekompass Admin",
-    "icon": "supervised_user_circle",
-    "description": null,
-    "ip_access": null,
-    "enforce_tfa": false,
-    "admin_access": false,
-    "app_access": true,
-    "roles": [
-      {
-        "role": "faa59737-2277-4f8a-a2ab-23940f566ab5",
-        "sort": 1
-      }
-    ],
-    "_syncId": "dc5f8f91-d104-4e7d-8752-44db81ff12c4"
   }
 ]
