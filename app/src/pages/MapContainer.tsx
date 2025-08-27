@@ -117,8 +117,11 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                 {layer.itemType.show_profile_button && (
                   <PopupButton
                     url={layer.itemType.custom_profile_url ?? '/item'}
-                    parameterField={'extended.external_profile_id'}
+                    parameterField={
+                      layer.itemType.custom_profile_url ? 'extended.external_profile_id' : 'id'
+                    }
                     text={layer.itemType.botton_label ?? 'Profile'}
+                    target={layer.itemType.custom_profile_url ? '_parent' : '_self'}
                   />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}

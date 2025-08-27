@@ -260,7 +260,10 @@ export const LocateControl = (): JSX.Element => {
       <DialogModal
         title='Location found'
         isOpened={showLocationModal}
-        onClose={() => setShowLocationModal(false)}
+        onClose={() => {
+          setShowLocationModal(false)
+          setHasDeclinedModal(true)
+        }}
         showCloseButton={true}
         closeOnClickOutside={false}
         className='tw:bottom-1/3 tw:mx-4 tw:sm:mx-auto'
