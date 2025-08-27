@@ -265,7 +265,6 @@ type Subscription {
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
-  maps_mutated(event: EventEnum): maps_mutated
   items_mutated(event: EventEnum): items_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
@@ -290,6 +289,7 @@ type Subscription {
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
+  maps_mutated(event: EventEnum): maps_mutated
   Themes_mutated(event: EventEnum): Themes_mutated
   startEnd_mutated(event: EventEnum): startEnd_mutated
   team_mutated(event: EventEnum): team_mutated
@@ -2027,6 +2027,7 @@ type maps {
   """You can include GeoJSON"""
   geo: JSON
   geo_func: count_functions
+  hide_signup: Boolean
   id: ID!
   info_open: Boolean
   logo(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
@@ -2035,14 +2036,13 @@ type maps {
   show_filter_control: Boolean
   show_gratitude_control: Boolean
   show_layer_control: Boolean
+  show_request_password: Boolean
   show_theme_control: Boolean
   show_zoom_control: Boolean!
   tile_server_attribution: String
   tile_server_url: String
   url: String
   zoom: Int
-  hide_signup: Boolean
-  show_request_password: Boolean
   layers(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   layers_func: count_functions
 }
@@ -2239,11 +2239,11 @@ type types {
   text_area: Boolean
   user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
-  custom_profile_url: String
   button_label: String
-  text_input_label: String
-  small_form_edit: Boolean
+  custom_profile_url: String
   show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types_profileTemplate]
   profileTemplate_func: count_functions
 }
@@ -2778,6 +2778,7 @@ input create_maps_input {
 
   """You can include GeoJSON"""
   geo: JSON
+  hide_signup: Boolean
   id: ID
   info_open: Boolean
   logo: create_directus_files_input
@@ -2786,14 +2787,13 @@ input create_maps_input {
   show_filter_control: Boolean
   show_gratitude_control: Boolean
   show_layer_control: Boolean
+  show_request_password: Boolean
   show_theme_control: Boolean
   show_zoom_control: Boolean!
   tile_server_attribution: String
   tile_server_url: String
   url: String
   zoom: Int
-  hide_signup: Boolean
-  show_request_password: Boolean
   layers: [create_layers_maps_input]
 }
 
@@ -2830,11 +2830,11 @@ input create_types_input {
   text_area: Boolean
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
-  custom_profile_url: String
   button_label: String
-  text_input_label: String
-  small_form_edit: Boolean
+  custom_profile_url: String
   show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate: [create_types_profileTemplate_input]
 }
 
@@ -3750,6 +3750,7 @@ input maps_filter {
   expand_layer_control: boolean_filter_operators
   geo: string_filter_operators
   geo_func: count_function_filter_operators
+  hide_signup: boolean_filter_operators
   id: id_filter_operators
   info_open: boolean_filter_operators
   logo: directus_files_filter
@@ -3758,14 +3759,13 @@ input maps_filter {
   show_filter_control: boolean_filter_operators
   show_gratitude_control: boolean_filter_operators
   show_layer_control: boolean_filter_operators
+  show_request_password: boolean_filter_operators
   show_theme_control: boolean_filter_operators
   show_zoom_control: boolean_filter_operators
   tile_server_attribution: string_filter_operators
   tile_server_url: string_filter_operators
   url: string_filter_operators
   zoom: number_filter_operators
-  hide_signup: boolean_filter_operators
-  show_request_password: boolean_filter_operators
   layers: layers_maps_quantifier_filter
   layers_func: count_function_filter_operators
   _and: [maps_filter]
@@ -3897,11 +3897,11 @@ input types_filter {
   text_area: boolean_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
-  custom_profile_url: string_filter_operators
   button_label: string_filter_operators
-  text_input_label: string_filter_operators
-  small_form_edit: boolean_filter_operators
+  custom_profile_url: string_filter_operators
   show_header_view_in_form: boolean_filter_operators
+  small_form_edit: boolean_filter_operators
+  text_input_label: string_filter_operators
   profileTemplate: types_profileTemplate_quantifier_filter
   profileTemplate_func: count_function_filter_operators
   _and: [types_filter]
@@ -4315,6 +4315,7 @@ input update_maps_input {
 
   """You can include GeoJSON"""
   geo: JSON
+  hide_signup: Boolean
   id: ID
   info_open: Boolean
   logo: update_directus_files_input
@@ -4323,14 +4324,13 @@ input update_maps_input {
   show_filter_control: Boolean
   show_gratitude_control: Boolean
   show_layer_control: Boolean
+  show_request_password: Boolean
   show_theme_control: Boolean
   show_zoom_control: Boolean
   tile_server_attribution: String
   tile_server_url: String
   url: String
   zoom: Int
-  hide_signup: Boolean
-  show_request_password: Boolean
   layers: [update_layers_maps_input]
 }
 
@@ -4367,11 +4367,11 @@ input update_types_input {
   text_area: Boolean
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
-  custom_profile_url: String
   button_label: String
-  text_input_label: String
-  small_form_edit: Boolean
+  custom_profile_url: String
   show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate: [update_types_profileTemplate_input]
 }
 

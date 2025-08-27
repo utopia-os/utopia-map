@@ -8678,395 +8678,6 @@
         ]
       }
     },
-    "/items/maps": {
-      "post": {
-        "summary": "Create an Item",
-        "description": "Create a new maps item.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "createItemsMaps",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Meta"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ItemsMaps"
-                    }
-                  },
-                  {
-                    "$ref": "#/components/schemas/ItemsMaps"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ItemsMaps"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        }
-      },
-      "get": {
-        "summary": "List Items",
-        "description": "List the maps items.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "readItemsMaps",
-        "security": [
-          {
-            "Auth": []
-          }
-        ],
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Limit"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Offset"
-          },
-          {
-            "$ref": "#/components/parameters/Sort"
-          },
-          {
-            "$ref": "#/components/parameters/Filter"
-          },
-          {
-            "$ref": "#/components/parameters/Search"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "$ref": "#/components/schemas/ItemsMaps"
-                      }
-                    },
-                    "meta": {
-                      "$ref": "#/components/schemas/x-metadata"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update Multiple Items",
-        "description": "Update multiple maps items at the same time.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "updateItemsMaps",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Limit"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Offset"
-          },
-          {
-            "$ref": "#/components/parameters/Sort"
-          },
-          {
-            "$ref": "#/components/parameters/Filter"
-          },
-          {
-            "$ref": "#/components/parameters/Search"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "oneOf": [
-                  {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/ItemsMaps"
-                    }
-                  },
-                  {
-                    "$ref": "#/components/schemas/ItemsMaps"
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ItemsMaps"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete Multiple Items",
-        "description": "Delete multiple existing maps items.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "deleteItemsMaps",
-        "responses": {
-          "200": {
-            "description": "Successful request"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          }
-        },
-        "parameters": []
-      }
-    },
-    "/items/maps/{id}": {
-      "get": {
-        "summary": "Retrieve an Item",
-        "description": "Retrieve a single maps item by unique identifier.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "readSingleItemsMaps",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "$ref": "#/components/parameters/Version"
-          },
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/ItemsMaps"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        }
-      },
-      "patch": {
-        "summary": "Update an Item",
-        "description": "Update an existing maps item.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "updateSingleItemsMaps",
-        "parameters": [
-          {
-            "$ref": "#/components/parameters/Fields"
-          },
-          {
-            "$ref": "#/components/parameters/Meta"
-          },
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "$ref": "#/components/schemas/ItemsMaps"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "$ref": "#/components/schemas/ItemsMaps"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete an Item",
-        "description": "Delete an existing maps item.",
-        "tags": [
-          "Items",
-          "ItemsMaps"
-        ],
-        "operationId": "deleteSingleItemsMaps",
-        "responses": {
-          "200": {
-            "description": "Successful request"
-          },
-          "401": {
-            "$ref": "#/components/responses/UnauthorizedError"
-          },
-          "404": {
-            "$ref": "#/components/responses/NotFoundError"
-          }
-        },
-        "parameters": [
-          {
-            "name": "id",
-            "description": "Index of the item.",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "oneOf": [
-                {
-                  "type": "integer",
-                  "description": "Incremental index of the item.",
-                  "example": 1
-                },
-                {
-                  "type": "string",
-                  "description": "Unique identifier of the item.",
-                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
     "/items/items": {
       "post": {
         "summary": "Create an Item",
@@ -18403,6 +18014,395 @@
         ]
       }
     },
+    "/items/maps": {
+      "post": {
+        "summary": "Create an Item",
+        "description": "Create a new maps item.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "createItemsMaps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Meta"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ItemsMaps"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ItemsMaps"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ItemsMaps"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "get": {
+        "summary": "List Items",
+        "description": "List the maps items.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "readItemsMaps",
+        "security": [
+          {
+            "Auth": []
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Filter"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "$ref": "#/components/schemas/ItemsMaps"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/x-metadata"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Multiple Items",
+        "description": "Update multiple maps items at the same time.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "updateItemsMaps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Limit"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Offset"
+          },
+          {
+            "$ref": "#/components/parameters/Sort"
+          },
+          {
+            "$ref": "#/components/parameters/Filter"
+          },
+          {
+            "$ref": "#/components/parameters/Search"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ItemsMaps"
+                    }
+                  },
+                  {
+                    "$ref": "#/components/schemas/ItemsMaps"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ItemsMaps"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Multiple Items",
+        "description": "Delete multiple existing maps items.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "deleteItemsMaps",
+        "responses": {
+          "200": {
+            "description": "Successful request"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/items/maps/{id}": {
+      "get": {
+        "summary": "Retrieve an Item",
+        "description": "Retrieve a single maps item by unique identifier.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "readSingleItemsMaps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "$ref": "#/components/parameters/Version"
+          },
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/ItemsMaps"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an Item",
+        "description": "Update an existing maps item.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "updateSingleItemsMaps",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Fields"
+          },
+          {
+            "$ref": "#/components/parameters/Meta"
+          },
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/ItemsMaps"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/ItemsMaps"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an Item",
+        "description": "Delete an existing maps item.",
+        "tags": [
+          "Items",
+          "ItemsMaps"
+        ],
+        "operationId": "deleteSingleItemsMaps",
+        "responses": {
+          "200": {
+            "description": "Successful request"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedError"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFoundError"
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Index of the item.",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "description": "Incremental index of the item.",
+                  "example": 1
+                },
+                {
+                  "type": "string",
+                  "description": "Unique identifier of the item.",
+                  "example": "8cbb43fe-4cdf-4991-8352-c461779cec02"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
     "/items/Themes": {
       "post": {
         "summary": "Create an Item",
@@ -20874,10 +20874,6 @@
       "x-collection": "oceannomads_profiles"
     },
     {
-      "name": "ItemsMaps",
-      "x-collection": "maps"
-    },
-    {
       "name": "ItemsItems",
       "x-collection": "items"
     },
@@ -20972,6 +20968,10 @@
     {
       "name": "ItemsLayersMaps",
       "x-collection": "layers_maps"
+    },
+    {
+      "name": "ItemsMaps",
+      "x-collection": "maps"
     },
     {
       "name": "ItemsThemes",
@@ -22997,136 +22997,6 @@
           "id"
         ]
       },
-      "ItemsMaps": {
-        "type": "object",
-        "properties": {
-          "center": {
-            "nullable": true,
-            "type": "object"
-          },
-          "custom_text": {
-            "nullable": true,
-            "description": "Replace the info text in the info popup",
-            "type": "string"
-          },
-          "default_theme": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/components/schemas/ItemsThemes"
-              }
-            ]
-          },
-          "donation_widget": {
-            "nullable": true,
-            "description": "Shows a donation widget after 10 minutes",
-            "type": "boolean"
-          },
-          "expand_layer_control": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "geo": {
-            "nullable": true,
-            "description": "You can include GeoJSON"
-          },
-          "id": {
-            "nullable": false,
-            "type": "string",
-            "format": "uuid"
-          },
-          "info_open": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "logo": {
-            "nullable": true,
-            "description": "Used as FavIcon",
-            "oneOf": [
-              {
-                "type": "string",
-                "format": "uuid"
-              },
-              {
-                "$ref": "#/components/schemas/Files"
-              }
-            ]
-          },
-          "name": {
-            "nullable": true,
-            "type": "string"
-          },
-          "own_tag_space": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_filter_control": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_gratitude_control": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_layer_control": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_theme_control": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_zoom_control": {
-            "nullable": false,
-            "type": "boolean"
-          },
-          "tile_server_attribution": {
-            "nullable": true,
-            "type": "string"
-          },
-          "tile_server_url": {
-            "nullable": true,
-            "type": "string"
-          },
-          "url": {
-            "nullable": true,
-            "type": "string"
-          },
-          "zoom": {
-            "nullable": true,
-            "type": "integer"
-          },
-          "hide_signup": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "show_request_password": {
-            "nullable": true,
-            "type": "boolean"
-          },
-          "layers": {
-            "nullable": true,
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "$ref": "#/components/schemas/ItemsLayersMaps"
-                }
-              ]
-            }
-          }
-        },
-        "x-collection": "maps",
-        "required": [
-          "id"
-        ]
-      },
       "ItemsItems": {
         "type": "object",
         "properties": {
@@ -24451,6 +24321,136 @@
         },
         "x-collection": "layers_maps"
       },
+      "ItemsMaps": {
+        "type": "object",
+        "properties": {
+          "center": {
+            "nullable": true,
+            "type": "object"
+          },
+          "custom_text": {
+            "nullable": true,
+            "description": "Replace the info text in the info popup",
+            "type": "string"
+          },
+          "default_theme": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "$ref": "#/components/schemas/ItemsThemes"
+              }
+            ]
+          },
+          "donation_widget": {
+            "nullable": true,
+            "description": "Shows a donation widget after 10 minutes",
+            "type": "boolean"
+          },
+          "expand_layer_control": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "geo": {
+            "nullable": true,
+            "description": "You can include GeoJSON"
+          },
+          "hide_signup": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "id": {
+            "nullable": false,
+            "type": "string",
+            "format": "uuid"
+          },
+          "info_open": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "logo": {
+            "nullable": true,
+            "description": "Used as FavIcon",
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "$ref": "#/components/schemas/Files"
+              }
+            ]
+          },
+          "name": {
+            "nullable": true,
+            "type": "string"
+          },
+          "own_tag_space": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_filter_control": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_gratitude_control": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_layer_control": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_request_password": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_theme_control": {
+            "nullable": true,
+            "type": "boolean"
+          },
+          "show_zoom_control": {
+            "nullable": false,
+            "type": "boolean"
+          },
+          "tile_server_attribution": {
+            "nullable": true,
+            "type": "string"
+          },
+          "tile_server_url": {
+            "nullable": true,
+            "type": "string"
+          },
+          "url": {
+            "nullable": true,
+            "type": "string"
+          },
+          "zoom": {
+            "nullable": true,
+            "type": "integer"
+          },
+          "layers": {
+            "nullable": true,
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "$ref": "#/components/schemas/ItemsLayersMaps"
+                }
+              ]
+            }
+          }
+        },
+        "x-collection": "maps",
+        "required": [
+          "id"
+        ]
+      },
       "ItemsThemes": {
         "type": "object",
         "properties": {
@@ -24702,25 +24702,25 @@
               }
             ]
           },
-          "custom_profile_url": {
-            "nullable": true,
-            "type": "string"
-          },
           "button_label": {
             "nullable": true,
             "type": "string"
           },
-          "text_input_label": {
+          "custom_profile_url": {
             "nullable": true,
             "type": "string"
+          },
+          "show_header_view_in_form": {
+            "nullable": true,
+            "type": "boolean"
           },
           "small_form_edit": {
             "nullable": true,
             "type": "boolean"
           },
-          "show_header_view_in_form": {
+          "text_input_label": {
             "nullable": true,
-            "type": "boolean"
+            "type": "string"
           },
           "profileTemplate": {
             "nullable": true,
