@@ -145,8 +145,8 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
                 ></path>
               </svg>
               <span>
-                The map requires an additional password. If you don&apos;t have it yet, you can request
-                one.{' '}
+                The map requires an additional password. If you don&apos;t have it yet, you can
+                request one.
               </span>
             </div>
             <Link to='/reset-password' className='tw:w-full'>
