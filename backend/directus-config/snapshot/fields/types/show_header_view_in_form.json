@@ -1,13 +1,13 @@
 {
   "collection": "types",
-  "field": "show_start_end_input",
+  "field": "show_header_view_in_form",
   "type": "boolean",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "show_start_end_input",
+    "field": "show_header_view_in_form",
     "group": "small_form",
     "hidden": false,
     "interface": "boolean",
@@ -15,7 +15,7 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 5,
+    "sort": 7,
     "special": [
       "cast-boolean"
     ],
@@ -25,7 +25,7 @@
     "width": "half"
   },
   "schema": {
-    "name": "show_start_end_input",
+    "name": "show_header_view_in_form",
     "table": "types",
     "data_type": "boolean",
     "default_value": false,

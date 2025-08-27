@@ -265,6 +265,7 @@ type Subscription {
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  items_mutated(event: EventEnum): items_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -276,7 +277,6 @@ type Subscription {
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
   marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
-  items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
   layers_mutated(event: EventEnum): layers_mutated
   items_files_mutated(event: EventEnum): items_files_mutated
@@ -286,7 +286,6 @@ type Subscription {
   items_tags_1_mutated(event: EventEnum): items_tags_1_mutated
   junction_directus_users_tags_mutated(event: EventEnum): junction_directus_users_tags_mutated
   junction_directus_users_tags_1_mutated(event: EventEnum): junction_directus_users_tags_1_mutated
-  types_mutated(event: EventEnum): types_mutated
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
@@ -294,6 +293,7 @@ type Subscription {
   Themes_mutated(event: EventEnum): Themes_mutated
   startEnd_mutated(event: EventEnum): startEnd_mutated
   team_mutated(event: EventEnum): team_mutated
+  types_mutated(event: EventEnum): types_mutated
   texts_mutated(event: EventEnum): texts_mutated
   types_profileTemplate_mutated(event: EventEnum): types_profileTemplate_mutated
 }
@@ -1843,6 +1843,8 @@ type items {
   text: String
   user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  extended: JSON
+  extended_func: count_functions
   gallery(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_files]
   gallery_func: count_functions
   needs(filter: items_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_tags_1]
@@ -2237,6 +2239,11 @@ type types {
   text_area: Boolean
   user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
+  button_label: String
+  custom_profile_url: String
+  show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate(filter: types_profileTemplate_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types_profileTemplate]
   profileTemplate_func: count_functions
 }
@@ -2823,6 +2830,11 @@ input create_types_input {
   text_area: Boolean
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
+  button_label: String
+  custom_profile_url: String
+  show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate: [create_types_profileTemplate_input]
 }
 
@@ -3574,6 +3586,8 @@ input items_filter {
   text: string_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
+  extended: string_filter_operators
+  extended_func: count_function_filter_operators
   gallery: items_files_quantifier_filter
   gallery_func: count_function_filter_operators
   needs: items_tags_1_quantifier_filter
@@ -3883,6 +3897,11 @@ input types_filter {
   text_area: boolean_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
+  button_label: string_filter_operators
+  custom_profile_url: string_filter_operators
+  show_header_view_in_form: boolean_filter_operators
+  small_form_edit: boolean_filter_operators
+  text_input_label: string_filter_operators
   profileTemplate: types_profileTemplate_quantifier_filter
   profileTemplate_func: count_function_filter_operators
   _and: [types_filter]
@@ -4348,6 +4367,11 @@ input update_types_input {
   text_area: Boolean
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
+  button_label: String
+  custom_profile_url: String
+  show_header_view_in_form: Boolean
+  small_form_edit: Boolean
+  text_input_label: String
   profileTemplate: [update_types_profileTemplate_input]
 }
 
