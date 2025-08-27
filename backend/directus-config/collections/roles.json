@@ -7,13 +7,6 @@
     "_syncId": "_sync_default_admin_role"
   },
   {
-    "name": "Registrated",
-    "icon": "paragliding",
-    "description": null,
-    "parent": null,
-    "_syncId": "role-registrated"
-  },
-  {
     "name": "Editor",
     "icon": "supervised_user_circle",
     "description": null,
@@ -26,5 +19,12 @@
     "description": null,
     "parent": null,
     "_syncId": "faa59737-2277-4f8a-a2ab-23940f566ab5"
+  },
+  {
+    "name": "Registrated",
+    "icon": "paragliding",
+    "description": null,
+    "parent": null,
+    "_syncId": "role-registrated"
   }
 ]

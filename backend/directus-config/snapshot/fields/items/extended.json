@@ -1,34 +1,34 @@
 {
-  "collection": "types",
-  "field": "show_start_end_input",
-  "type": "boolean",
+  "collection": "items",
+  "field": "extended",
+  "type": "json",
   "meta": {
-    "collection": "types",
+    "collection": "items",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "show_start_end_input",
-    "group": "small_form",
+    "field": "extended",
+    "group": null,
     "hidden": false,
-    "interface": "boolean",
+    "interface": "input-code",
     "note": null,
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 5,
+    "sort": 28,
     "special": [
-      "cast-boolean"
+      "cast-json"
     ],
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "half"
+    "width": "full"
   },
   "schema": {
-    "name": "show_start_end_input",
-    "table": "types",
-    "data_type": "boolean",
-    "default_value": false,
+    "name": "extended",
+    "table": "items",
+    "data_type": "json",
+    "default_value": null,
     "max_length": null,
     "numeric_precision": null,
     "numeric_scale": null,

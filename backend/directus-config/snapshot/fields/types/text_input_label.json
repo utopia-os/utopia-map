@@ -1,35 +1,35 @@
 {
   "collection": "types",
-  "field": "show_start_end_input",
-  "type": "boolean",
+  "field": "text_input_label",
+  "type": "string",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "show_start_end_input",
+    "field": "text_input_label",
     "group": "small_form",
     "hidden": false,
-    "interface": "boolean",
+    "interface": "input",
     "note": null,
-    "options": null,
+    "options": {
+      "placeholder": "Text ..."
+    },
     "readonly": false,
     "required": false,
-    "sort": 5,
-    "special": [
-      "cast-boolean"
-    ],
+    "sort": 4,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
     "width": "half"
   },
   "schema": {
-    "name": "show_start_end_input",
+    "name": "text_input_label",
     "table": "types",
-    "data_type": "boolean",
-    "default_value": false,
-    "max_length": null,
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,
