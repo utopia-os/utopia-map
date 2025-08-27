@@ -7,13 +7,6 @@
     "_syncId": "_sync_default_admin_role"
   },
   {
-    "name": "Registrated",
-    "icon": "paragliding",
-    "description": null,
-    "parent": null,
-    "_syncId": "role-registrated"
-  },
-  {
     "name": "Editor",
     "icon": "supervised_user_circle",
     "description": null,
@@ -21,10 +14,10 @@
     "_syncId": "a65f6094-ba98-42d3-940b-07934959e3fb"
   },
   {
-    "name": "Würdekompass Admin",
-    "icon": "supervised_user_circle",
+    "name": "Registrated",
+    "icon": "paragliding",
     "description": null,
     "parent": null,
-    "_syncId": "faa59737-2277-4f8a-a2ab-23940f566ab5"
+    "_syncId": "role-registrated"
   }
 ]
