@@ -159,8 +159,11 @@ export function ItemFormPopup(props: Props) {
             popupForm.layer.api?.updateItem!({ ...formItem, id: existingUserItem.id }) ??
             Promise.resolve({} as Item)
         : () =>
-            popupForm.layer.api?.createItem!({ ...formItem, name: itemName }) ??
-            Promise.resolve({} as Item)
+            popupForm.layer.api?.createItem!({
+              ...formItem,
+              name: itemName,
+              id: crypto.randomUUID(),
+            }) ?? Promise.resolve({} as Item)
 
       const result = await handleApiOperation(
         operation,
