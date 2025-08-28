@@ -1,23 +1,21 @@
 {
-  "collection": "items",
-  "field": "slug",
+  "collection": "oceannomads_events",
+  "field": "location",
   "type": "string",
   "meta": {
-    "collection": "items",
+    "collection": "oceannomads_events",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "slug",
+    "field": "location",
     "group": null,
     "hidden": false,
     "interface": "input",
     "note": null,
-    "options": {
-      "slug": true
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 22,
+    "sort": 8,
     "special": null,
     "translations": null,
     "validation": null,
@@ -25,8 +23,8 @@
     "width": "full"
   },
   "schema": {
-    "name": "slug",
-    "table": "items",
+    "name": "location",
+    "table": "oceannomads_events",
     "data_type": "character varying",
     "default_value": null,
     "max_length": 255,

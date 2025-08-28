@@ -20,6 +20,6 @@
     "foreign_key_column": "id",
     "constraint_name": "items_user_created_foreign",
     "on_update": "NO ACTION",
-    "on_delete": "NO ACTION"
+    "on_delete": "SET NULL"
   }
 }
