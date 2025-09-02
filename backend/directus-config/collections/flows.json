@@ -16,7 +16,7 @@
     "icon": "bolt",
     "color": null,
     "description": "Creates a secret for an existing item, triggered by another flow",
-    "status": "active",
+    "status": "inactive",
     "trigger": "operation",
     "accountability": "all",
     "options": {
@@ -30,7 +30,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Deletes Nomads User and Items",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -85,7 +85,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Nomads Current Location",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -106,7 +106,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Event Item on Map",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -126,7 +126,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Nomads User and Home Base",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -146,7 +146,7 @@
     "icon": "salinity",
     "color": null,
     "description": "Generate a secret for each item",
-    "status": "active",
+    "status": "inactive",
     "trigger": "manual",
     "accountability": "all",
     "options": {
@@ -163,7 +163,7 @@
     "icon": "mark_chat_read",
     "color": "#3584E4",
     "description": null,
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -205,7 +205,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Updates Nomads User, Home Base and Current Location",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
