@@ -12,9 +12,7 @@
     "hidden": false,
     "interface": "input",
     "note": null,
-    "options": {
-      "placeholder": "Text ..."
-    },
+    "options": null,
     "readonly": false,
     "required": false,
     "sort": 4,

@@ -31,25 +31,13 @@
       {
         "role": null,
         "sort": 1
-      }
-    ],
-    "_syncId": "_sync_default_public_policy"
-  },
-  {
-    "name": "Zapier",
-    "icon": "badge",
-    "description": null,
-    "ip_access": null,
-    "enforce_tfa": false,
-    "admin_access": false,
-    "app_access": false,
-    "roles": [
+      },
       {
         "role": null,
         "sort": null
       }
     ],
-    "_syncId": "5bea7f79-7a78-4ec4-85bd-3327c0febfc7"
+    "_syncId": "_sync_default_public_policy"
   },
   {
     "name": "Editor",
@@ -61,11 +49,11 @@
     "app_access": true,
     "roles": [
       {
-        "role": "a65f6094-ba98-42d3-940b-07934959e3fb",
+        "role": "f07fdc26-2935-401a-abc9-67d5ad38a965",
         "sort": 1
       }
     ],
-    "_syncId": "ab3d3699-a59d-43fc-99e1-ffc2d0a65c0d"
+    "_syncId": "263ff65e-de84-4e41-8eb2-9354fe69c484"
   },
   {
     "name": "$t:public_label",
@@ -81,7 +69,23 @@
         "sort": 1
       }
     ],
-    "_syncId": "ae878d38-3e1a-476f-8dba-e3ae56d19d4a"
+    "_syncId": "4d5d2bd8-7e1f-40c1-b10b-3f0ecac70877"
+  },
+  {
+    "name": "Zapier",
+    "icon": "badge",
+    "description": null,
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [
+      {
+        "role": null,
+        "sort": null
+      }
+    ],
+    "_syncId": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c"
   },
   {
     "name": "Registrated",
@@ -93,10 +97,10 @@
     "app_access": false,
     "roles": [
       {
-        "role": "role-registrated",
+        "role": "4c32a9b2-714d-44e4-84bd-675d2351bdd7",
         "sort": 1
       }
     ],
-    "_syncId": "b16453e3-676b-49d6-917b-6d6f81089114"
+    "_syncId": "e1a6faf4-e93c-4f22-bc56-41b8e48b3ee7"
   }
 ]

@@ -1,1 +1,28 @@
-[]
+[
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "layers",
+    "search": "",
+    "layout": "tabular",
+    "layout_query": {
+      "tabular": {
+        "page": 1
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {
+          "menuIcon.$thumbnail": 32,
+          "maps.maps_id.name": 1003.888916015625
+        },
+        "spacing": "compact"
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "1b452db1-8add-4a5e-948d-b380d99121c3"
+  }
+]

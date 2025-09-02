@@ -1,35 +1,37 @@
 {
-  "collection": "items",
-  "field": "slug",
-  "type": "string",
+  "collection": "oceannomads_events",
+  "field": "date_created",
+  "type": "timestamp",
   "meta": {
-    "collection": "items",
+    "collection": "oceannomads_events",
     "conditions": null,
-    "display": null,
-    "display_options": null,
-    "field": "slug",
-    "group": null,
-    "hidden": false,
-    "interface": "input",
-    "note": null,
-    "options": {
-      "slug": true
+    "display": "datetime",
+    "display_options": {
+      "relative": true
     },
-    "readonly": false,
+    "field": "date_created",
+    "group": null,
+    "hidden": true,
+    "interface": "datetime",
+    "note": null,
+    "options": null,
+    "readonly": true,
     "required": false,
-    "sort": 22,
-    "special": null,
+    "sort": 2,
+    "special": [
+      "date-created"
+    ],
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
-    "name": "slug",
-    "table": "items",
-    "data_type": "character varying",
+    "name": "date_created",
+    "table": "oceannomads_events",
+    "data_type": "timestamp with time zone",
     "default_value": null,
-    "max_length": 255,
+    "max_length": null,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,
