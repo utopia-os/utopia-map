@@ -1,0 +1,16 @@
+{
+  "mapDoesNotExist": "Tuta mapa njeeksistuje",
+  "offersAndNeeds": "Nabidki a potrjeby",
+  "offers": "Nabidki",
+  "needs": "Potrjeby",
+  "enterOffers": "Zapodajće swoje nabidki",
+  "enterNeeds": "Zapodajće swoje potrjeby",
+  "welcomeTitle": "Witajće k {map}",
+  "welcomeText1": "Je to nastroj za zhromadne kartěrowanje, zo by lokalne iniciatiwy, ludźi a podawki zwjazał.",
+  "welcomeText2": "Přidružće so a powjetšće syć, přidawajće projekty a podawki na kartu.",
+  "welcomeText3": "Wutworće swój wosobinski profil a stajće jón na kartu.",
+  "close": "Začinić",
+  "layerLoading": "{layer} so začituje ...",
+  "layerLoaded": "{layer} je so začitał"
+}
+
