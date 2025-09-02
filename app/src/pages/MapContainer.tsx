@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
@@ -95,7 +96,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               id={layer.id}
               key={layer.id}
               name={layer.name}
-              menuIcon={config.apiUrl + 'assets/' + layer.menuIcon}
+              menuIcon={layer.menuIcon && config.apiUrl + 'assets/' + layer.menuIcon}
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}

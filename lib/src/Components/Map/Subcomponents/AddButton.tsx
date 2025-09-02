@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { MapPinIcon } from '@heroicons/react/20/solid'
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
+import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 
@@ -13,6 +15,7 @@ export default function AddButton({
 }) {
   const layers = useLayers()
   const hasUserPermission = useHasUserPermission()
+  const appState = useAppState()
 
   const canAddItems = () => {
     let canAdd = false
@@ -59,11 +62,17 @@ export default function AddButton({
                             e.preventDefault()
                           }}
                         >
-                          <img
-                            src={layer.menuIcon}
-                            className='tw:h-6 tw:w-6 tw:text-white'
-                            style={{ filter: 'invert(100%) brightness(200%)' }}
-                          />
+                          {layer.menuIcon ? (
+                            <SVG
+                              src={appState.assetsApi.url + layer.menuIcon}
+                              className='tw:w-6 tw:h-6'
+                              preProcessor={(code: string) =>
+                                code.replace(/fill=".*?"/g, 'fill="currentColor"')
+                              }
+                            />
+                          ) : (
+                            <MapPinIcon className='tw:h-6 tw:w-6 tw:text-white' />
+                          )}
                         </button>
                       </div>
                     </a>
