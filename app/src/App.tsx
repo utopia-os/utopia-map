@@ -56,6 +56,7 @@ import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
 import { config } from './config'
 import { InviteApi } from './api/inviteApi'
+import { t } from './i18n'
 
 const userApi = new UserApi()
 const inviteApi = new InviteApi(userApi)
@@ -249,7 +250,7 @@ function App() {
     return (
       <div className='tw:flex tw:items-center tw:justify-center tw:h-screen'>
         <div>
-          <p className='tw:text-xl tw:font-semibold'>This map does not exist</p>
+          <p className='tw:text-xl tw:font-semibold'>{t('mapDoesNotExist')}</p>
         </div>
       </div>
     )

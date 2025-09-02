@@ -1,0 +1,16 @@
+{
+  "mapDoesNotExist": "Diese Karte existiert nicht",
+  "offersAndNeeds": "Angebote & Gesuche",
+  "offers": "Angebote",
+  "needs": "Gesuche",
+  "enterOffers": "Gib deine Angebote ein",
+  "enterNeeds": "Gib deine Gesuche ein",
+  "welcomeTitle": "Willkommen bei {map}",
+  "welcomeText1": "Dies ist ein Werkzeug für kollaboratives Mapping, um lokale Initiativen, Menschen und Veranstaltungen zu verbinden.",
+  "welcomeText2": "Mach mit und erweitere das Netzwerk, indem du Projekte und Veranstaltungen zur Karte hinzufügst.",
+  "welcomeText3": "Erstelle dein persönliches Profil und platziere es auf der Karte.",
+  "close": "Schließen",
+  "layerLoading": "lade {layer} ...",
+  "layerLoaded": "{layer} geladen"
+}
+

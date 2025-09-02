@@ -8,6 +8,8 @@
 import { useCallback, useReducer, createContext, useContext, useState } from 'react'
 import { toast } from 'react-toastify'
 
+import { t } from '#src/i18n'
+
 import { useAddLayer } from './useLayers'
 
 import type { Item } from '#types/Item'
@@ -73,8 +75,8 @@ function useItemsManager(initialItems: Item[]): {
   const setItemsApi = useCallback(async (layer: LayerProps) => {
     addLayer(layer)
     const result = await toast.promise(layer.api!.getItems(), {
-      pending: `loading ${layer.name} ...`,
-      success: `${layer.name} loaded`,
+      pending: t('layerLoading', { layer: layer.name }),
+      success: t('layerLoaded', { layer: layer.name }),
       error: {
         render({ data }) {
           return `${data}`
