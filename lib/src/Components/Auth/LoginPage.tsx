@@ -130,6 +130,25 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
         {showRequestPassword && (
           <>
             <div className='tw:divider tw:w-full'>OR</div>
+            <div role='alert' className='tw:alert tw:mb-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                className='tw:h-6 tw:w-6 tw:shrink-0 tw:stroke-current'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                ></path>
+              </svg>
+              <span>
+                The map requires an additional password. If you don&apos;t have it yet, you can
+                request one.
+              </span>
+            </div>
             <Link to='/reset-password' className='tw:w-full'>
               <button className='tw:btn tw:btn-primary tw:btn-block'>{'Request Password'}</button>
             </Link>
