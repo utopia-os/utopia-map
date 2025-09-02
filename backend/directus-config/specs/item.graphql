@@ -15,6 +15,10 @@ type Query {
   oceannomads_profiles_by_id(id: ID!, version: String): oceannomads_profiles
   oceannomads_profiles_aggregated(groupBy: [String], filter: oceannomads_profiles_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [oceannomads_profiles_aggregated!]!
   oceannomads_profiles_by_version(version: String!, id: ID!): version_oceannomads_profiles
+  layers(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers!]!
+  layers_by_id(id: ID!, version: String): layers
+  layers_aggregated(groupBy: [String], filter: layers_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_aggregated!]!
+  layers_by_version(version: String!, id: ID!): version_layers
   attestations(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations!]!
   attestations_by_id(id: ID!, version: String): attestations
   attestations_aggregated(groupBy: [String], filter: attestations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_aggregated!]!
@@ -67,10 +71,6 @@ type Query {
   itemSecrets_by_id(id: ID!, version: String): itemSecrets
   itemSecrets_aggregated(groupBy: [String], filter: itemSecrets_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [itemSecrets_aggregated!]!
   itemSecrets_by_version(version: String!, id: ID!): version_itemSecrets
-  layers(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers!]!
-  layers_by_id(id: ID!, version: String): layers
-  layers_aggregated(groupBy: [String], filter: layers_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_aggregated!]!
-  layers_by_version(version: String!, id: ID!): version_layers
   items_files(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [items_files!]!
   items_files_by_id(id: ID!, version: String): items_files
   items_files_aggregated(groupBy: [String], filter: items_files_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [items_files_aggregated!]!
@@ -150,6 +150,8 @@ type Mutation {
   create_oceannomads_events_item(data: create_oceannomads_events_input!): oceannomads_events
   create_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_oceannomads_profiles_input!]): [oceannomads_profiles!]!
   create_oceannomads_profiles_item(data: create_oceannomads_profiles_input!): oceannomads_profiles
+  create_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_input!]): [layers!]!
+  create_layers_item(data: create_layers_input!): layers
   create_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_input!]): [attestations!]!
   create_attestations_item(data: create_attestations_input!): attestations
   create_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_directus_users_input!]): [attestations_directus_users!]!
@@ -176,8 +178,6 @@ type Mutation {
   create_items_item(data: create_items_input!): items
   create_itemSecrets_items(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_itemSecrets_input!]): [itemSecrets!]!
   create_itemSecrets_item(data: create_itemSecrets_input!): itemSecrets
-  create_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_input!]): [layers!]!
-  create_layers_item(data: create_layers_input!): layers
   create_items_files_items(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_files_input!]): [items_files!]!
   create_items_files_item(data: create_items_files_input!): items_files
   create_items_items_items(filter: items_items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_items_input!]): [items_items!]!
@@ -224,6 +224,9 @@ type Mutation {
   update_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_oceannomads_profiles_input!): [oceannomads_profiles!]!
   update_oceannomads_profiles_batch(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_oceannomads_profiles_input!]): [oceannomads_profiles!]!
   update_oceannomads_profiles_item(id: ID!, data: update_oceannomads_profiles_input!): oceannomads_profiles
+  update_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_input!): [layers!]!
+  update_layers_batch(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_input!]): [layers!]!
+  update_layers_item(id: ID!, data: update_layers_input!): layers
   update_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_input!): [attestations!]!
   update_attestations_batch(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_input!]): [attestations!]!
   update_attestations_item(id: ID!, data: update_attestations_input!): attestations
@@ -263,9 +266,6 @@ type Mutation {
   update_itemSecrets_items(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_itemSecrets_input!): [itemSecrets!]!
   update_itemSecrets_batch(filter: itemSecrets_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_itemSecrets_input!]): [itemSecrets!]!
   update_itemSecrets_item(id: ID!, data: update_itemSecrets_input!): itemSecrets
-  update_layers_items(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_input!): [layers!]!
-  update_layers_batch(filter: layers_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_input!]): [layers!]!
-  update_layers_item(id: ID!, data: update_layers_input!): layers
   update_items_files_items(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_items_files_input!): [items_files!]!
   update_items_files_batch(filter: items_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_items_files_input!]): [items_files!]!
   update_items_files_item(id: ID!, data: update_items_files_input!): items_files
@@ -325,6 +325,8 @@ type Mutation {
   delete_oceannomads_events_item(id: ID!): delete_one
   delete_oceannomads_profiles_items(ids: [ID]!): delete_many
   delete_oceannomads_profiles_item(id: ID!): delete_one
+  delete_layers_items(ids: [ID]!): delete_many
+  delete_layers_item(id: ID!): delete_one
   delete_attestations_items(ids: [ID]!): delete_many
   delete_attestations_item(id: ID!): delete_one
   delete_attestations_directus_users_items(ids: [ID]!): delete_many
@@ -351,8 +353,6 @@ type Mutation {
   delete_items_item(id: ID!): delete_one
   delete_itemSecrets_items(ids: [ID]!): delete_many
   delete_itemSecrets_item(id: ID!): delete_one
-  delete_layers_items(ids: [ID]!): delete_many
-  delete_layers_item(id: ID!): delete_one
   delete_items_files_items(ids: [ID]!): delete_many
   delete_items_files_item(id: ID!): delete_one
   delete_items_items_items(ids: [ID]!): delete_many
@@ -415,6 +415,7 @@ type Subscription {
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  layers_mutated(event: EventEnum): layers_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -428,7 +429,6 @@ type Subscription {
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
-  layers_mutated(event: EventEnum): layers_mutated
   items_files_mutated(event: EventEnum): items_files_mutated
   items_items_mutated(event: EventEnum): items_items_mutated
   items_tags_mutated(event: EventEnum): items_tags_mutated
@@ -1798,6 +1798,7 @@ type layers {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   maps_func: count_functions
   notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
@@ -1809,6 +1810,12 @@ type layers_aggregated {
   countAll: Int
   count: layers_aggregated_count
   countDistinct: layers_aggregated_count
+  avg: layers_aggregated_fields
+  sum: layers_aggregated_fields
+  avgDistinct: layers_aggregated_fields
+  sumDistinct: layers_aggregated_fields
+  min: layers_aggregated_fields
+  max: layers_aggregated_fields
 }
 
 type layers_aggregated_count {
@@ -1828,8 +1835,13 @@ type layers_aggregated_count {
   onlyOnePerOwner: Int
   public_edit_items: Int
   userProfileLayer: Int
+  sort: Int
   maps: Int
   notifications: Int
+}
+
+type layers_aggregated_fields {
+  sort: Float
 }
 
 type layers_directus_users_1 {
@@ -2694,6 +2706,7 @@ type version_layers {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps: JSON
   notifications: JSON
 }
@@ -3280,6 +3293,7 @@ input create_layers_input {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps: [create_layers_maps_input]
   notifications: [create_layers_directus_users_1_input]
 }
@@ -4269,6 +4283,7 @@ input layers_filter {
   onlyOnePerOwner: boolean_filter_operators
   public_edit_items: boolean_filter_operators
   userProfileLayer: boolean_filter_operators
+  sort: number_filter_operators
   maps: layers_maps_quantifier_filter
   maps_func: count_function_filter_operators
   notifications: layers_directus_users_1_quantifier_filter
@@ -4872,6 +4887,7 @@ input update_layers_input {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps: [update_layers_maps_input]
   notifications: [update_layers_directus_users_1_input]
 }
