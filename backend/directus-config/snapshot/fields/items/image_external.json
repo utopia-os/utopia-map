@@ -1,23 +1,21 @@
 {
   "collection": "items",
-  "field": "slug",
+  "field": "image_external",
   "type": "string",
   "meta": {
     "collection": "items",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "slug",
+    "field": "image_external",
     "group": null,
     "hidden": false,
     "interface": "input",
     "note": null,
-    "options": {
-      "slug": true
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 22,
+    "sort": 12,
     "special": null,
     "translations": null,
     "validation": null,
@@ -25,7 +23,7 @@
     "width": "full"
   },
   "schema": {
-    "name": "slug",
+    "name": "image_external",
     "table": "items",
     "data_type": "character varying",
     "default_value": null,

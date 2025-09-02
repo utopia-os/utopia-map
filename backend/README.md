@@ -105,7 +105,7 @@ docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql -v O
 
 Reassign ownership of tables:
 ```
-echo "REASSIGN OWNED BY admin TO directus" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus
+echo "REASSIGN OWNED BY admin TO directus" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus"
 ```
 > REASSIGN OWNED
 

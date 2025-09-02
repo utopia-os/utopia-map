@@ -10,7 +10,7 @@
     "field": "position",
     "group": null,
     "hidden": false,
-    "interface": "map",
+    "interface": null,
     "note": null,
     "options": {
       "defaultView": {
