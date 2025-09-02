@@ -1,5 +1,13 @@
 {
   "collection": "directus_files",
+  "meta": {
+    "insert_order": 1,
+    "create": true,
+    "update": true,
+    "delete": true,
+    "preserve_ids": false,
+    "ignore_on_update": []
+  },
   "data": [
     {
       "_sync_id": "utopia-logo",
