@@ -266,6 +266,7 @@ type Subscription {
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  layers_mutated(event: EventEnum): layers_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -279,7 +280,6 @@ type Subscription {
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
-  layers_mutated(event: EventEnum): layers_mutated
   items_files_mutated(event: EventEnum): items_files_mutated
   items_items_mutated(event: EventEnum): items_items_mutated
   items_tags_mutated(event: EventEnum): items_tags_mutated
@@ -1967,6 +1967,7 @@ type layers {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   maps_func: count_functions
   notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
@@ -2779,6 +2780,7 @@ input create_layers_input {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps: [create_layers_maps_input]
   notifications: [create_layers_directus_users_1_input]
 }
@@ -3740,6 +3742,7 @@ input layers_filter {
   onlyOnePerOwner: boolean_filter_operators
   public_edit_items: boolean_filter_operators
   userProfileLayer: boolean_filter_operators
+  sort: number_filter_operators
   maps: layers_maps_quantifier_filter
   maps_func: count_function_filter_operators
   notifications: layers_directus_users_1_quantifier_filter
@@ -4317,6 +4320,7 @@ input update_layers_input {
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   userProfileLayer: Boolean
+  sort: Int
   maps: [update_layers_maps_input]
   notifications: [update_layers_directus_users_1_input]
 }

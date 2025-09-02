@@ -23,6 +23,7 @@ export class layersApi {
           ],
           filter: { maps: { maps_id: { id: { _eq: this.mapId } } } },
           limit: 500,
+          sort: ['sort'],
         }),
       )
       return layers
