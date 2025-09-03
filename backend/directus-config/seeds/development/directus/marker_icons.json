@@ -10,178 +10,178 @@
   },
   "data": [
     {
-      "_sync_id": "bicycle",
+      "_sync_id": "marker-bicycle",
       "id": "bicycle",
       "size": "20.00000",
-      "image": "bicycle"
+      "image": "bicycle-solid"
     },
     {
-      "_sync_id": "boat",
+      "_sync_id": "marker-boat",
       "id": "boat",
       "size": "18.00000",
-      "image": "boat"
+      "image": "boat-solid"
     },
     {
-      "_sync_id": "cafe",
+      "_sync_id": "marker-cafe",
       "id": "cafe",
       "size": "18.00000",
-      "image": "cafe"
+      "image": "cafe-solid"
     },
     {
-      "_sync_id": "calendar",
+      "_sync_id": "marker-calendar",
       "id": "calendar",
       "size": "14.00000",
-      "image": "calendar"
+      "image": "calendar-solid"
     },
     {
-      "_sync_id": "camp",
+      "_sync_id": "marker-camp",
       "id": "camp",
       "size": "18.00000",
-      "image": "camp"
+      "image": "camp-solid"
     },
     {
-      "_sync_id": "cannabis",
+      "_sync_id": "marker-cannabis",
       "id": "cannabis",
       "size": "18.00000",
-      "image": "cannabis"
+      "image": "cannabis-solid"
     },
     {
-      "_sync_id": "circle-dot",
+      "_sync_id": "marker-circle-dot",
       "id": "circle-dot",
       "size": "18.00000",
-      "image": "circle-dot"
+      "image": "circle-dot-solid"
     },
     {
-      "_sync_id": "compass",
+      "_sync_id": "marker-compass",
       "id": "compass",
       "size": "18.00000",
-      "image": "compass"
+      "image": "compass-solid"
     },
     {
-      "_sync_id": "crosshair",
+      "_sync_id": "marker-crosshair",
       "id": "crosshair",
       "size": "18.00000",
-      "image": "crosshair"
+      "image": "crosshair-solid"
     },
     {
-      "_sync_id": "drum",
+      "_sync_id": "marker-drum",
       "id": "drum",
       "size": "20.00000",
-      "image": "drum"
+      "image": "drum-solid"
     },
     {
-      "_sync_id": "fire",
+      "_sync_id": "marker-fire",
       "id": "fire",
       "size": "12.00000",
-      "image": "fire"
+      "image": "fire-solid"
     },
     {
-      "_sync_id": "flower",
+      "_sync_id": "marker-flower",
       "id": "flower",
       "size": "18.00000",
-      "image": "flower"
+      "image": "flower-solid"
     },
     {
-      "_sync_id": "group",
+      "_sync_id": "marker-group",
       "id": "group",
       "size": "18.00000",
-      "image": "group"
+      "image": "group-solid"
     },
     {
-      "_sync_id": "house",
+      "_sync_id": "marker-house",
       "id": "house",
       "size": "16.00000",
-      "image": "house"
+      "image": "house-solid"
     },
     {
-      "_sync_id": "liebevoll.jetzt",
+      "_sync_id": "marker-liebevoll.jetzt",
       "id": "liebevoll.jetzt",
       "size": "16.00000",
-      "image": "liebevoll.jetzt"
+      "image": "liebevoll.jetzt-solid"
     },
     {
-      "_sync_id": "music",
+      "_sync_id": "marker-music",
       "id": "music",
       "size": "12.00000",
-      "image": "music"
+      "image": "music-solid"
     },
     {
-      "_sync_id": "network",
+      "_sync_id": "marker-network",
       "id": "network",
       "size": "18.00000",
-      "image": "network"
+      "image": "network-solid"
     },
     {
-      "_sync_id": "offer",
+      "_sync_id": "marker-offer",
       "id": "offer",
       "size": "16.00000",
-      "image": "offer"
+      "image": "offer-solid"
     },
     {
-      "_sync_id": "plant",
+      "_sync_id": "marker-plant",
       "id": "plant",
       "size": "18.00000",
-      "image": "plant"
+      "image": "plant-solid"
     },
     {
-      "_sync_id": "point",
+      "_sync_id": "marker-point",
       "id": "point",
       "size": "12.00000",
-      "image": "point"
+      "image": "point-solid"
     },
     {
-      "_sync_id": "puzzle",
+      "_sync_id": "marker-puzzle",
       "id": "puzzle",
       "size": "18.00000",
-      "image": "puzzle"
+      "image": "puzzle-solid"
     },
     {
-      "_sync_id": "quest",
+      "_sync_id": "marker-quest",
       "id": "quest",
       "size": "14.00000",
-      "image": "quest"
+      "image": "quest-solid"
     },
     {
-      "_sync_id": "shop",
+      "_sync_id": "marker-shop",
       "id": "shop",
       "size": "18.00000",
-      "image": "shop"
+      "image": "shop-solid"
     },
     {
-      "_sync_id": "staff-snake",
+      "_sync_id": "marker-staff-snake",
       "id": "staff-snake",
       "size": "12.00000",
-      "image": "staff-snake"
+      "image": "staff-snake-solid"
     },
     {
-      "_sync_id": "star",
+      "_sync_id": "marker-star",
       "id": "star",
       "size": "18.00000",
-      "image": "star"
+      "image": "star-solid"
     },
     {
-      "_sync_id": "steps",
+      "_sync_id": "marker-steps",
       "id": "steps",
       "size": "18.00000",
-      "image": "steps"
+      "image": "steps-solid"
     },
     {
-      "_sync_id": "suitecase",
+      "_sync_id": "marker-suitecase",
       "id": "suitecase",
       "size": "18.00000",
-      "image": "suitecase"
+      "image": "suitecase-solid"
     },
     {
-      "_sync_id": "tree",
+      "_sync_id": "marker-tree",
       "id": "tree",
       "size": "18.00000",
-      "image": "tree"
+      "image": "tree-solid"
     },
     {
-      "_sync_id": "user",
+      "_sync_id": "marker-user",
       "id": "user",
       "size": "12.00000",
-      "image": "user"
+      "image": "user-solid"
     }
   ]
 }
