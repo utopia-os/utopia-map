@@ -10,11 +10,6 @@
     },
     "data": [
         {
-            "_sync_id": "layer-places-map-local-development",
-            "layers_id": "layer-places",
-            "maps_id": "map-local-development"
-        },
-        {
             "_sync_id": "layer-events-map-local-development",
             "layers_id": "layer-events",
             "maps_id": "map-local-development"
