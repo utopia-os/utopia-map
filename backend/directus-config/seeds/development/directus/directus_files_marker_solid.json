@@ -10,8 +10,8 @@
   },
   "data": [
     {
-      "_sync_id": "bicycle",
-      "_file_path": "./files/icons/bicycle.svg",
+      "_sync_id": "bicycle-solid",
+      "_file_path": "./files/icons/solid/bicycle.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "bicycle.svg",
@@ -20,8 +20,8 @@
       "description": "bicycle"
     },
     {
-      "_sync_id": "boat",
-      "_file_path": "./files/icons/boat.svg",
+      "_sync_id": "boat-solid",
+      "_file_path": "./files/icons/solid/boat.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "boat.svg",
@@ -30,8 +30,8 @@
       "description": "boat"
     },
     {
-      "_sync_id": "cafe",
-      "_file_path": "./files/icons/cafe.svg",
+      "_sync_id": "cafe-solid",
+      "_file_path": "./files/icons/solid/cafe.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "cafe.svg",
@@ -40,8 +40,8 @@
       "description": "cafe"
     },
     {
-      "_sync_id": "calendar",
-      "_file_path": "./files/icons/calendar.svg",
+      "_sync_id": "calendar-solid",
+      "_file_path": "./files/icons/solid/calendar.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "calendar.svg",
@@ -50,8 +50,8 @@
       "description": "calendar"
     },
     {
-      "_sync_id": "camp",
-      "_file_path": "./files/icons/camp.svg",
+      "_sync_id": "camp-solid",
+      "_file_path": "./files/icons/solid/camp.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "camp.svg",
@@ -60,8 +60,8 @@
       "description": "camp"
     },
     {
-      "_sync_id": "cannabis",
-      "_file_path": "./files/icons/cannabis.svg",
+      "_sync_id": "cannabis-solid",
+      "_file_path": "./files/icons/solid/cannabis.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "cannabis.svg",
@@ -70,8 +70,8 @@
       "description": "cannabis"
     },
     {
-      "_sync_id": "circle-dot",
-      "_file_path": "./files/icons/circle-dot.svg",
+      "_sync_id": "circle-dot-solid",
+      "_file_path": "./files/icons/solid/circle-dot.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "circle-dot.svg",
@@ -80,8 +80,8 @@
       "description": "circle-dot"
     },
     {
-      "_sync_id": "compass",
-      "_file_path": "./files/icons/compass.svg",
+      "_sync_id": "compass-solid",
+      "_file_path": "./files/icons/solid/compass.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "compass.svg",
@@ -90,8 +90,8 @@
       "description": "compass"
     },
     {
-      "_sync_id": "crosshair",
-      "_file_path": "./files/icons/crosshair.svg",
+      "_sync_id": "crosshair-solid",
+      "_file_path": "./files/icons/solid/crosshair.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "crosshair.svg",
@@ -100,8 +100,8 @@
       "description": "crosshair"
     },
     {
-      "_sync_id": "drum",
-      "_file_path": "./files/icons/drum.svg",
+      "_sync_id": "drum-solid",
+      "_file_path": "./files/icons/solid/drum.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "drum.svg",
@@ -110,8 +110,8 @@
       "description": "drum"
     },
     {
-      "_sync_id": "fire",
-      "_file_path": "./files/icons/fire.svg",
+      "_sync_id": "fire-solid",
+      "_file_path": "./files/icons/solid/fire.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "fire.svg",
@@ -120,8 +120,8 @@
       "description": "fire"
     },
     {
-      "_sync_id": "flower",
-      "_file_path": "./files/icons/flower.svg",
+      "_sync_id": "flower-solid",
+      "_file_path": "./files/icons/solid/flower.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "flower.svg",
@@ -130,8 +130,8 @@
       "description": "flower"
     },
     {
-      "_sync_id": "group",
-      "_file_path": "./files/icons/group.svg",
+      "_sync_id": "group-solid",
+      "_file_path": "./files/icons/solid/group.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "group.svg",
@@ -140,8 +140,8 @@
       "description": "group"
     },
     {
-      "_sync_id": "house",
-      "_file_path": "./files/icons/house.svg",
+      "_sync_id": "house-solid",
+      "_file_path": "./files/icons/solid/house.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "house.svg",
@@ -150,8 +150,8 @@
       "description": "house"
     },
     {
-      "_sync_id": "liebevoll.jetzt",
-      "_file_path": "./files/icons/liebevoll.jetzt.svg",
+      "_sync_id": "liebevoll.jetzt-solid",
+      "_file_path": "./files/icons/solid/liebevoll.jetzt.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "liebevoll.jetzt.svg",
@@ -160,8 +160,8 @@
       "description": "liebevoll.jetzt"
     },
     {
-      "_sync_id": "music",
-      "_file_path": "./files/icons/music.svg",
+      "_sync_id": "music-solid",
+      "_file_path": "./files/icons/solid/music.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "music.svg",
@@ -170,8 +170,8 @@
       "description": "music"
     },
     {
-      "_sync_id": "network",
-      "_file_path": "./files/icons/network.svg",
+      "_sync_id": "network-solid",
+      "_file_path": "./files/icons/solid/network.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "network.svg",
@@ -180,8 +180,8 @@
       "description": "network"
     },
     {
-      "_sync_id": "offer",
-      "_file_path": "./files/icons/offer.svg",
+      "_sync_id": "offer-solid",
+      "_file_path": "./files/icons/solid/offer.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "offer.svg",
@@ -190,8 +190,8 @@
       "description": "offer"
     },
     {
-      "_sync_id": "plant",
-      "_file_path": "./files/icons/plant.svg",
+      "_sync_id": "plant-solid",
+      "_file_path": "./files/icons/solid/plant.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "plant.svg",
@@ -200,8 +200,8 @@
       "description": "plant"
     },
     {
-      "_sync_id": "point",
-      "_file_path": "./files/icons/point.svg",
+      "_sync_id": "point-solid",
+      "_file_path": "./files/icons/solid/point.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "point.svg",
@@ -210,8 +210,8 @@
       "description": "point"
     },
     {
-      "_sync_id": "puzzle",
-      "_file_path": "./files/icons/puzzle.svg",
+      "_sync_id": "puzzle-solid",
+      "_file_path": "./files/icons/solid/puzzle.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "puzzle.svg",
@@ -220,8 +220,8 @@
       "description": "puzzle"
     },
     {
-      "_sync_id": "quest",
-      "_file_path": "./files/icons/quest.svg",
+      "_sync_id": "quest-solid",
+      "_file_path": "./files/icons/solid/quest.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "quest.svg",
@@ -230,8 +230,8 @@
       "description": "quest"
     },
     {
-      "_sync_id": "shop",
-      "_file_path": "./files/icons/shop.svg",
+      "_sync_id": "shop-solid",
+      "_file_path": "./files/icons/solid/shop.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "shop.svg",
@@ -240,8 +240,8 @@
       "description": "shop"
     },
     {
-      "_sync_id": "staff-snake",
-      "_file_path": "./files/icons/staff-snake.svg",
+      "_sync_id": "staff-snake-solid",
+      "_file_path": "./files/icons/solid/staff-snake.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "staff-snake.svg",
@@ -250,8 +250,8 @@
       "description": "staff-snake"
     },
     {
-      "_sync_id": "star",
-      "_file_path": "./files/icons/star.svg",
+      "_sync_id": "star-solid",
+      "_file_path": "./files/icons/solid/star.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "star.svg",
@@ -260,8 +260,8 @@
       "description": "star"
     },
     {
-      "_sync_id": "steps",
-      "_file_path": "./files/icons/steps.svg",
+      "_sync_id": "steps-solid",
+      "_file_path": "./files/icons/solid/steps.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "steps.svg",
@@ -270,8 +270,8 @@
       "description": "steps"
     },
     {
-      "_sync_id": "suitecase",
-      "_file_path": "./files/icons/suitecase.svg",
+      "_sync_id": "suitecase-solid",
+      "_file_path": "./files/icons/solid/suitecase.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "suitecase.svg",
@@ -280,8 +280,8 @@
       "description": "suitecase"
     },
     {
-      "_sync_id": "tree",
-      "_file_path": "./files/icons/tree.svg",
+      "_sync_id": "tree-solid",
+      "_file_path": "./files/icons/solid/tree.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "tree.svg",
@@ -290,8 +290,8 @@
       "description": "tree"
     },
     {
-      "_sync_id": "user",
-      "_file_path": "./files/icons/user.svg",
+      "_sync_id": "user-solid",
+      "_file_path": "./files/icons/solid/user.svg",
       "storage": "local",
       "folder": "889a110a-a117-40fa-b091-5c5a2766563f",
       "filename_download": "user.svg",
