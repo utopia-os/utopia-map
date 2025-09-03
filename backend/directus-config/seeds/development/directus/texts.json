@@ -1,0 +1,21 @@
+{
+    "collection": "texts",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "7c25fdf6-d5f2-425a-9a2e-03c5297d10bc",
+            "dataField": "text",
+            "heading": null,
+            "hideWhenEmpty": true,
+            "showMarkdownHint": true,
+            "size": "full"
+        }
+   ]
+}
