@@ -30,7 +30,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Deletes Nomads User and Items",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -85,7 +85,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Nomads Current Location",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -106,7 +106,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Event Item on Map",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -126,7 +126,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Nomads User and Home Base",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -205,7 +205,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Updates Nomads User, Home Base and Current Location",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {

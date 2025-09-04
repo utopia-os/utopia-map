@@ -21,6 +21,57 @@
   },
   {
     "name": "Condition",
+    "key": "condition_d2q1f",
+    "type": "condition",
+    "position_x": 36,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "payload": {
+            "location": {
+              "_nempty": true
+            }
+          }
+        }
+      }
+    },
+    "resolve": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a",
+    "reject": "aad65a35-dcb2-4e71-a27a-b7600fea06a8",
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "6325ec57-0cde-491b-b453-f69effb404e6"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_ljedr",
+    "type": "condition",
+    "position_x": 74,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "item_read_i7dz7": {
+          "_and": [
+            {
+              "location": {
+                "_nempty": true
+              }
+            },
+            {
+              "location": {
+                "_nnull": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    "resolve": "ef204e62-9a47-4560-a940-336bdf2f897b",
+    "reject": "e76cc608-589d-4758-98ee-b01346e5f22c",
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "7e647ad3-8a87-43c6-aee3-08600f0382e0"
+  },
+  {
+    "name": "Condition",
     "key": "condition_n9mpy",
     "type": "condition",
     "position_x": 52,
@@ -72,7 +123,7 @@
         "$trigger": {
           "payload": {
             "layer": {
-              "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
+              "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
             }
           }
         }
@@ -329,7 +380,7 @@
         "first_name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}"
       }
     },
-    "resolve": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a",
+    "resolve": "6325ec57-0cde-491b-b453-f69effb404e6",
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
     "_syncId": "02499c24-46a9-4d77-8a2e-1b963cb3d62c"
@@ -357,26 +408,50 @@
     "name": "Create Nomads Home Item",
     "key": "item_create_oym38",
     "type": "item-create",
-    "position_x": 56,
+    "position_x": 70,
     "position_y": 1,
     "options": {
-      "permissions": "$full",
-      "emitEvents": false,
-      "collection": "items",
       "payload": {
         "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
-        "position": "{{$last.data.features[0].geometry}}",
-        "image_external": "{{$trigger.payload.avatar_url}}",
+        "layer": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5",
         "extended": {
           "external_profile_id": "{{$trigger.payload.id}}"
         },
-        "layer": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
-      }
+        "position": "{{$last.data.features[0].geometry}}",
+        "image_external": "{{$trigger.payload.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
     },
     "resolve": "f12ba44c-69cc-40c0-a346-aafb851fe892",
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
     "_syncId": "3624ff50-c282-45db-aa01-9b8c4a75e45c"
+  },
+  {
+    "name": "Create Nomads Home Item",
+    "key": "item_create_oym38_epxyf",
+    "type": "item-create",
+    "position_x": 53,
+    "position_y": 18,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "payload": {
+        "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
+        "layer": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5",
+        "extended": {
+          "external_profile_id": "{{$trigger.payload.id}}"
+        },
+        "image_external": "{{$trigger.payload.avatar_url}}"
+      },
+      "collection": "items"
+    },
+    "resolve": "fc07cebb-9577-41a2-9c1c-d2ee873b112d",
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "aad65a35-dcb2-4e71-a27a-b7600fea06a8"
   },
   {
     "name": "Create Data",
@@ -385,17 +460,17 @@
     "position_x": 86,
     "position_y": 1,
     "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
       "payload": {
+        "end": "{{$trigger.payload.end}}",
         "name": "{{$trigger.payload.title}}",
         "text": "{{exec_p5p4r.text}}",
-        "position": "{{$last.data.features[0].geometry}}",
-        "layer": "5d12f356-349a-4463-a57c-5fc54eede6ba",
+        "layer": "7c40ddfa-bc7e-46cb-9580-c8cf6b867377",
         "start": "{{$trigger.payload.start}}",
-        "end": "{{$trigger.payload.end}}"
+        "position": "{{$last.data.features[0].geometry}}"
       },
-      "collection": "items"
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$trigger"
     },
     "resolve": "906b8e62-bc1b-4e69-9502-51363e868cb8",
     "reject": null,
@@ -409,44 +484,21 @@
     "position_x": 69,
     "position_y": 24,
     "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
       "payload": {
+        "end": "{{$trigger.payload.end}}",
         "name": "{{$trigger.payload.title}}",
         "text": "{{exec_p5p4r.text}}",
-        "layer": "5d12f356-349a-4463-a57c-5fc54eede6ba",
-        "start": "{{$trigger.payload.start}}",
-        "end": "{{$trigger.payload.end}}"
+        "layer": "7c40ddfa-bc7e-46cb-9580-c8cf6b867377",
+        "start": "{{$trigger.payload.start}}"
       },
-      "collection": "items"
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$trigger"
     },
     "resolve": "017875a5-3736-478a-9bcc-ed473117c74d",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
     "_syncId": "5eb2d090-716a-405e-be6c-ca496961b5d3"
-  },
-  {
-    "name": "Update Data",
-    "key": "item_create_u15xk",
-    "type": "item-update",
-    "position_x": 74,
-    "position_y": 32,
-    "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
-      "payload": {
-        "name": "{{$last[0].first_name}} {{$last[0].last_name}}",
-        "image_external": "{{$last[0].avatar_url}}"
-      },
-      "collection": "items",
-      "key": [
-        "{{$trigger.payload.id}}"
-      ]
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "f691e6cb-4305-413a-9bc9-7022dc6e5f08"
   },
   {
     "name": "Create Data",
@@ -468,29 +520,6 @@
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
     "_syncId": "37fd6139-7518-44d3-bae5-b38c5aa132b9"
-  },
-  {
-    "name": "Create Data",
-    "key": "item_create_xb5fa",
-    "type": "item-create",
-    "position_x": 92,
-    "position_y": 24,
-    "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
-      "collection": "items",
-      "payload": {
-        "name": "{{item_read_gejrb[0].first_name}} {{item_read_gejrb[0].last_name}}",
-        "image_external": "{{item_read_gejrb[0].avatar_url}}",
-        "layer": "{{$trigger.payload.layer}}",
-        "position": "{{$trigger.payload.position}}",
-        "": "{{$trigger.payload.id}}"
-      }
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "6614b39f-c51a-45ee-b841-cf9df914ee5c"
   },
   {
     "name": "Delete Data",
@@ -522,15 +551,12 @@
     "position_x": 55,
     "position_y": 1,
     "options": {
-      "permissions": "$full",
-      "emitEvents": false,
-      "collection": "items",
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
+                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
               }
             },
             {
@@ -540,7 +566,10 @@
             }
           ]
         }
-      }
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
     },
     "resolve": "dc438e50-a3a1-4d38-8b7a-7c1dd1f22166",
     "reject": null,
@@ -556,23 +585,23 @@
     "options": {
       "permissions": "$full",
       "emitEvents": false,
-      "collection": "items",
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
+                "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
               }
             },
             {
               "user_created": {
-                "_eq": "{{$last[0].id}}"
+                "_eq": "{{item_read_m7xes[0].id}}"
               }
             }
           ]
         }
-      }
+      },
+      "collection": "items"
     },
     "resolve": "d6eb9087-481b-407c-af0d-bc37527d0fc4",
     "reject": null,
@@ -837,15 +866,12 @@
     "position_x": 56,
     "position_y": 1,
     "options": {
-      "permissions": "$trigger",
-      "emitEvents": false,
-      "collection": "items",
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
+                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
               }
             },
             {
@@ -855,9 +881,12 @@
             }
           ]
         }
-      }
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$trigger"
     },
-    "resolve": "ef204e62-9a47-4560-a940-336bdf2f897b",
+    "resolve": "7e647ad3-8a87-43c6-aee3-08600f0382e0",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
     "_syncId": "31bdf2e1-23f2-41e5-b40b-8e9076065119"
@@ -890,7 +919,7 @@
     "name": "Set Item Ownership to Nomads User",
     "key": "item_update_1vgft",
     "type": "item-update",
-    "position_x": 74,
+    "position_x": 87,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -909,25 +938,41 @@
     "_syncId": "f12ba44c-69cc-40c0-a346-aafb851fe892"
   },
   {
-    "name": "Update Nomads Current Location",
-    "key": "item_update_5eu19",
+    "name": "Set Item Ownership to Nomads User",
+    "key": "item_update_1vgft_dwftb",
     "type": "item-update",
-    "position_x": 131,
-    "position_y": 1,
+    "position_x": 70,
+    "position_y": 18,
     "options": {
       "permissions": "$full",
       "emitEvents": false,
+      "collection": "items",
       "payload": {
-        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "image_external": "{{item_read_i7dz7.avatar_url}}"
+        "user_created": "{{item_create_dj57t[0]}}"
       },
+      "key": [
+        "{{$last[0]}}"
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "fc07cebb-9577-41a2-9c1c-d2ee873b112d"
+  },
+  {
+    "name": "Update Nomads Current Location",
+    "key": "item_update_5eu19",
+    "type": "item-update",
+    "position_x": 146,
+    "position_y": 1,
+    "options": {
       "key": [],
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
+                "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
               }
             },
             {
@@ -938,12 +983,55 @@
           ]
         }
       },
-      "collection": "items"
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
     },
     "resolve": null,
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
     "_syncId": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e"
+  },
+  {
+    "name": "Update Nomads Current Location",
+    "key": "item_update_5eu19_prdze",
+    "type": "item-update",
+    "position_x": 139,
+    "position_y": 18,
+    "options": {
+      "key": [],
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last}}"
+              }
+            }
+          ]
+        }
+      },
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0"
   },
   {
     "name": "Update Data",
@@ -1017,7 +1105,7 @@
     "name": "Update Nomads User",
     "key": "item_update_e3pl5",
     "type": "item-update",
-    "position_x": 111,
+    "position_x": 127,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -1027,8 +1115,8 @@
         "{{item_read_ym92c[0].id}}"
       ],
       "payload": {
-        "first_name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
-        "email": "{{$trigger.payload.email}}"
+        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "email": "{{item_read_i7dz7.email}}"
       }
     },
     "resolve": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e",
@@ -1037,10 +1125,33 @@
     "_syncId": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752"
   },
   {
+    "name": "Update Nomads User",
+    "key": "item_update_e3pl5_wansj",
+    "type": "item-update",
+    "position_x": 119,
+    "position_y": 18,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{item_read_ym92c[0].id}}"
+      ],
+      "payload": {
+        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "email": "{{item_read_i7dz7.email}}"
+      }
+    },
+    "resolve": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab"
+  },
+  {
     "name": "Update Nomads Home",
     "key": "item_update_o6cn8",
     "type": "item-update",
-    "position_x": 92,
+    "position_x": 109,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -1059,6 +1170,30 @@
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
     "_syncId": "4535f776-40c7-4e6d-8873-843822996dd5"
+  },
+  {
+    "name": "Update Nomads Home",
+    "key": "item_update_o6cn8_nitpl",
+    "type": "item-update",
+    "position_x": 99,
+    "position_y": 18,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
+      "key": [
+        "{{item_read_soekq[0].id}}"
+      ],
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}",
+        "position": null
+      }
+    },
+    "resolve": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "e76cc608-589d-4758-98ee-b01346e5f22c"
   },
   {
     "name": "Update Data",
@@ -1272,7 +1407,7 @@
     "name": "Webhook / Request URL",
     "key": "request_hfzgd",
     "type": "request",
-    "position_x": 74,
+    "position_x": 92,
     "position_y": 1,
     "options": {
       "method": "GET",
@@ -1331,7 +1466,7 @@
     "name": "Request Coordinates from Geocoder",
     "key": "request_sxzym",
     "type": "request",
-    "position_x": 37,
+    "position_x": 53,
     "position_y": 1,
     "options": {
       "method": "GET",
@@ -1425,23 +1560,6 @@
     "reject": null,
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
     "_syncId": "91e39643-b58e-4629-8875-06559cfacf64"
-  },
-  {
-    "name": "Transform Payload",
-    "key": "transform_mobig",
-    "type": "transform",
-    "position_x": 73,
-    "position_y": 16,
-    "options": {
-      "json": {
-        "name": "{{$last[0].first_name}} {{$last[0].last_name}}",
-        "image_external": "{{$last[0].avatar_url}}"
-      }
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "e51d3e1d-372d-4f43-82ed-f7fe8464507f"
   },
   {
     "name": "Trigger Send Email",
