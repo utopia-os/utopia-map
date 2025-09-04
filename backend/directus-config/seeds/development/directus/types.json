@@ -28,7 +28,7 @@
             "date_created": "2025-01-01T00:00:00.000Z",
             "user_updated": null,
             "date_updated": null,
-            "template": "tabs",
+            "template": "flex",
             "show_text": true,
             "show_profile_button" : true,
             "show_start_end" : true

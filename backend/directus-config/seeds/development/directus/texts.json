@@ -16,6 +16,14 @@
             "hideWhenEmpty": true,
             "showMarkdownHint": true,
             "size": "full"
+        },
+        {
+            "_sync_id": "94f6af1d-77e5-49ed-937b-6b9addc4f8ac",
+            "dataField": "text",
+            "heading": null,
+            "hideWhenEmpty": true,
+            "showMarkdownHint": true,
+            "size": "full"
         }
    ]
 }
