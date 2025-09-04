@@ -24,3 +24,43 @@ ON CONFLICT (id) DO UPDATE
       item = excluded.item,
       sort = excluded.sort,
       types_id = excluded.types_id;
+
+-- Type: event
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'startEnd', '1', '0b5e5f0a-76a4-407f-84ab-2fd718965909' , '1', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'event'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
+
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'texts', '2', '94f6af1d-77e5-49ed-937b-6b9addc4f8ac' , '2', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'event'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
+
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'gallery', '3', 'b0c52d6e-b3d2-4e3b-89e2-065be324e27b' , '3', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'event'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
