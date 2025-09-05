@@ -15,6 +15,7 @@ import { useItems } from '#components/Map/hooks/useItems'
 import { StartEndView, TextView } from '#components/Map/Subcomponents/ItemPopupComponents'
 import { ActionButton } from '#components/Profile/Subcomponents/ActionsButton'
 import { LinkedItemsHeaderView } from '#components/Profile/Subcomponents/LinkedItemsHeaderView'
+import { RoutingLinksView } from '#components/Profile/Subcomponents/RoutingLinksView'
 import { TagView } from '#components/Templates/TagView'
 import { timeAgo } from '#utils/TimeAgo'
 
@@ -107,6 +108,9 @@ export const TabsView = ({
         <TextView text={item.text} itemId={item.id} />
         <div className='tw:h-4'></div>
         <TextView text={item.contact} itemId={item.id} />
+        <div className='tw:px-6'>
+          <RoutingLinksView item={item} />
+        </div>
       </div>
       {item.layer?.itemType.questlog && (
         <>
