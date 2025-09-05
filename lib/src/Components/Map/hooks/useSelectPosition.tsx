@@ -101,7 +101,7 @@ function useSelectPositionManager(): {
         // if selectPosition is a Layer
         mapClicked &&
           mapClicked.setItemFormPopup({
-            layer: selectPosition,
+            layer: selectPosition as LayerProps,
             position: mapClicked.position,
           })
         setSelectPosition(null)
