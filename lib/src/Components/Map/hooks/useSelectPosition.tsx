@@ -97,7 +97,7 @@ function useSelectPositionManager(): {
   useEffect(() => {
     if (selectPosition != null) {
       // selectPosition can be null, Layer or Item
-      if ('menuIcon' in selectPosition) {
+      if ('markerIcon' in selectPosition) {
         // if selectPosition is a Layer
         mapClicked &&
           mapClicked.setItemFormPopup({
