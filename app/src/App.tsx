@@ -56,6 +56,7 @@ import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
 import { config } from './config'
 import { InviteApi } from './api/inviteApi'
+import { LayerProps } from 'utopia-ui'
 
 const userApi = new UserApi()
 const inviteApi = new InviteApi(userApi)
@@ -225,14 +226,14 @@ function App() {
                     path='attestation-form'
                     element={<AttestationForm api={attestationApi} />}
                   />
-                  {layers.map((l: any) => (
+                  {layers.map((l: LayerProps) => (
                     <Route
                       key={l.id}
                       path={l.name}
                       element={
                         <OverlayItemsIndexPage
                           layerName={l.name}
-                          url={'/item/'}
+                          url={l.itemType.custom_profile_url ? '/' : '/item/'}
                           parameterField={'id'}
                         />
                       }
