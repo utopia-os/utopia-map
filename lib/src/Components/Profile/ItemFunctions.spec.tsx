@@ -36,7 +36,6 @@ describe('linkItem', () => {
         getItems: vi.fn(),
       },
       name: '',
-      menuIcon: '',
       menuColor: '',
       menuText: '',
       markerIcon: {

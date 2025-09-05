@@ -81,7 +81,6 @@
     "layout_options": {
       "tabular": {
         "widths": {
-          "menuIcon.$thumbnail": 32,
           "maps.maps_id.name": 1003.888916015625
         },
         "spacing": "compact"
