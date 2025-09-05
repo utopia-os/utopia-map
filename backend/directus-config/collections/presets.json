@@ -2,6 +2,36 @@
   {
     "bookmark": null,
     "role": null,
+    "collection": "items",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "name",
+          "layer.name",
+          "date_created",
+          "date_updated",
+          "user_created",
+          "user_updated"
+        ]
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "053f9b93-aa94-4ad8-b64e-babb69f0ea6c"
+  },
+  {
+    "bookmark": null,
+    "role": null,
     "collection": "layers",
     "search": "",
     "layout": "tabular",
@@ -51,7 +81,6 @@
     "layout_options": {
       "tabular": {
         "widths": {
-          "menuIcon.$thumbnail": 32,
           "maps.maps_id.name": 1003.888916015625
         },
         "spacing": "compact"
@@ -62,6 +91,36 @@
     "icon": "bookmark",
     "color": null,
     "_syncId": "1b452db1-8add-4a5e-948d-b380d99121c3"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "marker_icons",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "id",
+          "image.$thumbnail",
+          "size",
+          "image_outline.$thumbnail",
+          "size_outline"
+        ],
+        "limit": 500
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "2a1656b7-d6d2-4b47-bd22-41babc8bf828"
   },
   {
     "bookmark": null,
@@ -124,5 +183,45 @@
     "icon": "bookmark",
     "color": null,
     "_syncId": "3789cfe7-78f9-428e-9770-d8e1c5de1145"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "layers",
+    "search": "",
+    "layout": "tabular",
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "sort",
+          "markerIcon.image.$thumbnail",
+          "menuColor",
+          "name",
+          "itemType.name",
+          "maps.maps_id.name"
+        ],
+        "sort": [
+          "sort"
+        ]
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {
+          "sort": 91.5,
+          "markerIcon.image.$thumbnail": 58,
+          "menuColor": 65.5,
+          "itemType.name": 235,
+          "maps.maps_id.name": 248
+        },
+        "spacing": "compact"
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "85c6dba0-1906-4c16-a245-4a8eab8a6855"
   }
 ]

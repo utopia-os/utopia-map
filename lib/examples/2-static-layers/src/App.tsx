@@ -50,7 +50,6 @@ function App() {
       markerShape='square'
       markerDefaultColor='#700'
       data={events}
-      menuIcon="calendar"
       menuColor="#700"
       menuText="events"
       itemType={itemTypeEvent}
@@ -64,7 +63,6 @@ function App() {
       markerShape='circle'
       markerDefaultColor='#007'
       data={places}
-      menuIcon="point"
       menuColor="#007"
       menuText="places"
       itemType={itemTypePlace}

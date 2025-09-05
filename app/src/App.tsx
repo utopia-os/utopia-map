@@ -12,7 +12,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { Tag } from 'utopia-ui'
+import type { Tag, LayerProps } from 'utopia-ui'
 
 import {
   AppShell,
@@ -111,12 +111,12 @@ function App() {
     layers && setLayers(layers)
     setLayerPageRoutes(
       layers
-        ?.filter((l: any) => l.listed)
-        .map((l: any) => ({
+        ?.filter((l: LayerProps) => l.listed)
+        .map((l: LayerProps) => ({
           path: '/' + l.name, // url
           icon: (
             <SVG
-              src={config.apiUrl + 'assets/' + l.indexIcon}
+              src={`${config.apiUrl}assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
               className='tw:w-6 tw:h-6'
               preProcessor={(code: string) =>
                 code.replace(/stroke=".*?"/g, 'stroke="currentColor"')

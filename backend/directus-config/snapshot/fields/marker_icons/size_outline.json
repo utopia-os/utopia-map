@@ -1,39 +1,35 @@
 {
-  "collection": "layers",
-  "field": "indexIcon",
-  "type": "uuid",
+  "collection": "marker_icons",
+  "field": "size_outline",
+  "type": "decimal",
   "meta": {
-    "collection": "layers",
+    "collection": "marker_icons",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "indexIcon",
+    "field": "size_outline",
     "group": null,
     "hidden": false,
-    "interface": "file-image",
+    "interface": "input",
     "note": null,
-    "options": {
-      "folder": "0b66498d-8ee3-48fc-8fe7-72b6f86d8d0f"
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 10,
-    "special": [
-      "file"
-    ],
+    "sort": 5,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
     "width": "half"
   },
   "schema": {
-    "name": "indexIcon",
-    "table": "layers",
-    "data_type": "uuid",
+    "name": "size_outline",
+    "table": "marker_icons",
+    "data_type": "numeric",
     "default_value": null,
     "max_length": null,
-    "numeric_precision": null,
-    "numeric_scale": null,
+    "numeric_precision": 10,
+    "numeric_scale": 5,
     "is_nullable": true,
     "is_unique": false,
     "is_indexed": false,
@@ -41,7 +37,7 @@
     "is_generated": false,
     "generation_expression": null,
     "has_auto_increment": false,
-    "foreign_key_table": "directus_files",
-    "foreign_key_column": "id"
+    "foreign_key_table": null,
+    "foreign_key_column": null
   }
 }
