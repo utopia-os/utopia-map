@@ -266,6 +266,7 @@ type Subscription {
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -275,7 +276,6 @@ type Subscription {
   groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
   groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
-  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
@@ -1951,7 +1951,6 @@ type junction_directus_users_tags_mutated {
 
 type layers {
   id: ID!
-  indexIcon(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   index_plus_button: Boolean
   itemType(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): types
   item_presets: JSON
@@ -1961,17 +1960,16 @@ type layers {
   markerIcon(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): marker_icons
   markerShape: String
   menuColor: String
-  menuIcon(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   menuText: String
   name: String
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
-  maps_func: count_functions
   notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
   notifications_func: count_functions
+  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
+  maps_func: count_functions
 }
 
 type layers_directus_users_1 {
@@ -2060,6 +2058,8 @@ type marker_icons {
   id: ID!
   image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   size: Float
+  image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  size_outline: Float
 }
 
 type marker_icons_mutated {
@@ -2765,7 +2765,6 @@ input create_layers_directus_users_1_input {
 
 input create_layers_input {
   id: ID
-  indexIcon: create_directus_files_input
   index_plus_button: Boolean
   itemType: create_types_input
   item_presets: JSON
@@ -2774,15 +2773,14 @@ input create_layers_input {
   markerIcon: create_marker_icons_input
   markerShape: String
   menuColor: String
-  menuIcon: create_directus_files_input
   menuText: String
   name: String
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [create_layers_maps_input]
   notifications: [create_layers_directus_users_1_input]
+  maps: [create_layers_maps_input]
 }
 
 input create_layers_maps_input {
@@ -2827,6 +2825,8 @@ input create_marker_icons_input {
   id: ID!
   image: create_directus_files_input
   size: Float
+  image_outline: create_directus_files_input
+  size_outline: Float
 }
 
 input create_Themes_input {
@@ -3726,7 +3726,6 @@ input layers_directus_users_1_quantifier_filter {
 
 input layers_filter {
   id: id_filter_operators
-  indexIcon: directus_files_filter
   index_plus_button: boolean_filter_operators
   itemType: types_filter
   item_presets: string_filter_operators
@@ -3736,17 +3735,16 @@ input layers_filter {
   markerIcon: marker_icons_filter
   markerShape: string_filter_operators
   menuColor: string_filter_operators
-  menuIcon: directus_files_filter
   menuText: string_filter_operators
   name: string_filter_operators
   onlyOnePerOwner: boolean_filter_operators
   public_edit_items: boolean_filter_operators
   sort: number_filter_operators
   userProfileLayer: boolean_filter_operators
-  maps: layers_maps_quantifier_filter
-  maps_func: count_function_filter_operators
   notifications: layers_directus_users_1_quantifier_filter
   notifications_func: count_function_filter_operators
+  maps: layers_maps_quantifier_filter
+  maps_func: count_function_filter_operators
   _and: [layers_filter]
   _or: [layers_filter]
 }
@@ -3804,6 +3802,8 @@ input marker_icons_filter {
   id: string_filter_operators
   image: directus_files_filter
   size: number_filter_operators
+  image_outline: directus_files_filter
+  size_outline: number_filter_operators
   _and: [marker_icons_filter]
   _or: [marker_icons_filter]
 }
@@ -4305,7 +4305,6 @@ input update_layers_directus_users_1_input {
 
 input update_layers_input {
   id: ID
-  indexIcon: update_directus_files_input
   index_plus_button: Boolean
   itemType: update_types_input
   item_presets: JSON
@@ -4314,15 +4313,14 @@ input update_layers_input {
   markerIcon: update_marker_icons_input
   markerShape: String
   menuColor: String
-  menuIcon: update_directus_files_input
   menuText: String
   name: String
   onlyOnePerOwner: Boolean
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [update_layers_maps_input]
   notifications: [update_layers_directus_users_1_input]
+  maps: [update_layers_maps_input]
 }
 
 input update_layers_maps_input {
@@ -4367,6 +4365,8 @@ input update_marker_icons_input {
   id: ID
   image: update_directus_files_input
   size: Float
+  image_outline: update_directus_files_input
+  size_outline: Float
 }
 
 input update_Themes_input {

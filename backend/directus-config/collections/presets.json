@@ -2,6 +2,36 @@
   {
     "bookmark": null,
     "role": null,
+    "collection": "items",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "name",
+          "layer.name",
+          "date_created",
+          "date_updated",
+          "user_created",
+          "user_updated"
+        ]
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "053f9b93-aa94-4ad8-b64e-babb69f0ea6c"
+  },
+  {
+    "bookmark": null,
+    "role": null,
     "collection": "layers",
     "search": "",
     "layout": "tabular",
@@ -62,6 +92,36 @@
     "icon": "bookmark",
     "color": null,
     "_syncId": "1b452db1-8add-4a5e-948d-b380d99121c3"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "marker_icons",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "id",
+          "image.$thumbnail",
+          "size",
+          "image_outline.$thumbnail",
+          "size_outline"
+        ],
+        "limit": 500
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "2a1656b7-d6d2-4b47-bd22-41babc8bf828"
   },
   {
     "bookmark": null,

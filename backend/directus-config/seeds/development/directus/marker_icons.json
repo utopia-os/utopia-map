@@ -19,7 +19,9 @@
       "_sync_id": "marker-boat",
       "id": "boat",
       "size": "18.00000",
-      "image": "boat-solid"
+      "image": "boat-solid",
+      "size_outline": "18.00000",
+      "image_outline": "boat-outline"
     },
     {
       "_sync_id": "marker-cafe",
@@ -31,7 +33,9 @@
       "_sync_id": "marker-calendar",
       "id": "calendar",
       "size": "14.00000",
-      "image": "calendar-solid"
+      "image": "calendar-solid",
+      "size_outline": "18.00000",
+      "image_outline": "calendar-outline"
     },
     {
       "_sync_id": "marker-camp",
@@ -91,7 +95,9 @@
       "_sync_id": "marker-house",
       "id": "house",
       "size": "16.00000",
-      "image": "house-solid"
+      "image": "house-solid",
+      "size_outline": "16.00000",
+      "image_outline": "house-outline"
     },
     {
       "_sync_id": "marker-liebevoll.jetzt",
@@ -181,7 +187,9 @@
       "_sync_id": "marker-user",
       "id": "user",
       "size": "12.00000",
-      "image": "user-solid"
+      "image": "user-solid",
+      "size_outline": "18.00000",
+      "image_outline": "user-outline"
     }
   ]
 }

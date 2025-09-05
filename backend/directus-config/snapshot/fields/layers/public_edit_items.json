@@ -9,7 +9,7 @@
     "display_options": null,
     "field": "public_edit_items",
     "group": null,
-    "hidden": false,
+    "hidden": true,
     "interface": "boolean",
     "note": null,
     "options": null,

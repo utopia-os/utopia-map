@@ -3,6 +3,7 @@
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
+import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 
@@ -13,6 +14,7 @@ export default function AddButton({
 }) {
   const layers = useLayers()
   const hasUserPermission = useHasUserPermission()
+  const appState = useAppState()
 
   const canAddItems = () => {
     let canAdd = false
@@ -49,7 +51,7 @@ export default function AddButton({
                       <div className='tw:tooltip tw:tooltip-left' data-tip={layer.menuText}>
                         <button
                           tabIndex={0}
-                          className='tw:z-500  tw:border-0 tw:pl-2 tw:p-0 tw:mb-3 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden'
+                          className='tw:z-500 tw:border-0 tw:p-0 tw:mb-3 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
                           onClick={() => {
                             triggerAction(layer)
@@ -60,9 +62,11 @@ export default function AddButton({
                           }}
                         >
                           <img
-                            src={layer.menuIcon}
-                            className='tw:h-6 tw:w-6 tw:text-white'
-                            style={{ filter: 'invert(100%) brightness(200%)' }}
+                            src={appState.assetsApi.url + layer.markerIcon.image}
+                            style={{
+                              filter: 'invert(100%) brightness(200%)',
+                              width: `${(layer.markerIcon.size ?? 18) * 1.5}px`,
+                            }}
                           />
                         </button>
                       </div>

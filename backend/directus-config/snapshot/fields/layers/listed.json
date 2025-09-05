@@ -9,7 +9,7 @@
     "display_options": null,
     "field": "listed",
     "group": null,
-    "hidden": false,
+    "hidden": true,
     "interface": "boolean",
     "note": null,
     "options": null,
