@@ -1,6 +1,8 @@
+import { LatLng } from 'leaflet'
 import { useMap } from 'react-leaflet'
 import { useNavigate } from 'react-router-dom'
 
+import { usePopupForm } from '#components/Map/hooks/usePopupForm'
 import { useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 import { StartEndView, TextView } from '#components/Map/Subcomponents/ItemPopupComponents'
@@ -25,6 +27,29 @@ export const ItemCard = ({
   const windowDimensions = useWindowDimensions()
   const map = useMap()
   const setSelectPosition = useSetSelectPosition()
+  const { setPopupForm } = usePopupForm()
+
+  const handleEdit = () => {
+    if (!i.layer) {
+      throw new Error('Layer is not defined')
+    }
+
+    if (i.layer.itemType.custom_profile_url && i.position) {
+      navigate('/')
+      // Wait for navigation to complete before setting popup
+      setTimeout(() => {
+        if (i.position && i.layer) {
+          setPopupForm({
+            position: new LatLng(i.position.coordinates[1], i.position.coordinates[0]),
+            layer: i.layer,
+            item: i,
+          })
+        }
+      }, 100)
+    } else {
+      navigate('/edit-item/' + i.id)
+    }
+  }
 
   return (
     <div
@@ -41,7 +66,7 @@ export const ItemCard = ({
         loading={loading}
         item={i}
         api={i.layer?.api}
-        editCallback={() => navigate('/edit-item/' + i.id)}
+        editCallback={() => handleEdit()}
         setPositionCallback={() => {
           map.closePopup()
           setSelectPosition(i)
