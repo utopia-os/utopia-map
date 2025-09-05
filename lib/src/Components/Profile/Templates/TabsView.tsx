@@ -16,6 +16,7 @@ import { StartEndView, TextView } from '#components/Map/Subcomponents/ItemPopupC
 import { ActionButton } from '#components/Profile/Subcomponents/ActionsButton'
 import { LinkedItemsHeaderView } from '#components/Profile/Subcomponents/LinkedItemsHeaderView'
 import { TagView } from '#components/Templates/TagView'
+import { t } from '#src/i18n'
 import { timeAgo } from '#utils/TimeAgo'
 
 import type { Item } from '#types/Item'
@@ -198,7 +199,11 @@ export const TabsView = ({
             name='my_tabs_2'
             role='tab'
             className={`tw:tab tw:font-bold tw:ps-2! tw:pe-2! ${!(item.layer.itemType.icon_as_labels && activeTab !== 1) && 'tw:min-w-[10.4em]'} `}
-            aria-label={`${item.layer.itemType.icon_as_labels && activeTab !== 1 ? '♻️' : '♻️\u00A0Offers & Needs'}`}
+            aria-label={`${
+              item.layer.itemType.icon_as_labels && activeTab !== 1
+                ? '♻️'
+                : `♻️\u00A0${t('offersAndNeeds')}`
+            }`}
             checked={activeTab === 1 && true}
             onChange={() => updateActiveTab(1)}
           />
@@ -210,7 +215,7 @@ export const TabsView = ({
               <div className='tw:grid tw:grid-cols-1'>
                 {offers.length > 0 ? (
                   <div className='tw:col-span-1'>
-                    <h3 className='tw:-mb-2'>Offers</h3>
+                    <h3 className='tw:-mb-2'>{t('offers')}</h3>
                     <div className='tw:flex tw:flex-wrap tw:mb-4'>
                       {offers.map((o) => (
                         <TagView
@@ -228,7 +233,7 @@ export const TabsView = ({
                 )}
                 {needs.length > 0 ? (
                   <div className='tw:col-span-1'>
-                    <h3 className='tw:-mb-2 tw:col-span-1'>Needs</h3>
+                    <h3 className='tw:-mb-2 tw:col-span-1'>{t('needs')}</h3>
                     <div className='tw:flex tw:flex-wrap  tw:mb-4'>
                       {needs.map((n) => (
                         <TagView key={n.id} tag={n} onClick={() => addFilterTag(n)} />

@@ -15,6 +15,7 @@ import { ActionButton } from '#components/Profile/Subcomponents/ActionsButton'
 import { LinkedItemsHeaderView } from '#components/Profile/Subcomponents/LinkedItemsHeaderView'
 import { TagsWidget } from '#components/Profile/Subcomponents/TagsWidget'
 import { Tabs } from '#components/Templates/Tabs'
+import { t } from '#src/i18n'
 
 export const TabsForm = ({
   item,
@@ -89,7 +90,7 @@ export const TabsForm = ({
             ),
           },
           {
-            title: 'Offers & Needs',
+            title: t('offersAndNeeds'),
             component: (
               <div className='tw:h-full'>
                 <div className='tw:w-full tw:h-[calc(50%-0.75em)] tw:mb-4'>
@@ -101,7 +102,7 @@ export const TabsForm = ({
                         offers: v,
                       }))
                     }
-                    placeholder='enter your offers'
+                    placeholder={t('enterOffers')}
                     containerStyle='tw:bg-transparent tw:w-full tw:h-full tw:mt-3 tw:text-xs tw:h-[calc(100%-1rem)] tw:min-h-[5em] tw:pb-2 tw:overflow-auto'
                   />
                 </div>
@@ -114,7 +115,7 @@ export const TabsForm = ({
                         needs: v,
                       }))
                     }
-                    placeholder='enter your needs'
+                    placeholder={t('enterNeeds')}
                     containerStyle='tw:bg-transparent tw:w-full tw:h-full tw:mt-3 tw:text-xs tw:h-[calc(100%-1rem)] tw:min-h-[5em] tw:pb-2 tw:overflow-auto'
                   />
                 </div>
