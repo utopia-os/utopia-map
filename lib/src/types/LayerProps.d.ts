@@ -11,7 +11,6 @@ export interface LayerProps {
   data?: Item[]
   children?: React.ReactNode
   name: string
-  menuIcon: string
   menuColor: string
   menuText: string
   markerIcon: MarkerIcon

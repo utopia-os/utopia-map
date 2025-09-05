@@ -17,12 +17,12 @@
     },
     "readonly": false,
     "required": false,
-    "sort": 2,
+    "sort": 3,
     "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
     "name": "size",

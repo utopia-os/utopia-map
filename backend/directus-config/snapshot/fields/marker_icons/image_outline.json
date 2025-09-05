@@ -1,23 +1,23 @@
 {
-  "collection": "layers",
-  "field": "menuIcon",
+  "collection": "marker_icons",
+  "field": "image_outline",
   "type": "uuid",
   "meta": {
-    "collection": "layers",
+    "collection": "marker_icons",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "menuIcon",
-    "group": "Add_Button",
+    "field": "image_outline",
+    "group": null,
     "hidden": false,
     "interface": "file-image",
     "note": null,
     "options": {
-      "folder": "a97106b4-218b-45df-adc9-36184886e285"
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415"
     },
     "readonly": false,
     "required": false,
-    "sort": 2,
+    "sort": 4,
     "special": [
       "file"
     ],
@@ -27,8 +27,8 @@
     "width": "half"
   },
   "schema": {
-    "name": "menuIcon",
-    "table": "layers",
+    "name": "image_outline",
+    "table": "marker_icons",
     "data_type": "uuid",
     "default_value": null,
     "max_length": null,

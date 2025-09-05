@@ -15,12 +15,12 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 18,
+    "sort": 9,
     "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
     "name": "sort",

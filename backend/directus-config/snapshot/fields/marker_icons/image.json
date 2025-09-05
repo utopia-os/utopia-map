@@ -17,14 +17,14 @@
     },
     "readonly": false,
     "required": false,
-    "sort": 3,
+    "sort": 2,
     "special": [
       "file"
     ],
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
     "name": "image",
