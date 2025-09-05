@@ -65,7 +65,7 @@ export default function AddButton({
                             src={appState.assetsApi.url + layer.markerIcon.image}
                             style={{
                               filter: 'invert(100%) brightness(200%)',
-                              width: `${(layer.markerIcon.size ?? 18) * 1.5}px`,
+                              width: `${(layer.markerIcon.size ?? 18) * 1.3}px`,
                             }}
                           />
                         </button>
