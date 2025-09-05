@@ -2,6 +2,7 @@
 import { TextView } from '#components/Map/Subcomponents/ItemPopupComponents'
 import { ContactInfoView } from '#components/Profile/Subcomponents/ContactInfoView'
 import { GroupSubHeaderView } from '#components/Profile/Subcomponents/GroupSubHeaderView'
+import { RoutingLinksView } from '#components/Profile/Subcomponents/RoutingLinksView'
 
 import type { Item } from '#types/Item'
 
@@ -13,6 +14,7 @@ export const OnepagerView = ({ item }: { item: Item }) => {
         shareBaseUrl={`https://www.wuerdekompass.org/aktivitaeten/gruppensuche/#/gruppe/${item.slug}`}
       />
       {item.user_created?.first_name && <ContactInfoView heading='Du hast Fragen?' item={item} />}
+      <RoutingLinksView item={item} />
       {/* Description Section */}
       <div className='tw:my-10 tw:mt-2 tw:px-6 tw:text-sm '>
         <TextView itemId={item.id} rawText={item.text ?? 'Keine Beschreibung vorhanden'} />
