@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 
 import { useSetItemsApi, useSetItemsData } from './hooks/useItems'
-import { usePopupForm } from './hooks/usePopupForm'
 import { useAddTag } from './hooks/useTags'
 import LayerContext from './LayerContext'
-import { ItemFormPopup } from './Subcomponents/ItemFormPopup'
 
 import type { LayerProps } from '#types/LayerProps'
 import type { Tag } from '#types/Tag'
@@ -44,7 +42,6 @@ export const Layer = ({
   const addTag = useAddTag()
   const [newTagsToAdd] = useState<Tag[]>([])
   const [tagsReady] = useState<boolean>(false)
-  const { popupForm } = usePopupForm()
 
   useEffect(() => {
     data &&
@@ -119,8 +116,6 @@ export const Layer = ({
       }}
     >
       {children}
-      {/* Auto-render ItemFormPopup when popupForm matches this layer */}
-      {popupForm && popupForm.layer.name === name && <ItemFormPopup />}
     </LayerContext.Provider>
   )
 }
