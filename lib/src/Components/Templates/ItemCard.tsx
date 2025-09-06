@@ -34,7 +34,7 @@ export const ItemCard = ({
       throw new Error('Layer is not defined')
     }
 
-    if (i.layer.itemType.custom_profile_url && i.position) {
+    if (i.layer.itemType.small_form_edit && i.position) {
       navigate('/')
       // Wait for navigation to complete before setting popup
       setTimeout(() => {
