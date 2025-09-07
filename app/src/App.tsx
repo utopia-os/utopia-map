@@ -71,6 +71,15 @@ function App() {
   const [layers, setLayers] = useState<any>()
   const [layerPageRoutes, setLayerPageRoutes] = useState<any>()
   const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const retryConnection = () => {
+    setError(null)
+    setLoading(true)
+    if (mapApiInstance) {
+      getMap()
+    }
+  }
 
   const [embedded, setEmbedded] = useState<boolean>(true)
 
@@ -94,12 +103,26 @@ function App() {
   }, [mapApiInstance])
 
   const getMap = async () => {
-    const map = await mapApiInstance?.getItems()
-    map && setMap(map)
-    map && map != 'null' && setLayersApiInstance(new layersApi(map.id))
-    map && map != 'null' && map.own_tag_space
-      ? setTagsApi(new itemsApi<Tag>('tags', undefined, map.id))
-      : setTagsApi(new itemsApi<Tag>('tags'))
+    try {
+      const map = await mapApiInstance?.getItems()
+      map && setMap(map)
+      map && map != 'null' && setLayersApiInstance(new layersApi(map.id))
+      map && map != 'null' && map.own_tag_space
+        ? setTagsApi(new itemsApi<Tag>('tags', undefined, map.id))
+        : setTagsApi(new itemsApi<Tag>('tags'))
+      // eslint-disable-next-line no-catch-all/no-catch-all
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load map:', error)
+      setError(
+        typeof error === 'string'
+          ? error
+          : error?.message ||
+              'Failed to connect to the server. Please check your connection and try again.',
+      )
+      setLoading(false)
+      // Don't rethrow since we're handling the error by setting error state
+    }
   }
 
   useEffect(() => {
@@ -107,25 +130,39 @@ function App() {
   }, [layersApiInstance])
 
   const getLayers = async () => {
-    const layers = await layersApiInstance?.getItems()
-    layers && setLayers(layers)
-    setLayerPageRoutes(
-      layers
-        ?.filter((l: LayerProps) => l.listed)
-        .map((l: LayerProps) => ({
-          path: '/' + l.name, // url
-          icon: (
-            <SVG
-              src={`${config.apiUrl}assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
-              className='tw:w-6 tw:h-6'
-              preProcessor={(code: string) =>
-                code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
-              }
-            />
-          ),
-          name: l.name, // name that appear in Sidebar
-        })),
-    )
+    try {
+      const layers = await layersApiInstance?.getItems()
+      layers && setLayers(layers)
+      setLayerPageRoutes(
+        layers
+          ?.filter((l: LayerProps) => l.listed)
+          .map((l: LayerProps) => ({
+            path: '/' + l.name, // url
+            icon: (
+              <SVG
+                src={`${config.apiUrl}assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
+                className='tw:w-6 tw:h-6'
+                preProcessor={(code: string) =>
+                  code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
+                }
+              />
+            ),
+            name: l.name, // name that appear in Sidebar
+          })),
+      )
+      // eslint-disable-next-line no-catch-all/no-catch-all
+    } catch (error: any) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load layers:', error)
+      setError(
+        typeof error === 'string'
+          ? error
+          : error?.message ||
+              'Failed to load map layers. Please check your permissions and try again.',
+      )
+      setLoading(false)
+      // Don't rethrow since we're handling the error by setting error state
+    }
   }
 
   useEffect(() => {
@@ -250,6 +287,35 @@ function App() {
       <div className='tw:flex tw:items-center tw:justify-center tw:h-screen'>
         <div>
           <p className='tw:text-xl tw:font-semibold'>This map does not exist</p>
+        </div>
+      </div>
+    )
+  else if (error)
+    return (
+      <div className='tw:flex tw:items-center tw:justify-center tw:h-screen tw:bg-base-100'>
+        <div className='tw:max-w-md tw:mx-auto tw:p-6 tw:text-center'>
+          <div className='tw:mb-4'>
+            <svg
+              className='tw:w-16 tw:h-16 tw:mx-auto tw:text-error tw:mb-4'
+              fill='none'
+              stroke='currentColor'
+              viewBox='0 0 24 24'
+            >
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.314 16.5c-.77.833.192 2.5 1.732 2.5z'
+              />
+            </svg>
+          </div>
+          <h2 className='tw:text-xl tw:font-semibold tw:text-base-content tw:mb-2'>
+            Connection Error
+          </h2>
+          <p className='tw:text-base-content/70 tw:mb-6'>{error}</p>
+          <button onClick={retryConnection} className='tw:btn tw:btn-primary'>
+            Try Again
+          </button>
         </div>
       </div>
     )
