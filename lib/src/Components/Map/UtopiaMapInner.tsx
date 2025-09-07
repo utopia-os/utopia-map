@@ -51,6 +51,7 @@ export function UtopiaMapInner({
   showFilterControl = false,
   showGratitudeControl = false,
   showLayerControl = true,
+  showZoomControl = false,
   showThemeControl = false,
   defaultTheme = '',
   donationWidget,
@@ -63,6 +64,7 @@ export function UtopiaMapInner({
   showFilterControl?: boolean
   showLayerControl?: boolean
   showGratitudeControl?: boolean
+  showZoomControl?: boolean
   donationWidget?: boolean
   showThemeControl?: boolean
   defaultTheme?: string
@@ -271,11 +273,11 @@ export function UtopiaMapInner({
   return (
     <div className={`tw:h-full ${selectNewItemPosition != null ? 'crosshair-cursor-enabled' : ''}`}>
       <Outlet />
-      <Control position='topLeft' zIndex='1000' absolute>
+      <Control position='topLeft' zIndex='1000' absolute showZoomControl={showZoomControl}>
         <SearchControl />
         <TagsControl />
       </Control>
-      <Control position='bottomLeft' zIndex='999' absolute>
+      <Control position='bottomLeft' zIndex='999' absolute showZoomControl={showZoomControl}>
         {showFilterControl && <FilterControl />}
         {showLayerControl && <LayerControl expandLayerControl={expandLayerControl ?? false} />}
         {showGratitudeControl && <GratitudeControl />}
