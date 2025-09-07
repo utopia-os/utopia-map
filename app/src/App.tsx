@@ -117,7 +117,8 @@ function App() {
       setError(
         typeof error === 'string'
           ? error
-          : error?.message ||
+          : error?.errors?.[0]?.message ||
+              error?.message ||
               'Failed to connect to the server. Please check your connection and try again.',
       )
       setLoading(false)
@@ -157,7 +158,8 @@ function App() {
       setError(
         typeof error === 'string'
           ? error
-          : error?.message ||
+          : error?.errors?.[0]?.message ||
+              error?.message ||
               'Failed to load map layers. Please check your permissions and try again.',
       )
       setLoading(false)
@@ -177,8 +179,11 @@ function App() {
       link.href = map?.logo && config.apiUrl + 'assets/' + map.logo // Specify the path to your favicon
     }
 
-    setLoading(false)
-  }, [map])
+    // Only set loading to false when both map and layers are successfully loaded
+    if (map && layers) {
+      setLoading(false)
+    }
+  }, [map, layers])
 
   const currentUrl = window.location.href
   const bottomRoutes = getBottomRoutes(currentUrl)
