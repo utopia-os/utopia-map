@@ -267,14 +267,14 @@ function App() {
                     path='attestation-form'
                     element={<AttestationForm api={attestationApi} />}
                   />
-                  {layers.map((l: any) => (
+                  {layers.map((l: LayerProps) => (
                     <Route
                       key={l.id}
                       path={l.name}
                       element={
                         <OverlayItemsIndexPage
                           layerName={l.name}
-                          url={'/item/'}
+                          url={l.itemType.custom_profile_url ? '/' : '/item/'}
                           parameterField={'id'}
                         />
                       }
