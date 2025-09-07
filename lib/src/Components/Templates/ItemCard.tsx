@@ -39,11 +39,13 @@ export const ItemCard = ({
       // Wait for navigation to complete before setting popup
       setTimeout(() => {
         if (i.position && i.layer) {
+          const position = new LatLng(i.position.coordinates[1], i.position.coordinates[0])
           setPopupForm({
-            position: new LatLng(i.position.coordinates[1], i.position.coordinates[0]),
+            position,
             layer: i.layer,
             item: i,
           })
+          map.setView(position, map.getZoom(), { duration: 1 })
         }
       }, 100)
     } else {
