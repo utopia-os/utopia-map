@@ -31,9 +31,9 @@ jobs:
 
       - name: Build Docker Production
         run: |
+          mkdir -p ./data/uploads
           docker compose -f docker-compose.yml up -d
           sleep 5
-          sudo chmod 777 ./data
           cd backend && ./seed.sh
         working-directory: ${{env.WORKING_DIRECTORY}}
 
