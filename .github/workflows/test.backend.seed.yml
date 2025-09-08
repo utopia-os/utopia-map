@@ -32,6 +32,7 @@ jobs:
       - name: Build Docker Production
         run: |
           docker compose -f docker-compose.yml up -d
+          sleep 3000
           cd backend && ./seed.sh
         working-directory: ${{env.WORKING_DIRECTORY}}
 
