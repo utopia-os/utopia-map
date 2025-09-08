@@ -6,7 +6,7 @@ To run the backend you can simply execute
 To fill in all required data execute the following commands in order:
 ```
 cd backend
-./deploy.sh
+./seed.sh
 ```
 
 ## Pull Data from Docker to Harddrive
