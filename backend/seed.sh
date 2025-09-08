@@ -21,6 +21,10 @@ npx directus-sync push \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
   --directus-password $DIRECTUS_PASSWORD
+# exit if status is not 0
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
 
 echo "Seed data via directus-sync"
 npx directus-sync seed push \
@@ -28,7 +32,10 @@ npx directus-sync seed push \
   --directus-email $DIRECTUS_EMAIL \
   --directus-password $DIRECTUS_PASSWORD \
   --seed-path $PROJECT_FOLDER/seed/directus
-
+# exit if status is not 0
+if [[ $? -ne 0 ]] ; then
+    exit 1
+fi
 
 SEED_SQL_DIR=$PROJECT_FOLDER/seed/manual
 
@@ -37,4 +44,8 @@ echo "Seed data via sql-files"
 for filename in $SEED_SQL_DIR/*.sql; do
   echo "Executing $filename"
   docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=$PGPASSWORD psql -v ON_ERROR_STOP=1 --username $PGUSER $PGDATABASE" < $filename
+  # exit if status is not 0
+  if [[ $? -ne 0 ]] ; then
+    exit 1
+  fi
 done
