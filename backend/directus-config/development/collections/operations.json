@@ -1089,7 +1089,7 @@
       "emitEvents": false,
       "collection": "directus_users",
       "key": [
-        "{{item_read_ym92c[0].id}}"
+        "$last[0].id"
       ],
       "payload": {
         "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
@@ -1111,27 +1111,14 @@
       "permissions": "$full",
       "emitEvents": false,
       "collection": "directus_users",
-      "key": [],
+      "key": [
+        "$last[0].id"
+      ],
       "payload": {
         "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
         "email": "{{item_read_i7dz7.email}}"
       },
-      "query": {
-        "filter": {
-          "_and": [
-            {
-              "layer": {
-                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
-              }
-            },
-            {
-              "user_created": {
-                "_eq": "{{$last[0].id}}"
-              }
-            }
-          ]
-        }
-      }
+      "query": null
     },
     "resolve": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0",
     "reject": null,
