@@ -84,7 +84,7 @@
     "name": "Ocean Nomads: Create Location or Home",
     "icon": "sailing",
     "color": "#2ECDA7",
-    "description": "Creates Nomads Current Location and Home",
+    "description": "Creates Nomads Current Location or Home",
     "status": "inactive",
     "trigger": "event",
     "accountability": "all",
