@@ -13,20 +13,29 @@ PGUSER="${PGUSER:-'directus'}"
 PGDATABASE="${PGDATABASE:-'directus'}" 
 
 PROJECT_NAME="${PROJECT:-development}"
-PROJECT_FOLDER=$SCRIPT_DIR/directus-config/seeds/$PROJECT_NAME
+PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
+echo "Sync collections"
+npx directus-sync push \
+  --dump-path $PROJECT_FOLDER \
+  --directus-url $DIRECTUS_URL \
+  --directus-email $DIRECTUS_EMAIL \
+  --directus-password $DIRECTUS_PASSWORD \
+  || exit 1
 
+echo "Seed data via directus-sync"
 npx directus-sync seed push \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
   --directus-password $DIRECTUS_PASSWORD \
-  --seed-path $PROJECT_FOLDER/directus
+  --seed-path $PROJECT_FOLDER/seed/directus \
+  || exit 1
 
+SEED_SQL_DIR=$PROJECT_FOLDER/seed/manual
 
-SEED_SQL_DIR=$PROJECT_FOLDER/manual
-
+echo "Seed data via sql-files"
 # apply database updates
 for filename in $SEED_SQL_DIR/*.sql; do
   echo "Executing $filename"
-  docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=$PGPASSWORD psql -v ON_ERROR_STOP=1 --username $PGUSER $PGDATABASE" < $filename
+  docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=$PGPASSWORD psql -v ON_ERROR_STOP=1 --username $PGUSER $PGDATABASE" < $filename || exit 1
 done

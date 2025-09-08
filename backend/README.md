@@ -6,12 +6,6 @@ To run the backend you can simply execute
 To fill in all required data execute the following commands in order:
 ```
 cd backend
-
-npx directus-sync push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-
 ./seed.sh
 ```
 
@@ -22,6 +16,7 @@ In order to pull data from your locally running backend (see [docker-compose](..
 
 ```
 npx directus-sync pull \
+  --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
   --directus-password admin123
@@ -32,6 +27,7 @@ npx directus-sync pull \
 To push local changes or to seed directus use the following command
 ```
 npx directus-sync push \
+  --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
   --directus-password admin123
