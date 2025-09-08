@@ -32,6 +32,7 @@ jobs:
       - name: Build Docker Production
         run: |
           mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
           docker compose -f docker-compose.yml up -d
           sleep 5
           cd backend && ./seed.sh
