@@ -58,6 +58,16 @@
       "title": "map pin outline",
       "tags": [],
       "description": "map pin outline"
+    },
+    {
+      "_sync_id": "user-outline",
+      "_file_path": "./files/icons/outline/user.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "user-outline.svg",
+      "title": "user outline",
+      "tags": [],
+      "description": "user outline"
     }
   ]
 }
