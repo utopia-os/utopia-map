@@ -45,7 +45,7 @@
     "name": "Condition",
     "key": "condition_ljedr",
     "type": "condition",
-    "position_x": 74,
+    "position_x": 54,
     "position_y": 1,
     "options": {
       "filter": {
@@ -122,9 +122,18 @@
       "filter": {
         "$trigger": {
           "payload": {
-            "layer": {
-              "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
-            }
+            "_or": [
+              {
+                "layer": {
+                  "_eq": "bc55bd85-a357-47e0-8bb7-d49063548ac2"
+                }
+              },
+              {
+                "layer": {
+                  "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+                }
+              }
+            ]
           }
         }
       }
@@ -372,7 +381,7 @@
     "position_x": 19,
     "position_y": 1,
     "options": {
-      "permissions": "$public",
+      "permissions": "$full",
       "emitEvents": false,
       "collection": "directus_users",
       "payload": {
@@ -697,7 +706,7 @@
     "position_x": 19,
     "position_y": 1,
     "options": {
-      "permissions": "$trigger",
+      "permissions": "$full",
       "emitEvents": false,
       "collection": "oceannomads_profiles",
       "key": [
@@ -796,7 +805,7 @@
     "position_x": 37,
     "position_y": 1,
     "options": {
-      "permissions": "$trigger",
+      "permissions": "$full",
       "emitEvents": false,
       "collection": "directus_users",
       "key": [
@@ -861,38 +870,6 @@
   },
   {
     "name": "Read Data",
-    "key": "item_read_soekq",
-    "type": "item-read",
-    "position_x": 56,
-    "position_y": 1,
-    "options": {
-      "query": {
-        "filter": {
-          "_and": [
-            {
-              "layer": {
-                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
-              }
-            },
-            {
-              "user_created": {
-                "_eq": "{{$last[0].id}}"
-              }
-            }
-          ]
-        }
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$trigger"
-    },
-    "resolve": "7e647ad3-8a87-43c6-aee3-08600f0382e0",
-    "reject": null,
-    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "31bdf2e1-23f2-41e5-b40b-8e9076065119"
-  },
-  {
-    "name": "Read Data",
     "key": "item_read_ym92c",
     "type": "item-read",
     "position_x": 36,
@@ -910,7 +887,7 @@
       },
       "key": []
     },
-    "resolve": "31bdf2e1-23f2-41e5-b40b-8e9076065119",
+    "resolve": "7e647ad3-8a87-43c6-aee3-08600f0382e0",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
     "_syncId": "840b0278-ff8a-4f2f-bf67-c75a2e7e00b6"
@@ -963,7 +940,7 @@
     "name": "Update Nomads Current Location",
     "key": "item_update_5eu19",
     "type": "item-update",
-    "position_x": 146,
+    "position_x": 129,
     "position_y": 1,
     "options": {
       "key": [],
@@ -1000,8 +977,8 @@
     "name": "Update Nomads Current Location",
     "key": "item_update_5eu19_prdze",
     "type": "item-update",
-    "position_x": 139,
-    "position_y": 18,
+    "position_x": 119,
+    "position_y": 17,
     "options": {
       "key": [],
       "query": {
@@ -1105,7 +1082,7 @@
     "name": "Update Nomads User",
     "key": "item_update_e3pl5",
     "type": "item-update",
-    "position_x": 127,
+    "position_x": 110,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -1128,18 +1105,32 @@
     "name": "Update Nomads User",
     "key": "item_update_e3pl5_wansj",
     "type": "item-update",
-    "position_x": 119,
-    "position_y": 18,
+    "position_x": 100,
+    "position_y": 17,
     "options": {
       "permissions": "$full",
       "emitEvents": false,
       "collection": "directus_users",
-      "key": [
-        "{{item_read_ym92c[0].id}}"
-      ],
+      "key": [],
       "payload": {
         "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
         "email": "{{item_read_i7dz7.email}}"
+      },
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last[0].id}}"
+              }
+            }
+          ]
+        }
       }
     },
     "resolve": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0",
@@ -1151,19 +1142,33 @@
     "name": "Update Nomads Home",
     "key": "item_update_o6cn8",
     "type": "item-update",
-    "position_x": 109,
+    "position_x": 91,
     "position_y": 1,
     "options": {
       "permissions": "$full",
       "emitEvents": false,
       "collection": "items",
-      "key": [
-        "{{item_read_soekq[0].id}}"
-      ],
+      "key": [],
       "payload": {
         "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
         "position": "{{$last.data.features[0].geometry}}",
         "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last[0].id}}"
+              }
+            }
+          ]
+        }
       }
     },
     "resolve": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752",
@@ -1175,19 +1180,33 @@
     "name": "Update Nomads Home",
     "key": "item_update_o6cn8_nitpl",
     "type": "item-update",
-    "position_x": 99,
-    "position_y": 18,
+    "position_x": 81,
+    "position_y": 17,
     "options": {
       "permissions": "$full",
       "emitEvents": false,
       "collection": "items",
-      "key": [
-        "{{item_read_soekq[0].id}}"
-      ],
+      "key": [],
       "payload": {
         "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
         "image_external": "{{item_read_i7dz7.avatar_url}}",
         "position": null
+      },
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "91bc3d4f-1851-4cd9-abd9-ab95a6a596a5"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last[0].id}}"
+              }
+            }
+          ]
+        }
       }
     },
     "resolve": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab",
@@ -1407,7 +1426,7 @@
     "name": "Webhook / Request URL",
     "key": "request_hfzgd",
     "type": "request",
-    "position_x": 92,
+    "position_x": 73,
     "position_y": 1,
     "options": {
       "method": "GET",

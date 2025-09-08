@@ -32,69 +32,6 @@
   {
     "bookmark": null,
     "role": null,
-    "collection": "layers",
-    "search": "",
-    "layout": "tabular",
-    "layout_query": {
-      "tabular": {
-        "page": 1,
-        "fields": [
-          "sort",
-          "menuColor",
-          "name",
-          "itemType.name",
-          "maps.maps_id.name"
-        ],
-        "sort": [
-          "sort"
-        ]
-      }
-    },
-    "layout_options": {
-      "tabular": {
-        "widths": {
-          "sort": 92,
-          "menuColor": 41.5,
-          "itemType.name": 235,
-          "maps.maps_id.name": 248
-        },
-        "spacing": "compact"
-      }
-    },
-    "refresh_interval": null,
-    "filter": null,
-    "icon": "bookmark",
-    "color": null,
-    "_syncId": "0b2cc1ac-347b-438c-874e-6190c8ea0ef6"
-  },
-  {
-    "bookmark": null,
-    "role": null,
-    "collection": "layers",
-    "search": "",
-    "layout": "tabular",
-    "layout_query": {
-      "tabular": {
-        "page": 1
-      }
-    },
-    "layout_options": {
-      "tabular": {
-        "widths": {
-          "maps.maps_id.name": 1003.888916015625
-        },
-        "spacing": "compact"
-      }
-    },
-    "refresh_interval": null,
-    "filter": null,
-    "icon": "bookmark",
-    "color": null,
-    "_syncId": "1b452db1-8add-4a5e-948d-b380d99121c3"
-  },
-  {
-    "bookmark": null,
-    "role": null,
     "collection": "marker_icons",
     "search": null,
     "layout": null,
@@ -183,45 +120,5 @@
     "icon": "bookmark",
     "color": null,
     "_syncId": "3789cfe7-78f9-428e-9770-d8e1c5de1145"
-  },
-  {
-    "bookmark": null,
-    "role": null,
-    "collection": "layers",
-    "search": "",
-    "layout": "tabular",
-    "layout_query": {
-      "tabular": {
-        "page": 1,
-        "fields": [
-          "sort",
-          "markerIcon.image.$thumbnail",
-          "menuColor",
-          "name",
-          "itemType.name",
-          "maps.maps_id.name"
-        ],
-        "sort": [
-          "sort"
-        ]
-      }
-    },
-    "layout_options": {
-      "tabular": {
-        "widths": {
-          "sort": 91.5,
-          "markerIcon.image.$thumbnail": 58,
-          "menuColor": 65.5,
-          "itemType.name": 235,
-          "maps.maps_id.name": 248
-        },
-        "spacing": "compact"
-      }
-    },
-    "refresh_interval": null,
-    "filter": null,
-    "icon": "bookmark",
-    "color": null,
-    "_syncId": "85c6dba0-1906-4c16-a245-4a8eab8a6855"
   }
 ]
