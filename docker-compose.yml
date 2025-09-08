@@ -44,8 +44,8 @@ services:
         condition: service_healthy
     ports:
       - 8055:8055
-    volumes:
-      - ./data/uploads:/directus/uploads
+    #volumes:
+      #- ./data/uploads:/directus/uploads
     # This is not compatible with the current setup with directus-sync as this
     # extension is installed before the volume bind onto the docker container
     #  - ./data/extensions:/directus/extensions
