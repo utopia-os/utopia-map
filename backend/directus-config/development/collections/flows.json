@@ -81,10 +81,10 @@
     "_syncId": "6a48c246-2fb2-42ca-bebb-3f605e794d02"
   },
   {
-    "name": "Ocean Nomads: Create Location",
+    "name": "Ocean Nomads: Create Location or Home",
     "icon": "sailing",
     "color": "#2ECDA7",
-    "description": "Creates Nomads Current Location",
+    "description": "Creates Nomads Current Location or Home",
     "status": "inactive",
     "trigger": "event",
     "accountability": "all",
