@@ -56,6 +56,7 @@ services:
 
       CORS_ENABLED: 'true'
       CORS_ORIGIN: 'array:http://localhost:8080,http://localhost:5174'
+      PASSWORD_RESET_URL_ALLOW_LIST: 'http://localhost:8080/set-new-password/,http://localhost:5174/set-new-password/'
 
       DB_CLIENT: 'pg'
       DB_HOST: 'database'
@@ -71,3 +72,15 @@ services:
 
       ADMIN_EMAIL: 'admin@it4c.dev'
       ADMIN_PASSWORD: 'admin123'
+
+      #EMAIL_FROM: 'utopia@localhost'
+      #EMAIL_TRANSPORT: "smtp"
+      #EMAIL_SMTP_HOST: "maildev"
+      #EMAIL_SMTP_PORT: "465"
+      #EMAIL_SMTP_POOL: false
+      #EMAIL_SMTP_SECURE: true
+      #EMAIL_VERIFY_SETUP: true
+      #EMAIL_SMTP_IGNORE_TLS: true
+      #EMAIL_SMTP_TLS: true
+      #EMAIL_SMTP_TLS_REJECT_UNAUTHORIZED: false
+      #EMAIL_SMTP_NAME: "Utopia Development"
