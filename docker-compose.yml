@@ -56,7 +56,7 @@ services:
 
       CORS_ENABLED: 'true'
       CORS_ORIGIN: 'array:http://localhost:8080,http://localhost:5174'
-      PASSWORD_RESET_URL_ALLOW_LIST: 'array:http://localhost:8080/set-new-password/,http://localhost:5174/set-new-password/'
+      PASSWORD_RESET_URL_ALLOW_LIST: 'http://localhost:8080/set-new-password/,http://localhost:5174/set-new-password/'
 
       DB_CLIENT: 'pg'
       DB_HOST: 'database'
