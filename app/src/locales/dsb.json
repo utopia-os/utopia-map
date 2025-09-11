@@ -1,0 +1,15 @@
+{
+  "mapDoesNotExist": "Toś ta mapa njeeksistěrujo",
+  "offersAndNeeds": "Nabidki a potrjeby",
+  "offers": "Nabidki",
+  "needs": "Potrjeby",
+  "enterOffers": "Zapódajśo swóje nabidki",
+  "enterNeeds": "Zapódajśo swóje potrjeby",
+  "welcomeTitle": "Witajśo k {map}",
+  "welcomeText1": "To jo rěd za zgromadne kartěrowanje, aby lokalne iniciatiwy, luźi a tšojenja zwězał.",
+  "welcomeText2": "Pśidrużćo se a pówětšćo seś, pśidawajśo projekty a tšojenja ku karśe.",
+  "welcomeText3": "Napórajśo swójo wósobinske profil a placěrujśo jen na karśe.",
+  "close": "Zacyniś",
+  "layerLoading": "{layer} se zacytujo ...",
+  "layerLoaded": "{layer} zacytany"
+}
