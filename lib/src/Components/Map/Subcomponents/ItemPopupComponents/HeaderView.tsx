@@ -10,7 +10,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
-import { MapPinIcon, ShareIcon, UserPlusIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, ShareIcon } from '@heroicons/react/24/outline'
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon'
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import { useState } from 'react'
@@ -20,7 +20,9 @@ import { useNavigate } from 'react-router-dom'
 
 import TargetDotSVG from '#assets/targetDot.svg'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
+import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
+import { useGetItemTags } from '#components/Map/hooks/useTags'
 import DialogModal from '#components/Templates/DialogModal'
 
 import type { Item } from '#types/Item'
@@ -56,8 +58,9 @@ export function HeaderView({
   const hasUserPermission = useHasUserPermission()
   const navigate = useNavigate()
   const appState = useAppState()
-
+  const getItemTags = useGetItemTags()
   const [imageLoaded, setImageLoaded] = useState(false)
+  const { distance } = useGeoDistance(item?.position ?? undefined)
 
   const avatar =
     (item?.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
@@ -68,6 +71,11 @@ export function HeaderView({
   const [address] = useState<string>('')
 
   const params = new URLSearchParams(window.location.search)
+
+  const formatDistance = (dist: number | null): string | null => {
+    if (!dist) return null
+    return dist < 10 ? `${dist.toFixed(1)} km` : `${Math.round(dist)} km`
+  }
 
   const openDeleteModal = async (event: React.MouseEvent<HTMLElement>) => {
     setModalOpen(true)
@@ -196,13 +204,28 @@ export function HeaderView({
       </div>
       {big && (
         <div className='tw:flex tw:row tw:mt-2 '>
-          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '></div>
+          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '>
+            {' '}
+            {formatDistance(distance) && (
+              <span
+                style={{
+                  color: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
+                }}
+              >
+                {formatDistance(distance)}
+              </span>
+            )}
+          </div>
           <div className='tw:grow'></div>
           <div className=''>
-            <div className='tw:btn tw:btn-sm tw:btn-primary tw:mr-2'>
-              <UserPlusIcon className='tw:w-4' />
+            <button
+              style={{
+                backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
+              }}
+              className='tw:btn tw:text-white tw:btn-sm tw:mr-2 '
+            >
               Follow
-            </div>
+            </button>
             <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2'>
               <LuNavigation className='tw:h-4 tw:w-4' />
             </div>
