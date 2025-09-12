@@ -13,7 +13,7 @@
             "_sync_id": "item-places-1",
             "name": "Welcome to Utopia Map",
             "subname" : "The opensource collaborative mapping plattform",
-            "text": "Check out our [GitHub](https://github.com/utopia-os/utopia-map)!",
+            "text": "The Utopia Map is a flexible collaborative app for decentralized coordination and real-life networking that can be adapted to the specific requirements of different networks. Its central element is the interactive geographical map, where users can add and manage **Items** in predefined **Layers**. \n\nUtopia Map is made for networks and initiatives that aim to connect people in real life. By providing a custom instance of Utopia Map, each network can grow and coordinate its ecosystem effectively while encouraging real-world interactions and collaborations.\n\nCheck out our [GitHub](https://github.com/utopia-os/utopia-map)!",
             "position": {
 			    "type": "Point",
 			    "coordinates": [
@@ -21,6 +21,7 @@
 				    50.51565268622562
 			    ]
 		    },
+            "image": "utopia-logo",
             "layer" : "layer-places"
         },
         {
@@ -41,7 +42,7 @@
         },
         {
             "_sync_id": "item-user-1",
-            "name": "Max Mustermann",
+            "name": "Admin User",
             "text": "bla blab ...",
             "position": {
 			    "type": "Point",
