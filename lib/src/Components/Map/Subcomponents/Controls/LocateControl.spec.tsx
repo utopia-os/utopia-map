@@ -114,7 +114,6 @@ const mockItemType: ItemType = {
 const mockLayer: Layer = {
   id: 'layer-1',
   name: 'Users',
-  menuIcon: 'user',
   menuColor: '#ff0000',
   menuText: 'Users',
   markerIcon: mockMarkerIcon,

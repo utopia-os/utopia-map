@@ -1,0 +1,16 @@
+{
+    "collection": "startEnd",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "0b5e5f0a-76a4-407f-84ab-2fd718965909"
+        }
+   ]
+}

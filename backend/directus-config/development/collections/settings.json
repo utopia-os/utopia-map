@@ -1,0 +1,65 @@
+[
+  {
+    "project_name": "Utopia Map",
+    "project_color": "#99C1F1",
+    "public_note": null,
+    "auth_login_attempts": 25,
+    "auth_password_policy": null,
+    "storage_asset_transform": "all",
+    "storage_asset_presets": null,
+    "custom_css": null,
+    "storage_default_folder": null,
+    "basemaps": null,
+    "mapbox_key": null,
+    "module_bar": [
+      {
+        "type": "module",
+        "id": "content",
+        "enabled": true
+      },
+      {
+        "type": "module",
+        "id": "visual",
+        "enabled": false
+      },
+      {
+        "type": "module",
+        "id": "users",
+        "enabled": true
+      },
+      {
+        "type": "module",
+        "id": "files",
+        "enabled": true
+      },
+      {
+        "type": "module",
+        "id": "insights",
+        "enabled": false
+      },
+      {
+        "type": "module",
+        "id": "settings",
+        "enabled": true,
+        "locked": true
+      }
+    ],
+    "project_descriptor": "collaborative Mapping",
+    "default_language": "en-US",
+    "custom_aspect_ratios": null,
+    "default_appearance": "auto",
+    "default_theme_light": null,
+    "theme_light_overrides": null,
+    "default_theme_dark": null,
+    "theme_dark_overrides": null,
+    "report_error_url": null,
+    "report_bug_url": null,
+    "report_feature_url": null,
+    "public_registration": false,
+    "public_registration_verify_email": true,
+    "public_registration_role": null,
+    "public_registration_email_filter": null,
+    "visual_editor_urls": null,
+    "_syncId": "55f04445-0c26-4201-ab9c-d6e0fbadf6bf"
+  }
+]

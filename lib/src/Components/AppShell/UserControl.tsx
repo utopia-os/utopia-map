@@ -1,9 +1,11 @@
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
-import { Link } from 'react-router-dom'
+import { LatLng } from 'leaflet'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useAuth } from '#components/Auth/useAuth'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
+import { usePopupForm } from '#components/Map/hooks/usePopupForm'
 
 import { useAppState } from './hooks/useAppState'
 
@@ -13,6 +15,8 @@ export const UserControl = () => {
   const { isAuthenticated, user, logout } = useAuth()
   const appState = useAppState()
   const { myProfile } = useMyProfile()
+  const navigate = useNavigate()
+  const { setPopupForm } = usePopupForm()
 
   // Use myProfile or create a fallback object for display
   const userProfile: Partial<Item> = myProfile ?? {
@@ -38,6 +42,32 @@ export const UserControl = () => {
       pending: 'logging out ..',
     })
   }
+
+  const handleEdit = () => {
+    if (!myProfile?.layer) {
+      navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
+      return
+    }
+
+    if (myProfile.layer.itemType.small_form_edit && myProfile.position) {
+      navigate('/')
+      // Wait for navigation to complete before setting popup
+      setTimeout(() => {
+        if (myProfile.position && myProfile.layer) {
+          setPopupForm({
+            position: new LatLng(
+              myProfile.position.coordinates[1],
+              myProfile.position.coordinates[0],
+            ),
+            layer: myProfile.layer,
+            item: myProfile,
+          })
+        }
+      }, 100)
+    } else {
+      navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
+    }
+  }
   const avatar: string | undefined =
     userProfile.image && appState.assetsApi.url
       ? appState.assetsApi.url + userProfile.image
@@ -48,7 +78,13 @@ export const UserControl = () => {
       {isAuthenticated ? (
         <div className='tw:flex tw:mr-2'>
           <Link
-            to={userProfile.id ? `/item/${userProfile.id}` : '#'}
+            to={
+              userProfile.id
+                ? myProfile?.layer?.itemType.custom_profile_url
+                  ? `/${userProfile.id}`
+                  : `/item/${userProfile.id}`
+                : '#'
+            }
             className='tw:flex tw:items-center'
           >
             {avatar && (
@@ -69,7 +105,13 @@ export const UserControl = () => {
               className='tw:menu tw:menu-compact tw:dropdown-content tw:mt-4 tw:p-2 tw:shadow tw:bg-base-100 tw:rounded-box tw:w-52 tw:z-10000!'
             >
               <li>
-                <Link to={userProfile.id ? `/edit-item/${userProfile.id}` : '#'}>Profile</Link>
+                <a
+                  onClick={() => {
+                    handleEdit()
+                  }}
+                >
+                  Profile
+                </a>
               </li>
               <li>
                 <Link to={'/user-settings'}>Settings</Link>
@@ -93,9 +135,11 @@ export const UserControl = () => {
               <div className='tw:self-center tw:btn tw:btn-ghost tw:mr-2'>Login</div>
             </Link>
 
-            <Link to={'/signup'}>
-              <div className='tw:btn tw:btn-ghost tw:mr-2'>Sign Up</div>
-            </Link>
+            {!appState.hideSignup && (
+              <Link to={'/signup'}>
+                <div className='tw:btn tw:btn-ghost tw:mr-2'>Sign Up</div>
+              </Link>
+            )}
           </div>
           <div className='tw:dropdown tw:dropdown-end'>
             <label tabIndex={1} className='tw:btn tw:btn-ghost tw:md:hidden'>
@@ -108,9 +152,11 @@ export const UserControl = () => {
               <li>
                 <Link to={'/login'}>Login</Link>
               </li>
-              <li>
-                <Link to={'/signup'}>Sign Up</Link>
-              </li>
+              {!appState.hideSignup && (
+                <li>
+                  <Link to={'/signup'}>Sign Up</Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

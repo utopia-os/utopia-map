@@ -1,0 +1,1622 @@
+[
+  {
+    "name": "Backend-Operation",
+    "key": "backend_operation",
+    "type": "condition",
+    "position_x": 25,
+    "position_y": 22,
+    "options": {
+      "filter": {
+        "$accountability": {
+          "origin": {
+            "_neq": "https://api.utopia-lab.org"
+          }
+        }
+      }
+    },
+    "resolve": "28db9e52-c64d-4eb7-8bb9-b9f4e1355301",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "b7241999-bfef-4086-bce1-b77d73323efb"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_d2q1f",
+    "type": "condition",
+    "position_x": 36,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "payload": {
+            "location": {
+              "_nempty": true
+            }
+          }
+        }
+      }
+    },
+    "resolve": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a",
+    "reject": "aad65a35-dcb2-4e71-a27a-b7600fea06a8",
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "6325ec57-0cde-491b-b453-f69effb404e6"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_ljedr",
+    "type": "condition",
+    "position_x": 54,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "item_read_i7dz7": {
+          "_and": [
+            {
+              "location": {
+                "_nempty": true
+              }
+            },
+            {
+              "location": {
+                "_nnull": true
+              }
+            }
+          ]
+        }
+      }
+    },
+    "resolve": "ef204e62-9a47-4560-a940-336bdf2f897b",
+    "reject": "e76cc608-589d-4758-98ee-b01346e5f22c",
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "7e647ad3-8a87-43c6-aee3-08600f0382e0"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_n9mpy",
+    "type": "condition",
+    "position_x": 52,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "payload": {
+            "location": {
+              "_nempty": true
+            }
+          }
+        }
+      }
+    },
+    "resolve": "ae903e53-b569-492c-85a1-b331f0030e96",
+    "reject": "5eb2d090-716a-405e-be6c-ca496961b5d3",
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "e4e7b722-24be-484d-b1cf-f2f63ad31474"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_r2r2k",
+    "type": "condition",
+    "position_x": 36,
+    "position_y": 19,
+    "options": {
+      "filter": {
+        "$last": {
+          "result": {
+            "_eq": true
+          }
+        }
+      }
+    },
+    "resolve": "bd160694-88f8-4148-bf9d-5122f8b883aa",
+    "reject": "37fd6139-7518-44d3-bae5-b38c5aa132b9",
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "4659da47-fe8b-4968-8885-4e22d7330e63"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_vvsgp",
+    "type": "condition",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "payload": {
+            "_or": [
+              {
+                "layer": {
+                  "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+                }
+              },
+              {
+                "layer": {
+                  "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "resolve": "4d1d29aa-4bcc-451e-a2be-cd98b754e307",
+    "reject": "c9c55294-3bad-4cc0-9e5d-4a572492a3d7",
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "39d03980-4747-4970-80fa-2ad9afbdfb32"
+  },
+  {
+    "name": "Condition",
+    "key": "condition_wl4bz",
+    "type": "condition",
+    "position_x": 58,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$last": {
+          "_eq": "0"
+        }
+      }
+    },
+    "resolve": "ed868bc4-e5fb-42fd-96a9-e72b125d3f24",
+    "reject": "9c0fd031-ad6a-42e4-b978-742716acb1da",
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "02e3984d-d938-4d1c-960b-c868831f1e72"
+  },
+  {
+    "name": "Create item secret",
+    "key": "create_item_secret",
+    "type": "item-create",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "payload": {
+        "item": "{{ $trigger.item }}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "234d13fe-112a-4408-9bdb-78dd8cbd6b82",
+    "_syncId": "3767ea47-c9f5-4668-9cfa-9350803b9b31"
+  },
+  {
+    "name": "Create secret",
+    "key": "create_secret",
+    "type": "item-create",
+    "position_x": 25,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "payload": {
+        "item": "{{ $trigger.key }}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cbd7d15d-7f09-4f45-8060-3b24adabf82a",
+    "_syncId": "05954e5e-1ca7-4a9c-b8c8-3ea6fceaa5de"
+  },
+  {
+    "name": "Run Script",
+    "key": "exec_a3592",
+    "type": "exec",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            item: item.id,\n        };\n    });\n}"
+    },
+    "resolve": "95d762f9-4695-4168-aa65-5bd065b40742",
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "a433dd53-77e2-4f4a-8ea3-7bb9eeae31bd"
+  },
+  {
+    "name": "does_relation_exist",
+    "key": "exec_b85vb",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 19,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn {\n    \tresult: data['$last'].length > 0\n    };\n}"
+    },
+    "resolve": "4659da47-fe8b-4968-8885-4e22d7330e63",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "06716525-6d29-46e2-bb01-0764bccd74e9"
+  },
+  {
+    "name": "Run Script",
+    "key": "exec_p2t3z",
+    "type": "exec",
+    "position_x": 37,
+    "position_y": 17,
+    "options": {
+      "code": "// Your function in the myScript operation\nmodule.exports = function (data) {\n    return payload = {...data.$trigger.payload}\n};"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "c9c55294-3bad-4cc0-9e5d-4a572492a3d7"
+  },
+  {
+    "name": "Run Script",
+    "key": "exec_p5p4r",
+    "type": "exec",
+    "position_x": 18,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n    const regex = /See More:\\s*(https?:\\/\\/[^\\s]+)/g;\n    const payload = {...data.$trigger.payload}\n    payload.text = payload.text.replace(regex, `[See More]($1)`);\n    return payload;\n}"
+    },
+    "resolve": "44ded01a-ae2f-4dd3-9a73-aaa2b2f7a2d3",
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "67847550-3c95-4ee4-af02-32ebb69747d6"
+  },
+  {
+    "name": "get Creator",
+    "key": "get_creator",
+    "type": "item-read",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "fields:": "first_name"
+      },
+      "key": [
+        "{{$trigger.user_created}}"
+      ]
+    },
+    "resolve": "963022f0-a46a-4357-9321-898e995dda48",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "b160f6e2-fc44-428b-886e-39d5552727d5"
+  },
+  {
+    "name": "get_existing_relation",
+    "key": "get_existing_relation",
+    "type": "item-read",
+    "position_x": 2,
+    "position_y": 19,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items_items",
+      "query": {
+        "filter": {
+          "type": {
+            "_eq": "is_following"
+          },
+          "items_id": {
+            "_eq": "{{ $trigger.body.item }}"
+          },
+          "related_items_id": {
+            "_eq": "{{ $last[0].item }}"
+          }
+        }
+      }
+    },
+    "resolve": "06716525-6d29-46e2-bb01-0764bccd74e9",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "87295976-e35b-44a8-98ba-8ef659f3b4a4"
+  },
+  {
+    "name": "Get Item",
+    "key": "get_item",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "key": [
+        "{{$trigger.item}}"
+      ],
+      "query": {
+        "fields": "name"
+      }
+    },
+    "resolve": "0e6dff93-766c-4a5f-918a-0f458794733b",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "500fd5a0-592d-4434-8763-59072ca3b334"
+  },
+  {
+    "name": "Get Map",
+    "key": "get_map",
+    "type": "item-read",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "maps",
+      "query": {
+        "filter": {
+          "url": {
+            "_eq": "{{$trigger.map_url}}"
+          }
+        },
+        "fields": "name,logo"
+      }
+    },
+    "resolve": "b160f6e2-fc44-428b-886e-39d5552727d5",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "0e6dff93-766c-4a5f-918a-0f458794733b"
+  },
+  {
+    "name": "Get Subscriber",
+    "key": "get_subscriber",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{$trigger.subscriber}}"
+      ],
+      "query": {
+        "fields": "email, first_name"
+      }
+    },
+    "resolve": "500fd5a0-592d-4434-8763-59072ca3b334",
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "43de95f1-d63b-4231-80c3-b399c45470f6"
+  },
+  {
+    "name": "Create Nomads User",
+    "key": "item_create_dj57t",
+    "type": "item-create",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$public",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "payload": {
+        "email": "{{$trigger.payload.email}}",
+        "first_name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}"
+      }
+    },
+    "resolve": "6325ec57-0cde-491b-b453-f69effb404e6",
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "02499c24-46a9-4d77-8a2e-1b963cb3d62c"
+  },
+  {
+    "name": "Read Items",
+    "key": "item_create_jqtv7",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "query": {
+        "limit": -1
+      }
+    },
+    "resolve": "a433dd53-77e2-4f4a-8ea3-7bb9eeae31bd",
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "589ea382-5027-40fb-9f4d-3852389ccaab"
+  },
+  {
+    "name": "Create Nomads Home Item",
+    "key": "item_create_oym38",
+    "type": "item-create",
+    "position_x": 70,
+    "position_y": 1,
+    "options": {
+      "payload": {
+        "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
+        "layer": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362",
+        "extended": {
+          "external_profile_id": "{{$trigger.payload.id}}"
+        },
+        "position": "{{$last.data.features[0].geometry}}",
+        "image_external": "{{$trigger.payload.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": "f12ba44c-69cc-40c0-a346-aafb851fe892",
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "3624ff50-c282-45db-aa01-9b8c4a75e45c"
+  },
+  {
+    "name": "Create Nomads Home Item",
+    "key": "item_create_oym38_epxyf",
+    "type": "item-create",
+    "position_x": 53,
+    "position_y": 18,
+    "options": {
+      "payload": {
+        "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
+        "layer": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362",
+        "extended": {
+          "external_profile_id": "{{$trigger.payload.id}}"
+        },
+        "image_external": "{{$trigger.payload.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": "fc07cebb-9577-41a2-9c1c-d2ee873b112d",
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "aad65a35-dcb2-4e71-a27a-b7600fea06a8"
+  },
+  {
+    "name": "Create Data",
+    "key": "item_create_tsz05",
+    "type": "item-create",
+    "position_x": 86,
+    "position_y": 1,
+    "options": {
+      "payload": {
+        "end": "{{$trigger.payload.end}}",
+        "name": "{{$trigger.payload.title}}",
+        "text": "{{exec_p5p4r.text}}",
+        "layer": "5b9f713c-74b6-4dcc-a4d0-c7893b267d6e",
+        "start": "{{$trigger.payload.start}}",
+        "position": "{{$last.data.features[0].geometry}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$trigger"
+    },
+    "resolve": "906b8e62-bc1b-4e69-9502-51363e868cb8",
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "8ed6471d-7897-4aea-84df-dd0308b5df12"
+  },
+  {
+    "name": "Create Data",
+    "key": "item_create_tsz05_xukmd",
+    "type": "item-create",
+    "position_x": 69,
+    "position_y": 24,
+    "options": {
+      "payload": {
+        "end": "{{$trigger.payload.end}}",
+        "name": "{{$trigger.payload.title}}",
+        "text": "{{exec_p5p4r.text}}",
+        "layer": "5b9f713c-74b6-4dcc-a4d0-c7893b267d6e",
+        "start": "{{$trigger.payload.start}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$trigger"
+    },
+    "resolve": "017875a5-3736-478a-9bcc-ed473117c74d",
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "5eb2d090-716a-405e-be6c-ca496961b5d3"
+  },
+  {
+    "name": "Create Data",
+    "key": "item_create_x8h5h",
+    "type": "item-create",
+    "position_x": 37,
+    "position_y": 36,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items_items",
+      "payload": {
+        "items_id": "{{ $trigger.body.item }}",
+        "related_items_id": "{{ read_data[0].item }}",
+        "type": "is_following"
+      }
+    },
+    "resolve": "2362eac0-7c3c-4164-8927-6cbc43e4934e",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "37fd6139-7518-44d3-bae5-b38c5aa132b9"
+  },
+  {
+    "name": "Delete Data",
+    "key": "item_delete_pl9gj",
+    "type": "item-delete",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "filter": {
+          "id": {
+            "_eq": "{{item_read_m7xes[0].id}}"
+          }
+        }
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
+    "_syncId": "d6eb9087-481b-407c-af0d-bc37527d0fc4"
+  },
+  {
+    "name": "Delete Data",
+    "key": "item_delete_rasrd",
+    "type": "item-delete",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last[0].id}}"
+              }
+            }
+          ]
+        }
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": "dc438e50-a3a1-4d38-8b7a-7c1dd1f22166",
+    "reject": null,
+    "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
+    "_syncId": "cbec78ff-1efd-494d-906d-5b6d6ef00a6b"
+  },
+  {
+    "name": "Delete Data",
+    "key": "item_delete_rasrd_boace",
+    "type": "item-delete",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{item_read_m7xes[0].id}}"
+              }
+            }
+          ]
+        }
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": "d6eb9087-481b-407c-af0d-bc37527d0fc4",
+    "reject": null,
+    "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
+    "_syncId": "dc438e50-a3a1-4d38-8b7a-7c1dd1f22166"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_0u34g",
+    "type": "item-read",
+    "position_x": 4,
+    "position_y": 47,
+    "options": {
+      "collection": "layers",
+      "key": "{{$last.layer}}"
+    },
+    "resolve": "f0ec57c8-070f-4f0c-881b-2f0a77bc6f2b",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "f83abfeb-1457-405f-b2b6-3b2d064937dc"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_3ku1k",
+    "type": "item-read",
+    "position_x": 38,
+    "position_y": 1,
+    "options": {
+      "collection": "items",
+      "query": {
+        "filter": {
+          "slug": {
+            "_starts_with": "{{$last}}"
+          }
+        },
+        "aggregate": {
+          "count": "*"
+        }
+      }
+    },
+    "resolve": "bb24ba37-d1e6-4d44-a36c-f4dea4527180",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "5129e430-971e-49ca-b8d5-83e40f489fda"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_3udhm",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "key": [
+        "{{$trigger.payload.id}}"
+      ]
+    },
+    "resolve": "f61d61c8-eb66-43b6-9929-c878bd653aa8",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "2eba1a24-aec5-477b-919f-f2276705606f"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_9qv1c",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "query": {
+        "filter": {
+          "secret": {
+            "_eq": "{{$trigger.query.secret}}"
+          }
+        }
+      },
+      "key": []
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "01d61db0-25aa-4bfa-bc24-c6a8f208a455",
+    "_syncId": "c880bc9d-1568-4c9c-b3d5-ddbd61f0a9d3"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_a6xul",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "oceannomads_profiles",
+      "key": [
+        "{{$trigger.payload[0]}}"
+      ]
+    },
+    "resolve": "0dbba1fc-05f5-4c05-b949-f25610f96df7",
+    "reject": null,
+    "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
+    "_syncId": "2f4c3d12-87c3-44d5-aa5d-0e7d5529b149"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_bls9m",
+    "type": "item-read",
+    "position_x": 5,
+    "position_y": 22,
+    "options": {
+      "collection": "items",
+      "key": "{{$trigger.payload.id}}"
+    },
+    "resolve": "f83abfeb-1457-405f-b2b6-3b2d064937dc",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "9838d2ca-3698-4d29-8429-038dfcaf7fab"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_evgvk",
+    "type": "item-read",
+    "position_x": 35,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "filter": {
+          "email": {
+            "_eq": "{{$trigger.payload.creator_email}}"
+          }
+        }
+      }
+    },
+    "resolve": "e4e7b722-24be-484d-b1cf-f2f63ad31474",
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "44ded01a-ae2f-4dd3-9a73-aaa2b2f7a2d3"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_gejrb",
+    "type": "item-read",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "oceannomads_profiles",
+      "query": {
+        "filter": {
+          "email": {
+            "_eq": "{{$last.email}}"
+          }
+        }
+      }
+    },
+    "resolve": "91e39643-b58e-4629-8875-06559cfacf64",
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "50d65464-caac-4d66-9968-319153f0a4b6"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_i7dz7",
+    "type": "item-read",
+    "position_x": 18,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "oceannomads_profiles",
+      "key": [
+        "{{$trigger.keys[0]}}"
+      ]
+    },
+    "resolve": "840b0278-ff8a-4f2f-bf67-c75a2e7e00b6",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "9d88e79c-2d51-4b66-9c36-341f1c8f9508"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_lz6au",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{$accountability.user}}"
+      ]
+    },
+    "resolve": "50d65464-caac-4d66-9968-319153f0a4b6",
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "4d1d29aa-4bcc-451e-a2be-cd98b754e307"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_m7xes",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "filter": {
+          "email": {
+            "_eq": "{{$last.email}}"
+          }
+        }
+      }
+    },
+    "resolve": "cbec78ff-1efd-494d-906d-5b6d6ef00a6b",
+    "reject": null,
+    "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
+    "_syncId": "0dbba1fc-05f5-4c05-b949-f25610f96df7"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_p8h47",
+    "type": "item-read",
+    "position_x": 22,
+    "position_y": 49,
+    "options": {
+      "collection": "layers_maps"
+    },
+    "resolve": "810b13ca-f884-4b1d-84db-8f71ed067337",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "f0ec57c8-070f-4f0c-881b-2f0a77bc6f2b"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_q6u16",
+    "type": "item-read",
+    "position_x": 41,
+    "position_y": 49,
+    "options": {
+      "collection": "maps"
+    },
+    "resolve": "b7241999-bfef-4086-bce1-b77d73323efb",
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "810b13ca-f884-4b1d-84db-8f71ed067337"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_ym92c",
+    "type": "item-read",
+    "position_x": 36,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "query": {
+        "filter": {
+          "email": {
+            "_eq": "{{$last.email}}"
+          }
+        }
+      },
+      "key": []
+    },
+    "resolve": "7e647ad3-8a87-43c6-aee3-08600f0382e0",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "840b0278-ff8a-4f2f-bf67-c75a2e7e00b6"
+  },
+  {
+    "name": "Set Item Ownership to Nomads User",
+    "key": "item_update_1vgft",
+    "type": "item-update",
+    "position_x": 87,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
+      "payload": {
+        "user_created": "{{item_create_dj57t[0]}}"
+      },
+      "key": [
+        "{{$last[0]}}"
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "f12ba44c-69cc-40c0-a346-aafb851fe892"
+  },
+  {
+    "name": "Set Item Ownership to Nomads User",
+    "key": "item_update_1vgft_dwftb",
+    "type": "item-update",
+    "position_x": 70,
+    "position_y": 18,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
+      "payload": {
+        "user_created": "{{item_create_dj57t[0]}}"
+      },
+      "key": [
+        "{{$last[0]}}"
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "fc07cebb-9577-41a2-9c1c-d2ee873b112d"
+  },
+  {
+    "name": "Update Nomads Current Location",
+    "key": "item_update_5eu19",
+    "type": "item-update",
+    "position_x": 129,
+    "position_y": 1,
+    "options": {
+      "key": [],
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last}}"
+              }
+            }
+          ]
+        }
+      },
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e"
+  },
+  {
+    "name": "Update Nomads Current Location",
+    "key": "item_update_5eu19_prdze",
+    "type": "item-update",
+    "position_x": 119,
+    "position_y": 17,
+    "options": {
+      "key": [],
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last}}"
+              }
+            }
+          ]
+        }
+      },
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "collection": "items",
+      "emitEvents": false,
+      "permissions": "$full"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_8nzfw",
+    "type": "item-update",
+    "position_x": 103,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "key": [
+        "{{$last[0]}}"
+      ],
+      "payload": {
+        "user_created": "{{item_read_evgvk[0].id}}"
+      },
+      "collection": "items"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "906b8e62-bc1b-4e69-9502-51363e868cb8"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_8nzfw_xriog",
+    "type": "item-update",
+    "position_x": 86,
+    "position_y": 24,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "key": [
+        "{{$last[0]}}"
+      ],
+      "payload": {
+        "user_created": "{{item_read_evgvk[0].id}}"
+      },
+      "collection": "items"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "017875a5-3736-478a-9bcc-ed473117c74d"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_chszs",
+    "type": "item-update",
+    "position_x": 100,
+    "position_y": 17,
+    "options": {
+      "collection": "items",
+      "query": {
+        "filter": {
+          "id": {
+            "_eq": "{{$trigger.payload.id}}"
+          }
+        }
+      },
+      "payload": {
+        "slug": "{{slugify}}-{{singelton}}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "9c0fd031-ad6a-42e4-b978-742716acb1da"
+  },
+  {
+    "name": "Update Nomads User",
+    "key": "item_update_e3pl5",
+    "type": "item-update",
+    "position_x": 110,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{item_read_ym92c[0].id}}"
+      ],
+      "payload": {
+        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "email": "{{item_read_i7dz7.email}}"
+      }
+    },
+    "resolve": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752"
+  },
+  {
+    "name": "Update Nomads User",
+    "key": "item_update_e3pl5_wansj",
+    "type": "item-update",
+    "position_x": 100,
+    "position_y": 17,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "directus_users",
+      "key": [
+        "{{item_read_ym92c[0].id}}"
+      ],
+      "payload": {
+        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "email": "{{item_read_i7dz7.email}}"
+      },
+      "query": null
+    },
+    "resolve": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab"
+  },
+  {
+    "name": "Update Nomads Home",
+    "key": "item_update_o6cn8",
+    "type": "item-update",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "key": [],
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{item_read_ym92c[0].id}}"
+              }
+            }
+          ]
+        }
+      },
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}",
+        "position": "{{$last.data.features[0].geometry}}"
+      },
+      "collection": "items"
+    },
+    "resolve": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "4535f776-40c7-4e6d-8873-843822996dd5"
+  },
+  {
+    "name": "Update Nomads Home",
+    "key": "item_update_o6cn8_nitpl",
+    "type": "item-update",
+    "position_x": 81,
+    "position_y": 17,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "key": [],
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{item_read_ym92c[0].id}}"
+              }
+            }
+          ]
+        }
+      },
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "position": null,
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
+      "collection": "items"
+    },
+    "resolve": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "e76cc608-589d-4758-98ee-b01346e5f22c"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_update_pv6i8",
+    "type": "item-update",
+    "position_x": 99,
+    "position_y": 1,
+    "options": {
+      "payload": {
+        "slug": "{{slugify}}"
+      },
+      "query": {
+        "filter": {
+          "id": {
+            "_eq": "{{$trigger.payload.id}}"
+          }
+        }
+      },
+      "collection": "items"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "ed868bc4-e5fb-42fd-96a9-e72b125d3f24"
+  },
+  {
+    "name": "Log to Console",
+    "key": "log_tj8ei",
+    "type": "log",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "message": "{{$last}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "d07dddce-810b-4a79-90fe-5e19f2485d31"
+  },
+  {
+    "name": "Send Email",
+    "key": "mail_kmf07",
+    "type": "mail",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "type": "markdown",
+      "subject": "{{get_item.name}} {{$trigger.event}}",
+      "to": [
+        "{{get_subscriber.email}}"
+      ],
+      "body": "Hi {{get_subscriber.first_name}},\n\n{{get_creator.first_name}} has {{$trigger.event}} [{{get_item.name}}]({{$trigger.map_url}}/item/{{$trigger.item}})  on [{{get_map[0].name}}]({{$trigger.map_url}}/item/{{$trigger.item}})."
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+    "_syncId": "963022f0-a46a-4357-9321-898e995dda48"
+  },
+  {
+    "name": "prepare Mails",
+    "key": "prepare_mails",
+    "type": "exec",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            event: data['$trigger'].event === \"items.items.create\" ? \"created\" : \"updated\",\n            item: data['$trigger'].payload.id,\n            user_created: data['$accountability'].user,\n            subscriber: item.directus_users_id,\n   \t\t\tmap_url: data['$accountability'].origin,\n        };\n    });\n}"
+    },
+    "resolve": "2179c615-5939-40cb-a85a-9e02b7d148fa",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "940c929e-15b2-411d-a9b3-336af4574127"
+  },
+  {
+    "name": "Prepare Profile for Murmurations",
+    "key": "prepare_profile_for_murmurations",
+    "type": "transform",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "json": {
+        "linked_schemas": [
+          "people_schema-v0.1.0"
+        ],
+        "name": "{{$last.user_created.firstname}}",
+        "nickname": "{{$last.user_created.firstname}}",
+        "image": "{{$last.user_created.avatar}}",
+        "geolocation": {
+          "lat": 50.43312645607191,
+          "lon": 9.714832305908205
+        }
+      }
+    },
+    "resolve": "d07dddce-810b-4a79-90fe-5e19f2485d31",
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "8265ad6e-df54-48c8-b068-31c07f6b50a8"
+  },
+  {
+    "name": "read data",
+    "key": "read_data",
+    "type": "item-read",
+    "position_x": 52,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "itemSecrets",
+      "query": {
+        "filter": {
+          "secret": {
+            "_eq": "{{$trigger.body.secret}}"
+          }
+        }
+      }
+    },
+    "resolve": "87295976-e35b-44a8-98ba-8ef659f3b4a4",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "74084d01-0a3d-474e-b377-f15d2c1457ed"
+  },
+  {
+    "name": "Read Layer IDs",
+    "key": "read_layers_ids",
+    "type": "item-read",
+    "position_x": 37,
+    "position_y": 1,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "layers_directus_users_1",
+      "key": [],
+      "query": {
+        "filter": {
+          "layers_id": {
+            "_eq": "{{$last.layer}}"
+          }
+        },
+        "fields": "directus_users_id"
+      }
+    },
+    "resolve": "940c929e-15b2-411d-a9b3-336af4574127",
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "f61d61c8-eb66-43b6-9929-c878bd653aa8"
+  },
+  {
+    "name": "read user items",
+    "key": "read_user_items",
+    "type": "item-read",
+    "position_x": 19,
+    "position_y": 2,
+    "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
+      "query": {
+        "filter": {
+          "user_created": {
+            "_eq": "{{$accountability.user}}"
+          }
+        }
+      }
+    },
+    "resolve": "6bf62484-4a2b-4d78-8d19-ca53deea32a4",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "0d9acb0c-571a-4a6a-b6c9-aa4f2dab8ca6"
+  },
+  {
+    "name": "Webhook / Request URL",
+    "key": "request_du0ch",
+    "type": "request",
+    "position_x": 69,
+    "position_y": 1,
+    "options": {
+      "method": "GET",
+      "url": "https://photon.komoot.io/api/?q={{$trigger.payload.location}}&limit=1"
+    },
+    "resolve": "8ed6471d-7897-4aea-84df-dd0308b5df12",
+    "reject": null,
+    "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
+    "_syncId": "ae903e53-b569-492c-85a1-b331f0030e96"
+  },
+  {
+    "name": "Webhook / Request URL",
+    "key": "request_dvnuy",
+    "type": "request",
+    "position_x": 31,
+    "position_y": 24,
+    "options": {
+      "method": "POST",
+      "url": "https://test-index.murmurations.network/v2/nodes",
+      "headers": [
+        {
+          "header": "accept",
+          "value": "application/json"
+        },
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": "{\n  \"profile_url\": \"https://somenode.org/optional-subdirectory/node-profile.json\"\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
+    "_syncId": "9e548616-7a5f-417a-834d-7100fa79f774"
+  },
+  {
+    "name": "Webhook / Request URL",
+    "key": "request_hfzgd",
+    "type": "request",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "method": "GET",
+      "url": "https://photon.komoot.io/api/?q={{item_read_i7dz7.location}}&limit=1"
+    },
+    "resolve": "4535f776-40c7-4e6d-8873-843822996dd5",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "ef204e62-9a47-4560-a940-336bdf2f897b"
+  },
+  {
+    "name": "Webhook updated",
+    "key": "request_juotc",
+    "type": "request",
+    "position_x": 48,
+    "position_y": 1,
+    "options": {
+      "url": "https://telegram-bot.utopia-lab.org/send_message",
+      "method": "POST",
+      "body": "{\"message\": \"**[{{$trigger.payload.name}}]({{$accountability.origin}}/item/{{$trigger.payload.id}})** updated\"}",
+      "headers": [
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "59f02fa4-1af8-413c-afba-a4c3ab653259"
+  },
+  {
+    "name": "Webhook created",
+    "key": "request_juotc_izixm",
+    "type": "request",
+    "position_x": 48,
+    "position_y": 17,
+    "options": {
+      "url": "https://telegram-bot.utopia-lab.org/send_message",
+      "method": "POST",
+      "body": "{\"message\": \"**[{{$trigger.payload.name}}]({{$accountability.origin}}/item/{{$trigger.payload.id}})** created\"}",
+      "headers": [
+        {
+          "header": "Content-Type",
+          "value": "application/json"
+        }
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "78e22eb0-72f1-4b9e-9af2-c76ddcefa61b"
+  },
+  {
+    "name": "Request Coordinates from Geocoder",
+    "key": "request_sxzym",
+    "type": "request",
+    "position_x": 53,
+    "position_y": 1,
+    "options": {
+      "method": "GET",
+      "url": "https://photon.komoot.io/api/?q={{$trigger.payload.location}}&limit=1"
+    },
+    "resolve": "3624ff50-c282-45db-aa01-9b8c4a75e45c",
+    "reject": null,
+    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
+    "_syncId": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a"
+  },
+  {
+    "name": "return inviting item",
+    "key": "return_inviting_item",
+    "type": "exec",
+    "position_x": 56,
+    "position_y": 36,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.read_data[0].item\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "2362eac0-7c3c-4164-8927-6cbc43e4934e"
+  },
+  {
+    "name": "return inviting item",
+    "key": "return_inviting_item_uxzvf",
+    "type": "exec",
+    "position_x": 54,
+    "position_y": 19,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.read_data[0].item\n}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "bd160694-88f8-4148-bf9d-5122f8b883aa"
+  },
+  {
+    "name": "singelton",
+    "key": "singelton",
+    "type": "exec",
+    "position_x": 57,
+    "position_y": 16,
+    "options": {
+      "code": "module.exports = async function(data) {\n\treturn data.$last[0].count\n}"
+    },
+    "resolve": "02e3984d-d938-4d1c-960b-c868831f1e72",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "bb24ba37-d1e6-4d44-a36c-f4dea4527180"
+  },
+  {
+    "name": "slugify",
+    "key": "slugify",
+    "type": "exec",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "code": "module.exports = async function (data) {\n\tconst text = data.$trigger.payload.name;\n\n\tconst slug = text\n\t\t.toLowerCase()\n\t\t.trim()\n\t\t.replace(/[^\\w\\s-]/g, '')\n\t\t.replace(/[\\s_-]+/g, '-')\n\t\t.replace(/^-+|-+$/g, '');\n\n\treturn slug;\n};"
+    },
+    "resolve": "5129e430-971e-49ca-b8d5-83e40f489fda",
+    "reject": null,
+    "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
+    "_syncId": "55857562-e0ab-49a5-a292-18f6c1cb075e"
+  },
+  {
+    "name": "test item ownership",
+    "key": "test_item_ownership",
+    "type": "exec",
+    "position_x": 36,
+    "position_y": 2,
+    "options": {
+      "code": "module.exports = async function(data) {\n\tif (!data.$last.some(item => item.id === data.$trigger.body.item)) {\n        throw new Error('Not your item')\n    }\n    return {};\n}"
+    },
+    "resolve": "74084d01-0a3d-474e-b377-f15d2c1457ed",
+    "reject": null,
+    "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
+    "_syncId": "6bf62484-4a2b-4d78-8d19-ca53deea32a4"
+  },
+  {
+    "name": "Transform Payload",
+    "key": "transform_5nhqn",
+    "type": "exec",
+    "position_x": 91,
+    "position_y": 1,
+    "options": {
+      "code": "// Your function in the myScript operation\nmodule.exports = function (data) {\n    const payload = {...data.$trigger.payload}\n    payload.image_external = data.$last[0].avatar_url;\n\tpayload.name = data.$last[0].first_name + \" \" + data.$last[0].last_name;\n    payload.extended = { \"external_profile_id\" : data.$last[0].id };\n    return payload;\n};"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "91e39643-b58e-4629-8875-06559cfacf64"
+  },
+  {
+    "name": "Trigger Send Email",
+    "key": "trigger_4tvps",
+    "type": "trigger",
+    "position_x": 73,
+    "position_y": 1,
+    "options": {
+      "iterationMode": "parallel",
+      "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
+      "payload": "{{$last}}"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
+    "_syncId": "2179c615-5939-40cb-a85a-9e02b7d148fa"
+  },
+  {
+    "name": "trigger create secret flow",
+    "key": "trigger_create_secret_flow",
+    "type": "trigger",
+    "position_x": 55,
+    "position_y": 1,
+    "options": {
+      "iterationMode": "parallel",
+      "payload": "{{ $last }}",
+      "flow": "234d13fe-112a-4408-9bdb-78dd8cbd6b82"
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
+    "_syncId": "95d762f9-4695-4168-aa65-5bd065b40742"
+  },
+  {
+    "name": "Updated?",
+    "key": "updated",
+    "type": "condition",
+    "position_x": 21,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "event": {
+            "_eq": "items.items.update"
+          }
+        }
+      }
+    },
+    "resolve": "59f02fa4-1af8-413c-afba-a4c3ab653259",
+    "reject": "78e22eb0-72f1-4b9e-9af2-c76ddcefa61b",
+    "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
+    "_syncId": "28db9e52-c64d-4eb7-8bb9-b9f4e1355301"
+  }
+]

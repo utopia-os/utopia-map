@@ -1,0 +1,45 @@
+{
+  "collection": "marker_icons",
+  "field": "size",
+  "type": "decimal",
+  "meta": {
+    "collection": "marker_icons",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "size",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": null,
+    "options": {
+      "placeholder": "12"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 3,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "size",
+    "table": "marker_icons",
+    "data_type": "numeric",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": 10,
+    "numeric_scale": 5,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

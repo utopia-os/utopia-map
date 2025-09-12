@@ -1,0 +1,28 @@
+{
+  "collection": "layers",
+  "field": "divider-yaul5v",
+  "type": "alias",
+  "meta": {
+    "collection": "layers",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "divider-yaul5v",
+    "group": null,
+    "hidden": false,
+    "interface": "presentation-divider",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 10,
+    "special": [
+      "alias",
+      "no-data"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

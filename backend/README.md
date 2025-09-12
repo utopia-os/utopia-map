@@ -6,18 +6,7 @@ To run the backend you can simply execute
 To fill in all required data execute the following commands in order:
 ```
 cd backend
-
-npx directus-sync push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-
-npx directus-sync seed push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-
-./directus-config/manual/seed.sh
+./seed.sh
 ```
 
 ## Pull Data from Docker to Harddrive
@@ -27,6 +16,7 @@ In order to pull data from your locally running backend (see [docker-compose](..
 
 ```
 npx directus-sync pull \
+  --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
   --directus-password admin123
@@ -37,6 +27,7 @@ npx directus-sync pull \
 To push local changes or to seed directus use the following command
 ```
 npx directus-sync push \
+  --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
   --directus-password admin123
@@ -44,27 +35,7 @@ npx directus-sync push \
 
 ## Seed Data for local development
 
-Seed the development data via:
-```
-npx directus-sync seed push \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
-
-## Seed Data - find differences
-
-In order so see what changes would appear when seeding, you can execute:
-```
-npx directus-sync seed diff \
-  --directus-url http://localhost:8055 \
-  --directus-email admin@it4c.dev \
-  --directus-password admin123
-```
-
-## Manual Seed
-
-In order to seed files and additional data not covered by `directus-sync` run the script `backend/directus-config/manual/seed.sh`.
+In order to seed the development data, run the script `backend/seed.sh`.
 
 ## Backup Database
 
@@ -130,7 +101,7 @@ docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql -v O
 
 Reassign ownership of tables:
 ```
-echo "REASSIGN OWNED BY admin TO directus" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus
+echo "REASSIGN OWNED BY admin TO directus" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus"
 ```
 > REASSIGN OWNED
 

@@ -1,0 +1,31 @@
+{
+    "collection": "maps",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "map-local-development",
+            "name": "Local Development",
+            "url": "http://local.development",
+            "logo": "vessel-svg",
+		    "zoom": 6,
+		    "own_tag_space": true,
+		    "center": {
+			    "type": "Point",
+			    "coordinates": [
+				    10.067625824315172,
+				    50.51565268622562
+			    ]
+		    },
+		    "donation_widget": false,
+		    "custom_text": "# Welcome to the Development Server\n\nThis map is just for development purposes and to try out new things.",
+		    "default_theme": null
+        }
+    ]
+}

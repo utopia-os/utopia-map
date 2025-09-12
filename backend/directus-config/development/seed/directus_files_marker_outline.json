@@ -1,0 +1,73 @@
+{
+  "collection": "directus_files",
+  "meta": {
+    "insert_order": 2,
+    "create": true,
+    "update": true,
+    "delete": true,
+    "preserve_ids": false,
+    "ignore_on_update": []
+  },
+  "data": [
+    {
+      "_sync_id": "boat-outline",
+      "_file_path": "./files/icons/outline/boat.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "boat-outline.svg",
+      "title": "boat outline",
+      "tags": [],
+      "description": "boat outline"
+    },
+    {
+      "_sync_id": "calendar-outline",
+      "_file_path": "./files/icons/outline/calendar.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "calendar-outline.svg",
+      "title": "calendar outline",
+      "tags": [],
+      "description": "calendar outline"
+    },
+    {
+      "_sync_id": "house-outline",
+      "_file_path": "./files/icons/outline/house.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "house-outline.svg",
+      "title": "home outline",
+      "tags": [],
+      "description": "home outline"
+    },
+    {
+      "_sync_id": "users-outline",
+      "_file_path": "./files/icons/outline/users.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "users-outline.svg",
+      "title": "users outline",
+      "tags": [],
+      "description": "users outline"
+    },
+    {
+      "_sync_id": "map-pin-outline",
+      "_file_path": "./files/icons/outline/map-pin.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "map-pin-outline.svg",
+      "title": "map pin outline",
+      "tags": [],
+      "description": "map pin outline"
+    },
+    {
+      "_sync_id": "user-outline",
+      "_file_path": "./files/icons/outline/user.svg",
+      "storage": "local",
+      "folder": "f255d3a7-8ecc-4ee0-b584-dee753317415",
+      "filename_download": "user-outline.svg",
+      "title": "user outline",
+      "tags": [],
+      "description": "user outline"
+    }
+  ]
+}

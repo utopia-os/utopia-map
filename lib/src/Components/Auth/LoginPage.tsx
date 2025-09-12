@@ -11,12 +11,13 @@ import type { InviteApi } from '#types/InviteApi'
 
 interface Props {
   inviteApi: InviteApi
+  showRequestPassword?: boolean
 }
 
 /**
  * @category Auth
  */
-export function LoginPage({ inviteApi }: Props) {
+export function LoginPage({ inviteApi, showRequestPassword }: Props) {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -106,11 +107,13 @@ export function LoginPage({ inviteApi }: Props) {
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <div className='tw:text-right tw:text-primary'>
-        <Link to='/reset-password'>
-          <span className='tw:text-sm  tw:inline-block  tw:hover:text-primary tw:hover:underline tw:hover:cursor-pointer tw:transition tw:duration-200'>
-            Forgot Password?
-          </span>
-        </Link>
+        {!showRequestPassword && (
+          <Link to='/reset-password'>
+            <span className='tw:text-sm  tw:inline-block  tw:hover:text-primary tw:hover:underline tw:hover:cursor-pointer tw:transition tw:duration-200'>
+              Forgot Password?
+            </span>
+          </Link>
+        )}
       </div>
       <div className='tw:card-actions'>
         <button
@@ -124,6 +127,33 @@ export function LoginPage({ inviteApi }: Props) {
         >
           {loading ? <span className='tw:loading tw:loading-spinner'></span> : 'Login'}
         </button>
+        {showRequestPassword && (
+          <>
+            <div className='tw:divider tw:w-full'>OR</div>
+            <div role='alert' className='tw:alert tw:mb-2'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                className='tw:h-6 tw:w-6 tw:shrink-0 tw:stroke-current'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                  d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+                ></path>
+              </svg>
+              <span>
+                The map requires an additional password. If you don&apos;t have it yet, you can
+                request one.
+              </span>
+            </div>
+            <Link to='/reset-password' className='tw:w-full'>
+              <button className='tw:btn tw:btn-primary tw:btn-block'>{'Request Password'}</button>
+            </Link>
+          </>
+        )}
       </div>
     </MapOverlayPage>
   )

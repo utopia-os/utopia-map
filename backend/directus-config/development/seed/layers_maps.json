@@ -1,0 +1,38 @@
+{
+    "collection": "layers_maps",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "layer-events-map-local-development",
+            "layers_id": "layer-events",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-nomads-location-map-local-development",
+            "layers_id": "layer-nomads_location",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-nomads-base-map-local-development",
+            "layers_id": "layer-nomads_base",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-vessel-map-local-development",
+            "layers_id": "layer-vessels",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-basecamps-map-local-development",
+            "layers_id": "layer-basecamps",
+            "maps_id": "map-local-development"
+        }
+    ]
+}

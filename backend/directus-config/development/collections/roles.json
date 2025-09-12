@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Administrator",
+    "icon": "verified",
+    "description": "$t:admin_description",
+    "parent": null,
+    "_syncId": "_sync_default_admin_role"
+  },
+  {
+    "name": "Registrated",
+    "icon": "paragliding",
+    "description": null,
+    "parent": null,
+    "_syncId": "4c32a9b2-714d-44e4-84bd-675d2351bdd7"
+  },
+  {
+    "name": "Editor",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "parent": null,
+    "_syncId": "f07fdc26-2935-401a-abc9-67d5ad38a965"
+  }
+]

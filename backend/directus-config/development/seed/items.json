@@ -1,0 +1,95 @@
+{
+    "collection": "items",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "item-places-1",
+            "name": "Welcome to Utopia Map",
+            "subname" : "The opensource collaborative mapping plattform",
+            "text": "Check out our [GitHub](https://github.com/utopia-os/utopia-map)!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    10.067625824315172,
+				    50.51565268622562
+			    ]
+		    },
+            "layer" : "layer-places"
+        },
+        {
+            "_sync_id": "item-event-1",
+            "name": "Some Event",
+            "subname" : "The opensource collaborative mapping plattform",
+            "text": "Check out our [GitHub](https://github.com/utopia-os/utopia-map)!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    11.067625824315172,
+				    51.51565268622562
+			    ]
+		    },
+            "layer" : "layer-events",
+            "start": "2025-08-14T12:00:00",
+            "end": "2027-06-25T12:00:00"
+        },
+        {
+            "_sync_id": "item-nomad-location-1",
+            "name": "Anton Tranelis",
+            "text": "bla blab ...",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    6.67625824315172,
+				    51.41565268622562
+			    ]
+		    },
+            "layer" : "layer-nomads_location"
+        },
+        {
+            "_sync_id": "item-nomad-base-1",
+            "name": "Anton Tranelis",
+            "text": "bla blab ...",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    9.67625824315172,
+				    48.41565268622562
+			    ]
+		    },
+            "layer" : "layer-nomads_base"
+        },
+        {
+            "_sync_id": "item-vessel-1",
+            "name": "Vessel XY",
+            "text": "shipping the sea",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    -2.67625824315172,
+				    48.61565268622562
+			    ]
+		    },
+            "layer" : "layer-vessels"
+        },
+       {
+            "_sync_id": "item-basecamp-1",
+            "name": "Basecamp XY",
+            "text": "come and join our camp",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    1.6007423400878908,
+				    50.184428095190555
+			    ]
+		    },
+            "layer" : "layer-basecamps"
+        }
+    ]
+}

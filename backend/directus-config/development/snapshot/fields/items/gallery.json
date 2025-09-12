@@ -1,0 +1,29 @@
+{
+  "collection": "items",
+  "field": "gallery",
+  "type": "alias",
+  "meta": {
+    "collection": "items",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "gallery",
+    "group": null,
+    "hidden": false,
+    "interface": "files",
+    "note": null,
+    "options": {
+      "folder": "2daee21f-52b8-4152-88e9-ccf18169dcf0"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 29,
+    "special": [
+      "files"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
@@ -20,10 +19,10 @@ import {
   PopupStartEndInput,
   PopupTextAreaInput,
   PopupTextInput,
+  HeaderView,
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
-import { config } from '../config'
 
 import type { Place } from '../api/directus'
 import type { InviteApi } from '@/api/inviteApi'
@@ -56,7 +55,7 @@ function MapContainer({
         setApis((current) => [
           ...current,
           {
-            id: layer.id!,
+            id: layer.id,
             api: new itemsApi<Place>('items', layer.id, undefined, {
               _or: [
                 {
@@ -105,7 +104,6 @@ function MapContainer({
               id={layer.id}
               key={layer.id}
               name={layer.name}
-              menuIcon={config.apiUrl + 'assets/' + layer.menuIcon}
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}
@@ -116,7 +114,7 @@ function MapContainer({
                 layer.markerDefaultColor2 ? layer.markerDefaultColor2 : 'RGBA(35, 31, 32, 0.2)'
               }
               itemType={layer.itemType}
-              customEditLink='/edit-item'
+              customEditLink={layer.itemType.small_form_edit ? undefined : '/edit-item'}
               customEditParameter='id'
               public_edit_items={layer.public_edit_items}
               listed={layer.listed}
@@ -125,11 +123,19 @@ function MapContainer({
               <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
                 {layer.itemType.show_profile_button && (
-                  <PopupButton url={'/item'} parameterField={'id'} text={'Profile'} />
+                  <PopupButton
+                    url={layer.itemType.custom_profile_url ?? '/item'}
+                    parameterField={
+                      layer.itemType.custom_profile_url ? 'extended.external_profile_id' : 'id'
+                    }
+                    text={layer.itemType.botton_label ?? 'Profile'}
+                    target={layer.itemType.custom_profile_url ? '_blank' : '_self'}
+                  />
                 )}
                 {layer.itemType.show_text && <TextView truncate></TextView>}
               </PopupView>
               <PopupForm>
+                {layer.itemType.show_header_view_in_form && <HeaderView hideMenu />}
                 {layer.itemType.show_name_input && (
                   <PopupTextInput dataField='name' placeholder='Name'></PopupTextInput>
                 )}
@@ -140,7 +146,7 @@ function MapContainer({
                   <div className='tw:mt-4'>
                     <PopupTextAreaInput
                       dataField='text'
-                      placeholder={'Text ...'}
+                      placeholder={layer.itemType.text_input_label ?? 'Text ...'}
                       style='tw:h-40'
                     ></PopupTextAreaInput>
                   </div>

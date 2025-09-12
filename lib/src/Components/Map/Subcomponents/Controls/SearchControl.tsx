@@ -177,25 +177,25 @@ export const SearchControl = () => {
                     }
                   }}
                 >
-                  {item.layer?.menuIcon ? (
-                    <SVG
-                      src={item.layer.menuIcon}
-                      className='tw:text-current tw:mr-2 tw:mt-0 tw:w-5 tw:h-5'
-                      preProcessor={(code: string): string => {
-                        code = code.replace(/fill=".*?"/g, 'fill="currentColor"')
-                        code = code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
-                        return code
-                      }}
-                    />
+                  {item.layer?.markerIcon.image ? (
+                    <div className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center'>
+                      <SVG
+                        src={appState.assetsApi.url + item.layer.markerIcon.image}
+                        className='tw:text-current tw:mr-2 tw:mt-0'
+                        style={{ width: `${(item.layer.markerIcon.size ?? 18) * 1.2}px` }}
+                        preProcessor={(code: string): string => {
+                          code = code.replace(/fill=".*?"/g, 'fill="currentColor"')
+                          code = code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
+                          return code
+                        }}
+                      />
+                    </div>
                   ) : (
-                    <div className='tw:w-5' />
+                    <div className='tw:w-7' />
                   )}
                   <div>
                     <div className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
                       {item.name}
-                    </div>
-                    <div className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
-                      {item.text}
                     </div>
                   </div>
                 </div>

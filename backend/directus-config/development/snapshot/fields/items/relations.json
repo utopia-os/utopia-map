@@ -1,0 +1,30 @@
+{
+  "collection": "items",
+  "field": "relations",
+  "type": "alias",
+  "meta": {
+    "collection": "items",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "relations",
+    "group": null,
+    "hidden": false,
+    "interface": "list-m2m",
+    "note": null,
+    "options": {
+      "enableCreate": false,
+      "template": "{{type}} {{related_items_id.name}}({{related_items_id.id}})"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 14,
+    "special": [
+      "m2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}
