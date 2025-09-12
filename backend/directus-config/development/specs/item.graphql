@@ -15,10 +15,6 @@ type Query {
   oceannomads_profiles_by_id(id: ID!, version: String): oceannomads_profiles
   oceannomads_profiles_aggregated(groupBy: [String], filter: oceannomads_profiles_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [oceannomads_profiles_aggregated!]!
   oceannomads_profiles_by_version(version: String!, id: ID!): version_oceannomads_profiles
-  marker_icons(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [marker_icons!]!
-  marker_icons_by_id(id: ID!, version: String): marker_icons
-  marker_icons_aggregated(groupBy: [String], filter: marker_icons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [marker_icons_aggregated!]!
-  marker_icons_by_version(version: String!, id: ID!): version_marker_icons
   attestations(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations!]!
   attestations_by_id(id: ID!, version: String): attestations
   attestations_aggregated(groupBy: [String], filter: attestations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_aggregated!]!
@@ -55,6 +51,10 @@ type Query {
   groupTypes_by_id(id: ID!, version: String): groupTypes
   groupTypes_aggregated(groupBy: [String], filter: groupTypes_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [groupTypes_aggregated!]!
   groupTypes_by_version(version: String!, id: ID!): version_groupTypes
+  marker_icons(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [marker_icons!]!
+  marker_icons_by_id(id: ID!, version: String): marker_icons
+  marker_icons_aggregated(groupBy: [String], filter: marker_icons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [marker_icons_aggregated!]!
+  marker_icons_by_version(version: String!, id: ID!): version_marker_icons
   inviteLinks(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [inviteLinks!]!
   inviteLinks_by_id(id: ID!, version: String): inviteLinks
   inviteLinks_aggregated(groupBy: [String], filter: inviteLinks_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [inviteLinks_aggregated!]!
@@ -150,8 +150,6 @@ type Mutation {
   create_oceannomads_events_item(data: create_oceannomads_events_input!): oceannomads_events
   create_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_oceannomads_profiles_input!]): [oceannomads_profiles!]!
   create_oceannomads_profiles_item(data: create_oceannomads_profiles_input!): oceannomads_profiles
-  create_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_marker_icons_input!]): [marker_icons!]!
-  create_marker_icons_item(data: create_marker_icons_input!): marker_icons
   create_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_input!]): [attestations!]!
   create_attestations_item(data: create_attestations_input!): attestations
   create_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_directus_users_input!]): [attestations_directus_users!]!
@@ -170,6 +168,8 @@ type Mutation {
   create_groupSubheaders_groupTypes_item(data: create_groupSubheaders_groupTypes_input!): groupSubheaders_groupTypes
   create_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_groupTypes_input!]): [groupTypes!]!
   create_groupTypes_item(data: create_groupTypes_input!): groupTypes
+  create_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_marker_icons_input!]): [marker_icons!]!
+  create_marker_icons_item(data: create_marker_icons_input!): marker_icons
   create_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_inviteLinks_input!]): [inviteLinks!]!
   create_inviteLinks_item(data: create_inviteLinks_input!): inviteLinks
   create_items_items(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_input!]): [items!]!
@@ -224,9 +224,6 @@ type Mutation {
   update_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_oceannomads_profiles_input!): [oceannomads_profiles!]!
   update_oceannomads_profiles_batch(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_oceannomads_profiles_input!]): [oceannomads_profiles!]!
   update_oceannomads_profiles_item(id: ID!, data: update_oceannomads_profiles_input!): oceannomads_profiles
-  update_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_marker_icons_input!): [marker_icons!]!
-  update_marker_icons_batch(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_marker_icons_input!]): [marker_icons!]!
-  update_marker_icons_item(id: ID!, data: update_marker_icons_input!): marker_icons
   update_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_input!): [attestations!]!
   update_attestations_batch(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_input!]): [attestations!]!
   update_attestations_item(id: ID!, data: update_attestations_input!): attestations
@@ -254,6 +251,9 @@ type Mutation {
   update_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_groupTypes_input!): [groupTypes!]!
   update_groupTypes_batch(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_groupTypes_input!]): [groupTypes!]!
   update_groupTypes_item(id: ID!, data: update_groupTypes_input!): groupTypes
+  update_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_marker_icons_input!): [marker_icons!]!
+  update_marker_icons_batch(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_marker_icons_input!]): [marker_icons!]!
+  update_marker_icons_item(id: ID!, data: update_marker_icons_input!): marker_icons
   update_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_inviteLinks_input!): [inviteLinks!]!
   update_inviteLinks_batch(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_inviteLinks_input!]): [inviteLinks!]!
   update_inviteLinks_item(id: ID!, data: update_inviteLinks_input!): inviteLinks
@@ -325,8 +325,6 @@ type Mutation {
   delete_oceannomads_events_item(id: ID!): delete_one
   delete_oceannomads_profiles_items(ids: [ID]!): delete_many
   delete_oceannomads_profiles_item(id: ID!): delete_one
-  delete_marker_icons_items(ids: [ID]!): delete_many
-  delete_marker_icons_item(id: ID!): delete_one
   delete_attestations_items(ids: [ID]!): delete_many
   delete_attestations_item(id: ID!): delete_one
   delete_attestations_directus_users_items(ids: [ID]!): delete_many
@@ -345,6 +343,8 @@ type Mutation {
   delete_groupSubheaders_groupTypes_item(id: ID!): delete_one
   delete_groupTypes_items(ids: [ID]!): delete_many
   delete_groupTypes_item(id: ID!): delete_one
+  delete_marker_icons_items(ids: [ID]!): delete_many
+  delete_marker_icons_item(id: ID!): delete_one
   delete_inviteLinks_items(ids: [ID]!): delete_many
   delete_inviteLinks_item(id: ID!): delete_one
   delete_items_items(ids: [ID]!): delete_many
@@ -415,7 +415,6 @@ type Subscription {
   relations_mutated(event: EventEnum): relations_mutated
   oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
   oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
-  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -425,6 +424,7 @@ type Subscription {
   groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
   groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
@@ -1797,10 +1797,10 @@ type layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
-  notifications_func: count_functions
   maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   maps_func: count_functions
+  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
+  notifications_func: count_functions
 }
 
 type layers_aggregated {
@@ -1832,8 +1832,8 @@ type layers_aggregated_count {
   public_edit_items: Int
   sort: Int
   userProfileLayer: Int
-  notifications: Int
   maps: Int
+  notifications: Int
 }
 
 type layers_aggregated_fields {
@@ -2045,8 +2045,8 @@ type maps_mutated {
 type marker_icons {
   id: ID!
   image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
-  size: Float
   image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  size: Float
   size_outline: Float
 }
 
@@ -2066,8 +2066,8 @@ type marker_icons_aggregated {
 type marker_icons_aggregated_count {
   id: Int
   image: Int
-  size: Int
   image_outline: Int
+  size: Int
   size_outline: Int
 }
 
@@ -2706,8 +2706,8 @@ type version_layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications: JSON
   maps: JSON
+  notifications: JSON
 }
 
 """"""
@@ -2768,8 +2768,8 @@ type version_maps {
 type version_marker_icons {
   id: ID
   image: JSON
-  size: Float
   image_outline: JSON
+  size: Float
   size_outline: Float
 }
 
@@ -3293,8 +3293,8 @@ input create_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications: [create_layers_directus_users_1_input]
   maps: [create_layers_maps_input]
+  notifications: [create_layers_directus_users_1_input]
 }
 
 input create_layers_maps_input {
@@ -3338,8 +3338,8 @@ input create_maps_input {
 input create_marker_icons_input {
   id: ID!
   image: create_directus_files_input
-  size: Float
   image_outline: create_directus_files_input
+  size: Float
   size_outline: Float
 }
 
@@ -4283,10 +4283,10 @@ input layers_filter {
   public_edit_items: boolean_filter_operators
   sort: number_filter_operators
   userProfileLayer: boolean_filter_operators
-  notifications: layers_directus_users_1_quantifier_filter
-  notifications_func: count_function_filter_operators
   maps: layers_maps_quantifier_filter
   maps_func: count_function_filter_operators
+  notifications: layers_directus_users_1_quantifier_filter
+  notifications_func: count_function_filter_operators
   _and: [layers_filter]
   _or: [layers_filter]
 }
@@ -4343,8 +4343,8 @@ input maps_filter {
 input marker_icons_filter {
   id: string_filter_operators
   image: directus_files_filter
-  size: number_filter_operators
   image_outline: directus_files_filter
+  size: number_filter_operators
   size_outline: number_filter_operators
   _and: [marker_icons_filter]
   _or: [marker_icons_filter]
@@ -4887,8 +4887,8 @@ input update_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications: [update_layers_directus_users_1_input]
   maps: [update_layers_maps_input]
+  notifications: [update_layers_directus_users_1_input]
 }
 
 input update_layers_maps_input {
@@ -4932,8 +4932,8 @@ input update_maps_input {
 input update_marker_icons_input {
   id: ID
   image: update_directus_files_input
-  size: Float
   image_outline: update_directus_files_input
+  size: Float
   size_outline: Float
 }
 
