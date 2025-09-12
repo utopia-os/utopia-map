@@ -29,6 +29,7 @@
             "user_updated": null,
             "date_updated": null,
             "template": "flex",
+            "show_start_end_input": true,
             "show_text": true,
             "show_profile_button" : true,
             "show_start_end" : true
