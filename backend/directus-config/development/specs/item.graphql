@@ -7,14 +7,6 @@ type Query {
   relations_by_id(id: ID!, version: String): relations
   relations_aggregated(groupBy: [String], filter: relations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [relations_aggregated!]!
   relations_by_version(version: String!, id: ID!): version_relations
-  oceannomads_events(filter: oceannomads_events_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [oceannomads_events!]!
-  oceannomads_events_by_id(id: ID!, version: String): oceannomads_events
-  oceannomads_events_aggregated(groupBy: [String], filter: oceannomads_events_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [oceannomads_events_aggregated!]!
-  oceannomads_events_by_version(version: String!, id: ID!): version_oceannomads_events
-  oceannomads_profiles(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [oceannomads_profiles!]!
-  oceannomads_profiles_by_id(id: ID!, version: String): oceannomads_profiles
-  oceannomads_profiles_aggregated(groupBy: [String], filter: oceannomads_profiles_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [oceannomads_profiles_aggregated!]!
-  oceannomads_profiles_by_version(version: String!, id: ID!): version_oceannomads_profiles
   attestations(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations!]!
   attestations_by_id(id: ID!, version: String): attestations
   attestations_aggregated(groupBy: [String], filter: attestations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_aggregated!]!
@@ -146,10 +138,6 @@ type Mutation {
   create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
   create_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_relations_input!]): [relations!]!
   create_relations_item(data: create_relations_input!): relations
-  create_oceannomads_events_items(filter: oceannomads_events_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_oceannomads_events_input!]): [oceannomads_events!]!
-  create_oceannomads_events_item(data: create_oceannomads_events_input!): oceannomads_events
-  create_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_oceannomads_profiles_input!]): [oceannomads_profiles!]!
-  create_oceannomads_profiles_item(data: create_oceannomads_profiles_input!): oceannomads_profiles
   create_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_input!]): [attestations!]!
   create_attestations_item(data: create_attestations_input!): attestations
   create_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_directus_users_input!]): [attestations_directus_users!]!
@@ -218,12 +206,6 @@ type Mutation {
   update_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_relations_input!): [relations!]!
   update_relations_batch(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_relations_input!]): [relations!]!
   update_relations_item(id: ID!, data: update_relations_input!): relations
-  update_oceannomads_events_items(filter: oceannomads_events_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_oceannomads_events_input!): [oceannomads_events!]!
-  update_oceannomads_events_batch(filter: oceannomads_events_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_oceannomads_events_input!]): [oceannomads_events!]!
-  update_oceannomads_events_item(id: ID!, data: update_oceannomads_events_input!): oceannomads_events
-  update_oceannomads_profiles_items(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_oceannomads_profiles_input!): [oceannomads_profiles!]!
-  update_oceannomads_profiles_batch(filter: oceannomads_profiles_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_oceannomads_profiles_input!]): [oceannomads_profiles!]!
-  update_oceannomads_profiles_item(id: ID!, data: update_oceannomads_profiles_input!): oceannomads_profiles
   update_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_input!): [attestations!]!
   update_attestations_batch(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_input!]): [attestations!]!
   update_attestations_item(id: ID!, data: update_attestations_input!): attestations
@@ -321,10 +303,6 @@ type Mutation {
   delete_directus_sync_id_map_item(id: ID!): delete_one
   delete_relations_items(ids: [ID]!): delete_many
   delete_relations_item(id: ID!): delete_one
-  delete_oceannomads_events_items(ids: [ID]!): delete_many
-  delete_oceannomads_events_item(id: ID!): delete_one
-  delete_oceannomads_profiles_items(ids: [ID]!): delete_many
-  delete_oceannomads_profiles_item(id: ID!): delete_one
   delete_attestations_items(ids: [ID]!): delete_many
   delete_attestations_item(id: ID!): delete_one
   delete_attestations_directus_users_items(ids: [ID]!): delete_many
@@ -413,8 +391,6 @@ type Subscription {
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
-  oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
-  oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -2082,84 +2058,6 @@ type marker_icons_mutated {
   data: marker_icons
 }
 
-type oceannomads_events {
-  creator_email: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  end: Date
-  end_func: datetime_functions
-  id: ID!
-  location: String
-  start: Date
-  start_func: datetime_functions
-  text: String
-  title: String
-}
-
-type oceannomads_events_aggregated {
-  group: JSON
-  countAll: Int
-  count: oceannomads_events_aggregated_count
-  countDistinct: oceannomads_events_aggregated_count
-}
-
-type oceannomads_events_aggregated_count {
-  creator_email: Int
-  date_created: Int
-  date_updated: Int
-  end: Int
-  id: Int
-  location: Int
-  start: Int
-  text: Int
-  title: Int
-}
-
-type oceannomads_events_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_events
-}
-
-type oceannomads_profiles {
-  avatar_url: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  email: String
-  first_name: String
-  id: ID!
-  last_name: String
-  location: String
-}
-
-type oceannomads_profiles_aggregated {
-  group: JSON
-  countAll: Int
-  count: oceannomads_profiles_aggregated_count
-  countDistinct: oceannomads_profiles_aggregated_count
-}
-
-type oceannomads_profiles_aggregated_count {
-  avatar_url: Int
-  date_created: Int
-  date_updated: Int
-  email: Int
-  first_name: Int
-  id: Int
-  last_name: Int
-  location: Int
-}
-
-type oceannomads_profiles_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_profiles
-}
-
 type relations {
   id: ID!
   relation: String
@@ -2774,31 +2672,6 @@ type version_marker_icons {
 }
 
 """"""
-type version_oceannomads_events {
-  creator_email: String
-  date_created: Date
-  date_updated: Date
-  end: Date
-  id: ID
-  location: String
-  start: Date
-  text: String
-  title: String
-}
-
-""""""
-type version_oceannomads_profiles {
-  avatar_url: String
-  date_created: Date
-  date_updated: Date
-  email: String
-  first_name: String
-  id: ID
-  last_name: String
-  location: String
-}
-
-""""""
 type version_relations {
   id: ID
   relation: String
@@ -3341,29 +3214,6 @@ input create_marker_icons_input {
   image_outline: create_directus_files_input
   size: Float
   size_outline: Float
-}
-
-input create_oceannomads_events_input {
-  creator_email: String
-  date_created: Date
-  date_updated: Date
-  end: Date
-  id: ID!
-  location: String
-  start: Date
-  text: String
-  title: String
-}
-
-input create_oceannomads_profiles_input {
-  avatar_url: String
-  date_created: Date
-  date_updated: Date
-  email: String
-  first_name: String
-  id: ID!
-  last_name: String
-  location: String
 }
 
 input create_relations_input {
@@ -4365,39 +4215,6 @@ input number_filter_operators {
   _nbetween: [GraphQLStringOrFloat]
 }
 
-input oceannomads_events_filter {
-  creator_email: string_filter_operators
-  date_created: date_filter_operators
-  date_created_func: datetime_function_filter_operators
-  date_updated: date_filter_operators
-  date_updated_func: datetime_function_filter_operators
-  end: date_filter_operators
-  end_func: datetime_function_filter_operators
-  id: string_filter_operators
-  location: string_filter_operators
-  start: date_filter_operators
-  start_func: datetime_function_filter_operators
-  text: string_filter_operators
-  title: string_filter_operators
-  _and: [oceannomads_events_filter]
-  _or: [oceannomads_events_filter]
-}
-
-input oceannomads_profiles_filter {
-  avatar_url: string_filter_operators
-  date_created: date_filter_operators
-  date_created_func: datetime_function_filter_operators
-  date_updated: date_filter_operators
-  date_updated_func: datetime_function_filter_operators
-  email: string_filter_operators
-  first_name: string_filter_operators
-  id: string_filter_operators
-  last_name: string_filter_operators
-  location: string_filter_operators
-  _and: [oceannomads_profiles_filter]
-  _or: [oceannomads_profiles_filter]
-}
-
 input relations_filter {
   id: number_filter_operators
   relation: string_filter_operators
@@ -4935,29 +4752,6 @@ input update_marker_icons_input {
   image_outline: update_directus_files_input
   size: Float
   size_outline: Float
-}
-
-input update_oceannomads_events_input {
-  creator_email: String
-  date_created: Date
-  date_updated: Date
-  end: Date
-  id: ID
-  location: String
-  start: Date
-  text: String
-  title: String
-}
-
-input update_oceannomads_profiles_input {
-  avatar_url: String
-  date_created: Date
-  date_updated: Date
-  email: String
-  first_name: String
-  id: ID
-  last_name: String
-  location: String
 }
 
 input update_relations_input {

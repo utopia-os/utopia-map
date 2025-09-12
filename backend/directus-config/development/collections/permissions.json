@@ -1649,7 +1649,7 @@
     "permissions": null,
     "validation": null,
     "presets": {
-      "role": "cb5c5489-f8a8-4d91-984d-584cbae84a06"
+      "role": "72f08162-fbd4-432e-b3f2-c8a6ecb289fc"
     },
     "fields": [
       "first_name",
@@ -2204,102 +2204,6 @@
     ],
     "policy": "4d5d2bd8-7e1f-40c1-b10b-3f0ecac70877",
     "_syncId": "8e8dcb5f-e3df-4d10-a44b-ac916bed0567"
-  },
-  {
-    "collection": "oceannomads_events",
-    "action": "create",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "c20b5c36-b03c-4a4d-8a86-0c5fc5805bbb"
-  },
-  {
-    "collection": "oceannomads_events",
-    "action": "delete",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "e61f5cdf-33e2-46db-828b-aab05c30dd32"
-  },
-  {
-    "collection": "oceannomads_events",
-    "action": "read",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "c86a309a-d4ec-4135-bff4-238825ea7053"
-  },
-  {
-    "collection": "oceannomads_events",
-    "action": "update",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "d03d2704-3311-4dc1-bb94-b542c89f94b4"
-  },
-  {
-    "collection": "oceannomads_profiles",
-    "action": "create",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "5a2ba99b-bd06-4a47-8fc1-3919001d1c4a"
-  },
-  {
-    "collection": "oceannomads_profiles",
-    "action": "delete",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "47783f7d-cb09-4dbd-a2ad-cf26c3c02192"
-  },
-  {
-    "collection": "oceannomads_profiles",
-    "action": "read",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "3f0621ff-34ba-4f6c-9274-b5fb1ccf8c3a"
-  },
-  {
-    "collection": "oceannomads_profiles",
-    "action": "update",
-    "permissions": null,
-    "validation": null,
-    "presets": null,
-    "fields": [
-      "*"
-    ],
-    "policy": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c",
-    "_syncId": "dc87ced0-4465-4e68-8732-97d73b0d2de4"
   },
   {
     "collection": "attestations_directus_users",
