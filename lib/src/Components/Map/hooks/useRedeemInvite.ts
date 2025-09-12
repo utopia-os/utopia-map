@@ -1,10 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useMyProfile } from './useMyProfile'
 
 import type { InviteApi } from '#types/InviteApi'
+import type { Item } from '#types/Item'
 
 export const useRedeemInvite = (inviteApi: InviteApi) => {
   const inviteCode = localStorage.getItem('inviteCode')
@@ -12,10 +13,10 @@ export const useRedeemInvite = (inviteApi: InviteApi) => {
   const { myProfile } = useMyProfile()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    async function redeemInvite() {
-      if (!inviteCode || !myProfile) return
+  const [isRedeemingDone, setRedeemingDone] = useState(false)
 
+  useEffect(() => {
+    async function redeemInvite(inviteCode: string, myProfile: Item) {
       const invitingProfileId = await inviteApi.redeemInvite(inviteCode, myProfile.id)
 
       if (invitingProfileId) {
@@ -27,6 +28,8 @@ export const useRedeemInvite = (inviteApi: InviteApi) => {
       }
     }
 
-    void redeemInvite()
-  }, [inviteApi, inviteCode, myProfile, navigate])
+    if (!inviteCode || !myProfile || isRedeemingDone) return
+    void redeemInvite(inviteCode, myProfile)
+    setRedeemingDone(true)
+  }, [inviteApi, inviteCode, isRedeemingDone, myProfile, navigate])
 }
