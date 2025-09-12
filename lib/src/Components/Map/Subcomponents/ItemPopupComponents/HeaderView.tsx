@@ -10,9 +10,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
+import { MapPinIcon, ShareIcon, UserPlusIcon } from '@heroicons/react/24/outline'
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon'
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import { useState } from 'react'
+import { LuNavigation } from 'react-icons/lu'
 import SVG from 'react-inlinesvg'
 import { useNavigate } from 'react-router-dom'
 
@@ -81,11 +83,13 @@ export function HeaderView({
               <div className='tw:avatar'>
                 <div
                   className={`${
-                    big ? 'tw:w-20' : 'tw:w-10'
-                  } tw:inline tw:items-center tw:justify-center overflow-hidden`}
+                    big ? 'tw:w-16' : 'tw:w-10'
+                  } tw:inline tw:items-center tw:justify-center tw:overflow-visible`}
                 >
                   <img
-                    className={'tw:w-full tw:h-full tw:object-cover tw:rounded-full'}
+                    className={
+                      'tw:w-full tw:h-full tw:object-cover tw:rounded-full tw:border-white'
+                    }
                     src={avatar}
                     alt={item.name + ' logo'}
                     onLoad={() => setImageLoaded(true)}
@@ -98,9 +102,9 @@ export function HeaderView({
                 </div>
               </div>
             )}
-            <div className={`${avatar ? 'tw:ml-2' : ''} tw:overflow-hidden`}>
+            <div className={`${avatar ? 'tw:ml-3' : ''} tw:overflow-hidden `}>
               <div
-                className={`${big ? 'tw:xl:text-3xl tw:text-2xl' : 'tw:text-xl'} tw:font-semibold tw:truncate`}
+                className={`${big ? 'tw:xl:text-3xl tw:text-2xl' : 'tw:text-xl'} tw:font-bold tw:truncate`}
                 title={title}
               >
                 {title}
@@ -111,8 +115,10 @@ export function HeaderView({
                 </div>
               )}
               {subtitle && !hideSubname && (
-                <div className={`tw:text-xs  tw:opacity-50 ${truncateSubname && 'tw:truncate'}`}>
-                  {subtitle}
+                <div
+                  className={`tw:text-xs tw:opacity-50 tw:inline-flex tw:items-center ${truncateSubname && 'tw:truncate'}`}
+                >
+                  <MapPinIcon className='tw:w-4 tw:mr-1' /> {subtitle}
                 </div>
               )}
             </div>
@@ -188,6 +194,25 @@ export function HeaderView({
             )}
         </div>
       </div>
+      {big && (
+        <div className='tw:flex tw:row tw:mt-2 '>
+          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '></div>
+          <div className='tw:grow'></div>
+          <div className=''>
+            <div className='tw:btn tw:btn-sm tw:btn-primary tw:mr-2'>
+              <UserPlusIcon className='tw:w-4' />
+              Follow
+            </div>
+            <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2'>
+              <LuNavigation className='tw:h-4 tw:w-4' />
+            </div>
+            <div className='tw:btn tw:btn-sm tw:px-2'>
+              <ShareIcon className='tw:w-4 tw:h-4' />
+            </div>
+          </div>
+        </div>
+      )}
+
       <DialogModal
         isOpened={modalOpen}
         title='Are you sure?'
