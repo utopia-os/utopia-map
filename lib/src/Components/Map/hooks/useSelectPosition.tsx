@@ -178,9 +178,8 @@ function useSelectPositionManager(): {
     )
 
     if (result.success && result.data) {
-      // Find the layer object by ID from server response
       const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
-      const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+      const itemWithLayer = { ...result.data, layer, user_created: updatedItem.user_created }
       updateItem(itemWithLayer)
     }
   }
