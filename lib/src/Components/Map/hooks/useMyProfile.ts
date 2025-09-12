@@ -1,10 +1,9 @@
 import { useAuth } from '#components/Auth/useAuth'
 
-import { useItems, useAllItemsLoaded } from './useItems'
+import { useItems } from './useItems'
 
 export const useMyProfile = () => {
   const items = useItems()
-  const allItemsLoaded = useAllItemsLoaded()
   const { user } = useAuth()
 
   // Find the user's profile item
@@ -12,8 +11,10 @@ export const useMyProfile = () => {
     (item) => item.layer?.userProfileLayer && item.user_created?.id === user?.id,
   )
 
-  // allItemsLoaded is not reliable, so we check if items.length > 0
-  const isMyProfileLoaded = allItemsLoaded && items.length > 0 && !!user
+  const isAnyUserProfileLoaded = !!items.find((item) => item.layer?.userProfileLayer)
+
+  // allItemsLoaded is not reliable
+  const isMyProfileLoaded = isAnyUserProfileLoaded && !!user
 
   return { myProfile, isMyProfileLoaded }
 }
