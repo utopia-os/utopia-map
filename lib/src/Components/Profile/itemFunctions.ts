@@ -116,7 +116,7 @@ export const submitNewItem = async (
   setAddItemPopupType('')
 }
 
-export const linkItem = async (id: string, item: Item, updateItem, user) => {
+export const linkItem = async (id: string, item: Item, updateItem) => {
   const newRelations = item.relations ?? []
   newRelations?.push({ items_id: item.id, related_items_id: id })
   const updatedItem = { id: item.id, relations: newRelations }
@@ -145,7 +145,7 @@ export const linkItem = async (id: string, item: Item, updateItem, user) => {
   }
 }
 
-export const unlinkItem = async (id: string, item: Item, updateItem, user) => {
+export const unlinkItem = async (id: string, item: Item, updateItem) => {
   const newRelations = item.relations?.filter((r) => r.related_items_id !== id)
   const updatedItem = { id: item.id, relations: newRelations }
 

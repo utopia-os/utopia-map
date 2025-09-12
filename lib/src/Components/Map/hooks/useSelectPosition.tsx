@@ -11,8 +11,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { toast } from 'react-toastify'
 
-import { useAuth } from '#components/Auth/useAuth'
-
 import { useUpdateItem } from './useItems'
 import { useLayers } from './useLayers'
 import { useHasUserPermission } from './usePermissions'
@@ -49,7 +47,6 @@ function useSelectPositionManager(): {
   const updateItem = useUpdateItem()
   const hasUserPermission = useHasUserPermission()
   const layers = useLayers()
-  const { user } = useAuth()
 
   // Handle API operations with consistent error handling and return response data
   const handleApiOperation = useCallback(
