@@ -65,7 +65,7 @@ ON CONFLICT (id) DO UPDATE
       sort = excluded.sort,
       types_id = excluded.types_id;
 
--- Type: text+gallery
+-- Type: user:text+gallery
 INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
 SELECT
   'texts', '6', 'c960bbfc-5d98-4f6d-ae44-7a2b63d3359b' , '1', types.id
