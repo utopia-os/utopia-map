@@ -133,7 +133,9 @@
       "_sync_id": "marker-point",
       "id": "point",
       "size": "12.00000",
-      "image": "point-solid"
+      "image": "point-solid",
+      "image_outline": "map-pin-outline",
+      "size_outline": "18.00000"
     },
     {
       "_sync_id": "marker-puzzle",

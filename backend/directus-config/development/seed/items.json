@@ -40,8 +40,8 @@
             "end": "2027-06-25T12:00:00"
         },
         {
-            "_sync_id": "item-nomad-location-1",
-            "name": "Anton Tranelis",
+            "_sync_id": "item-user-1",
+            "name": "Max Mustermann",
             "text": "bla blab ...",
             "position": {
 			    "type": "Point",
@@ -50,46 +50,7 @@
 				    51.41565268622562
 			    ]
 		    },
-            "layer" : "layer-nomads_location"
-        },
-        {
-            "_sync_id": "item-nomad-base-1",
-            "name": "Anton Tranelis",
-            "text": "bla blab ...",
-            "position": {
-			    "type": "Point",
-			    "coordinates": [
-				    9.67625824315172,
-				    48.41565268622562
-			    ]
-		    },
-            "layer" : "layer-nomads_base"
-        },
-        {
-            "_sync_id": "item-vessel-1",
-            "name": "Vessel XY",
-            "text": "shipping the sea",
-            "position": {
-			    "type": "Point",
-			    "coordinates": [
-				    -2.67625824315172,
-				    48.61565268622562
-			    ]
-		    },
-            "layer" : "layer-vessels"
-        },
-       {
-            "_sync_id": "item-basecamp-1",
-            "name": "Basecamp XY",
-            "text": "come and join our camp",
-            "position": {
-			    "type": "Point",
-			    "coordinates": [
-				    1.6007423400878908,
-				    50.184428095190555
-			    ]
-		    },
-            "layer" : "layer-basecamps"
+            "layer" : "layer-people"
         }
     ]
 }
