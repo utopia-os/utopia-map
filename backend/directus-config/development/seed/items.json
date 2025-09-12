@@ -27,8 +27,7 @@
         {
             "_sync_id": "item-event-1",
             "name": "Some Event",
-            "subname" : "The opensource collaborative mapping plattform",
-            "text": "Check out our [GitHub](https://github.com/utopia-os/utopia-map)!",
+            "text": "This is an example event. Events are temporary items that disappear once the end date has passed.",
             "position": {
 			    "type": "Point",
 			    "coordinates": [
@@ -43,7 +42,7 @@
         {
             "_sync_id": "item-user-1",
             "name": "Admin User",
-            "text": "bla blab ...",
+            "text": "This is the personal profile of the admin user. Every user can place his personal profile on the map.",
             "position": {
 			    "type": "Point",
 			    "coordinates": [
