@@ -139,7 +139,7 @@ export const linkItem = async (id: string, item: Item, updateItem, user) => {
       ...result.data,
       layer,
       relations: newRelations,
-      user_created: user ?? undefined,
+      user_created: item.user_created,
     }
     updateItem(itemWithLayer)
   }
@@ -163,7 +163,7 @@ export const unlinkItem = async (id: string, item: Item, updateItem, user) => {
   if (result.success && result.data) {
     // Find the layer object by ID from server response or use existing layer
     const layer = item.layer
-    const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+    const itemWithLayer = { ...result.data, layer, user_created: item.user_created }
     updateItem(itemWithLayer)
   }
 }
@@ -308,7 +308,7 @@ export const onUpdateItem = async (
         layer: item.layer,
         markerIcon: state.marker_icon,
         gallery: state.gallery,
-        user_created: user ?? undefined,
+        user_created: item.user_created,
       }
       updateItem(itemWithLayer)
       navigate(`/item/${item.id}${params && '?' + params}`)
