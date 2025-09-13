@@ -26,7 +26,7 @@ export class mapApi {
       else return 'null'
     } catch (error: any) {
       console.log(error)
-      if (error.errors[0]?.message) throw error.errors[0].message
+      if (error.errors?.length > 0 && error.errors[0]?.message) throw error.errors[0].message
       else throw error
     }
   }
