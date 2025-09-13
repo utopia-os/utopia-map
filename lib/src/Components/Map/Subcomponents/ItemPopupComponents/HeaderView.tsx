@@ -49,7 +49,6 @@ export function HeaderView({
   hideMenu = false,
   big = false,
   truncateSubname = true,
-  hideSubname = false,
   showAddress = true,
 }: {
   item?: Item
@@ -60,7 +59,6 @@ export function HeaderView({
   loading?: boolean
   hideMenu?: boolean
   big?: boolean
-  hideSubname?: boolean
   truncateSubname?: boolean
   showAddress?: boolean
 }) {
