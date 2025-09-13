@@ -74,7 +74,7 @@ export function HeaderView({
   const { distance } = useGeoDistance(item?.position ?? undefined)
 
   const avatar =
-    (item?.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
+    (item?.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ??
     item?.image_external
   const title = item?.name ?? item?.layer?.item_default_name
   const subtitle = item?.subname
@@ -243,8 +243,8 @@ export function HeaderView({
           </div>
         </div>
         <div onClick={(e) => e.stopPropagation()} className={`${big ? 'tw:mt-5' : 'tw:mt-1'}`}>
-          {(api?.deleteItem || item.layer?.api?.updateItem) &&
-            (hasUserPermission(api?.collectionName!, 'delete', item) ||
+          {(api?.deleteItem ?? item.layer?.api?.updateItem) &&
+            (hasUserPermission(api?.collectionName!, 'delete', item) ??
               hasUserPermission(api?.collectionName!, 'update', item)) &&
             !hideMenu && (
               <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>

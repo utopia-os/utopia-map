@@ -25,10 +25,10 @@ interface GeocodeResponse {
 export function useReverseGeocode(
   coordinates?: [number, number] | null,
   enabled: boolean = true,
-  accuracy: 'municipality' | 'street' | 'house_number' = 'municipality'
+  accuracy: 'municipality' | 'street' | 'house_number' = 'municipality',
 ) {
-  const [address, setAddress] = useState<string>('')
-  const [loading, setLoading] = useState<boolean>(false)
+  const [address, setAddress] = useState('')
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -65,13 +65,13 @@ export function useReverseGeocode(
 
           switch (accuracy) {
             case 'municipality':
-              addressString = municipality || ''
+              addressString = municipality ?? ''
               break
             case 'street':
               if (props.street && municipality) {
                 addressString = `${props.street}, ${municipality}`
               } else {
-                addressString = municipality || ''
+                addressString = municipality ?? ''
               }
               break
             case 'house_number':
@@ -80,7 +80,7 @@ export function useReverseGeocode(
               } else if (props.street && municipality) {
                 addressString = `${props.street}, ${municipality}`
               } else {
-                addressString = municipality || ''
+                addressString = municipality ?? ''
               }
               break
           }
@@ -90,8 +90,10 @@ export function useReverseGeocode(
           setAddress('')
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Unknown error occurred')
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
+        setError(errorMessage)
         setAddress('')
+        throw err
       } finally {
         setLoading(false)
       }
