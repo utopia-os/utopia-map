@@ -7,11 +7,13 @@ export const Control = ({
   children,
   zIndex,
   absolute,
+  showZoomControl = false,
 }: {
   position: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
   children: React.ReactNode
   zIndex: string
   absolute: boolean
+  showZoomControl?: boolean
 }) => {
   const controlContainerRef = createRef<HTMLDivElement>()
 
@@ -22,11 +24,19 @@ export const Control = ({
     }
   }, [controlContainerRef])
 
+  // Calculate left position when zoom control is present
+  const getLeftPosition = () => {
+    if ((position === 'topLeft' || position === 'bottomLeft') && showZoomControl) {
+      return 'tw:left-20' // Approximately 5rem (80px) to account for zoom control width
+    }
+    return position === 'topLeft' || position === 'bottomLeft' ? 'tw:left-4' : ''
+  }
+
   return (
     <div
       ref={controlContainerRef}
       style={{ zIndex }}
-      className={`${absolute && 'tw:absolute'} tw:z-999 tw:flex-col ${position === 'topLeft' && 'tw:top-4 tw:left-4'} ${position === 'bottomLeft' && 'tw:bottom-4 tw:left-4'} ${position === 'topRight' && 'tw:bottom-4 tw:right-4'} ${position === 'bottomRight' && 'tw:bottom-4 tw:right-4'}`}
+      className={`${absolute && 'tw:absolute'} tw:z-999 tw:flex-col ${position === 'topLeft' && `tw:top-4 ${getLeftPosition()}`} ${position === 'bottomLeft' && `tw:bottom-4 ${getLeftPosition()}`} ${position === 'topRight' && 'tw:bottom-4 tw:right-4'} ${position === 'bottomRight' && 'tw:bottom-4 tw:right-4'}`}
     >
       {children}
     </div>

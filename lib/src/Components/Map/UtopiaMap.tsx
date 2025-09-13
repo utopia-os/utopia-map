@@ -106,6 +106,7 @@ function UtopiaMap({
           showFilterControl={showFilterControl}
           showGratitudeControl={showGratitudeControl}
           showLayerControl={showLayerControl}
+          showZoomControl={showZoomControl}
           donationWidget={donationWidget}
           showThemeControl={showThemeControl}
           defaultTheme={defaultTheme}
