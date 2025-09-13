@@ -1,3 +1,4 @@
+/* eslint-disable security/detect-object-injection */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-misused-promises */
@@ -17,7 +18,16 @@ import { useState } from 'react'
 import { LuNavigation } from 'react-icons/lu'
 import SVG from 'react-inlinesvg'
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
+import ChevronSVG from '#assets/chevron.svg'
+import ClipboardSVG from '#assets/share/clipboard.svg'
+import FacebookSVG from '#assets/share/facebook.svg'
+import LinkedinSVG from '#assets/share/linkedin.svg'
+import TelegramSVG from '#assets/share/telegram.svg'
+import TwitterSVG from '#assets/share/twitter.svg'
+import WhatsappSVG from '#assets/share/whatsapp.svg'
+import XingSVG from '#assets/share/xing.svg'
 import TargetDotSVG from '#assets/targetDot.svg'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
@@ -75,6 +85,67 @@ export function HeaderView({
   const formatDistance = (dist: number | null): string | null => {
     if (!dist) return null
     return dist < 10 ? `${dist.toFixed(1)} km` : `${Math.round(dist)} km`
+  }
+
+  const platformConfigs = {
+    facebook: {
+      shareUrl: 'https://www.facebook.com/sharer/sharer.php?u={url}',
+      icon: <img src={FacebookSVG} alt='Facebook' className='tw:w-4 tw:h-4' />,
+      label: 'Facebook',
+      bgColor: '#3b5998',
+    },
+    twitter: {
+      shareUrl: 'https://twitter.com/intent/tweet?text={title}:%20{url}',
+      icon: <img src={TwitterSVG} alt='Twitter' className='tw:w-4 tw:h-4' />,
+      label: 'Twitter',
+      bgColor: '#55acee',
+    },
+    linkedin: {
+      shareUrl: 'http://www.linkedin.com/shareArticle?mini=true&url={url}&title={title}',
+      icon: <img src={LinkedinSVG} alt='Linkedin' className='tw:w-4 tw:h-4' />,
+      label: 'LinkedIn',
+      bgColor: '#4875b4',
+    },
+    whatsapp: {
+      shareUrl: 'https://api.whatsapp.com/send?text={title}%20{url}',
+      icon: <img src={WhatsappSVG} alt='Whatsapp' className='tw:w-4 tw:h-4' />,
+      label: 'WhatsApp',
+      bgColor: '#25D366',
+    },
+    telegram: {
+      shareUrl: 'https://t.me/share/url?url={url}&text={title}',
+      icon: <img src={TelegramSVG} alt='Telegram' className='tw:w-4 tw:h-4' />,
+      label: 'Telegram',
+      bgColor: '#0088cc',
+    },
+    xing: {
+      shareUrl: 'https://www.xing-share.com/app/user?op=share;sc_p=xing-share;url={url}',
+      icon: <img src={XingSVG} alt='Xing' className='tw:w-4 tw:h-4' />,
+      label: 'Xing',
+      bgColor: '#026466',
+    },
+  }
+
+  const shareUrl = window.location.href
+  const shareTitle = item?.name ?? 'Utopia Map Item'
+
+  const copyLink = () => {
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        toast.success('Link copied to clipboard')
+        return null
+      })
+      .catch(() => {
+        toast.error('Error copying link')
+      })
+  }
+
+  const getShareUrl = (platform: keyof typeof platformConfigs) => {
+    const config = platformConfigs[platform]
+    return config.shareUrl
+      .replace('{url}', encodeURIComponent(shareUrl))
+      .replace('{title}', encodeURIComponent(shareTitle))
   }
 
   const openDeleteModal = async (event: React.MouseEvent<HTMLElement>) => {
@@ -230,8 +301,58 @@ export function HeaderView({
             <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2'>
               <LuNavigation className='tw:h-4 tw:w-4' />
             </div>
-            <div className='tw:btn tw:btn-sm tw:px-2'>
-              <ShareIcon className='tw:w-4 tw:h-4' />
+            <div className='tw:dropdown tw:dropdown-end'>
+              <div tabIndex={0} role='button' className='tw:btn tw:btn-sm tw:px-2'>
+                <ShareIcon className='tw:w-4 tw:h-4' />
+              </div>
+              <ul
+                tabIndex={0}
+                className='tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:p-2 tw:shadow-sm'
+              >
+                <li>
+                  <a onClick={copyLink} className='tw:flex tw:items-center tw:gap-3'>
+                    <div
+                      className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center'
+                      style={{ backgroundColor: '#888' }}
+                    >
+                      <img src={ClipboardSVG} className='tw:w-3 tw:h-3' alt='Copy' />
+                    </div>
+                    Copy Link
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareUrl)}`}
+                    className='tw:flex tw:items-center tw:gap-3'
+                  >
+                    <div
+                      className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white'
+                      style={{ backgroundColor: '#444' }}
+                    >
+                      <img src={ChevronSVG} className='tw:w-3 tw:h-3' alt='Copy' />
+                    </div>
+                    Email
+                  </a>
+                </li>
+                {Object.entries(platformConfigs).map(([platform, config]) => (
+                  <li key={platform}>
+                    <a
+                      href={getShareUrl(platform as keyof typeof platformConfigs)}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='tw:flex tw:items-center tw:gap-3'
+                    >
+                      <div
+                        className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center'
+                        style={{ backgroundColor: config.bgColor }}
+                      >
+                        {config.icon}
+                      </div>
+                      {config.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
