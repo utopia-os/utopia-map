@@ -311,7 +311,6 @@ export function HeaderView({
       </div>
       {big && (
         <div className='tw:flex tw:row tw:mt-2 '>
-          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '></div>
           <div className='tw:grow'></div>
           <div className=''>
             <button
