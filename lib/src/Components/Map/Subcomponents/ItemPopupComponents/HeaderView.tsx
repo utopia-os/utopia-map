@@ -236,7 +236,7 @@ export function HeaderView({
             !hideMenu && (
               <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
                 <label tabIndex={0} className='tw:btn tw:btn-sm tw:px-2'>
-                  <EllipsisVerticalIcon className='tw:h-5 tw:w-5' />
+                  <EllipsisVerticalIcon className='tw:h-4 tw:w-4' />
                 </label>
                 <ul
                   tabIndex={0}
