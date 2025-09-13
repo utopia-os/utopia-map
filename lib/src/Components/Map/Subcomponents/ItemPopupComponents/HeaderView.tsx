@@ -21,6 +21,9 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import ChevronSVG from '#assets/chevron.svg'
+import AppleMapsSVG from '#assets/navigation/apple-maps.svg'
+import GoogleMapsSVG from '#assets/navigation/googlemaps.svg'
+import OpenStreetMapSVG from '#assets/navigation/OSM.svg'
 import ClipboardSVG from '#assets/share/clipboard.svg'
 import FacebookSVG from '#assets/share/facebook.svg'
 import LinkedinSVG from '#assets/share/linkedin.svg'
@@ -148,6 +151,30 @@ export function HeaderView({
       .replace('{title}', encodeURIComponent(shareTitle))
   }
 
+  const routingServices = [
+    {
+      name: 'Google Maps',
+      url: item?.position?.coordinates
+        ? `https://www.google.com/maps/dir/?api=1&destination=${item.position.coordinates[1]},${item.position.coordinates[0]}`
+        : '',
+      icon: <img src={GoogleMapsSVG} alt='Google Maps' className='tw:w-6 tw:h-6' />,
+    },
+    {
+      name: 'Apple Maps',
+      url: item?.position?.coordinates
+        ? `https://maps.apple.com/?daddr=${item.position.coordinates[1]},${item.position.coordinates[0]}`
+        : '',
+      icon: <img src={AppleMapsSVG} alt='Apple Maps' className='tw:w-6 tw:h-6' />,
+    },
+    {
+      name: 'OpenStreetMap',
+      url: item?.position?.coordinates
+        ? `https://www.openstreetmap.org/directions?to=${item.position.coordinates[1]},${item.position.coordinates[0]}`
+        : '',
+      icon: <img src={OpenStreetMapSVG} alt='OpenStreetMap' className='tw:w-6 tw:h-6' />,
+    },
+  ]
+
   const openDeleteModal = async (event: React.MouseEvent<HTMLElement>) => {
     setModalOpen(true)
     event.stopPropagation()
@@ -156,7 +183,7 @@ export function HeaderView({
   return (
     <>
       <div className='tw:flex tw:flex-row'>
-        <div className={'tw:grow tw:max-w-[calc(100%-60px)] }'}>
+        <div className={'tw:grow'}>
           <div className='tw:flex tw:items-center'>
             {avatar && (
               <div className='tw:avatar'>
@@ -209,11 +236,8 @@ export function HeaderView({
             (hasUserPermission(api?.collectionName!, 'delete', item) ||
               hasUserPermission(api?.collectionName!, 'update', item)) &&
             !hideMenu && (
-              <div className='tw:dropdown tw:dropdown-bottom'>
-                <label
-                  tabIndex={0}
-                  className='tw:bg-base-100 tw:btn tw:m-1 tw:leading-3 tw:border-none tw:min-h-0 tw:h-6'
-                >
+              <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
+                <label tabIndex={0} className='tw:btn tw:btn-sm tw:px-2'>
                   <EllipsisVerticalIcon className='tw:h-5 tw:w-5' />
                 </label>
                 <ul
@@ -225,7 +249,7 @@ export function HeaderView({
                     editCallback && (
                       <li>
                         <a
-                          className='tw:text-base-content! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Edit'
                           onClick={(e) =>
                             item.layer?.customEditLink
@@ -244,7 +268,7 @@ export function HeaderView({
                     setPositionCallback && (
                       <li>
                         <a
-                          className='tw:text-base-content! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Set position'
                           onClick={setPositionCallback}
                         >
@@ -257,7 +281,7 @@ export function HeaderView({
                     deleteCallback && (
                       <li>
                         <a
-                          className='tw:text-error! tw:tooltip tw:tooltip-right tw:cursor-pointer'
+                          className='tw:text-error! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                           data-tip='Delete'
                           onClick={openDeleteModal}
                         >
@@ -298,9 +322,37 @@ export function HeaderView({
             >
               Follow
             </button>
-            <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2'>
-              <LuNavigation className='tw:h-4 tw:w-4' />
-            </div>
+            {item?.position?.coordinates ? (
+              <div className='tw:dropdown tw:dropdown-end tw:mr-2'>
+                <div tabIndex={0} role='button' className='tw:btn tw:btn-sm tw:px-2'>
+                  <LuNavigation className='tw:h-4 tw:w-4' />
+                </div>
+                <ul
+                  tabIndex={0}
+                  className='tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:p-2 tw:shadow-sm'
+                >
+                  {routingServices.map((service) => (
+                    <li key={service.name}>
+                      <a
+                        href={service.url}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='tw:flex tw:items-center tw:gap-3'
+                      >
+                        <div className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white'>
+                          <span className='tw:text-xs'>{service.icon}</span>
+                        </div>
+                        {service.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2 tw:btn-disabled'>
+                <LuNavigation className='tw:h-4 tw:w-4' />
+              </div>
+            )}
             <div className='tw:dropdown tw:dropdown-end'>
               <div tabIndex={0} role='button' className='tw:btn tw:btn-sm tw:px-2'>
                 <ShareIcon className='tw:w-4 tw:h-4' />
