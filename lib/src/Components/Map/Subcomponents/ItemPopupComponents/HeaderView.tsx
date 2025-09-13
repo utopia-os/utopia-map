@@ -242,7 +242,7 @@ export function HeaderView({
               hasUserPermission(api?.collectionName!, 'update', item)) &&
             !hideMenu && (
               <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
-                <label tabIndex={0} className='tw:btn tw:px-3'>
+                <label tabIndex={0} className='tw:btn tw:btn-ghost tw:px-3'>
                   <EllipsisVerticalIcon className='tw:h-4 tw:w-4' />
                 </label>
                 <ul
@@ -332,7 +332,7 @@ export function HeaderView({
                 href={getNavigationUrl()}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='tw:btn tw:mr-2 tw:px-3 tw:no-underline hover:tw:no-underline'
+                className='tw:btn tw:mr-2 tw:px-3'
                 style={{ color: 'inherit' }}
                 title={`Navigate with ${isMobile ? 'default navigation app' : isIOS ? 'Apple Maps' : 'Google Maps'}`}
               >
@@ -352,7 +352,11 @@ export function HeaderView({
                 className='tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:p-2 tw:shadow-sm'
               >
                 <li>
-                  <a onClick={copyLink} className='tw:flex tw:items-center tw:gap-3'>
+                  <a
+                    onClick={copyLink}
+                    className='tw:flex tw:items-center tw:gap-3'
+                    style={{ color: 'inherit' }}
+                  >
                     <div
                       className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center'
                       style={{ backgroundColor: '#888' }}
@@ -366,6 +370,7 @@ export function HeaderView({
                   <a
                     href={`mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareUrl)}`}
                     className='tw:flex tw:items-center tw:gap-3'
+                    style={{ color: 'inherit' }}
                   >
                     <div
                       className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white'
@@ -383,6 +388,7 @@ export function HeaderView({
                       target='_blank'
                       rel='noopener noreferrer'
                       className='tw:flex tw:items-center tw:gap-3'
+                      style={{ color: 'inherit' }}
                     >
                       <div
                         className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center'
