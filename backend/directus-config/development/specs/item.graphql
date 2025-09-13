@@ -7,6 +7,14 @@ type Query {
   relations_by_id(id: ID!, version: String): relations
   relations_aggregated(groupBy: [String], filter: relations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [relations_aggregated!]!
   relations_by_version(version: String!, id: ID!): version_relations
+  types(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types!]!
+  types_by_id(id: ID!, version: String): types
+  types_aggregated(groupBy: [String], filter: types_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [types_aggregated!]!
+  types_by_version(version: String!, id: ID!): version_types
+  marker_icons(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [marker_icons!]!
+  marker_icons_by_id(id: ID!, version: String): marker_icons
+  marker_icons_aggregated(groupBy: [String], filter: marker_icons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [marker_icons_aggregated!]!
+  marker_icons_by_version(version: String!, id: ID!): version_marker_icons
   attestations(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [attestations!]!
   attestations_by_id(id: ID!, version: String): attestations
   attestations_aggregated(groupBy: [String], filter: attestations_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [attestations_aggregated!]!
@@ -43,10 +51,6 @@ type Query {
   groupTypes_by_id(id: ID!, version: String): groupTypes
   groupTypes_aggregated(groupBy: [String], filter: groupTypes_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [groupTypes_aggregated!]!
   groupTypes_by_version(version: String!, id: ID!): version_groupTypes
-  marker_icons(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [marker_icons!]!
-  marker_icons_by_id(id: ID!, version: String): marker_icons
-  marker_icons_aggregated(groupBy: [String], filter: marker_icons_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [marker_icons_aggregated!]!
-  marker_icons_by_version(version: String!, id: ID!): version_marker_icons
   inviteLinks(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [inviteLinks!]!
   inviteLinks_by_id(id: ID!, version: String): inviteLinks
   inviteLinks_aggregated(groupBy: [String], filter: inviteLinks_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [inviteLinks_aggregated!]!
@@ -91,10 +95,6 @@ type Query {
   junction_directus_users_tags_1_by_id(id: ID!, version: String): junction_directus_users_tags_1
   junction_directus_users_tags_1_aggregated(groupBy: [String], filter: junction_directus_users_tags_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [junction_directus_users_tags_1_aggregated!]!
   junction_directus_users_tags_1_by_version(version: String!, id: ID!): version_junction_directus_users_tags_1
-  types(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [types!]!
-  types_by_id(id: ID!, version: String): types
-  types_aggregated(groupBy: [String], filter: types_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [types_aggregated!]!
-  types_by_version(version: String!, id: ID!): version_types
   layers_directus_users_1(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1!]!
   layers_directus_users_1_by_id(id: ID!, version: String): layers_directus_users_1
   layers_directus_users_1_aggregated(groupBy: [String], filter: layers_directus_users_1_filter, limit: Int, offset: Int, page: Int, search: String, sort: [String]): [layers_directus_users_1_aggregated!]!
@@ -138,6 +138,10 @@ type Mutation {
   create_directus_sync_id_map_item(data: create_directus_sync_id_map_input!): directus_sync_id_map
   create_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_relations_input!]): [relations!]!
   create_relations_item(data: create_relations_input!): relations
+  create_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_types_input!]): [types!]!
+  create_types_item(data: create_types_input!): types
+  create_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_marker_icons_input!]): [marker_icons!]!
+  create_marker_icons_item(data: create_marker_icons_input!): marker_icons
   create_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_input!]): [attestations!]!
   create_attestations_item(data: create_attestations_input!): attestations
   create_attestations_directus_users_items(filter: attestations_directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_attestations_directus_users_input!]): [attestations_directus_users!]!
@@ -156,8 +160,6 @@ type Mutation {
   create_groupSubheaders_groupTypes_item(data: create_groupSubheaders_groupTypes_input!): groupSubheaders_groupTypes
   create_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_groupTypes_input!]): [groupTypes!]!
   create_groupTypes_item(data: create_groupTypes_input!): groupTypes
-  create_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_marker_icons_input!]): [marker_icons!]!
-  create_marker_icons_item(data: create_marker_icons_input!): marker_icons
   create_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_inviteLinks_input!]): [inviteLinks!]!
   create_inviteLinks_item(data: create_inviteLinks_input!): inviteLinks
   create_items_items(filter: items_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_items_input!]): [items!]!
@@ -180,8 +182,6 @@ type Mutation {
   create_junction_directus_users_tags_item(data: create_junction_directus_users_tags_input!): junction_directus_users_tags
   create_junction_directus_users_tags_1_items(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_junction_directus_users_tags_1_input!]): [junction_directus_users_tags_1!]!
   create_junction_directus_users_tags_1_item(data: create_junction_directus_users_tags_1_input!): junction_directus_users_tags_1
-  create_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_types_input!]): [types!]!
-  create_types_item(data: create_types_input!): types
   create_layers_directus_users_1_items(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_directus_users_1_input!]): [layers_directus_users_1!]!
   create_layers_directus_users_1_item(data: create_layers_directus_users_1_input!): layers_directus_users_1
   create_layers_files_items(filter: layers_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [create_layers_files_input!]): [layers_files!]!
@@ -206,6 +206,12 @@ type Mutation {
   update_relations_items(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_relations_input!): [relations!]!
   update_relations_batch(filter: relations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_relations_input!]): [relations!]!
   update_relations_item(id: ID!, data: update_relations_input!): relations
+  update_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_types_input!): [types!]!
+  update_types_batch(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_types_input!]): [types!]!
+  update_types_item(id: ID!, data: update_types_input!): types
+  update_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_marker_icons_input!): [marker_icons!]!
+  update_marker_icons_batch(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_marker_icons_input!]): [marker_icons!]!
+  update_marker_icons_item(id: ID!, data: update_marker_icons_input!): marker_icons
   update_attestations_items(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_attestations_input!): [attestations!]!
   update_attestations_batch(filter: attestations_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_attestations_input!]): [attestations!]!
   update_attestations_item(id: ID!, data: update_attestations_input!): attestations
@@ -233,9 +239,6 @@ type Mutation {
   update_groupTypes_items(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_groupTypes_input!): [groupTypes!]!
   update_groupTypes_batch(filter: groupTypes_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_groupTypes_input!]): [groupTypes!]!
   update_groupTypes_item(id: ID!, data: update_groupTypes_input!): groupTypes
-  update_marker_icons_items(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_marker_icons_input!): [marker_icons!]!
-  update_marker_icons_batch(filter: marker_icons_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_marker_icons_input!]): [marker_icons!]!
-  update_marker_icons_item(id: ID!, data: update_marker_icons_input!): marker_icons
   update_inviteLinks_items(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_inviteLinks_input!): [inviteLinks!]!
   update_inviteLinks_batch(filter: inviteLinks_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_inviteLinks_input!]): [inviteLinks!]!
   update_inviteLinks_item(id: ID!, data: update_inviteLinks_input!): inviteLinks
@@ -269,9 +272,6 @@ type Mutation {
   update_junction_directus_users_tags_1_items(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_junction_directus_users_tags_1_input!): [junction_directus_users_tags_1!]!
   update_junction_directus_users_tags_1_batch(filter: junction_directus_users_tags_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_junction_directus_users_tags_1_input!]): [junction_directus_users_tags_1!]!
   update_junction_directus_users_tags_1_item(id: ID!, data: update_junction_directus_users_tags_1_input!): junction_directus_users_tags_1
-  update_types_items(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_types_input!): [types!]!
-  update_types_batch(filter: types_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_types_input!]): [types!]!
-  update_types_item(id: ID!, data: update_types_input!): types
   update_layers_directus_users_1_items(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, ids: [ID]!, data: update_layers_directus_users_1_input!): [layers_directus_users_1!]!
   update_layers_directus_users_1_batch(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String, data: [update_layers_directus_users_1_input!]): [layers_directus_users_1!]!
   update_layers_directus_users_1_item(id: ID!, data: update_layers_directus_users_1_input!): layers_directus_users_1
@@ -303,6 +303,10 @@ type Mutation {
   delete_directus_sync_id_map_item(id: ID!): delete_one
   delete_relations_items(ids: [ID]!): delete_many
   delete_relations_item(id: ID!): delete_one
+  delete_types_items(ids: [ID]!): delete_many
+  delete_types_item(id: ID!): delete_one
+  delete_marker_icons_items(ids: [ID]!): delete_many
+  delete_marker_icons_item(id: ID!): delete_one
   delete_attestations_items(ids: [ID]!): delete_many
   delete_attestations_item(id: ID!): delete_one
   delete_attestations_directus_users_items(ids: [ID]!): delete_many
@@ -321,8 +325,6 @@ type Mutation {
   delete_groupSubheaders_groupTypes_item(id: ID!): delete_one
   delete_groupTypes_items(ids: [ID]!): delete_many
   delete_groupTypes_item(id: ID!): delete_one
-  delete_marker_icons_items(ids: [ID]!): delete_many
-  delete_marker_icons_item(id: ID!): delete_one
   delete_inviteLinks_items(ids: [ID]!): delete_many
   delete_inviteLinks_item(id: ID!): delete_one
   delete_items_items(ids: [ID]!): delete_many
@@ -345,8 +347,6 @@ type Mutation {
   delete_junction_directus_users_tags_item(id: ID!): delete_one
   delete_junction_directus_users_tags_1_items(ids: [ID]!): delete_many
   delete_junction_directus_users_tags_1_item(id: ID!): delete_one
-  delete_types_items(ids: [ID]!): delete_many
-  delete_types_item(id: ID!): delete_one
   delete_layers_directus_users_1_items(ids: [ID]!): delete_many
   delete_layers_directus_users_1_item(id: ID!): delete_one
   delete_layers_files_items(ids: [ID]!): delete_many
@@ -391,6 +391,8 @@ type Subscription {
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
+  types_mutated(event: EventEnum): types_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -400,7 +402,6 @@ type Subscription {
   groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
   groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
-  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
@@ -412,7 +413,6 @@ type Subscription {
   items_tags_1_mutated(event: EventEnum): items_tags_1_mutated
   junction_directus_users_tags_mutated(event: EventEnum): junction_directus_users_tags_mutated
   junction_directus_users_tags_1_mutated(event: EventEnum): junction_directus_users_tags_1_mutated
-  types_mutated(event: EventEnum): types_mutated
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
@@ -1773,10 +1773,10 @@ type layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
-  maps_func: count_functions
   notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
   notifications_func: count_functions
+  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
+  maps_func: count_functions
 }
 
 type layers_aggregated {
@@ -1808,8 +1808,8 @@ type layers_aggregated_count {
   public_edit_items: Int
   sort: Int
   userProfileLayer: Int
-  maps: Int
   notifications: Int
+  maps: Int
 }
 
 type layers_aggregated_fields {
@@ -2021,8 +2021,8 @@ type maps_mutated {
 type marker_icons {
   id: ID!
   image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
-  image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   size: Float
+  image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   size_outline: Float
 }
 
@@ -2042,8 +2042,8 @@ type marker_icons_aggregated {
 type marker_icons_aggregated_count {
   id: Int
   image: Int
-  image_outline: Int
   size: Int
+  image_outline: Int
   size_outline: Int
 }
 
@@ -2283,7 +2283,6 @@ type types {
   id: ID!
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -2297,7 +2296,6 @@ type types {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
@@ -2322,7 +2320,6 @@ type types_aggregated_count {
   id: Int
   name: Int
   offers_and_needs: Int
-  onepager: Int
   questlog: Int
   relations: Int
   show_header_view_in_form: Int
@@ -2336,7 +2333,6 @@ type types_aggregated_count {
   small_form_edit: Int
   template: Int
   text: Int
-  text_area: Int
   text_input_label: Int
   user_created: Int
   user_updated: Int
@@ -2604,8 +2600,8 @@ type version_layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: JSON
   notifications: JSON
+  maps: JSON
 }
 
 """"""
@@ -2666,8 +2662,8 @@ type version_maps {
 type version_marker_icons {
   id: ID
   image: JSON
-  image_outline: JSON
   size: Float
+  image_outline: JSON
   size_outline: Float
 }
 
@@ -2742,7 +2738,6 @@ type version_types {
   id: ID
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -2756,7 +2751,6 @@ type version_types {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created: JSON
   user_updated: JSON
@@ -3166,8 +3160,8 @@ input create_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [create_layers_maps_input]
   notifications: [create_layers_directus_users_1_input]
+  maps: [create_layers_maps_input]
 }
 
 input create_layers_maps_input {
@@ -3211,8 +3205,8 @@ input create_maps_input {
 input create_marker_icons_input {
   id: ID!
   image: create_directus_files_input
-  image_outline: create_directus_files_input
   size: Float
+  image_outline: create_directus_files_input
   size_outline: Float
 }
 
@@ -3280,7 +3274,6 @@ input create_types_input {
   id: ID
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -3294,7 +3287,6 @@ input create_types_input {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
@@ -4133,10 +4125,10 @@ input layers_filter {
   public_edit_items: boolean_filter_operators
   sort: number_filter_operators
   userProfileLayer: boolean_filter_operators
-  maps: layers_maps_quantifier_filter
-  maps_func: count_function_filter_operators
   notifications: layers_directus_users_1_quantifier_filter
   notifications_func: count_function_filter_operators
+  maps: layers_maps_quantifier_filter
+  maps_func: count_function_filter_operators
   _and: [layers_filter]
   _or: [layers_filter]
 }
@@ -4193,8 +4185,8 @@ input maps_filter {
 input marker_icons_filter {
   id: string_filter_operators
   image: directus_files_filter
-  image_outline: directus_files_filter
   size: number_filter_operators
+  image_outline: directus_files_filter
   size_outline: number_filter_operators
   _and: [marker_icons_filter]
   _or: [marker_icons_filter]
@@ -4322,7 +4314,6 @@ input types_filter {
   id: id_filter_operators
   name: string_filter_operators
   offers_and_needs: boolean_filter_operators
-  onepager: boolean_filter_operators
   questlog: boolean_filter_operators
   relations: boolean_filter_operators
   show_header_view_in_form: boolean_filter_operators
@@ -4336,7 +4327,6 @@ input types_filter {
   small_form_edit: boolean_filter_operators
   template: string_filter_operators
   text: boolean_filter_operators
-  text_area: boolean_filter_operators
   text_input_label: string_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
@@ -4704,8 +4694,8 @@ input update_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [update_layers_maps_input]
   notifications: [update_layers_directus_users_1_input]
+  maps: [update_layers_maps_input]
 }
 
 input update_layers_maps_input {
@@ -4749,8 +4739,8 @@ input update_maps_input {
 input update_marker_icons_input {
   id: ID
   image: update_directus_files_input
-  image_outline: update_directus_files_input
   size: Float
+  image_outline: update_directus_files_input
   size_outline: Float
 }
 
@@ -4818,7 +4808,6 @@ input update_types_input {
   id: ID
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -4832,7 +4821,6 @@ input update_types_input {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
