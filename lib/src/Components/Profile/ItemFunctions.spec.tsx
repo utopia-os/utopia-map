@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 import { linkItem } from './itemFunctions'
 
@@ -22,12 +22,6 @@ vi.mock('react-toastify', () => ({
 describe('linkItem', () => {
   const id = 'some-id'
   let updateApi: (item: Partial<Item>) => Promise<Item> = vi.fn()
-  const mockUser = {
-    id: 'user-1',
-    first_name: 'Test',
-    last_name: 'User',
-    email: 'test@example.com',
-  }
   const item: Item = {
     layer: {
       id: 'test-layer-id',
@@ -75,11 +69,16 @@ describe('linkItem', () => {
 
   describe('api rejects', () => {
     it('toasts an error', async () => {
-      updateApi = vi.fn().mockRejectedValue('autsch')
-      await linkItem(id, item, updateItem, mockUser)
-      expect(toastUpdateMock).toHaveBeenCalledWith(123, expect.objectContaining({ type: 'error' }))
+      updateApi = vi.fn().mockRejectedValue(new Error('autsch'))
+      await linkItem(id, item, updateItem)
+      expect(toastUpdateMock).toHaveBeenCalledWith(
+        123,
+        expect.objectContaining({
+          type: 'error',
+          render: 'autsch',
+        }),
+      )
       expect(updateItem).not.toHaveBeenCalled()
-      expect(toastSuccessMock).not.toHaveBeenCalled()
     })
   })
 
@@ -92,16 +91,21 @@ describe('linkItem', () => {
       }
       updateApi = vi.fn().mockResolvedValue(serverResponse)
 
-      await linkItem(id, item, updateItem, mockUser)
+      await linkItem(id, item, updateItem)
 
       expect(toastUpdateMock).toHaveBeenCalledWith(
         123,
-        expect.objectContaining({ type: 'success' }),
+        expect.objectContaining({
+          type: 'success',
+          render: 'Item linked',
+        }),
       )
       expect(updateItem).toHaveBeenCalledWith(
         expect.objectContaining({
           ...serverResponse,
           layer: item.layer,
+          relations: [{ items_id: item.id, related_items_id: id }],
+          user_created: item.user_created,
         }),
       )
     })

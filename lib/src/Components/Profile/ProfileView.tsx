@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useAuth } from '#components/Auth/useAuth'
 import { useClusterRef } from '#components/Map/hooks/useClusterRef'
 import { useItems, useRemoveItem, useUpdateItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
@@ -52,7 +51,6 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
   const map = useMap()
   const selectPosition = useSelectPosition()
   const removeItem = useRemoveItem()
-  const { user } = useAuth()
   const tags = useTags()
   const navigate = useNavigate()
   const hasUserPermission = useHasUserPermission()
@@ -210,8 +208,8 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
                 needs={needs}
                 relations={relations}
                 updatePermission={updatePermission}
-                linkItem={(id) => linkItem(id, item, updateItem, user)}
-                unlinkItem={(id) => unlinkItem(id, item, updateItem, user)}
+                linkItem={(id) => linkItem(id, item, updateItem)}
+                unlinkItem={(id) => unlinkItem(id, item, updateItem)}
               />
             )}
           </>
