@@ -64,3 +64,30 @@ ON CONFLICT (id) DO UPDATE
       item = excluded.item,
       sort = excluded.sort,
       types_id = excluded.types_id;
+
+-- Type: user:text+gallery
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'texts', '6', 'c960bbfc-5d98-4f6d-ae44-7a2b63d3359b' , '1', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'user:text+gallery'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
+
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'gallery', '7', '6d18b616-6f4f-4987-9860-681b88bdc068' , '2', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'user:text+gallery'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;

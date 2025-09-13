@@ -264,8 +264,6 @@ type Subscription {
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
-  oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
-  oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -2066,47 +2064,6 @@ type marker_icons_mutated {
   key: ID!
   event: EventEnum
   data: marker_icons
-}
-
-type oceannomads_events {
-  creator_email: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  end: Date
-  end_func: datetime_functions
-  id: ID!
-  location: String
-  start: Date
-  start_func: datetime_functions
-  text: String
-  title: String
-}
-
-type oceannomads_events_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_events
-}
-
-type oceannomads_profiles {
-  avatar_url: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  email: String
-  first_name: String
-  id: ID!
-  last_name: String
-  location: String
-}
-
-type oceannomads_profiles_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_profiles
 }
 
 type policy_me_globals_type {
