@@ -11,7 +11,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
-import { MapPinIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { MapPinIcon, ShareIcon } from '@heroicons/react/24/solid'
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon'
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import { useState } from 'react'
@@ -32,6 +32,7 @@ import TargetDotSVG from '#assets/targetDot.svg'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
+import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
 import { useGetItemTags } from '#components/Map/hooks/useTags'
 import DialogModal from '#components/Templates/DialogModal'
 
@@ -49,7 +50,7 @@ export function HeaderView({
   big = false,
   truncateSubname = true,
   hideSubname = false,
-  showAddress = false,
+  showAddress = true,
 }: {
   item?: Item
   api?: ItemsApi<any>
@@ -78,7 +79,10 @@ export function HeaderView({
   const title = item?.name ?? item?.layer?.item_default_name
   const subtitle = item?.subname
 
-  const [address] = useState<string>('')
+  const { address } = useReverseGeocode(
+    item?.position?.coordinates as [number, number] | undefined,
+    showAddress,
+  )
 
   const params = new URLSearchParams(window.location.search)
 
@@ -181,8 +185,8 @@ export function HeaderView({
   return (
     <>
       <div className='tw:flex tw:flex-row'>
-        <div className={'tw:grow'}>
-          <div className='tw:flex tw:items-center'>
+        <div className={'tw:grow tw:flex tw:flex-1 tw:min-w-0'}>
+          <div className='tw:flex tw:flex-1 tw:min-w-0 tw:items-center'>
             {avatar && (
               <div className='tw:avatar'>
                 <div
@@ -206,24 +210,27 @@ export function HeaderView({
                 </div>
               </div>
             )}
-            <div className={`${avatar ? 'tw:ml-3' : ''} tw:overflow-hidden `}>
+            <div className={`${avatar ? 'tw:ml-3' : ''} tw:overflow-hidden tw:flex-1 tw:min-w-0 `}>
               <div
-                className={`${big ? 'tw:xl:text-3xl tw:text-2xl' : 'tw:text-xl'} tw:font-bold tw:truncate`}
+                className={`${big ? 'tw:xl:text-3xl tw:text-2xl' : 'tw:text-xl'} tw:font-bold`}
                 title={title}
                 data-cy='profile-title'
               >
                 {title}
               </div>
-              {showAddress && address && !hideSubname && (
-                <div className={`tw:text-xs  tw:text-gray-500 ${truncateSubname && 'tw:truncate'}`}>
-                  {address}
+              {showAddress && address && (
+                <div className='tw:text-sm tw:flex tw:items-center tw:text-gray-500 tw:w-full'>
+                  <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
+                  <span title={address} className='tw:truncate'>
+                    {address}
+                  </span>
                 </div>
               )}
-              {subtitle && !hideSubname && (
+              {subtitle && !showAddress && (
                 <div
-                  className={`tw:text-xs tw:opacity-50 tw:inline-flex tw:items-center ${truncateSubname && 'tw:truncate'}`}
+                  className={`tw:text-sm tw:opacity-50 tw:items-center ${truncateSubname && 'tw:truncate'}`}
                 >
-                  <MapPinIcon className='tw:w-4 tw:mr-1' /> {subtitle}
+                  {subtitle}
                 </div>
               )}
             </div>
@@ -235,7 +242,7 @@ export function HeaderView({
               hasUserPermission(api?.collectionName!, 'update', item)) &&
             !hideMenu && (
               <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
-                <label tabIndex={0} className='tw:btn tw:btn-sm tw:px-2'>
+                <label tabIndex={0} className='tw:btn tw:px-3'>
                   <EllipsisVerticalIcon className='tw:h-4 tw:w-4' />
                 </label>
                 <ul
@@ -316,28 +323,28 @@ export function HeaderView({
               style={{
                 backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
               }}
-              className='tw:btn tw:text-white tw:btn-sm tw:mr-2 '
+              className='tw:btn tw:text-white tw:mr-2 '
             >
-              Follow
+              {item.layer?.itemType.cta_button_label ?? 'Follow'}
             </button>
             {item?.position?.coordinates ? (
               <a
                 href={getNavigationUrl()}
                 target='_blank'
                 rel='noopener noreferrer'
-                className='tw:btn tw:btn-sm tw:mr-2 tw:px-2 tw:no-underline hover:tw:no-underline'
+                className='tw:btn tw:mr-2 tw:px-3 tw:no-underline hover:tw:no-underline'
                 style={{ color: 'inherit' }}
                 title={`Navigate with ${isMobile ? 'default navigation app' : isIOS ? 'Apple Maps' : 'Google Maps'}`}
               >
                 <LuNavigation className='tw:h-4 tw:w-4' />
               </a>
             ) : (
-              <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2 tw:btn-disabled'>
+              <div className='tw:btn tw:mr-2 tw:px-3 tw:btn-disabled'>
                 <LuNavigation className='tw:h-4 tw:w-4' />
               </div>
             )}
             <div className='tw:dropdown tw:dropdown-end'>
-              <div tabIndex={0} role='button' className='tw:btn tw:btn-sm tw:px-2'>
+              <div tabIndex={0} role='button' className='tw:btn tw:px-3'>
                 <ShareIcon className='tw:w-4 tw:h-4' />
               </div>
               <ul
