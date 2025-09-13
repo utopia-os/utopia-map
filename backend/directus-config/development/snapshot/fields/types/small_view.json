@@ -12,7 +12,9 @@
     "hidden": false,
     "interface": "group-detail",
     "note": null,
-    "options": null,
+    "options": {
+      "headerIcon": "wysiwyg"
+    },
     "readonly": false,
     "required": false,
     "sort": 7,

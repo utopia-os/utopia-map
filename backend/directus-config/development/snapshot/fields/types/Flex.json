@@ -1,21 +1,22 @@
 {
   "collection": "types",
-  "field": "Tabs",
+  "field": "Flex",
   "type": "alias",
   "meta": {
     "collection": "types",
     "conditions": [
       {
-        "name": "Tabs Template",
+        "name": "Flex-Template",
         "options": {
           "start": "open"
         },
         "readonly": false,
+        "required": true,
         "rule": {
           "_and": [
             {
               "template": {
-                "_eq": "tabs"
+                "_eq": "flex"
               }
             }
           ]
@@ -23,7 +24,7 @@
       },
       {
         "hidden": true,
-        "name": "Not Tabs Template",
+        "name": "Not Flex Template",
         "options": {
           "start": "closed"
         },
@@ -32,7 +33,7 @@
           "_and": [
             {
               "template": {
-                "_neq": "tabs"
+                "_neq": "flex"
               }
             }
           ]
@@ -41,18 +42,15 @@
     ],
     "display": null,
     "display_options": null,
-    "field": "Tabs",
+    "field": "Flex",
     "group": "Profile",
     "hidden": false,
     "interface": "group-raw",
     "note": null,
-    "options": {
-      "headerColor": "#1A5FB4",
-      "start": "closed"
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 3,
+    "sort": 2,
     "special": [
       "alias",
       "no-data",

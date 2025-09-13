@@ -8,14 +8,14 @@
     "display": null,
     "display_options": null,
     "field": "profileTemplate",
-    "group": null,
+    "group": "Flex",
     "hidden": false,
     "interface": "list-m2a",
     "note": null,
     "options": {},
     "readonly": false,
     "required": false,
-    "sort": 11,
+    "sort": 1,
     "special": [
       "m2a"
     ],
