@@ -24,7 +24,7 @@ interface GeocodeResponse {
 
 export function useReverseGeocode(
   coordinates?: [number, number] | null,
-  enabled: boolean = true,
+  enabled = true,
   accuracy: 'municipality' | 'street' | 'house_number' = 'municipality',
 ) {
   const [address, setAddress] = useState('')
@@ -59,7 +59,7 @@ export function useReverseGeocode(
 
         if (data.features && data.features.length > 0) {
           const props = data.features[0].properties
-          const municipality = props.city || props.town || props.village
+          const municipality = props.city ?? props.town ?? props.village
 
           let addressString = ''
 
