@@ -21,9 +21,6 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import ChevronSVG from '#assets/chevron.svg'
-import AppleMapsSVG from '#assets/navigation/apple-maps.svg'
-import GoogleMapsSVG from '#assets/navigation/googlemaps.svg'
-import OpenStreetMapSVG from '#assets/navigation/OSM.svg'
 import ClipboardSVG from '#assets/share/clipboard.svg'
 import FacebookSVG from '#assets/share/facebook.svg'
 import LinkedinSVG from '#assets/share/linkedin.svg'
@@ -151,29 +148,30 @@ export function HeaderView({
       .replace('{title}', encodeURIComponent(shareTitle))
   }
 
-  const routingServices = [
-    {
-      name: 'Google Maps',
-      url: item?.position?.coordinates
-        ? `https://www.google.com/maps/dir/?api=1&destination=${item.position.coordinates[1]},${item.position.coordinates[0]}`
-        : '',
-      icon: <img src={GoogleMapsSVG} alt='Google Maps' className='tw:w-6 tw:h-6' />,
-    },
-    {
-      name: 'Apple Maps',
-      url: item?.position?.coordinates
-        ? `https://maps.apple.com/?daddr=${item.position.coordinates[1]},${item.position.coordinates[0]}`
-        : '',
-      icon: <img src={AppleMapsSVG} alt='Apple Maps' className='tw:w-6 tw:h-6' />,
-    },
-    {
-      name: 'OpenStreetMap',
-      url: item?.position?.coordinates
-        ? `https://www.openstreetmap.org/directions?to=${item.position.coordinates[1]},${item.position.coordinates[0]}`
-        : '',
-      icon: <img src={OpenStreetMapSVG} alt='OpenStreetMap' className='tw:w-6 tw:h-6' />,
-    },
-  ]
+  const coordinates = item?.position?.coordinates
+  const latitude = coordinates?.[1]
+  const longitude = coordinates?.[0]
+
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent,
+  )
+
+  const getNavigationUrl = () => {
+    if (!coordinates || !latitude || !longitude) return ''
+
+    // Try geo: link first (works on most mobile devices)
+    if (isMobile) {
+      return `geo:${latitude},${longitude}`
+    }
+
+    // Fallback to web-based maps
+    if (isIOS) {
+      return `https://maps.apple.com/?daddr=${latitude},${longitude}`
+    } else {
+      return `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
+    }
+  }
 
   const openDeleteModal = async (event: React.MouseEvent<HTMLElement>) => {
     setModalOpen(true)
@@ -323,31 +321,16 @@ export function HeaderView({
               Follow
             </button>
             {item?.position?.coordinates ? (
-              <div className='tw:dropdown tw:dropdown-end tw:mr-2'>
-                <div tabIndex={0} role='button' className='tw:btn tw:btn-sm tw:px-2'>
-                  <LuNavigation className='tw:h-4 tw:w-4' />
-                </div>
-                <ul
-                  tabIndex={0}
-                  className='tw:dropdown-content tw:menu tw:bg-base-100 tw:rounded-box tw:z-[1] tw:p-2 tw:shadow-sm'
-                >
-                  {routingServices.map((service) => (
-                    <li key={service.name}>
-                      <a
-                        href={service.url}
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        className='tw:flex tw:items-center tw:gap-3'
-                      >
-                        <div className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white'>
-                          <span className='tw:text-xs'>{service.icon}</span>
-                        </div>
-                        {service.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <a
+                href={getNavigationUrl()}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='tw:btn tw:btn-sm tw:mr-2 tw:px-2 tw:no-underline hover:tw:no-underline'
+                style={{ color: 'inherit' }}
+                title={`Navigate with ${isMobile ? 'default navigation app' : isIOS ? 'Apple Maps' : 'Google Maps'}`}
+              >
+                <LuNavigation className='tw:h-4 tw:w-4' />
+              </a>
             ) : (
               <div className='tw:btn tw:btn-sm tw:mr-2 tw:px-2 tw:btn-disabled'>
                 <LuNavigation className='tw:h-4 tw:w-4' />
