@@ -41,12 +41,13 @@ export const RelationsView = ({
         return outgoingItems
       case 'ingoing':
         return ingoingItems
-      case 'bidirectional':
+      case 'bidirectional': {
         // Combine both arrays and remove duplicates
         const allItems = [...outgoingItems, ...ingoingItems]
-        return allItems.filter((item, index, self) =>
-          index === self.findIndex(i => i.id === item.id)
+        return allItems.filter(
+          (item, index, self) => index === self.findIndex((i) => i.id === item.id),
         )
+      }
       default:
         return outgoingItems
     }
