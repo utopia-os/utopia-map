@@ -1,0 +1,64 @@
+{
+  "collection": "types",
+  "field": "Flex",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": [
+      {
+        "name": "Flex-Template",
+        "options": {
+          "start": "open"
+        },
+        "readonly": false,
+        "required": true,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_eq": "flex"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "Not Flex Template",
+        "options": {
+          "start": "closed"
+        },
+        "readonly": true,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_neq": "flex"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "Flex",
+    "group": "Profile",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}
