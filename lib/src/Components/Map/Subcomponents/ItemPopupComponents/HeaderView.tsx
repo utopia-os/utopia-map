@@ -11,12 +11,13 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
-import { MapPinIcon, ShareIcon } from '@heroicons/react/24/solid'
+import { MapPinIcon, ShareIcon, QrCodeIcon } from '@heroicons/react/24/solid'
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon'
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import { useState } from 'react'
 import { LuNavigation } from 'react-icons/lu'
 import SVG from 'react-inlinesvg'
+import QRCode from 'react-qr-code'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -63,6 +64,7 @@ export function HeaderView({
   showAddress?: boolean
 }) {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [qrModalOpen, setQrModalOpen] = useState<boolean>(false)
 
   const hasUserPermission = useHasUserPermission()
   const navigate = useNavigate()
@@ -80,6 +82,7 @@ export function HeaderView({
   const { address } = useReverseGeocode(
     item?.position?.coordinates as [number, number] | undefined,
     showAddress,
+    'municipality',
   )
 
   const params = new URLSearchParams(window.location.search)
@@ -130,10 +133,14 @@ export function HeaderView({
 
   const shareUrl = window.location.href
   const shareTitle = item?.name ?? 'Utopia Map Item'
+  const inviteLink =
+    item?.secrets && item.secrets.length > 0
+      ? `${window.location.origin}/invite/${item.secrets[0].secret}`
+      : shareUrl
 
   const copyLink = () => {
     navigator.clipboard
-      .writeText(shareUrl)
+      .writeText(inviteLink)
       .then(() => {
         toast.success('Link copied to clipboard')
         return null
@@ -221,6 +228,7 @@ export function HeaderView({
                   <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
                   <span title={address} className='tw:truncate'>
                     {address}
+                    {distance && distance >= 1 && ` (${formatDistance(distance)})`}
                   </span>
                 </div>
               )}
@@ -303,18 +311,7 @@ export function HeaderView({
       </div>
       {big && (
         <div className='tw:flex tw:row tw:mt-2 '>
-          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '>
-            {' '}
-            {formatDistance(distance) && (
-              <span
-                style={{
-                  color: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
-                }}
-              >
-                {formatDistance(distance)}
-              </span>
-            )}
-          </div>
+          <div className='tw:w-16 tw:text-center tw:font-bold tw:text-primary  '></div>
           <div className='tw:grow'></div>
           <div className=''>
             <button
@@ -341,6 +338,13 @@ export function HeaderView({
                 <LuNavigation className='tw:h-4 tw:w-4' />
               </div>
             )}
+            <button
+              onClick={() => setQrModalOpen(true)}
+              className='tw:btn tw:mr-2 tw:px-3'
+              title='QR-Code teilen'
+            >
+              <QrCodeIcon className='tw:h-4 tw:w-4' />
+            </button>
             <div className='tw:dropdown tw:dropdown-end'>
               <div tabIndex={0} role='button' className='tw:btn tw:px-3'>
                 <ShareIcon className='tw:w-4 tw:h-4' />
@@ -429,6 +433,32 @@ export function HeaderView({
                 No
               </label>
             </div>
+          </div>
+        </div>
+      </DialogModal>
+
+      <DialogModal
+        isOpened={qrModalOpen}
+        showCloseButton={true}
+        onClose={() => setQrModalOpen(false)}
+        className='tw:w-[calc(100vw-2rem)] tw:max-w-96'
+      >
+        <div onClick={(e) => e.stopPropagation()} className='tw:text-center tw:p-4'>
+          <p className='tw:text-xl'>Share your profile with others to expand your network.</p>
+
+          <div className='tw:p-8 tw:my-8 tw:rounded-lg tw:inline-block tw:border-base-300 tw:border-2 '>
+            <QRCode value={inviteLink} size={192} />
+          </div>
+
+          <div className='tw:flex tw:items-center tw:gap-2 tw:w-full tw:border-base-300 tw:border-2 tw:rounded-lg tw:p-3'>
+            <span className='tw:text-sm tw:truncate tw:flex-1 tw:min-w-0'>{inviteLink}</span>
+            <button
+              onClick={copyLink}
+              className='tw:btn tw:btn-primary tw:btn-sm tw:flex-shrink-0'
+              title='Link kopieren'
+            >
+              <img src={ClipboardSVG} className='tw:w-4 tw:h-4' alt='Copy' />
+            </button>
           </div>
         </div>
       </DialogModal>

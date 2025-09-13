@@ -7,6 +7,11 @@ interface GeocodeResult {
   city?: string
   town?: string
   village?: string
+  district?: string
+  suburb?: string
+  neighbourhood?: string
+  state?: string
+  country?: string
 }
 
 interface GeocodeFeature {
@@ -17,7 +22,11 @@ interface GeocodeResponse {
   features?: GeocodeFeature[]
 }
 
-export function useReverseGeocode(coordinates?: [number, number] | null, enabled: boolean = true) {
+export function useReverseGeocode(
+  coordinates?: [number, number] | null,
+  enabled: boolean = true,
+  accuracy: 'municipality' | 'street' | 'house_number' = 'municipality'
+) {
   const [address, setAddress] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -50,28 +59,33 @@ export function useReverseGeocode(coordinates?: [number, number] | null, enabled
 
         if (data.features && data.features.length > 0) {
           const props = data.features[0].properties
-          const parts: string[] = []
+          const municipality = props.city || props.town || props.village
 
-          // Straße und Hausnummer zusammen
-          if (props.street) {
-            const streetPart = props.housenumber
-              ? `${props.street} ${props.housenumber}`
-              : props.street
-            parts.push(streetPart)
-          } else if (props.housenumber) {
-            parts.push(props.housenumber)
+          let addressString = ''
+
+          switch (accuracy) {
+            case 'municipality':
+              addressString = municipality || ''
+              break
+            case 'street':
+              if (props.street && municipality) {
+                addressString = `${props.street}, ${municipality}`
+              } else {
+                addressString = municipality || ''
+              }
+              break
+            case 'house_number':
+              if (props.street && props.housenumber && municipality) {
+                addressString = `${props.street} ${props.housenumber}, ${municipality}`
+              } else if (props.street && municipality) {
+                addressString = `${props.street}, ${municipality}`
+              } else {
+                addressString = municipality || ''
+              }
+              break
           }
 
-          // PLZ und Ort zusammen
-          if (props.postcode || props.city || props.town || props.village) {
-            const locationPart = [
-              props.postcode,
-              props.city || props.town || props.village
-            ].filter(Boolean).join(' ')
-            if (locationPart) parts.push(locationPart)
-          }
-
-          setAddress(parts.join(', '))
+          setAddress(addressString)
         } else {
           setAddress('')
         }
@@ -84,7 +98,7 @@ export function useReverseGeocode(coordinates?: [number, number] | null, enabled
     }
 
     void reverseGeocode()
-  }, [coordinates, enabled])
+  }, [coordinates, enabled, accuracy])
 
   return { address, loading, error }
 }
