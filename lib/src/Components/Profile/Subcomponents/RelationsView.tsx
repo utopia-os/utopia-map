@@ -9,7 +9,7 @@ interface Props {
   item: Item
   relation: string
   heading: string
-  direction?: 'outgoing' | 'ingoing'
+  direction?: 'outgoing' | 'ingoing' | 'bidirectional'
   hideWhenEmpty?: boolean
 }
 
@@ -27,12 +27,30 @@ export const RelationsView = ({
 
   const relationsOfRightType = item.relations.filter((r) => r.type === relation)
 
-  const relatedItems =
-    direction === 'outgoing'
-      ? items.filter((i) => relationsOfRightType.some((r) => r.related_items_id === i.id))
-      : items.filter((i) =>
-          i.relations?.some((r) => r.type === relation && r.related_items_id === item.id),
+  const relatedItems = (() => {
+    const outgoingItems = items.filter((i) =>
+      relationsOfRightType.some((r) => r.related_items_id === i.id),
+    )
+
+    const ingoingItems = items.filter((i) =>
+      i.relations?.some((r) => r.type === relation && r.related_items_id === item.id),
+    )
+
+    switch (direction) {
+      case 'outgoing':
+        return outgoingItems
+      case 'ingoing':
+        return ingoingItems
+      case 'bidirectional':
+        // Combine both arrays and remove duplicates
+        const allItems = [...outgoingItems, ...ingoingItems]
+        return allItems.filter((item, index, self) =>
+          index === self.findIndex(i => i.id === item.id)
         )
+      default:
+        return outgoingItems
+    }
+  })()
 
   const hasRelatedItems = relatedItems.length > 0
 
