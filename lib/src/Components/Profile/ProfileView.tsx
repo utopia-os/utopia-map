@@ -181,7 +181,7 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
               <HeaderView
                 api={item.layer?.api}
                 item={item}
-                deleteCallback={(e) => handleDelete(e, item, setLoading, removeItem, map, navigate)}
+                deleteCallback={(e: React.MouseEvent<HTMLElement>) => handleDelete(e, item, setLoading, removeItem, map, navigate)}
                 editCallback={() => navigate('/edit-item/' + item.id)}
                 setPositionCallback={() => {
                   map.closePopup()
