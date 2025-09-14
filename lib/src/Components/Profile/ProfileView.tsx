@@ -3,7 +3,6 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -181,7 +180,11 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
               <HeaderView
                 api={item.layer?.api}
                 item={item}
-                deleteCallback={(e) => handleDelete(e, item, setLoading, removeItem, map, navigate)}
+                deleteCallback={(e: React.MouseEvent<HTMLElement>) => {
+                  handleDelete(e, item, setLoading, removeItem, map, navigate).catch(() => {
+                    // Error handling is already in handleDelete
+                  })
+                }}
                 editCallback={() => navigate('/edit-item/' + item.id)}
                 setPositionCallback={() => {
                   map.closePopup()
