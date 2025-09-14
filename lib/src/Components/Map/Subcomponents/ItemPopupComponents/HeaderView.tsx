@@ -15,6 +15,7 @@ import { MapPinIcon, ShareIcon, QrCodeIcon } from '@heroicons/react/24/solid'
 import PencilIcon from '@heroicons/react/24/solid/PencilIcon'
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import { useState } from 'react'
+import { FaPlus } from 'react-icons/fa6'
 import { LuNavigation } from 'react-icons/lu'
 import SVG from 'react-inlinesvg'
 import QRCode from 'react-qr-code'
@@ -228,7 +229,7 @@ export function HeaderView({
                   <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
                   <span title={address} className='tw:truncate'>
                     {address}
-                    {distance && distance >= 1 && ` (${formatDistance(distance)})`}
+                    {distance && distance >= 0.1 && ` (${formatDistance(distance)})`}
                   </span>
                 </div>
               )}
@@ -248,8 +249,8 @@ export function HeaderView({
               hasUserPermission(api?.collectionName!, 'update', item)) &&
             !hideMenu && (
               <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
-                <label tabIndex={0} className='tw:btn tw:btn-ghost tw:px-3'>
-                  <EllipsisVerticalIcon className='tw:h-4 tw:w-4' />
+                <label tabIndex={0} className='tw:btn tw:btn-ghost tw:px-2.5'>
+                  <EllipsisVerticalIcon className='tw:h-5 tw:w-5' />
                 </label>
                 <ul
                   tabIndex={0}
@@ -317,16 +318,18 @@ export function HeaderView({
               style={{
                 backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
               }}
-              className='tw:btn tw:text-white tw:mr-2 '
+              className='tw:btn tw:text-white tw:mr-2 tw:tooltip tw:tooltip-top '
+              data-tip={item.layer?.itemType.cta_button_label}
             >
-              {item.layer?.itemType.cta_button_label ?? 'Follow'}
+              <FaPlus className='tw:w-5' /> Connect
             </button>
             {item?.position?.coordinates ? (
               <a
                 href={getNavigationUrl()}
                 target='_blank'
+                data-tip='Navigate'
                 rel='noopener noreferrer'
-                className='tw:btn tw:mr-2 tw:px-3'
+                className='tw:btn tw:mr-2 tw:px-3  tw:tooltip tw:tooltip-top'
                 style={{ color: 'inherit' }}
                 title={`Navigate with ${isMobile ? 'default navigation app' : isIOS ? 'Apple Maps' : 'Google Maps'}`}
               >
@@ -339,13 +342,19 @@ export function HeaderView({
             )}
             <button
               onClick={() => setQrModalOpen(true)}
-              className='tw:btn tw:mr-2 tw:px-3'
-              title='QR-Code teilen'
+              className='tw:btn tw:mr-2 tw:px-3 tw:tooltip tw:tooltip-top'
+              title='QR-Code'
+              data-tip='QR Code'
             >
               <QrCodeIcon className='tw:h-4 tw:w-4' />
             </button>
             <div className='tw:dropdown tw:dropdown-end'>
-              <div tabIndex={0} role='button' className='tw:btn tw:px-3'>
+              <div
+                tabIndex={0}
+                role='button'
+                className='tw:btn tw:px-3 tw:tooltip tw:tooltip-top'
+                data-tip='Share'
+              >
                 <ShareIcon className='tw:w-4 tw:h-4' />
               </div>
               <ul
