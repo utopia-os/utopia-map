@@ -23,4 +23,5 @@ export interface ItemType {
   show_header_view_in_form?: boolean
   cta_button_label?: string
   show_address?: boolean
+  cta_relation?: string
 }
