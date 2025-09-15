@@ -10,7 +10,7 @@
     "field": "active_tabs",
     "group": "Tabs",
     "hidden": false,
-    "interface": "group-detail",
+    "interface": "group-raw",
     "note": null,
     "options": null,
     "readonly": false,

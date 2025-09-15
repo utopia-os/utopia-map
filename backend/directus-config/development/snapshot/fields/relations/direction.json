@@ -1,21 +1,34 @@
 {
-  "collection": "oceannomads_events",
-  "field": "text",
-  "type": "text",
+  "collection": "relations",
+  "field": "direction",
+  "type": "string",
   "meta": {
-    "collection": "oceannomads_events",
+    "collection": "relations",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "text",
+    "field": "direction",
     "group": null,
     "hidden": false,
-    "interface": "input-multiline",
+    "interface": "select-dropdown",
     "note": null,
-    "options": null,
+    "options": {
+      "choices": [
+        {
+          "icon": "arrow_forward",
+          "text": "outgoing",
+          "value": "outgoing"
+        },
+        {
+          "icon": "arrow_back",
+          "text": "ingoing",
+          "value": "ingoing"
+        }
+      ]
+    },
     "readonly": false,
     "required": false,
-    "sort": 7,
+    "sort": 4,
     "special": null,
     "translations": null,
     "validation": null,
@@ -23,11 +36,11 @@
     "width": "full"
   },
   "schema": {
-    "name": "text",
-    "table": "oceannomads_events",
-    "data_type": "text",
-    "default_value": null,
-    "max_length": null,
+    "name": "direction",
+    "table": "relations",
+    "data_type": "character varying",
+    "default_value": "outgoing",
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,

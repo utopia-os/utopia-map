@@ -264,8 +264,8 @@ type Subscription {
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
-  oceannomads_events_mutated(event: EventEnum): oceannomads_events_mutated
-  oceannomads_profiles_mutated(event: EventEnum): oceannomads_profiles_mutated
+  types_mutated(event: EventEnum): types_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -275,7 +275,6 @@ type Subscription {
   groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
   groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
-  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
@@ -287,7 +286,6 @@ type Subscription {
   items_tags_1_mutated(event: EventEnum): items_tags_1_mutated
   junction_directus_users_tags_mutated(event: EventEnum): junction_directus_users_tags_mutated
   junction_directus_users_tags_1_mutated(event: EventEnum): junction_directus_users_tags_1_mutated
-  types_mutated(event: EventEnum): types_mutated
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
@@ -1966,10 +1964,10 @@ type layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
-  maps_func: count_functions
   notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
   notifications_func: count_functions
+  maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
+  maps_func: count_functions
 }
 
 type layers_directus_users_1 {
@@ -2057,8 +2055,8 @@ type maps_mutated {
 type marker_icons {
   id: ID!
   image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
-  image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   size: Float
+  image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
   size_outline: Float
 }
 
@@ -2066,47 +2064,6 @@ type marker_icons_mutated {
   key: ID!
   event: EventEnum
   data: marker_icons
-}
-
-type oceannomads_events {
-  creator_email: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  end: Date
-  end_func: datetime_functions
-  id: ID!
-  location: String
-  start: Date
-  start_func: datetime_functions
-  text: String
-  title: String
-}
-
-type oceannomads_events_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_events
-}
-
-type oceannomads_profiles {
-  avatar_url: String
-  date_created: Date
-  date_created_func: datetime_functions
-  date_updated: Date
-  date_updated_func: datetime_functions
-  email: String
-  first_name: String
-  id: ID!
-  last_name: String
-  location: String
-}
-
-type oceannomads_profiles_mutated {
-  key: ID!
-  event: EventEnum
-  data: oceannomads_profiles
 }
 
 type policy_me_globals_type {
@@ -2251,7 +2208,6 @@ type types {
   id: ID!
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -2265,7 +2221,6 @@ type types {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
   user_updated(filter: directus_users_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_users
@@ -2779,8 +2734,8 @@ input create_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [create_layers_maps_input]
   notifications: [create_layers_directus_users_1_input]
+  maps: [create_layers_maps_input]
 }
 
 input create_layers_maps_input {
@@ -2824,8 +2779,8 @@ input create_maps_input {
 input create_marker_icons_input {
   id: ID!
   image: create_directus_files_input
-  image_outline: create_directus_files_input
   size: Float
+  image_outline: create_directus_files_input
   size_outline: Float
 }
 
@@ -2843,7 +2798,6 @@ input create_types_input {
   id: ID
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -2857,7 +2811,6 @@ input create_types_input {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created: create_directus_users_input
   user_updated: create_directus_users_input
@@ -3741,10 +3694,10 @@ input layers_filter {
   public_edit_items: boolean_filter_operators
   sort: number_filter_operators
   userProfileLayer: boolean_filter_operators
-  maps: layers_maps_quantifier_filter
-  maps_func: count_function_filter_operators
   notifications: layers_directus_users_1_quantifier_filter
   notifications_func: count_function_filter_operators
+  maps: layers_maps_quantifier_filter
+  maps_func: count_function_filter_operators
   _and: [layers_filter]
   _or: [layers_filter]
 }
@@ -3801,8 +3754,8 @@ input maps_filter {
 input marker_icons_filter {
   id: string_filter_operators
   image: directus_files_filter
-  image_outline: directus_files_filter
   size: number_filter_operators
+  image_outline: directus_files_filter
   size_outline: number_filter_operators
   _and: [marker_icons_filter]
   _or: [marker_icons_filter]
@@ -3912,7 +3865,6 @@ input types_filter {
   id: id_filter_operators
   name: string_filter_operators
   offers_and_needs: boolean_filter_operators
-  onepager: boolean_filter_operators
   questlog: boolean_filter_operators
   relations: boolean_filter_operators
   show_header_view_in_form: boolean_filter_operators
@@ -3926,7 +3878,6 @@ input types_filter {
   small_form_edit: boolean_filter_operators
   template: string_filter_operators
   text: boolean_filter_operators
-  text_area: boolean_filter_operators
   text_input_label: string_filter_operators
   user_created: directus_users_filter
   user_updated: directus_users_filter
@@ -4319,8 +4270,8 @@ input update_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  maps: [update_layers_maps_input]
   notifications: [update_layers_directus_users_1_input]
+  maps: [update_layers_maps_input]
 }
 
 input update_layers_maps_input {
@@ -4364,8 +4315,8 @@ input update_maps_input {
 input update_marker_icons_input {
   id: ID
   image: update_directus_files_input
-  image_outline: update_directus_files_input
   size: Float
+  image_outline: update_directus_files_input
   size_outline: Float
 }
 
@@ -4383,7 +4334,6 @@ input update_types_input {
   id: ID
   name: String
   offers_and_needs: Boolean
-  onepager: Boolean
   questlog: Boolean
   relations: Boolean
   show_header_view_in_form: Boolean
@@ -4397,7 +4347,6 @@ input update_types_input {
   small_form_edit: Boolean
   template: String
   text: Boolean
-  text_area: Boolean
   text_input_label: String
   user_created: update_directus_users_input
   user_updated: update_directus_users_input
