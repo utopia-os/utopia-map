@@ -1,0 +1,56 @@
+{
+  "collection": "relations",
+  "field": "direction",
+  "type": "string",
+  "meta": {
+    "collection": "relations",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "direction",
+    "group": null,
+    "hidden": false,
+    "interface": "select-dropdown",
+    "note": null,
+    "options": {
+      "choices": [
+        {
+          "icon": "arrow_forward",
+          "text": "outgoing",
+          "value": "outgoing"
+        },
+        {
+          "icon": "arrow_back",
+          "text": "ingoing",
+          "value": "ingoing"
+        }
+      ]
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 4,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  },
+  "schema": {
+    "name": "direction",
+    "table": "relations",
+    "data_type": "character varying",
+    "default_value": "outgoing",
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}
