@@ -1,0 +1,59 @@
+name: test:cypress-e2e
+
+on: push
+
+jobs:
+  cypress-e2e-tests:
+    name: Run E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        with:
+          node-version-file: ./.tool-versions
+          cache: 'npm'
+          cache-dependency-path: './cypress/package-lock.json'
+
+      - name: Build Frontend
+        run: |
+          cp .env.dist .env
+          sed -i '/VITE_DIRECTUS_ADMIN_ROLE=/c\VITE_DIRECTUS_ADMIN_ROLE=8141dee8-8e10-48d0-baf1-680aea271298' .env
+          npm ci
+          npm run build
+        working-directory: ./app
+
+      - name: Build and start all Containers
+        run: docker compose up -d
+
+      - name: Seed Backend
+        run: |
+          mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
+          cd backend && ./seed.sh
+        working-directory: ./
+
+      - name: Wait for Application to be Ready
+        run: |
+          echo "Waiting for application to be ready..."
+          timeout 300 bash -c 'until curl -f http://localhost:8080/login; do sleep 5; done'
+          echo "Application is ready!"
+
+      - name: Health Check
+        run: |
+          echo "Frontend health check:"
+          curl -f http://localhost:8080/login || exit 1
+          echo "Backend health check:"
+          curl -f http://localhost:8055/server/health || exit 1
+
+      - name: Install Cypress Dependencies
+        run: npm ci
+        working-directory: ./cypress
+
+      - name: Run E2E Tests
+        run: npm run test:split:auto
+        working-directory: ./cypress
+
+
