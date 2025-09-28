@@ -31,6 +31,13 @@ jobs:
           npm run build
         working-directory: ./app
 
+      - name: Clean Database State
+        run: |
+          # Remove any existing database data to ensure fresh state
+          sudo rm -rf ./data/database
+          mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
+
       - name: Build and start all Containers
         run: docker compose up -d
 
