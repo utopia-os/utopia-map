@@ -17,6 +17,12 @@ jobs:
           cache: 'npm'
           cache-dependency-path: './cypress/package-lock.json'
 
+      - name: Build Library
+        run: |
+          npm install
+          npm run build
+        working-directory: ./lib
+
       - name: Build Frontend
         run: |
           cp .env.dist .env
@@ -56,4 +62,18 @@ jobs:
         run: npm run test:split:auto
         working-directory: ./cypress
 
+      - name: Upload Cypress Screenshots
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/reports/screenshots
+          retention-days: 7
 
+      - name: Upload Cypress Videos
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/reports/videos
+          retention-days: 7
