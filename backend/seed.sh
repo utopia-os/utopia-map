@@ -16,7 +16,7 @@ PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
 echo "Sync collections"
-npx directus-sync@3.0.4 push \
+npx directus-sync@3.4.0 push \
   --dump-path $PROJECT_FOLDER \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
@@ -24,7 +24,7 @@ npx directus-sync@3.0.4 push \
   || exit 1
 
 echo "Seed data"
-npx directus-sync@3.0.4 seed push \
+npx directus-sync@3.4.0 seed push \
   --seed-path $PROJECT_FOLDER/seed \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
