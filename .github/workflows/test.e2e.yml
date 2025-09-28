@@ -41,6 +41,12 @@ jobs:
       - name: Build and start all Containers
         run: docker compose up -d
 
+      - name: Wait for Directus to be Ready
+        run: |
+          echo "Waiting for Directus API to be ready..."
+          timeout 120 bash -c 'until curl -f http://localhost:8055/server/health; do echo "Waiting for Directus..."; sleep 5; done'
+          echo "Directus is ready!"
+
       - name: Seed Backend
         run: |
           mkdir -p ./data/uploads
