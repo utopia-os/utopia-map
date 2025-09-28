@@ -1,2 +1,5 @@
 .claude/
 data/
+cypress/node:modules/
+cypress/reports/
+cypress/runner-results/

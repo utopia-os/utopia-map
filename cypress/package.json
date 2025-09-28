@@ -1,0 +1,30 @@
+{
+  "name": "utopia-map-e2e-testing",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Cypress End-to-End Tests for Utopia Map",
+  "scripts": {
+    "test": "cypress run --e2e --browser chromium",
+    "test:open": "cypress open --e2e",
+    "test:split:auto": "SPEC_COUNT=$(find e2e -name '*.cy.ts' | wc -l) && echo \"Running $SPEC_COUNT chunks in parallel\" && for i in $(seq 0 $((SPEC_COUNT-1))); do SPLIT=$SPEC_COUNT SPLIT_INDEX=$i cypress run --e2e --browser chromium & done; wait",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "cypress",
+    "cypress-split",
+    "e2e",
+    "testing",
+    "utopia-map"
+  ],
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@types/node": "^24.5.2",
+    "cypress": "^15.3.0",
+    "cypress-split": "^1.24.23",
+    "eslint": "^9.36.0",
+    "eslint-plugin-cypress": "^5.1.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.44.1"
+  }
+}
