@@ -1,4 +1,4 @@
-name: test:cypress-e2e
+name: test:e2e
 
 on: push
 
