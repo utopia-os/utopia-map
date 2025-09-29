@@ -68,7 +68,8 @@ export default tseslint.config(
       'semi': ['error', 'never'],
       'quotes': ['error', 'single', { avoidEscape: true }],
       'comma-dangle': ['error', 'always-multiline'],
-      'space-before-function-paren': ['error', 'always'],
+      // Disabled: conflicts with common TypeScript/React patterns
+      // 'space-before-function-paren': ['error', 'always'],
       'keyword-spacing': ['error', { before: true, after: true }],
       'space-infix-ops': 'error',
       'eol-last': ['error', 'always'],
@@ -80,8 +81,15 @@ export default tseslint.config(
       // Disable indent rule due to known issues with TypeScript/JSX
       // 'indent': ['error', 2],
       'linebreak-style': ['error', 'unix'],
+
+      // Additional standard rules that were missing
+      'eqeqeq': ['error', 'always', { null: 'ignore' }],
+      'new-cap': ['error', { newIsCap: true, capIsNew: false, properties: true }],
+      'array-callback-return': ['error', { allowImplicit: false, checkForEach: false }],
+
       // React rules
       'react/react-in-jsx-scope': 'off',
+      'react/no-unescaped-entities': 'error',
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
@@ -174,11 +182,16 @@ export default tseslint.config(
   // TypeScript configs (applied after main config)
   ...tseslint.configs.recommended,
   ...tseslint.configs.strict,
+  ...tseslint.configs.stylistic,
 
   // TypeScript type-checking configuration
   {
     files: ['**/*.{ts,tsx}'],
-    extends: [...tseslint.configs.recommendedTypeChecked],
+    extends: [
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+    ],
     languageOptions: {
       parserOptions: {
         project: ['./tsconfig.json'],
@@ -189,6 +202,9 @@ export default tseslint.config(
       '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-floating-promises': ['error', { ignoreVoid: true }],
       'no-void': ['error', { allowAsStatement: true }],
+
+      // Disable empty function rule - legitimate use in React contexts and empty constructors
+      '@typescript-eslint/no-empty-function': 'off',
 
       // Configure no-unused-expressions to allow logical AND and ternary patterns
       '@typescript-eslint/no-unused-expressions': ['error', {

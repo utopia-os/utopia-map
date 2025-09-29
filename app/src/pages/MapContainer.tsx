@@ -3,7 +3,6 @@
 /* eslint-disable import/no-relative-parent-imports */
 /* eslint-disable array-callback-return */
 /* eslint-disable new-cap */
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable react-hooks/exhaustive-deps */
