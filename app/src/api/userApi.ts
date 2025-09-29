@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createUser, passwordRequest, passwordReset, readMe, updateMe } from '@directus/sdk'
 
 import { directusClient } from './directus'

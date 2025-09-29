@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+// /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
