@@ -31,6 +31,13 @@ jobs:
           npm run build
         working-directory: ./app
 
+      - name: Clean Database State
+        run: |
+          # Remove any existing database data to ensure fresh state
+          sudo rm -rf ./data/database
+          mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
+
       - name: Build and start all Containers
         run: docker compose up -d
 
@@ -46,6 +53,12 @@ jobs:
           sudo chmod 777 -R ./data
           cd backend && ./seed.sh
         working-directory: ./
+
+      - name: Wait for Application to be Ready
+        run: |
+          echo "Waiting for application to be ready..."
+          timeout 300 bash -c 'until curl -f http://localhost:8080/login; do sleep 5; done'
+          echo "Application is ready!"
 
       - name: Health Check
         run: |
