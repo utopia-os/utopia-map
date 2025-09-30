@@ -1,4 +1,4 @@
-name: test:lint:licypressb
+name: test:lint:cypress
 
 on: push
 
@@ -7,7 +7,7 @@ jobs:
     name: Detect File Changes - lint - cypress
     runs-on: ubuntu-latest
     outputs:
-      lint: ${{ steps.filter.outputs.cypress }}
+      cypress: ${{ steps.filter.outputs.cypress }}
     steps:
       - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
