@@ -31,7 +31,13 @@ jobs:
           npm run build
         working-directory: ./app
 
-      - name: Build and start all Containers
+      - name: Clean Database State
+        run: |
+          # Remove any existing database data to ensure fresh state
+          sudo rm -rf ./data/database
+          mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
+- name: Build and start all Containers
         run: docker compose up -d
 
       - name: Seed Backend
@@ -62,4 +68,39 @@ jobs:
         id: cypress-tests
         continue-on-error: true
         run: npm run test:split:auto
-        working-directory: ./Cypress
+        working-directory: ./cypress
+
+      - name: Merge Test Reports
+        if: always()
+        run: |
+          if [ -d "reports/json" ] && [ "$(ls -A reports/json)" ]; then
+            npm run report:merge
+          else
+            echo "No test reports to merge"
+          fi
+        working-directory: ./cypress
+
+      - name: Generate HTML Report
+        if: always()
+        run: |
+          if [ -f "reports/json/merged-report.json" ]; then
+            npm run report:generate
+          else
+            echo "No merged report to generate HTML from"
+          fi
+        working-directory: ./cypress
+
+      - name: Upload Test Artifacts
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        if: failure() && steps.cypress-tests.outcome == 'failure'
+        with:
+          name: e2e-test-results-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            cypress/reports/screenshots
+            cypress/reports/html
+          retention-days: 30
+          if-no-files-found: warn
+
+      - name: Fail Workflow if Tests Failed
+        if: steps.cypress-tests.outcome == 'failure'
+        run: exit 1
