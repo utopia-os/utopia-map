@@ -21,6 +21,7 @@ export class layersApi {
             { itemType: ['*.*', { profileTemplate: ['*', 'item.*.*.*.*'] }] },
             { markerIcon: ['*'] } as any,
           ],
+          // eslint-disable-next-line camelcase
           filter: { maps: { maps_id: { id: { _eq: this.mapId } } } },
           limit: 500,
           sort: ['sort'],
