@@ -36,6 +36,7 @@ import { useTags } from './hooks/useTags'
 import AddButton from './Subcomponents/AddButton'
 import { Control } from './Subcomponents/Controls/Control'
 import { FilterControl } from './Subcomponents/Controls/FilterControl'
+import { FullscreenControl } from './Subcomponents/Controls/FullscreenControl'
 import { GratitudeControl } from './Subcomponents/Controls/GratitudeControl'
 import { LayerControl } from './Subcomponents/Controls/LayerControl'
 import { SearchControl } from './Subcomponents/Controls/SearchControl'
@@ -51,6 +52,7 @@ export function UtopiaMapInner({
   showFilterControl = false,
   showGratitudeControl = false,
   showLayerControl = true,
+  showFullscreenControl = false,
   showThemeControl = false,
   defaultTheme = '',
   donationWidget,
@@ -63,6 +65,7 @@ export function UtopiaMapInner({
   showFilterControl?: boolean
   showLayerControl?: boolean
   showGratitudeControl?: boolean
+  showFullscreenControl?: boolean
   donationWidget?: boolean
   showThemeControl?: boolean
   defaultTheme?: string
@@ -279,6 +282,7 @@ export function UtopiaMapInner({
         {showFilterControl && <FilterControl />}
         {showLayerControl && <LayerControl expandLayerControl={expandLayerControl ?? false} />}
         {showGratitudeControl && <GratitudeControl />}
+        {showFullscreenControl && <FullscreenControl />}
       </Control>
       <TileLayer
         maxZoom={19}
