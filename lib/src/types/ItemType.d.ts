@@ -21,4 +21,7 @@ export interface ItemType {
   botton_label?: string
   text_input_label?: string
   show_header_view_in_form?: boolean
+  cta_button_label?: string
+  show_address?: boolean
+  cta_relation?: string
 }
