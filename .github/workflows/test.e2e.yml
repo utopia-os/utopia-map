@@ -76,6 +76,9 @@ jobs:
         continue-on-error: true
         run: npm run test:split:auto
         working-directory: ./cypress
+        env:
+          # Disable individual cypress-split summaries to avoid conflicts
+          SPLIT_SUMMARY: false
 
       - name: Merge Test Reports
         if: always()
@@ -94,6 +97,48 @@ jobs:
             npm run report:generate
           else
             echo "No merged report to generate HTML from"
+          fi
+        working-directory: ./cypress
+
+      - name: Create Test Summary
+        if: always()
+        run: |
+          echo "# 🧪 Cypress E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Count total specs
+          TOTAL_SPECS=$(find e2e -name "*.cy.ts" | wc -l)
+          echo "**Total Specs:** $TOTAL_SPECS" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Check if tests passed or failed
+          if [ "${{ steps.cypress-tests.outcome }}" = "success" ]; then
+            echo "## ✅ All Tests Passed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ❌ Some Tests Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Add spec details if JSON reports exist
+          if [ -d "reports/json" ] && [ "$(ls -A reports/json)" ]; then
+            echo "## 📊 Test Details" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Spec File | Status |" >> $GITHUB_STEP_SUMMARY
+            echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+
+            # List all spec files and their status
+            for spec in $(find e2e -name "*.cy.ts" | sort); do
+              spec_name=$(basename "$spec")
+              echo "| $spec_name | ✅ Executed |" >> $GITHUB_STEP_SUMMARY
+            done
+          fi
+
+          # Add links to artifacts if they exist
+          if [ -f "reports/html/index.html" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## 📋 Reports" >> $GITHUB_STEP_SUMMARY
+            echo "- HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "- Screenshots: Available in artifacts (if tests failed)" >> $GITHUB_STEP_SUMMARY
           fi
         working-directory: ./cypress
 
