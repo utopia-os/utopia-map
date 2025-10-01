@@ -197,22 +197,40 @@ jobs:
 
           # List all spec files and their actual status from JSON reports
           if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
+
             # Create temporary file to store spec results
             temp_results=$(mktemp)
 
             # Parse JSON reports to get actual spec results
             for json_file in reports/json/*.json; do
               if [ -f "$json_file" ]; then
-                # Extract spec file name from JSON (look for "file" field)
+                # Try multiple patterns to extract spec file name from JSON
+                # Pattern 1: Look for "file" field
                 spec_file=$(grep -o '"file":"[^"]*"' "$json_file" | cut -d'"' -f4 | head -1)
+
+                # Pattern 2: Look for "spec" field if "file" not found
+                if [ -z "$spec_file" ]; then
+                  spec_file=$(grep -o '"spec":"[^"]*"' "$json_file" | cut -d'"' -f4 | head -1)
+                fi
+
+                # Pattern 3: Look for "title" or other identifying fields
+                if [ -z "$spec_file" ]; then
+                  # Try to extract from the file name itself (mochawesome pattern)
+                  spec_file=$(basename "$json_file" .json | sed 's/mochawesome_[0-9]*_//')
+                fi
+
                 if [ -n "$spec_file" ]; then
                   spec_name=$(basename "$spec_file")
                   # Check if this spec has any failures
                   failures=$(grep -o '"failures":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
+                  passes=$(grep -o '"passes":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
+
                   if [ "$failures" -gt 0 ]; then
                     echo "$spec_name:❌ Failed ($failures failures)" >> "$temp_results"
+                  elif [ "$passes" -gt 0 ]; then
+                    echo "$spec_name:✅ Passed ($passes tests)" >> "$temp_results"
                   else
-                    echo "$spec_name:✅ Passed" >> "$temp_results"
+                    echo "$spec_name:⚠️ No tests found" >> "$temp_results"
                   fi
                 fi
               fi
@@ -228,6 +246,7 @@ jobs:
             # Clean up temporary file
             rm -f "$temp_results"
           else
+
             # Fallback if no JSON reports available
             find e2e -name "*.cy.ts" | sort | while read spec; do
               spec_name=$(basename "$spec")
@@ -238,7 +257,7 @@ jobs:
           # Add test counts from JSON reports if available
           if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## 📈 Test Counts" >> $GITHUB_STEP_SUMMARY
+            echo "## Test Counts" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
 
             TOTAL_TESTS=0
@@ -266,7 +285,7 @@ jobs:
 
           # Add links to artifacts based on actual test results
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 📋 Reports" >> $GITHUB_STEP_SUMMARY
+          echo "## Reports" >> $GITHUB_STEP_SUMMARY
           if [ "$TOTAL_FAILURES" -gt 0 ]; then
             echo "- HTML Report: Will be available in artifacts" >> $GITHUB_STEP_SUMMARY
             echo "- Screenshots: Will be available in artifacts" >> $GITHUB_STEP_SUMMARY
@@ -318,9 +337,7 @@ jobs:
         with:
           name: e2e-test-failures-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            cypress-reports/reports/screenshots
-            cypress-reports/reports/html
-            cypress-reports/reports/json
+            cypress-reports/reports/
           retention-days: 30
           if-no-files-found: warn
 
