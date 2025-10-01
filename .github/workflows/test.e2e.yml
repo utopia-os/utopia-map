@@ -103,7 +103,7 @@ jobs:
       - name: Create Test Summary
         if: always()
         run: |
-          echo "# 🧪 Cypress E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "# Cypress E2E Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           # Count total specs
@@ -119,27 +119,57 @@ jobs:
           fi
           echo "" >> $GITHUB_STEP_SUMMARY
 
-          # Add spec details if JSON reports exist
-          if [ -d "reports/json" ] && [ "$(ls -A reports/json)" ]; then
-            echo "## 📊 Test Details" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "| Spec File | Status |" >> $GITHUB_STEP_SUMMARY
-            echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
+          # Always show spec details table
+          echo "## 📊 Test Details" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Spec File | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
 
-            # List all spec files and their status
-            for spec in $(find e2e -name "*.cy.ts" | sort); do
-              spec_name=$(basename "$spec")
-              echo "| $spec_name | ✅ Executed |" >> $GITHUB_STEP_SUMMARY
+          # List all spec files and their status
+          find e2e -name "*.cy.ts" | sort | while read spec; do
+            spec_name=$(basename "$spec")
+            echo "| $spec_name | ✅ Executed |" >> $GITHUB_STEP_SUMMARY
+          done
+
+          # Add test counts from JSON reports if available
+          if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "## 📈 Test Counts" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            TOTAL_TESTS=0
+            PASSED_TESTS=0
+            FAILED_TESTS=0
+
+            # Parse JSON reports to get test counts
+            for json_file in reports/json/*.json; do
+              if [ -f "$json_file" ]; then
+                # Extract test counts using basic tools (avoiding jq dependency)
+                TESTS=$(grep -o '"tests":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
+                PASSES=$(grep -o '"passes":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
+                FAILURES=$(grep -o '"failures":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
+
+                TOTAL_TESTS=$((TOTAL_TESTS + TESTS))
+                PASSED_TESTS=$((PASSED_TESTS + PASSES))
+                FAILED_TESTS=$((FAILED_TESTS + FAILURES))
+              fi
             done
+
+            echo "- **Total Tests:** $TOTAL_TESTS" >> $GITHUB_STEP_SUMMARY
+            echo "- **Passed:** $PASSED_TESTS ✅" >> $GITHUB_STEP_SUMMARY
+            echo "- **Failed:** $FAILED_TESTS ❌" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Add links to artifacts if they exist
+          # Add links to artifacts
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📋 Reports" >> $GITHUB_STEP_SUMMARY
           if [ -f "reports/html/index.html" ]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## 📋 Reports" >> $GITHUB_STEP_SUMMARY
-            echo "- HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
-            echo "- Screenshots: Available in artifacts (if tests failed)" >> $GITHUB_STEP_SUMMARY
+            echo "- 📊 HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
           fi
+          if [ "${{ steps.cypress-tests.outcome }}" = "failure" ]; then
+            echo "- 📸 Screenshots: Available in artifacts" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- 🔍 JSON Reports: Generated for analysis" >> $GITHUB_STEP_SUMMARY
         working-directory: ./cypress
 
       - name: Upload Test Artifacts
