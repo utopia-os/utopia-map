@@ -77,10 +77,59 @@ jobs:
         run: npm ci
         working-directory: ./cypress
 
+      - name: Setup Display Environment for Parallel Tests
+        run: |
+          echo "Setting up display environment for parallel Cypress execution..."
+
+          # Kill any existing Xvfb processes to ensure clean state
+          sudo pkill Xvfb || true
+
+          # Remove any existing lock files
+          sudo rm -f /tmp/.X*-lock || true
+
+          # Ensure xvfb is available
+          which xvfb-run || (sudo apt-get update && sudo apt-get install -y xvfb)
+
+          # Create a wrapper script for parallel execution with display isolation
+          cat > /tmp/cypress-parallel-wrapper.sh << 'EOF'
+          #!/bin/bash
+
+          # Get parameters
+          SPEC_COUNT="$1"
+          SPLIT_INDEX="$2"
+
+          # Calculate unique display number starting from 100 to avoid conflicts with :99
+          DISPLAY_NUM=$((100 + SPLIT_INDEX))
+
+          echo "Running Cypress chunk $((SPLIT_INDEX + 1))/$SPEC_COUNT on display :$DISPLAY_NUM"
+
+          # Run Cypress with isolated display using xvfb-run
+          SPLIT="$SPEC_COUNT" SPLIT_INDEX="$SPLIT_INDEX" \
+          xvfb-run --server-num="$DISPLAY_NUM" \
+                   --server-args="-screen 0 1280x720x24 -ac +extension GLX +render -noreset" \
+                   cypress run --e2e --browser chromium
+          EOF
+
+          chmod +x /tmp/cypress-parallel-wrapper.sh
+
+          echo "Display environment setup complete"
+
       - name: Run E2E Tests
         id: cypress-tests
         continue-on-error: true
-        run: npm run test:split:auto
+        run: |
+          SPEC_COUNT=$(find e2e -name "*.cy.ts" | wc -l)
+          echo "Running $SPEC_COUNT test chunks in parallel with display isolation"
+
+          # Launch parallel processes with isolated displays
+          for i in $(seq 0 $((SPEC_COUNT-1))); do
+            /tmp/cypress-parallel-wrapper.sh "$SPEC_COUNT" "$i" &
+          done
+
+          # Wait for all background processes to complete
+          wait
+
+          echo "All parallel test processes completed"
         working-directory: ./cypress
         env:
           # Disable individual cypress-split summaries to avoid conflicts
