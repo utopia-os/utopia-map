@@ -8,19 +8,22 @@ export default defineConfig({
     viewportHeight: 720,
 
     specPattern: 'e2e/**/*.cy.ts',
-    supportFile: false,
+    supportFile: 'support/e2e.ts',
     screenshotsFolder: 'reports/screenshots',
     videosFolder: 'reports/videos',
     video: false,
     screenshotOnRunFailure: true,
 
-    reporter: 'mochawesome',
+    reporter: 'cypress-mochawesome-reporter',
     reporterOptions: {
-      reportDir: 'reports/json',
-      overwrite: false,
-      html: false,
-      json: true,
-      timestamp: 'mmddyyyy_HHMMss',
+      reportDir: 'reports',
+      charts: true,
+      reportPageTitle: 'Utopia Map E2E Test Report',
+      embeddedScreenshots: true,
+      inlineAssets: true,
+      saveAllAttempts: false,
+      saveJson: true,
+      saveHtml: false,
     },
     
     defaultCommandTimeout: 10000,
@@ -44,6 +47,9 @@ export default defineConfig({
     },
     
     setupNodeEvents(on, config) {
+      // Load cypress-mochawesome-reporter plugin
+      require('cypress-mochawesome-reporter/plugin')(on)
+
       // Load cypress-split plugin
       cypressSplit(on, config)
 

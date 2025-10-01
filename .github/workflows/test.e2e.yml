@@ -354,6 +354,7 @@ jobs:
         id: report-results
         if: always()
         run: |
+          echo "Debug: cypress-tests step outcome = '${{ steps.cypress-tests.outcome }}'"
           if [ "${{ steps.cypress-tests.outcome }}" = "failure" ]; then
             echo "❌ Tests failed - artifacts will be uploaded by dependent job"
             echo "test_failed=true" >> $GITHUB_OUTPUT
