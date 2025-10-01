@@ -6,6 +6,9 @@ jobs:
   cypress-e2e-tests:
     name: Run E2E Tests
     runs-on: ubuntu-latest
+    outputs:
+      test-outcome: ${{ steps.cypress-tests.outcome }}
+      test-conclusion: ${{ steps.cypress-tests.conclusion }}
     steps:
       - name: Checkout code
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
@@ -134,7 +137,7 @@ jobs:
           # Add test counts from JSON reports if available
           if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## 📈 Test Counts" >> $GITHUB_STEP_SUMMARY
+            echo "## Test Counts" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
 
             TOTAL_TESTS=0
@@ -162,27 +165,50 @@ jobs:
 
           # Add links to artifacts
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## 📋 Reports" >> $GITHUB_STEP_SUMMARY
+          echo "## Reports" >> $GITHUB_STEP_SUMMARY
           if [ -f "reports/html/index.html" ]; then
-            echo "- 📊 HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "- HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
           fi
           if [ "${{ steps.cypress-tests.outcome }}" = "failure" ]; then
-            echo "- 📸 Screenshots: Available in artifacts" >> $GITHUB_STEP_SUMMARY
+            echo "- Screenshots: Available in artifacts" >> $GITHUB_STEP_SUMMARY
           fi
-          echo "- 🔍 JSON Reports: Generated for analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- JSON Reports: Generated for analysis" >> $GITHUB_STEP_SUMMARY
         working-directory: ./cypress
 
-      - name: Upload Test Artifacts
+      - name: Upload Test Reports (Always)
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        if: always() && steps.cypress-tests.outcome == 'failure'
+        if: always()
         with:
-          name: e2e-test-results-${{ github.run_id }}-${{ github.run_attempt }}
+          name: e2e-test-reports-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            cypress/reports/screenshots
-            cypress/reports/html
+            cypress/reports/
           retention-days: 30
           if-no-files-found: warn
 
       - name: Fail Workflow if Tests Failed
-        if: steps.cypress-tests.outcome == 'failure'
-        run: exit 1
+        if: always() && (steps.cypress-tests.outcome == 'failure' || steps.cypress-tests.conclusion == 'failure')
+        run: |
+          echo "Tests failed - failing the workflow"
+          exit 1
+
+  upload-artifacts:
+    name: Upload Test Artifacts
+    runs-on: ubuntu-latest
+    needs: cypress-e2e-tests
+    if: always() && (needs.cypress-e2e-tests.outputs.test-outcome == 'failure' || needs.cypress-e2e-tests.outputs.test-conclusion == 'failure')
+    steps:
+      - name: Download Test Reports
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
+        with:
+          name: e2e-test-reports-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ./cypress-reports
+
+      - name: Upload Failure Artifacts
+        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        with:
+          name: e2e-test-failures-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            cypress-reports/screenshots
+            cypress-reports/html
+          retention-days: 30
+          if-no-files-found: warn
