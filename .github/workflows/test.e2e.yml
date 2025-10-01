@@ -7,8 +7,9 @@ jobs:
     name: Run E2E Tests
     runs-on: ubuntu-latest
     outputs:
-      tests-failed: ${{ steps.cypress-tests.outcome == 'failure' }}
+      tests-failed: ${{ steps.cypress-tests.outcome == 'failure' || steps.report-results.outputs.test_failed == 'true' }}
       tests-outcome: ${{ steps.cypress-tests.outcome }}
+      test_failed: ${{ steps.report-results.outputs.test_failed }}
     steps:
       - name: Checkout code
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
@@ -94,11 +95,13 @@ jobs:
 
       - name: Run E2E Tests
         id: cypress-tests
-        continue-on-error: true
         run: |
           # Override the npm script to use xvfb-run with display isolation
           SPEC_COUNT=$(find e2e -name "*.cy.ts" | wc -l)
           echo "Running $SPEC_COUNT test chunks in parallel with display isolation"
+
+          # Array to store background process PIDs
+          declare -a pids=()
 
           # Launch parallel processes with isolated displays
           for i in $(seq 0 $((SPEC_COUNT-1))); do
@@ -109,12 +112,27 @@ jobs:
                        --server-args="-screen 0 1280x720x24 -ac +extension GLX +render -noreset" \
                        npx cypress run --e2e --browser chromium
             ) &
+            pids+=($!)
           done
 
-          # Wait for all background processes to complete
-          wait
+          # Wait for all background processes and collect exit codes
+          exit_code=0
+          for pid in "${pids[@]}"; do
+            if ! wait "$pid"; then
+              echo "Process $pid failed"
+              exit_code=1
+            fi
+          done
 
           echo "All parallel test processes completed"
+
+          # Exit with failure if any test failed
+          if [ $exit_code -ne 0 ]; then
+            echo "❌ Some tests failed"
+            exit 1
+          else
+            echo "✅ All tests passed"
+          fi
         working-directory: ./cypress
         env:
           # Disable individual cypress-split summaries to avoid conflicts
@@ -216,7 +234,7 @@ jobs:
         working-directory: ./cypress
 
       - name: Upload Test Artifacts (Temporary)
-        if: always() && steps.cypress-tests.outcome == 'failure'
+        if: always() && (steps.cypress-tests.outcome == 'failure' || steps.report-results.outputs.test_failed == 'true')
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
           name: e2e-test-reports-temp-${{ github.run_id }}-${{ github.run_attempt }}
@@ -226,13 +244,16 @@ jobs:
           if-no-files-found: warn
 
       - name: Report Test Results
+        id: report-results
         if: always()
         run: |
           if [ "${{ steps.cypress-tests.outcome }}" = "failure" ]; then
             echo "❌ Tests failed - artifacts will be uploaded by dependent job"
+            echo "test_failed=true" >> $GITHUB_OUTPUT
             exit 1
           else
             echo "✅ All tests passed successfully"
+            echo "test_failed=false" >> $GITHUB_OUTPUT
           fi
 
   upload-artifacts:
@@ -240,7 +261,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: cypress-e2e-tests
     # Only run if the test job failed (not cancelled or skipped)
-    if: always() && needs.cypress-e2e-tests.result == 'failure'
+    if: always() && (needs.cypress-e2e-tests.result == 'failure' || needs.cypress-e2e-tests.outputs.test_failed == 'true')
     steps:
       - name: Download Test Reports
         uses: actions/download-artifact@4a24838f3d5601fd639834081e118c2995d51e1c #v5.0.0
