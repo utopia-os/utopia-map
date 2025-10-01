@@ -141,7 +141,7 @@ jobs:
       - name: Merge Test Reports
         if: always()
         run: |
-          if [ -d "reports/json" ] && [ "$(ls -A reports/json)" ]; then
+          if [ -d "reports" ] && [ "$(find reports/ -name "*.json" 2>/dev/null)" ]; then
             npm run report:merge
           else
             echo "No test reports to merge"
@@ -151,7 +151,7 @@ jobs:
       - name: Generate HTML Report
         if: always()
         run: |
-          if [ -f "reports/json/merged-report.json" ]; then
+          if [ -f "reports/merged-report.json" ]; then
             npm run report:generate
           else
             echo "No merged report to generate HTML from"
@@ -173,11 +173,11 @@ jobs:
           echo ""
           ls -la reports/json/ 2>/dev/null || echo "No reports/json directory found"
           echo ""
-          echo "=== JSON files in reports/json/ ==="
-          find reports/json/ -name "*.json" 2>/dev/null || echo "No JSON files found in reports/json/"
+          echo "=== JSON files in reports/ ==="
+          find reports/ -name "*.json" 2>/dev/null || echo "No JSON files found in reports/"
           echo ""
           echo "=== Count of JSON files ==="
-          find reports/json/ -name "*.json" 2>/dev/null | wc -l || echo "0"
+          find reports/ -name "*.json" 2>/dev/null | wc -l || echo "0"
           echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
@@ -222,13 +222,14 @@ jobs:
           echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
 
           # List all spec files and their actual status from JSON reports
-          if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
+          if [ -d "reports" ] && [ "$(find reports/ -name "*.json" 2>/dev/null)" ]; then
+            echo "Found reports directory with JSON files" >> $GITHUB_STEP_SUMMARY
 
             # Create temporary file to store spec results
             temp_results=$(mktemp)
 
             # Parse JSON reports to get actual spec results
-            for json_file in reports/json/*.json; do
+            for json_file in reports/*.json; do
               if [ -f "$json_file" ]; then
                 # Try multiple patterns to extract spec file name from JSON
                 # Pattern 1: Look for "file" field
