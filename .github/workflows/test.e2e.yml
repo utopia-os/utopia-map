@@ -164,6 +164,34 @@ jobs:
           echo "# Cypress E2E Test Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
+          # Debug: Show what files exist
+          echo "## Debug Information" >> $GITHUB_STEP_SUMMARY
+          echo "**Working Directory:** $(pwd)" >> $GITHUB_STEP_SUMMARY
+          echo "**Reports Directory Structure:**" >> $GITHUB_STEP_SUMMARY
+          echo '```
+' >> $GITHUB_STEP_SUMMARY
+          ls -la reports/ 2>/dev/null || echo "No reports directory found"
+          echo ""
+          ls -la reports/json/ 2>/dev/null || echo "No reports/json directory found"
+          echo ""
+          echo "=== JSON files in reports/json/ ==="
+          find reports/json/ -name "*.json" 2>/dev/null || echo "No JSON files found in reports/json/"
+          echo ""
+          echo "=== Count of JSON files ==="
+          find reports/json/ -name "*.json" 2>/dev/null | wc -l || echo "0"
+          echo '
+```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Count total specs
+          TOTAL_SPECS=$(find e2e -name "*.cy.ts" | wc -l)
+          echo "**Total Specs:** $TOTAL_SPECS" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo ""
+          find reports/ -name "*.json" 2>/dev/null || echo "No JSON files found"
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
           # Count total specs
           TOTAL_SPECS=$(find e2e -name "*.cy.ts" | wc -l)
           echo "**Total Specs:** $TOTAL_SPECS" >> $GITHUB_STEP_SUMMARY
@@ -246,7 +274,6 @@ jobs:
             # Clean up temporary file
             rm -f "$temp_results"
           else
-
             # Fallback if no JSON reports available
             find e2e -name "*.cy.ts" | sort | while read spec; do
               spec_name=$(basename "$spec")
@@ -296,6 +323,24 @@ jobs:
           fi
         working-directory: ./cypress
 
+      - name: Debug Before Upload
+        if: always()
+        run: |
+          echo "=== Current Working Directory ==="
+          pwd
+          echo ""
+          echo "=== Cypress Directory Structure ==="
+          ls -la cypress/ || echo "No cypress directory"
+          echo ""
+          echo "=== Cypress Reports Directory ==="
+          ls -la cypress/reports/ || echo "No cypress/reports directory"
+          echo ""
+          echo "=== Find all files in cypress/reports ==="
+          find cypress/reports/ -type f 2>/dev/null || echo "No files in cypress/reports"
+          echo ""
+          echo "=== JSON files specifically ==="
+          find cypress/reports/ -name "*.json" 2>/dev/null || echo "No JSON files found"
+
       - name: Upload Test Artifacts (Temporary)
         if: always() && (steps.cypress-tests.outcome == 'failure' || steps.report-results.outputs.test_failed == 'true')
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
@@ -331,6 +376,21 @@ jobs:
         with:
           name: e2e-test-reports-temp-${{ github.run_id }}-${{ github.run_attempt }}
           path: ./cypress-reports
+
+      - name: Debug Downloaded Artifacts
+        run: |
+          echo "=== Downloaded Artifact Structure ==="
+          pwd
+          ls -la .
+          echo ""
+          echo "=== cypress-reports directory ==="
+          ls -la cypress-reports/ || echo "cypress-reports directory not found"
+          echo ""
+          echo "=== Find all files ==="
+          find cypress-reports/ -type f 2>/dev/null || echo "No files found in cypress-reports"
+          echo ""
+          echo "=== Find JSON files specifically ==="
+          find cypress-reports/ -name "*.json" 2>/dev/null || echo "No JSON files found"
 
       - name: Upload Test Artifacts
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2

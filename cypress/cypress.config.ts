@@ -13,6 +13,15 @@ export default defineConfig({
     videosFolder: 'reports/videos',
     video: false,
     screenshotOnRunFailure: true,
+
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'reports/json',
+      overwrite: false,
+      html: false,
+      json: true,
+      timestamp: 'mmddyyyy_HHMMss',
+    },
     
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
@@ -35,6 +44,7 @@ export default defineConfig({
     },
     
     setupNodeEvents(on, config) {
+      // Load cypress-split plugin
       cypressSplit(on, config)
 
       on('task', {
