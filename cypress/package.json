@@ -7,6 +7,9 @@
     "test": "cypress run --e2e --browser chromium",
     "test:open": "cypress open --e2e",
     "test:split:auto": "SPEC_COUNT=$(find e2e -name '*.cy.ts' | wc -l) && echo \"Running $SPEC_COUNT chunks in parallel\" && for i in $(seq 0 $((SPEC_COUNT-1))); do SPLIT=$SPEC_COUNT SPLIT_INDEX=$i cypress run --e2e --browser chromium & done; wait",
+    "report:merge": "mochawesome-merge cypress/results/*.json > cypress/results/merged-report.json",
+    "report:generate": "marge cypress/results/merged-report.json --reportDir cypress/results/html --reportTitle 'Utopia Map E2E Tests' --reportPageTitle 'Utopia Map E2E Test Report' --inline --charts",
+    "report:clean": "rm -rf cypress/results cypress/screenshots cypress/videos",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -21,9 +24,13 @@
     "@eslint/js": "^9.36.0",
     "@types/node": "^24.5.2",
     "cypress": "^15.3.0",
+    "cypress-mochawesome-reporter": "^3.8.2",
     "cypress-split": "^1.24.23",
     "eslint": "^9.36.0",
     "eslint-plugin-cypress": "^5.1.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^4.3.0",
+    "mochawesome-report-generator": "^6.2.0",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
   }

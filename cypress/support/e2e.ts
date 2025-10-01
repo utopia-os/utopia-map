@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
-// Import cypress-mochawesome-reporter register
-import 'cypress-mochawesome-reporter/register'
+
 
 // Import commands.ts using ES2015 syntax:
 // import './commands'
