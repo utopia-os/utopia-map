@@ -6,9 +6,6 @@ jobs:
   cypress-e2e-tests:
     name: Run E2E Tests
     runs-on: ubuntu-latest
-    outputs:
-      test-outcome: ${{ steps.cypress-tests.outcome }}
-      test-conclusion: ${{ steps.cypress-tests.conclusion }}
     steps:
       - name: Checkout code
         uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
@@ -75,16 +72,88 @@ jobs:
         working-directory: ./cypress
 
       - name: Run E2E Tests
-        id: cypress-tests
-        continue-on-error: true
         run: npm run test:split:auto
         working-directory: ./cypress
         env:
           # Disable individual cypress-split summaries to avoid conflicts
           SPLIT_SUMMARY: false
 
+  upload-artifacts:
+    name: Upload Test Artifacts
+    runs-on: ubuntu-latest
+    needs: cypress-e2e-tests
+    if: failure()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        with:
+          node-version-file: '.tool-versions'
+          cache: 'npm'
+          cache-dependency-path: |
+            app/package-lock.json
+            lib/package-lock.json
+            cypress/package-lock.json
+
+      - name: Build Library
+        run: |
+          npm ci
+          npm run build
+        working-directory: ./lib
+
+      - name: Build Frontend
+        run: |
+          cp .env.dist .env
+          sed -i '/VITE_DIRECTUS_ADMIN_ROLE=/c\VITE_DIRECTUS_ADMIN_ROLE=8141dee8-8e10-48d0-baf1-680aea271298' .env
+          npm ci
+          npm run build
+        working-directory: ./app
+
+      - name: Clean Database State
+        run: sudo rm -rf ./data/database
+
+      - name: Build and Start All Containers
+        run: docker compose up -d
+
+      - name: Wait for Directus to be Ready
+        run: |
+          echo "Waiting for Directus API to be ready..."
+          timeout 120 bash -c 'until curl -f http://localhost:8055/server/health; do echo "Waiting for Directus..."; sleep 5; done'
+          echo "Directus is ready!"
+
+      - name: Seed Backend
+        run: |
+          mkdir -p ./data/uploads
+          chmod 755 ./data/uploads
+          cd backend && ./seed.sh
+
+      - name: Wait for Application to be Ready
+        run: |
+          echo "Waiting for frontend application to be ready..."
+          timeout 300 bash -c 'until curl -f http://localhost:8080; do echo "Waiting for application..."; sleep 10; done'
+          echo "Application is ready!"
+
+      - name: Health Check
+        run: |
+          echo "Frontend health check:"
+          curl -f http://localhost:8080/login || exit 1
+          echo "Backend health check:"
+          curl -f http://localhost:8055/server/health || exit 1
+
+      - name: Install Cypress Dependencies
+        run: npm ci
+        working-directory: ./cypress
+
+      - name: Run E2E Tests for Artifacts
+        continue-on-error: true
+        run: npm run test:split:auto
+        working-directory: ./cypress
+        env:
+          SPLIT_SUMMARY: false
+
       - name: Merge Test Reports
-        if: always()
         run: |
           if [ -d "reports/json" ] && [ "$(ls -A reports/json)" ]; then
             npm run report:merge
@@ -94,7 +163,6 @@ jobs:
         working-directory: ./cypress
 
       - name: Generate HTML Report
-        if: always()
         run: |
           if [ -f "reports/json/merged-report.json" ]; then
             npm run report:generate
@@ -103,112 +171,24 @@ jobs:
           fi
         working-directory: ./cypress
 
-      - name: Create Test Summary
-        if: always()
-        run: |
-          echo "# Cypress E2E Test Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-          # Count total specs
-          TOTAL_SPECS=$(find e2e -name "*.cy.ts" | wc -l)
-          echo "**Total Specs:** $TOTAL_SPECS" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-          # Check if tests passed or failed
-          if [ "${{ steps.cypress-tests.outcome }}" = "success" ]; then
-            echo "## ✅ All Tests Passed" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "## ❌ Some Tests Failed" >> $GITHUB_STEP_SUMMARY
-          fi
-          echo "" >> $GITHUB_STEP_SUMMARY
-
-          # Always show spec details table
-          echo "## 📊 Test Details" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Spec File | Status |" >> $GITHUB_STEP_SUMMARY
-          echo "|-----------|--------|" >> $GITHUB_STEP_SUMMARY
-
-          # List all spec files and their status
-          find e2e -name "*.cy.ts" | sort | while read spec; do
-            spec_name=$(basename "$spec")
-            echo "| $spec_name | ✅ Executed |" >> $GITHUB_STEP_SUMMARY
-          done
-
-          # Add test counts from JSON reports if available
-          if [ -d "reports/json" ] && [ "$(ls -A reports/json 2>/dev/null)" ]; then
-            echo "" >> $GITHUB_STEP_SUMMARY
-            echo "## Test Counts" >> $GITHUB_STEP_SUMMARY
-            echo "" >> $GITHUB_STEP_SUMMARY
-
-            TOTAL_TESTS=0
-            PASSED_TESTS=0
-            FAILED_TESTS=0
-
-            # Parse JSON reports to get test counts
-            for json_file in reports/json/*.json; do
-              if [ -f "$json_file" ]; then
-                # Extract test counts using basic tools (avoiding jq dependency)
-                TESTS=$(grep -o '"tests":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
-                PASSES=$(grep -o '"passes":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
-                FAILURES=$(grep -o '"failures":[0-9]*' "$json_file" | cut -d':' -f2 || echo "0")
-
-                TOTAL_TESTS=$((TOTAL_TESTS + TESTS))
-                PASSED_TESTS=$((PASSED_TESTS + PASSES))
-                FAILED_TESTS=$((FAILED_TESTS + FAILURES))
-              fi
-            done
-
-            echo "- **Total Tests:** $TOTAL_TESTS" >> $GITHUB_STEP_SUMMARY
-            echo "- **Passed:** $PASSED_TESTS ✅" >> $GITHUB_STEP_SUMMARY
-            echo "- **Failed:** $FAILED_TESTS ❌" >> $GITHUB_STEP_SUMMARY
-          fi
-
-          # Add links to artifacts
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "## Reports" >> $GITHUB_STEP_SUMMARY
-          if [ -f "reports/html/index.html" ]; then
-            echo "- HTML Report: Available in artifacts" >> $GITHUB_STEP_SUMMARY
-          fi
-          if [ "${{ steps.cypress-tests.outcome }}" = "failure" ]; then
-            echo "- Screenshots: Available in artifacts" >> $GITHUB_STEP_SUMMARY
-          fi
-          echo "- JSON Reports: Generated for analysis" >> $GITHUB_STEP_SUMMARY
-        working-directory: ./cypress
-
-      - name: Upload Test Reports (Always)
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
-        if: always()
-        with:
-          name: e2e-test-reports-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            cypress/reports/
-          retention-days: 30
-          if-no-files-found: warn
-
-      - name: Fail Workflow if Tests Failed
-        if: always() && (steps.cypress-tests.outcome == 'failure' || steps.cypress-tests.conclusion == 'failure')
-        run: |
-          echo "Tests failed - failing the workflow"
-          exit 1
-
-  upload-artifacts:
-    name: Upload Test Artifacts
-    runs-on: ubuntu-latest
-    needs: cypress-e2e-tests
-    if: always() && (needs.cypress-e2e-tests.outputs.test-outcome == 'failure' || needs.cypress-e2e-tests.outputs.test-conclusion == 'failure')
-    steps:
-      - name: Download Test Reports
-        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
-        with:
-          name: e2e-test-reports-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ./cypress-reports
-
-      - name: Upload Failure Artifacts
+      - name: Upload Test Artifacts
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: e2e-test-failures-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
-            cypress-reports/screenshots
-            cypress-reports/html
+            cypress/reports/screenshots
+            cypress/reports/html
           retention-days: 30
           if-no-files-found: warn
+
+      - name: Create Failure Summary
+        run: |
+          echo "# 🚨 E2E Test Failure Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The E2E tests failed. Artifacts have been uploaded for analysis." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📦 Available Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Screenshots of failed tests" >> $GITHUB_STEP_SUMMARY
+          echo "- HTML test report with detailed results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Download the artifacts from this workflow run to investigate the failures." >> $GITHUB_STEP_SUMMARY
