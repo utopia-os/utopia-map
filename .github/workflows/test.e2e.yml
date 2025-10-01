@@ -168,8 +168,7 @@ jobs:
           echo "## Debug Information" >> $GITHUB_STEP_SUMMARY
           echo "**Working Directory:** $(pwd)" >> $GITHUB_STEP_SUMMARY
           echo "**Reports Directory Structure:**" >> $GITHUB_STEP_SUMMARY
-          echo '```
-' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           ls -la reports/ 2>/dev/null || echo "No reports directory found"
           echo ""
           ls -la reports/json/ 2>/dev/null || echo "No reports/json directory found"
@@ -179,8 +178,7 @@ jobs:
           echo ""
           echo "=== Count of JSON files ==="
           find reports/json/ -name "*.json" 2>/dev/null | wc -l || echo "0"
-          echo '
-```' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
           # Count total specs
