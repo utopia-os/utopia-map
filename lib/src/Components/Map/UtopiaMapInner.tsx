@@ -279,10 +279,10 @@ export function UtopiaMapInner({
         <TagsControl />
       </Control>
       <Control position='bottomLeft' zIndex='999' absolute>
+        {showFullscreenControl && <FullscreenControl />}
         {showFilterControl && <FilterControl />}
         {showLayerControl && <LayerControl expandLayerControl={expandLayerControl ?? false} />}
         {showGratitudeControl && <GratitudeControl />}
-        {showFullscreenControl && <FullscreenControl />}
       </Control>
       <TileLayer
         maxZoom={19}

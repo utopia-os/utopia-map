@@ -17,7 +17,7 @@
     },
     "readonly": false,
     "required": false,
-    "sort": 16,
+    "sort": 15,
     "special": [
       "alias",
       "no-data",
