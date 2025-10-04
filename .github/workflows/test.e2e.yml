@@ -176,42 +176,69 @@ jobs:
           name: cypress-test-results-${{ github.run_id }}
           path: ./downloaded-reports
 
+      - name: Debug downloaded artifacts
+        run: |
+          echo "=== Downloaded artifact structure ==="
+          find downloaded-reports/ -type f 2>/dev/null || echo "No files found"
+          echo ""
+          echo "=== Looking for JSON files ==="
+          find downloaded-reports/ -name "*.json" 2>/dev/null || echo "No JSON files found"
+
       - name: Copy reports to expected location
         run: |
-          mkdir -p cypress/cypress/results
-          if [ -d "downloaded-reports/cypress/results" ]; then
-            cp -r downloaded-reports/cypress/results/* cypress/cypress/results/
-          fi
-          if [ -d "downloaded-reports/screenshots" ]; then
-            cp -r downloaded-reports/screenshots cypress/
-          fi
-          if [ -d "downloaded-reports/videos" ]; then
-            cp -r downloaded-reports/videos cypress/
+          # Create the target directory structure in cypress directory
+          mkdir -p cypress/results
+
+          # Copy all files from downloaded artifacts, preserving structure
+          if [ -d "downloaded-reports" ]; then
+            # Find and copy all JSON files regardless of their path in the artifact
+            find downloaded-reports/ -name "*.json" -exec cp {} cypress/results/ \;
+
+            # Copy screenshots if they exist
+            if [ -d "downloaded-reports/screenshots" ]; then
+              cp -r downloaded-reports/screenshots cypress/
+            fi
+
+            # Copy videos if they exist
+            if [ -d "downloaded-reports/videos" ]; then
+              cp -r downloaded-reports/videos cypress/
+            fi
+
+            echo "=== Files copied to cypress/results/ ==="
+            ls -la cypress/results/ || echo "No files in cypress/results/"
           fi
 
       - name: Merge test reports
         run: |
-          if [ -d "cypress/results" ] && [ "$(find cypress/results/ -name "*.json" 2>/dev/null)" ]; then
+          if [ -d "results" ] && [ "$(find results/ -name "*.json" 2>/dev/null)" ]; then
             echo "Found JSON reports, merging..."
             npm run report:merge
+            echo "=== Merge result ==="
+            ls -la results/merged-report.json || echo "Merge failed"
           else
             echo "No JSON reports found to merge"
+            echo "=== Debug: results directory ==="
+            ls -la results/ || echo "Directory does not exist"
           fi
+        working-directory: ./cypress
 
       - name: Generate HTML report
         run: |
-          if [ -f "cypress/results/merged-report.json" ]; then
+          if [ -f "results/merged-report.json" ]; then
             echo "Generating HTML report..."
             npm run report:generate
+            echo "=== HTML generation result ==="
+            ls -la results/html/ || echo "HTML generation failed"
           else
             echo "No merged report found, skipping HTML generation"
           fi
+        working-directory: ./cypress
 
       - name: Upload processed reports
         uses: actions/upload-artifact@v4
         with:
           name: e2e-test-reports-${{ github.run_id }}
           path: |
-            cypress/cypress/results/
+            cypress/results/
           retention-days: 30
           if-no-files-found: warn

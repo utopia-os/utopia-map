@@ -7,9 +7,9 @@
     "test": "cypress run --e2e --browser chromium",
     "test:open": "cypress open --e2e",
     "test:split:auto": "SPEC_COUNT=$(find e2e -name '*.cy.ts' | wc -l) && echo \"Running $SPEC_COUNT chunks in parallel\" && for i in $(seq 0 $((SPEC_COUNT-1))); do SPLIT=$SPEC_COUNT SPLIT_INDEX=$i cypress run --e2e --browser chromium & done; wait",
-    "report:merge": "mochawesome-merge cypress/results/*.json > cypress/results/merged-report.json",
-    "report:generate": "marge cypress/results/merged-report.json --reportDir cypress/results/html --reportTitle 'Utopia Map E2E Tests' --reportPageTitle 'Utopia Map E2E Test Report' --inline --charts",
-    "report:clean": "rm -rf cypress/results cypress/screenshots cypress/videos",
+    "report:merge": "mochawesome-merge results/*.json > results/merged-report.json",
+    "report:generate": "marge results/merged-report.json --reportDir results/html --reportTitle 'Utopia Map E2E Tests' --reportPageTitle 'Utopia Map E2E Test Report' --inline --charts",
+    "report:clean": "rm -rf results screenshots videos",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
