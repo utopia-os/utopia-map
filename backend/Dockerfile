@@ -3,7 +3,7 @@ RUN apk add python3 g++ make
 WORKDIR /extensions
 ADD extensions .
 RUN npm install
-# Move all extensions the starts with directus-extension-, using find, to the /extensions/directus folder
+# Move all extensions that start with directus-extension-, using find, to the /extensions/directus folder
 RUN mkdir -p ./directus
 RUN cd node_modules && find . -maxdepth 1 -type d -name "directus-extension-*" -exec mv {} ../directus \;
 
