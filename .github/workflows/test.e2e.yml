@@ -140,7 +140,7 @@ jobs:
 
       - name: Upload raw test artifacts on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: |
@@ -157,10 +157,10 @@ jobs:
     if: failure() && needs.cypress-e2e-tests.result == 'failure'
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
         with:
           node-version: '20'
           cache: 'npm'
@@ -171,7 +171,7 @@ jobs:
         working-directory: ./cypress
 
       - name: Download test artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/upload-artifact@4a24838f3d5601fd639834081e118c2995d51e1c # v5.0.0
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: ./cypress
@@ -203,10 +203,10 @@ jobs:
         working-directory: ./cypress
 
       - name: Upload processed reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
           name: e2e-test-reports-${{ github.run_id }}
           path: |
             cypress/results/
-          retention-days: 30
+          retention-days: 14
           if-no-files-found: warn
