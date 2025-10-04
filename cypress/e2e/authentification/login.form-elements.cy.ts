@@ -1,11 +1,5 @@
 /// <reference types="cypress" />
 
-Cypress.on('uncaught:exception', (err, _runnable) => {
-  // eslint-disable-next-line no-console
-  console.log('Uncaught exception:', err.message)
-  return false
-})
-
 describe('Utopia Map Login Form Elements', () => {
   // TODO: set this data different
   const _testData = {

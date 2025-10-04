@@ -144,7 +144,7 @@ jobs:
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: |
-            cypress/cypress/results/
+            cypress/results/
             cypress/screenshots/
             cypress/videos/
           retention-days: 7
@@ -174,39 +174,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: cypress-test-results-${{ github.run_id }}
-          path: ./downloaded-reports
-
-      - name: Debug downloaded artifacts
-        run: |
-          echo "=== Downloaded artifact structure ==="
-          find downloaded-reports/ -type f 2>/dev/null || echo "No files found"
-          echo ""
-          echo "=== Looking for JSON files ==="
-          find downloaded-reports/ -name "*.json" 2>/dev/null || echo "No JSON files found"
-
-      - name: Copy reports to expected location
-        run: |
-          # Create the target directory structure in cypress directory
-          mkdir -p cypress/results
-
-          # Copy all files from downloaded artifacts, preserving structure
-          if [ -d "downloaded-reports" ]; then
-            # Find and copy all JSON files regardless of their path in the artifact
-            find downloaded-reports/ -name "*.json" -exec cp {} cypress/results/ \;
-
-            # Copy screenshots if they exist
-            if [ -d "downloaded-reports/screenshots" ]; then
-              cp -r downloaded-reports/screenshots cypress/
-            fi
-
-            # Copy videos if they exist
-            if [ -d "downloaded-reports/videos" ]; then
-              cp -r downloaded-reports/videos cypress/
-            fi
-
-            echo "=== Files copied to cypress/results/ ==="
-            ls -la cypress/results/ || echo "No files in cypress/results/"
-          fi
+          path: ./cypress
 
       - name: Merge test reports
         run: |

@@ -18,7 +18,7 @@ export default defineConfig({
     reporterOptions: {
       useInlineDiffs: true,
       embeddedScreenshots: true,
-      reportDir: 'cypress/results',
+      reportDir: 'results',
       reportFilename: '[name].html',
       overwrite: false,
       html: true,
