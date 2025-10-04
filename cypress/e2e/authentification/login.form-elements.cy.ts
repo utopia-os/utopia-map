@@ -1,17 +1,6 @@
 /// <reference types="cypress" />
 
 describe('Utopia Map Login Form Elements', () => {
-  // TODO: set this data different
-  const _testData = {
-    validUser: {
-      email: Cypress.env('validEmail'),
-      password: Cypress.env('validPassword')
-    },
-    invalidUser: {
-      email: Cypress.env('invalidEmail'),
-      password: Cypress.env('invalidPassword')
-    }
-  }
 
   beforeEach(() => {
     cy.clearCookies()

@@ -15,8 +15,7 @@
 // automatically serving support files with the 'supportFile' configuration option.
 
 // Global exception handler
-Cypress.on('uncaught:exception', (err, _runnable) => {
-  // eslint-disable-next-line no-console
+Cypress.on('uncaught:exception', (err) => {
   console.log('Uncaught exception:', err.message)
   // returning false here prevents Cypress from failing the test
   return false
