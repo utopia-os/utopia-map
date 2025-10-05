@@ -22,6 +22,43 @@ declare global {
        * @example cy.waitForMapReady()
        */
       waitForMapReady(): Chainable<Element>
+
+      /**
+       * Click on a map marker
+       * @example cy.clickMarker() // clicks first marker
+       */
+      clickMarker(): Chainable<Element>
+
+      /**
+       * Wait for a popup to appear on the map
+       * @example cy.waitForPopup()
+       */
+      waitForPopup(): Chainable<Element>
+
+      /**
+       * Close the currently open popup
+       * @example cy.closePopup()
+       */
+      closePopup(): Chainable<Element>
+
+      /**
+       * Toggle a layer's visibility in the layer control
+       * @param layerName - Name of the layer to toggle
+       * @example cy.toggleLayer('places')
+       */
+      toggleLayer(layerName: string): Chainable<Element>
+
+      /**
+       * Open the layer control panel
+       * @example cy.openLayerControl()
+       */
+      openLayerControl(): Chainable<Element>
+
+      /**
+       * Close the layer control panel
+       * @example cy.closeLayerControl()
+       */
+      closeLayerControl(): Chainable<Element>
     }
   }
 }
@@ -40,6 +77,32 @@ Cypress.Commands.add('waitForMapReady', () => {
   cy.get('[data-cy="search-input"]', { timeout: 10000 }).should('be.visible')
   cy.get('.leaflet-container', { timeout: 10000 }).should('be.visible')
   cy.get('.leaflet-marker-icon', { timeout: 15000 }).should('have.length.at.least', 1)
+})
+
+Cypress.Commands.add('clickMarker', () => {
+  // For now, always use force click since markers might be clustered or outside viewport
+  cy.get('.leaflet-marker-icon').first().click({ force: true })
+})
+
+Cypress.Commands.add('waitForPopup', () => {
+  cy.get('[data-cy="item-popup"]', { timeout: 10000 }).should('be.visible')
+})
+
+Cypress.Commands.add('closePopup', () => {
+  cy.get('.leaflet-popup-close-button').click()
+})
+
+Cypress.Commands.add('toggleLayer', (layerName: string) => {
+  cy.get(`[data-cy="layer-checkbox-${layerName}"]`).click()
+})
+
+Cypress.Commands.add('openLayerControl', () => {
+  cy.get('[data-cy="layer-control-button"]').click()
+  cy.get('[data-cy="layer-control-panel"]', { timeout: 5000 }).should('be.visible')
+})
+
+Cypress.Commands.add('closeLayerControl', () => {
+  cy.get('[data-cy="layer-control-close"]').click()
 })
 
 export {}

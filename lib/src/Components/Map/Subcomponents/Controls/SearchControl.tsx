@@ -113,6 +113,7 @@ export const SearchControl = () => {
                 autoComplete='off'
                 value={value}
                 className='tw:input tw:input-bordered tw:h-12 tw:grow tw:shadow-xl tw:rounded-box tw:pr-12 tw:w-full'
+                data-cy='search-input'
                 ref={searchInput}
                 onChange={(e) => setValue(e.target.value)}
                 onFocus={() => {
@@ -124,6 +125,7 @@ export const SearchControl = () => {
               {value.length > 0 && (
                 <button
                   className='tw:btn tw:btn-sm tw:btn-circle tw:absolute tw:right-2 tw:top-2'
+                  data-cy='search-clear-button'
                   onClick={() => setValue('')}
                 >
                   ✕
@@ -140,13 +142,14 @@ export const SearchControl = () => {
           value.length === 0 ? (
             ''
           ) : (
-            <div className='tw:card tw:card-body tw:bg-base-100 tw:p-4 tw:mt-2 tw:shadow-xl tw:overflow-y-auto tw:max-h-[calc(100dvh-152px)] tw:absolute tw:z-3000 tw:w-83'>
+            <div className='tw:card tw:card-body tw:bg-base-100 tw:p-4 tw:mt-2 tw:shadow-xl tw:overflow-y-auto tw:max-h-[calc(100dvh-152px)] tw:absolute tw:z-3000 tw:w-83' data-cy='search-suggestions'>
               {tagsResults.length > 0 && (
                 <div className='tw:flex tw:flex-wrap'>
                   {tagsResults.slice(0, 3).map((tag) => (
                     <div
                       key={tag.name}
                       className='tw:rounded-2xl tw:text-white tw:p-1 tw:px-4 tw:shadow-md tw:card tw:mr-2 tw:mb-2 tw:cursor-pointer'
+                      data-cy='search-tag-result'
                       style={{ backgroundColor: tag.color }}
                       onClick={() => {
                         addFilterTag(tag)
@@ -165,6 +168,7 @@ export const SearchControl = () => {
                 <div
                   key={item.id}
                   className='tw:cursor-pointer tw:hover:font-bold tw:flex tw:flex-row'
+                  data-cy='search-item-result'
                   onClick={() => {
                     const marker = Object.entries(leafletRefs).find((r) => r[1].item === item)?.[1]
                       .marker
@@ -178,7 +182,7 @@ export const SearchControl = () => {
                   }}
                 >
                   {item.layer?.markerIcon.image ? (
-                    <div className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center'>
+                    <div className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center' data-cy='search-item-icon'>
                       <SVG
                         src={appState.assetsApi.url + item.layer.markerIcon.image}
                         className='tw:text-current tw:mr-2 tw:mt-0'
@@ -191,7 +195,7 @@ export const SearchControl = () => {
                       />
                     </div>
                   ) : (
-                    <div className='tw:w-7' />
+                    <div className='tw:w-7' data-cy='search-item-icon-placeholder' />
                   )}
                   <div>
                     <div className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
@@ -207,6 +211,7 @@ export const SearchControl = () => {
               {Array.from(geoResults).map((geo) => (
                 <div
                   className='tw:flex tw:flex-row tw:hover:font-bold tw:cursor-pointer'
+                  data-cy='search-geo-result'
                   key={Math.random()}
                   onClick={() => {
                     searchInput.current?.blur()
@@ -262,6 +267,7 @@ export const SearchControl = () => {
               {isGeoCoordinate(value) && (
                 <div
                   className='tw:flex tw:flex-row tw:hover:font-bold tw:cursor-pointer'
+                  data-cy='search-coordinate-result'
                   onClick={() => {
                     marker(
                       new LatLng(extractCoordinates(value)![0], extractCoordinates(value)![1]),

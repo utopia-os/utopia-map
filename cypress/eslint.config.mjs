@@ -87,6 +87,7 @@ export default tseslint.config(
       'cypress/downloads/**',
       'cypress/screenshots/**',
       'cypress/videos/**',
+      'results/**',
       'dist/**',
       'build/**',
       '*.min.js'
