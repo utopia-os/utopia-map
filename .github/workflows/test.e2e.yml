@@ -171,7 +171,7 @@ jobs:
         working-directory: ./cypress
 
       - name: Download test artifacts
-        uses: actions/upload-artifact@4a24838f3d5601fd639834081e118c2995d51e1c # v5.0.0
+        uses: actions/download-artifact@4a24838f3d5601fd639834081e118c2995d51e1c # v5.0.0
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: ./cypress
