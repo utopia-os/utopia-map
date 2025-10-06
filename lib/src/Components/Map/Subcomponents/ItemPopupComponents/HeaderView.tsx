@@ -102,7 +102,7 @@ export function HeaderView({
               <div
                 className={`${big ? 'tw:xl:text-3xl tw:text-2xl' : 'tw:text-xl'} tw:font-semibold tw:truncate`}
                 title={title}
-                data-cy="profile-title"
+                data-cy='profile-title'
               >
                 {title}
               </div>
