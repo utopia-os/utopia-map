@@ -194,8 +194,7 @@ jobs:
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
           name: e2e-test-report-${{ github.run_id }}
-          path: |
-            cypress/results/html/
+          path: cypress/results/html/
           retention-days: 14
           if-no-files-found: warn
 
