@@ -138,7 +138,7 @@ jobs:
           # Disable individual cypress-split summaries to avoid conflicts
           SPLIT_SUMMARY: false
 
-      - name: Upload raw test artifacts on failure
+      - name: Upload test artifacts on failure
         if: failure()
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
@@ -146,7 +146,6 @@ jobs:
           path: |
             cypress/results/
             cypress/screenshots/
-            cypress/videos/
           retention-days: 7
           if-no-files-found: warn
 
@@ -176,37 +175,38 @@ jobs:
           name: cypress-test-results-${{ github.run_id }}
           path: ./cypress
 
-      - name: Merge test reports
-        run: |
-          if [ -d "results" ] && [ "$(find results/ -name "*.json" 2>/dev/null)" ]; then
-            echo "Found JSON reports, merging..."
-            npm run report:merge
-            echo "=== Merge result ==="
-            ls -la results/merged-report.json || echo "Merge failed"
-          else
-            echo "No JSON reports found to merge"
-            echo "=== Debug: results directory ==="
-            ls -la results/ || echo "Directory does not exist"
-          fi
+      - name: Merge JSON reports into one consolidated report
+        run: ./scripts/merge-reports.sh
         working-directory: ./cypress
 
-      - name: Generate HTML report
-        run: |
-          if [ -f "results/merged-report.json" ]; then
-            echo "Generating HTML report..."
-            npm run report:generate
-            echo "=== HTML generation result ==="
-            ls -la results/html/ || echo "HTML generation failed"
-          else
-            echo "No merged report found, skipping HTML generation"
-          fi
+      - name: Generate HTML report with screenshots
+        run: ./scripts/generate-html-report.sh
         working-directory: ./cypress
 
-      - name: Upload processed reports
+      - name: Create simple index page
+        run: ./scripts/create-index-page.sh
+        working-directory: ./cypress
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_SHA: ${{ github.sha }}
+
+      - name: Upload consolidated test report
         uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
         with:
-          name: e2e-test-reports-${{ github.run_id }}
+          name: e2e-test-report-${{ github.run_id }}
+          path: |
+            cypress/results/html/
+          retention-days: 14
+          if-no-files-found: warn
+
+      - name: Upload raw test data (for debugging)
+        if: failure()
+        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
+        with:
+          name: e2e-raw-data-${{ github.run_id }}
           path: |
             cypress/results/
-          retention-days: 14
+            cypress/screenshots/
+            cypress/videos/
+          retention-days: 7
           if-no-files-found: warn

@@ -16,13 +16,14 @@ export default defineConfig({
 
     reporter: 'mochawesome',
     reporterOptions: {
-      useInlineDiffs: true,
-      embeddedScreenshots: true,
       reportDir: 'results',
-      reportFilename: '[name].html',
+      reportFilename: '[name]',
       overwrite: false,
-      html: true,
-      json: true,
+      html: false,  // Only generate JSON during test runs for merging
+      json: true,   // Generate JSON for merging
+      embeddedScreenshots: true,
+      useInlineDiffs: true,
+      screenshotOnRunFailure: true
     },
     
     defaultCommandTimeout: 10000,
@@ -48,6 +49,10 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // Load cypress-split plugin
       cypressSplit(on, config)
+
+      // Load parallel reporter plugin
+      const parallelReporter = require('./plugins/parallel-reporter')
+      config = parallelReporter(on, config)
 
       on('task', {
         log(message) {
