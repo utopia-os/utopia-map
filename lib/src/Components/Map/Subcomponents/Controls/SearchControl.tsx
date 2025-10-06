@@ -182,7 +182,10 @@ export const SearchControl = () => {
                   }}
                 >
                   {item.layer?.markerIcon.image ? (
-                    <div className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center' data-cy='search-item-icon'>
+                    <div
+                      className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center'
+                      data-cy='search-item-icon'
+                    >
                       <SVG
                         src={appState.assetsApi.url + item.layer.markerIcon.image}
                         className='tw:text-current tw:mr-2 tw:mt-0'
@@ -243,12 +246,21 @@ export const SearchControl = () => {
                     hide()
                   }}
                 >
-                  <MagnifyingGlassIcon className='tw:text-current tw:mr-2 tw:mt-0 tw:w-5' />
+                  <MagnifyingGlassIcon
+                    className='tw:text-current tw:mr-2 tw:mt-0 tw:w-5'
+                    data-cy='search-geo-icon'
+                  />
                   <div>
-                    <div className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
+                    <div
+                      className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      data-cy='search-geo-name'
+                    >
                       {geo?.properties.name ? geo?.properties.name : value}
                     </div>
-                    <div className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
+                    <div
+                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      data-cy='search-geo-details'
+                    >
                       {geo?.properties?.city && `${capitalizeFirstLetter(geo?.properties?.city)}, `}{' '}
                       {geo?.properties?.osm_value &&
                         geo?.properties?.osm_value !== 'yes' &&
@@ -291,12 +303,21 @@ export const SearchControl = () => {
                     )
                   }}
                 >
-                  <FlagIcon className='tw:text-current tw:mr-2 tw:mt-0 tw:w-4' />
+                  <FlagIcon
+                    className='tw:text-current tw:mr-2 tw:mt-0 tw:w-4'
+                    data-cy='search-coordinate-icon'
+                  />
                   <div>
-                    <div className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
+                    <div
+                      className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      data-cy='search-coordinate-text'
+                    >
                       {value}
                     </div>
-                    <div className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
+                    <div
+                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      data-cy='search-coordinate-label'
+                    >
                       {'Coordiante'}
                     </div>
                   </div>
