@@ -1,0 +1,62 @@
+{
+    "collection": "layers",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "layer-places",
+            "name": "Places",
+            "itemType": "type-text-gallery",
+            "userProfileLayer": false,
+            "menuColor": "#008e5b",
+            "menuText": "Add new Place",
+            "markerIcon" : "marker-point",
+            "markerShape" : "circle",
+            "markerDefaultColor2": null,
+            "index_plus_button": true,
+            "public_edit_items": false,
+            "listed": true,
+            "item_presets": null,
+            "sort": 2
+        },
+        {
+            "_sync_id": "layer-events",
+            "name": "Events",
+            "itemType": "type-event",
+            "userProfileLayer": false,
+            "menuColor": "#c4037d",
+            "menuText": "Add new Event",
+            "markerIcon" : "marker-calendar",
+            "markerShape" : "square",
+            "markerDefaultColor2": null,
+            "index_plus_button": true,
+            "public_edit_items": false,
+            "listed": true,
+            "item_presets": null,
+            "sort": 3
+        },
+
+        {
+            "_sync_id": "layer-people",
+            "name": "People",
+            "itemType": "type-user-text-gallery",
+            "userProfileLayer": true,
+            "menuColor": "#e87520",
+            "menuText": "Add a new Vessel",
+            "markerIcon" : "marker-user",
+            "markerShape" : "square",
+            "markerDefaultColor2": null,
+            "index_plus_button": true,
+            "public_edit_items": false,
+            "listed": true,
+            "item_presets": null,
+            "sort": 1
+        }
+    ]
+}

@@ -1,0 +1,124 @@
+[
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "items",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "name",
+          "layer.name",
+          "date_created",
+          "date_updated",
+          "user_created",
+          "user_updated"
+        ]
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "053f9b93-aa94-4ad8-b64e-babb69f0ea6c"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "marker_icons",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "id",
+          "image.$thumbnail",
+          "size",
+          "image_outline.$thumbnail",
+          "size_outline"
+        ],
+        "limit": 500
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {}
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "2a1656b7-d6d2-4b47-bd22-41babc8bf828"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "maps",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "fields": [
+          "logo.$thumbnail",
+          "name",
+          "url",
+          "layers.layers_id.name"
+        ],
+        "page": 1
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {
+          "logo.$thumbnail": 77,
+          "name": 237,
+          "url": 280.5,
+          "layers.layers_id.name": 473
+        }
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "337b9c3e-667f-4c61-9406-4e45ca24e37e"
+  },
+  {
+    "bookmark": null,
+    "role": null,
+    "collection": "types",
+    "search": null,
+    "layout": null,
+    "layout_query": {
+      "tabular": {
+        "page": 1,
+        "fields": [
+          "name",
+          "template",
+          "profileTemplate.collection"
+        ]
+      }
+    },
+    "layout_options": {
+      "tabular": {
+        "widths": {
+          "profileTemplate.collection": 238
+        }
+      }
+    },
+    "refresh_interval": null,
+    "filter": null,
+    "icon": "bookmark",
+    "color": null,
+    "_syncId": "3789cfe7-78f9-428e-9770-d8e1c5de1145"
+  }
+]

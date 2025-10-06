@@ -1,0 +1,54 @@
+name: "test:build test docker"
+
+on: push
+
+jobs:
+  files-changed:
+    name: Detect File Changes - build - docker
+    runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.filter.outputs.match }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            match:
+              - '.github/workflows/*'
+              - 'backend/**/*'
+
+  backend-seed:
+    if: needs.files-changed.outputs.changes == 'true'
+    name: Backend Seed
+    needs: files-changed
+    runs-on: ubuntu-latest
+    env:
+      WORKING_DIRECTORY: ./
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+
+      - name: Build Docker Production
+        run: |
+          mkdir -p ./data/uploads
+          sudo chmod 777 -R ./data
+          docker compose -f docker-compose.yml up -d
+          sleep 5
+          cd backend && ./seed.sh
+        working-directory: ${{env.WORKING_DIRECTORY}}
+
+  #build-development:
+  #  if: needs.files-changed.outputs.changes == 'true'
+  #  name: Build Docker Development
+  #  needs: files-changed
+  #  runs-on: ubuntu-latest
+  #  env:
+  #    WORKING_DIRECTORY: ./
+  #  steps:
+  #    - name: Checkout code
+  #      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+  #
+  #    - name: Build Docker Development
+  #      run: docker compose build
+  #      working-directory: ${{env.WORKING_DIRECTORY}}

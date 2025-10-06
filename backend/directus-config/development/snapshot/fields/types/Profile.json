@@ -1,0 +1,31 @@
+{
+  "collection": "types",
+  "field": "Profile",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "Profile",
+    "group": null,
+    "hidden": false,
+    "interface": "group-detail",
+    "note": null,
+    "options": {
+      "headerIcon": "lab_profile"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 9,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

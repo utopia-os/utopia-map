@@ -1,0 +1,292 @@
+[
+  {
+    "name": "get_item_by_secret",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {},
+    "operation": "c880bc9d-1568-4c9c-b3d5-ddbd61f0a9d3",
+    "_syncId": "01d61db0-25aa-4bfa-bc24-c6a8f208a455"
+  },
+  {
+    "name": "Create initial secret",
+    "icon": "bolt",
+    "color": null,
+    "description": "Creates a secret for an existing item, triggered by another flow",
+    "status": "inactive",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "3767ea47-c9f5-4668-9cfa-9350803b9b31",
+    "_syncId": "234d13fe-112a-4408-9bdb-78dd8cbd6b82"
+  },
+  {
+    "name": "Ocean Nomads: Delete Nomad",
+    "icon": "sailing",
+    "color": "#2ECDA7",
+    "description": "Deletes Nomads User and Items",
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "filter",
+      "scope": [
+        "items.delete"
+      ],
+      "collections": [
+        "oceannomads_profiles"
+      ]
+    },
+    "operation": "2f4c3d12-87c3-44d5-aa5d-0e7d5529b149",
+    "_syncId": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6"
+  },
+  {
+    "name": "Post Profiles to Murmurations",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create",
+        "items.update"
+      ],
+      "collections": [
+        "updates"
+      ]
+    },
+    "operation": "8265ad6e-df54-48c8-b068-31c07f6b50a8",
+    "_syncId": "5e320392-429d-4759-95ec-c5adcff61f01"
+  },
+  {
+    "name": "Request Profile",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "inactive",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {
+      "return": "$all"
+    },
+    "operation": null,
+    "_syncId": "6a48c246-2fb2-42ca-bebb-3f605e794d02"
+  },
+  {
+    "name": "Ocean Nomads: Create Location or Home",
+    "icon": "sailing",
+    "color": "#2ECDA7",
+    "description": "Creates Nomads Current Location or Home",
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "filter",
+      "return": "$last",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "39d03980-4747-4970-80fa-2ad9afbdfb32",
+    "_syncId": "77f1fc79-d0fd-4f5d-a168-50fa3948a945"
+  },
+  {
+    "name": "Ocean Nomads: Create Event",
+    "icon": "sailing",
+    "color": "#2ECDA7",
+    "description": "Creates Event Item on Map",
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "oceannomads_events"
+      ]
+    },
+    "operation": "67847550-3c95-4ee4-af02-32ebb69747d6",
+    "_syncId": "7b978be2-605f-4061-b5b3-46f151b1b80a"
+  },
+  {
+    "name": "Ocean Nomads: Create Nomad",
+    "icon": "sailing",
+    "color": "#2ECDA7",
+    "description": "Creates Nomads User and Home Base",
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "oceannomads_profiles"
+      ]
+    },
+    "operation": "02499c24-46a9-4d77-8a2e-1b963cb3d62c",
+    "_syncId": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721"
+  },
+  {
+    "name": "Initial item secrets trigger",
+    "icon": "salinity",
+    "color": null,
+    "description": "Generate a secret for each item",
+    "status": "inactive",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "itemSecrets"
+      ],
+      "requireSelection": false
+    },
+    "operation": "589ea382-5027-40fb-9f4d-3852389ccaab",
+    "_syncId": "9a1d1084-438f-471e-aac5-47e0749375e7"
+  },
+  {
+    "name": "Telegram-Bot-Trigger",
+    "icon": "mark_chat_read",
+    "color": "#3584E4",
+    "description": null,
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.update",
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "9838d2ca-3698-4d29-8429-038dfcaf7fab",
+    "_syncId": "a78d01a4-13b3-46a4-8938-9606bf26e329"
+  },
+  {
+    "name": "Item Notification Setup",
+    "icon": "outgoing_mail",
+    "color": "#C061CB",
+    "description": "Inform Users about new items in layers they subscripe to ",
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create",
+        "items.update"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "2eba1a24-aec5-477b-919f-f2276705606f",
+    "_syncId": "bff21ad9-d142-4a6e-96fe-8da016576bc7"
+  },
+  {
+    "name": "Ocean Nomads: Update Nomad",
+    "icon": "sailing",
+    "color": "#2ECDA7",
+    "description": "Updates Nomads User, Home Base and Current Location",
+    "status": "inactive",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.update"
+      ],
+      "collections": [
+        "oceannomads_profiles"
+      ]
+    },
+    "operation": "9d88e79c-2d51-4b66-9c36-341f1c8f9508",
+    "_syncId": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92"
+  },
+  {
+    "name": "Create Secret",
+    "icon": "azm",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "05954e5e-1ca7-4a9c-b8c8-3ea6fceaa5de",
+    "_syncId": "cbd7d15d-7f09-4f45-8060-3b24adabf82a"
+  },
+  {
+    "name": "redeem-invite",
+    "icon": "bolt",
+    "color": null,
+    "description": "Redeems an invite link (item secret)",
+    "status": "active",
+    "trigger": "webhook",
+    "accountability": "all",
+    "options": {
+      "error_on_reject": true,
+      "method": "POST"
+    },
+    "operation": "0d9acb0c-571a-4a6a-b6c9-aa4f2dab8ca6",
+    "_syncId": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4"
+  },
+  {
+    "name": "Send Item Notification Mail",
+    "icon": "send",
+    "color": "#C061CB",
+    "description": null,
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "43de95f1-d63b-4231-80c3-b399c45470f6",
+    "_syncId": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081"
+  },
+  {
+    "name": "Slug Generation",
+    "icon": "bolt",
+    "color": null,
+    "description": null,
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "action",
+      "scope": [
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ]
+    },
+    "operation": "55857562-e0ab-49a5-a292-18f6c1cb075e",
+    "_syncId": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1"
+  }
+]

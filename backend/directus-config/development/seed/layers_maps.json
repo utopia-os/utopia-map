@@ -1,0 +1,28 @@
+{
+    "collection": "layers_maps",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "layer-events-map-local-development",
+            "layers_id": "layer-events",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-people-map-local-development",
+            "layers_id": "layer-people",
+            "maps_id": "map-local-development"
+        },
+        {
+            "_sync_id": "layer-places-map-local-development",
+            "layers_id": "layer-places",
+            "maps_id": "map-local-development"
+        }
+    ]
+}

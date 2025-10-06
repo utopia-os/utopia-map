@@ -1,0 +1,31 @@
+{
+  "collection": "types",
+  "field": "small_view",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "small_view",
+    "group": null,
+    "hidden": false,
+    "interface": "group-detail",
+    "note": null,
+    "options": {
+      "headerIcon": "wysiwyg"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 7,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

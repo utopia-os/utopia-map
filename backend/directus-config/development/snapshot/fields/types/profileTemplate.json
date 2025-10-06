@@ -1,0 +1,27 @@
+{
+  "collection": "types",
+  "field": "profileTemplate",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "profileTemplate",
+    "group": "Flex",
+    "hidden": false,
+    "interface": "list-m2a",
+    "note": null,
+    "options": {},
+    "readonly": false,
+    "required": false,
+    "sort": 1,
+    "special": [
+      "m2a"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

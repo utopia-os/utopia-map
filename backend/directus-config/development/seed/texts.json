@@ -1,0 +1,37 @@
+{
+    "collection": "texts",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "7c25fdf6-d5f2-425a-9a2e-03c5297d10bc",
+            "dataField": "text",
+            "heading": null,
+            "hideWhenEmpty": true,
+            "showMarkdownHint": true,
+            "size": "full"
+        },
+        {
+            "_sync_id": "94f6af1d-77e5-49ed-937b-6b9addc4f8ac",
+            "dataField": "text",
+            "heading": null,
+            "hideWhenEmpty": true,
+            "showMarkdownHint": true,
+            "size": "full"
+        },
+        {
+            "_sync_id": "c960bbfc-5d98-4f6d-ae44-7a2b63d3359b",
+            "dataField": "text",
+            "heading": null,
+            "hideWhenEmpty": true,
+            "showMarkdownHint": true,
+            "size": "full"
+        }
+   ]
+}

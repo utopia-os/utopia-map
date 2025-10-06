@@ -1,0 +1,197 @@
+{
+  "collection": "marker_icons",
+  "meta": {
+    "insert_order": 1,
+    "create": true,
+    "update": true,
+    "delete": true,
+    "preserve_ids": false,
+    "ignore_on_update": []
+  },
+  "data": [
+    {
+      "_sync_id": "marker-bicycle",
+      "id": "bicycle",
+      "size": "20.00000",
+      "image": "bicycle-solid"
+    },
+    {
+      "_sync_id": "marker-boat",
+      "id": "boat",
+      "size": "18.00000",
+      "image": "boat-solid",
+      "size_outline": "18.00000",
+      "image_outline": "boat-outline"
+    },
+    {
+      "_sync_id": "marker-cafe",
+      "id": "cafe",
+      "size": "18.00000",
+      "image": "cafe-solid"
+    },
+    {
+      "_sync_id": "marker-calendar",
+      "id": "calendar",
+      "size": "14.00000",
+      "image": "calendar-solid",
+      "size_outline": "18.00000",
+      "image_outline": "calendar-outline"
+    },
+    {
+      "_sync_id": "marker-camp",
+      "id": "camp",
+      "size": "18.00000",
+      "image": "camp-solid"
+    },
+    {
+      "_sync_id": "marker-cannabis",
+      "id": "cannabis",
+      "size": "18.00000",
+      "image": "cannabis-solid"
+    },
+    {
+      "_sync_id": "marker-circle-dot",
+      "id": "circle-dot",
+      "size": "18.00000",
+      "image": "circle-dot-solid"
+    },
+    {
+      "_sync_id": "marker-compass",
+      "id": "compass",
+      "size": "18.00000",
+      "image": "compass-solid"
+    },
+    {
+      "_sync_id": "marker-crosshair",
+      "id": "crosshair",
+      "size": "18.00000",
+      "image": "crosshair-solid"
+    },
+    {
+      "_sync_id": "marker-drum",
+      "id": "drum",
+      "size": "20.00000",
+      "image": "drum-solid"
+    },
+    {
+      "_sync_id": "marker-fire",
+      "id": "fire",
+      "size": "12.00000",
+      "image": "fire-solid"
+    },
+    {
+      "_sync_id": "marker-flower",
+      "id": "flower",
+      "size": "18.00000",
+      "image": "flower-solid"
+    },
+    {
+      "_sync_id": "marker-group",
+      "id": "group",
+      "size": "18.00000",
+      "image": "group-solid"
+    },
+    {
+      "_sync_id": "marker-house",
+      "id": "house",
+      "size": "16.00000",
+      "image": "house-solid",
+      "size_outline": "16.00000",
+      "image_outline": "house-outline"
+    },
+    {
+      "_sync_id": "marker-liebevoll.jetzt",
+      "id": "liebevoll.jetzt",
+      "size": "16.00000",
+      "image": "liebevoll.jetzt-solid"
+    },
+    {
+      "_sync_id": "marker-music",
+      "id": "music",
+      "size": "12.00000",
+      "image": "music-solid"
+    },
+    {
+      "_sync_id": "marker-network",
+      "id": "network",
+      "size": "18.00000",
+      "image": "network-solid"
+    },
+    {
+      "_sync_id": "marker-offer",
+      "id": "offer",
+      "size": "16.00000",
+      "image": "offer-solid"
+    },
+    {
+      "_sync_id": "marker-plant",
+      "id": "plant",
+      "size": "18.00000",
+      "image": "plant-solid"
+    },
+    {
+      "_sync_id": "marker-point",
+      "id": "point",
+      "size": "12.00000",
+      "image": "point-solid",
+      "image_outline": "map-pin-outline",
+      "size_outline": "18.00000"
+    },
+    {
+      "_sync_id": "marker-puzzle",
+      "id": "puzzle",
+      "size": "18.00000",
+      "image": "puzzle-solid"
+    },
+    {
+      "_sync_id": "marker-quest",
+      "id": "quest",
+      "size": "14.00000",
+      "image": "quest-solid"
+    },
+    {
+      "_sync_id": "marker-shop",
+      "id": "shop",
+      "size": "18.00000",
+      "image": "shop-solid"
+    },
+    {
+      "_sync_id": "marker-staff-snake",
+      "id": "staff-snake",
+      "size": "12.00000",
+      "image": "staff-snake-solid"
+    },
+    {
+      "_sync_id": "marker-star",
+      "id": "star",
+      "size": "18.00000",
+      "image": "star-solid"
+    },
+    {
+      "_sync_id": "marker-steps",
+      "id": "steps",
+      "size": "18.00000",
+      "image": "steps-solid"
+    },
+    {
+      "_sync_id": "marker-suitecase",
+      "id": "suitecase",
+      "size": "18.00000",
+      "image": "suitecase-solid"
+    },
+    {
+      "_sync_id": "marker-tree",
+      "id": "tree",
+      "size": "18.00000",
+      "image": "tree-solid"
+    },
+    {
+      "_sync_id": "marker-user",
+      "id": "user",
+      "size": "12.00000",
+      "image": "user-solid",
+      "size_outline": "18.00000",
+      "image_outline": "user-outline"
+    }
+  ]
+}

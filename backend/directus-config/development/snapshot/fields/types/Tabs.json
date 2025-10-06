@@ -1,0 +1,66 @@
+{
+  "collection": "types",
+  "field": "Tabs",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": [
+      {
+        "name": "Tabs Template",
+        "options": {
+          "start": "open"
+        },
+        "readonly": false,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_eq": "tabs"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "Not Tabs Template",
+        "options": {
+          "start": "closed"
+        },
+        "readonly": true,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_neq": "tabs"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "Tabs",
+    "group": "Profile",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": {
+      "headerColor": "#1A5FB4",
+      "start": "closed"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 3,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

@@ -1,0 +1,87 @@
+{
+    "collection": "types",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "type-simple",
+            "name": "simple",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "simple",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : false
+        },
+        {
+            "_sync_id": "type-event",
+            "name": "event",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "flex",
+            "show_start_end_input": true,
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : true
+        },
+        {
+            "_sync_id": "type-ON_nomads_location",
+            "name": "ON_nomads_location",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "flex",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : false,
+            "custom_profile_url" : "https://community.oceannomads.co/members",
+            "show_text_input" : true,
+            "show_name_input" : false,
+            "show_header_view_in_form" : true,
+            "small_form_edit" : true
+        },
+        {
+            "_sync_id": "type-text-gallery",
+            "name": "text+gallery",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "flex",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : false,
+            "show_text_input" : false,
+            "show_name_input" : true,
+            "show_header_view_in_form" : false,
+            "small_form_edit" : false
+        },
+        {
+            "_sync_id": "type-user-text-gallery",
+            "name": "user:text+gallery",
+            "user_created": null,
+            "date_created": "2025-01-01T00:00:00.000Z",
+            "user_updated": null,
+            "date_updated": null,
+            "template": "flex",
+            "show_text": true,
+            "show_profile_button" : true,
+            "show_start_end" : false,
+            "show_text_input" : false,
+            "show_name_input" : false,
+            "show_header_view_in_form" : false,
+            "small_form_edit" : false
+        }
+    ]
+}

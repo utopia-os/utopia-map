@@ -1,0 +1,56 @@
+{
+    "collection": "items",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": false,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "item-places-1",
+            "name": "Welcome to Utopia Map",
+            "subname" : "The opensource collaborative mapping plattform",
+            "text": "The Utopia Map is a flexible collaborative app for decentralized coordination and real-life networking that can be adapted to the specific requirements of different networks. Its central element is the interactive geographical map, where users can add and manage **Items** in predefined **Layers**. \n\nUtopia Map is made for networks and initiatives that aim to connect people in real life. By providing a custom instance of Utopia Map, each network can grow and coordinate its ecosystem effectively while encouraging real-world interactions and collaborations.\n\n## Key Features\n- **Interactive Map**: The core feature is an intuitive geographical map where users can add, edit, and manage items like members, activities, and resources. Each map instance has its own identity, users, and unique configuration.\n- **Customizable Layers**: Items are organized into predefined Layers, each with specific icons, colors, texts, and Map Markers. This ensures clarity and relevance for different networks.\n- **Dynamic Map Markers**:  Geographic position of item are indicated on the map by adaptive and customizable Map Markers\n- **Popups**: Clicking a Map Marker reveals a Popup — a compact preview of the Item with its most relevant information. Define custom Popups for each of your Layers.\n- **Profiles**: Each Item has a dedicated Profile that showcases all its associated data, making it easier to explore and manage. Define custom profiles for each of your Layers.\n\nCheck out our [GitHub](https://github.com/utopia-os/utopia-map)!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    10.067625824315172,
+				    50.51565268622562
+			    ]
+		    },
+            "image": "utopia-logo",
+            "layer" : "layer-places"
+        },
+        {
+            "_sync_id": "item-event-1",
+            "name": "Some Event",
+            "text": "This is an example event. Events are temporary items that disappear once the end date has passed.",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    11.067625824315172,
+				    51.51565268622562
+			    ]
+		    },
+            "layer" : "layer-events",
+            "start": "2025-08-14T12:00:00",
+            "end": "2027-06-25T12:00:00"
+        },
+        {
+            "_sync_id": "item-user-1",
+            "name": "Admin User",
+            "text": "This is the personal profile of the admin user. Every user can place his personal profile on the map.",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    6.67625824315172,
+				    51.41565268622562
+			    ]
+		    },
+            "layer" : "layer-people"
+        }
+    ]
+}

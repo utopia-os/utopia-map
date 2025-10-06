@@ -23,7 +23,6 @@ import {
 } from 'utopia-ui'
 
 import { itemsApi } from '../api/itemsApi'
-import { config } from '../config'
 
 import type { Place } from '../api/directus'
 import type { LayerProps } from 'utopia-ui'
@@ -87,6 +86,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         expandLayerControl={map.expand_layer_control}
         tileServerUrl={map.tile_server_url}
         tileServerAttribution={map.tile_server_attribution}
+        showFullscreenControl={map.show_fullscreen_control}
       >
         {layers &&
           apis &&
@@ -95,7 +95,6 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               id={layer.id}
               key={layer.id}
               name={layer.name}
-              menuIcon={config.apiUrl + 'assets/' + layer.menuIcon}
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}

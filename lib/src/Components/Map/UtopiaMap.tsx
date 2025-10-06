@@ -53,6 +53,7 @@ function UtopiaMap({
   showLayerControl = true,
   showZoomControl = false,
   showThemeControl = false,
+  showFullscreenControl = false,
   defaultTheme,
   donationWidget,
   expandLayerControl,
@@ -81,6 +82,8 @@ function UtopiaMap({
   showZoomControl?: boolean
   /** show a widget to switch the theme */
   showThemeControl?: boolean
+  /** show fullscreen control widget (default false) */
+  showFullscreenControl?: boolean
   /** the defaut theme */
   defaultTheme?: string
   /** ask to donate to the Utopia Project OpenCollective campaign (default false) */
@@ -106,6 +109,7 @@ function UtopiaMap({
           showFilterControl={showFilterControl}
           showGratitudeControl={showGratitudeControl}
           showLayerControl={showLayerControl}
+          showFullscreenControl={showFullscreenControl}
           donationWidget={donationWidget}
           showThemeControl={showThemeControl}
           defaultTheme={defaultTheme}

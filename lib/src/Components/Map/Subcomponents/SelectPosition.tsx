@@ -25,7 +25,7 @@ export const SelectPosition = ({
               Select new position of <b>{selectNewItemPosition.name}</b> on the map!
             </span>
           )}
-          {selectNewItemPosition && 'menuIcon' in selectNewItemPosition && (
+          {selectNewItemPosition && 'markerIcon' in selectNewItemPosition && (
             <span className='tw:text-lg'>Select position on the map!</span>
           )}
         </div>

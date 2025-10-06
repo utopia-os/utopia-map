@@ -11,8 +11,6 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import { toast } from 'react-toastify'
 
-import { useAuth } from '#components/Auth/useAuth'
-
 import { useUpdateItem } from './useItems'
 import { useLayers } from './useLayers'
 import { useHasUserPermission } from './usePermissions'
@@ -49,7 +47,6 @@ function useSelectPositionManager(): {
   const updateItem = useUpdateItem()
   const hasUserPermission = useHasUserPermission()
   const layers = useLayers()
-  const { user } = useAuth()
 
   // Handle API operations with consistent error handling and return response data
   const handleApiOperation = useCallback(
@@ -97,11 +94,11 @@ function useSelectPositionManager(): {
   useEffect(() => {
     if (selectPosition != null) {
       // selectPosition can be null, Layer or Item
-      if ('menuIcon' in selectPosition) {
+      if ('markerIcon' in selectPosition) {
         // if selectPosition is a Layer
         mapClicked &&
           mapClicked.setItemFormPopup({
-            layer: selectPosition,
+            layer: selectPosition as LayerProps,
             position: mapClicked.position,
           })
         setSelectPosition(null)
@@ -144,7 +141,7 @@ function useSelectPositionManager(): {
       if (result.success && result.data) {
         // Find the layer object by ID from server response
         const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
-        const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+        const itemWithLayer = { ...result.data, layer, user_created: updatedItem.user_created }
         updateItem(itemWithLayer)
         await linkItem(updatedItem.id)
         setSelectPosition(null)
@@ -178,9 +175,8 @@ function useSelectPositionManager(): {
     )
 
     if (result.success && result.data) {
-      // Find the layer object by ID from server response
       const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
-      const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+      const itemWithLayer = { ...result.data, layer, user_created: updatedItem.user_created }
       updateItem(itemWithLayer)
     }
   }
@@ -206,7 +202,7 @@ function useSelectPositionManager(): {
         if (result.success && result.data) {
           // Find the layer object by ID from server response
           const layer = layers.find((l) => l.id === (result.data!.layer as unknown as string))
-          const itemWithLayer = { ...result.data, layer, user_created: user ?? undefined }
+          const itemWithLayer = { ...result.data, layer, user_created: markerClicked.user_created }
           updateItem(itemWithLayer)
         }
       }

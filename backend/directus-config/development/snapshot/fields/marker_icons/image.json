@@ -1,0 +1,47 @@
+{
+  "collection": "marker_icons",
+  "field": "image",
+  "type": "uuid",
+  "meta": {
+    "collection": "marker_icons",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "image",
+    "group": null,
+    "hidden": false,
+    "interface": "file-image",
+    "note": null,
+    "options": {
+      "folder": "889a110a-a117-40fa-b091-5c5a2766563f"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": [
+      "file"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "image",
+    "table": "marker_icons",
+    "data_type": "uuid",
+    "default_value": null,
+    "max_length": null,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": "directus_files",
+    "foreign_key_column": "id"
+  }
+}

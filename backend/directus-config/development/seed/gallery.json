@@ -1,0 +1,25 @@
+{
+    "collection": "gallery",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "ea97b565-037c-4d0c-bcec-5e38793a6e7f",
+            "hideInputLabel": false
+        },
+        {
+            "_sync_id": "b0c52d6e-b3d2-4e3b-89e2-065be324e27b",
+            "hideInputLabel": false
+        },
+        {
+            "_sync_id": "6d18b616-6f4f-4987-9860-681b88bdc068",
+            "hideInputLabel": false
+        }
+   ]
+}
