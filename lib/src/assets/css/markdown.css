@@ -35,7 +35,7 @@
     }
 
     li > p {
-      @apply tw:inline-block tw:my-0;
+      @apply tw:my-0 tw:inline;
     }
 
     hr {
