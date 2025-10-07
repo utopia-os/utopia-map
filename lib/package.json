@@ -4,6 +4,9 @@
   "description": "Reuseable React Components to build mapping apps for real life communities and networks",
   "repository": "https://github.com/utopia-os/utopia-ui",
   "homepage": "https://utopia-os.org/",
+  "engines": {
+    "node": ">=22.20.0"
+  },
   "module": "./dist/index.esm.js",
   "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",

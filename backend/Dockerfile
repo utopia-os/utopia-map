@@ -1,4 +1,4 @@
-FROM node:20-alpine as third-party-ext
+FROM node:22.20.0-alpine as third-party-ext
 RUN apk add python3 g++ make
 WORKDIR /extensions
 ADD extensions .
