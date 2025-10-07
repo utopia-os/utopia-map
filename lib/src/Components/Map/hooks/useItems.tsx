@@ -5,7 +5,15 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useCallback, useReducer, createContext, useContext, useState, useEffect, useRef } from 'react'
+import {
+  useCallback,
+  useReducer,
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from 'react'
 import { toast } from 'react-toastify'
 
 import { useAuth } from '#components/Auth/useAuth'
