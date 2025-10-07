@@ -141,15 +141,19 @@ function useItemsManager(initialItems: Item[]): {
 
     for (const layer of layersRef.current) {
       if (layer.api) {
-        try {
-          const result = await layer.api.getItems()
-          result.map((item) => {
-            dispatch({ type: 'ADD', item: { ...item, layer } })
-            return null
-          })
-        } catch (error) {
-          console.error(`Failed to reload items for layer ${layer.name}:`, error)
-        }
+        const result = await toast.promise(layer.api.getItems(), {
+          pending: `loading ${layer.name} ...`,
+          success: `${layer.name} loaded`,
+          error: {
+            render({ data }) {
+              return `${data}`
+            },
+          },
+        })
+        result.map((item) => {
+          dispatch({ type: 'ADD', item: { ...item, layer } })
+          return null
+        })
       }
     }
 
