@@ -5,8 +5,10 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useCallback, useReducer, createContext, useContext, useState } from 'react'
+import { useCallback, useReducer, createContext, useContext, useState, useEffect, useRef } from 'react'
 import { toast } from 'react-toastify'
+
+import { useAuth } from '#components/Auth/useAuth'
 
 import { useAddLayer } from './useLayers'
 
@@ -18,6 +20,7 @@ type ActionType =
   | { type: 'UPDATE'; item: Item }
   | { type: 'REMOVE'; item: Item }
   | { type: 'RESET'; layer: LayerProps }
+  | { type: 'CLEAR_ALL' }
 
 type UseItemManagerResult = ReturnType<typeof useItemsManager>
 
@@ -43,8 +46,10 @@ function useItemsManager(initialItems: Item[]): {
   allItemsLoaded: boolean
 } {
   const addLayer = useAddLayer()
+  const { user } = useAuth()
 
   const [allItemsLoaded, setallItemsLoaded] = useState<boolean>(false)
+  const layersRef = useRef<LayerProps[]>([])
 
   const [items, dispatch] = useReducer((state: Item[], action: ActionType) => {
     switch (action.type) {
@@ -65,6 +70,8 @@ function useItemsManager(initialItems: Item[]): {
         return state.filter((item) => item !== action.item)
       case 'RESET':
         return state.filter((item) => item.layer?.name !== action.layer.name)
+      case 'CLEAR_ALL':
+        return []
       default:
         throw new Error()
     }
@@ -72,6 +79,7 @@ function useItemsManager(initialItems: Item[]): {
 
   const setItemsApi = useCallback(async (layer: LayerProps) => {
     addLayer(layer)
+    layersRef.current.push(layer)
     const result = await toast.promise(layer.api!.getItems(), {
       pending: `loading ${layer.name} ...`,
       success: `${layer.name} loaded`,
@@ -126,6 +134,34 @@ function useItemsManager(initialItems: Item[]): {
       layer,
     })
   }, [])
+
+  const reloadAllItems = useCallback(async () => {
+    dispatch({ type: 'CLEAR_ALL' })
+    setallItemsLoaded(false)
+
+    for (const layer of layersRef.current) {
+      if (layer.api) {
+        try {
+          const result = await layer.api.getItems()
+          result.map((item) => {
+            dispatch({ type: 'ADD', item: { ...item, layer } })
+            return null
+          })
+        } catch (error) {
+          console.error(`Failed to reload items for layer ${layer.name}:`, error)
+        }
+      }
+    }
+
+    setallItemsLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (layersRef.current.length > 0) {
+      void reloadAllItems()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.id])
 
   return {
     items,
