@@ -81,12 +81,49 @@ export default tseslint.config(
     }
   },
 
+  // Node.js CommonJS files (plugins, etc.) - exclude TypeScript rules
+  {
+    files: ['plugins/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'commonjs',
+      globals: {
+        require: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+        process: 'readonly',
+        console: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        Buffer: 'readonly',
+        global: 'readonly'
+      }
+    },
+    rules: {
+      // Disable TypeScript-specific rules for CommonJS files
+      '@typescript-eslint/no-require-imports': 'off',
+      '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
+
+      // Allow CommonJS patterns
+      'no-undef': 'off',
+      'no-console': 'off',
+
+      // Keep basic JS rules
+      'no-unused-vars': 'warn',
+      'prefer-const': 'error',
+      'no-var': 'error'
+    }
+  },
+
   {
     ignores: [
       'node_modules/**',
       'cypress/downloads/**',
       'cypress/screenshots/**',
       'cypress/videos/**',
+      'cypress/plugins/**',  // Ignore Node.js CommonJS plugin files
       'results/**',
       'dist/**',
       'build/**',
