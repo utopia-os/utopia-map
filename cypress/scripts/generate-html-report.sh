@@ -21,14 +21,9 @@ echo "Report size: $(wc -c < results/html/merged-report.html) bytes"
 
 # Copy screenshots with proper structure for the HTML report
 echo "Copying screenshots to HTML report directory..."
-echo "DEBUG: Current working directory: $(pwd)"
-echo "DEBUG: Available directories:"
-ls -la
 
 if [ -d "screenshots" ]; then
-    echo "DEBUG: Screenshots directory found"
-    echo "DEBUG: Screenshots directory structure:"
-    find screenshots -type f -name "*.png" | head -10
+    echo "Screenshots directory found"
 
     # Remove unwanted screenshots (like before-intentional-failure)
     echo "Cleaning up unwanted screenshots..."
@@ -38,19 +33,63 @@ if [ -d "screenshots" ]; then
     # Create screenshots directory in the HTML output
     mkdir -p "results/html/screenshots"
 
-    # Copy all screenshots maintaining directory structure
-    cp -r screenshots/* results/html/screenshots/ 2>/dev/null || true
+    # Extract all screenshot paths expected by the HTML report and copy them accordingly
+    echo "Extracting screenshot paths from HTML report..."
+
+    # Create screenshots directory in the HTML output
+    mkdir -p "results/html/screenshots"
+
+    if [ -f "results/merged-report.json" ]; then
+        echo "Reading expected screenshot paths from JSON report..."
+
+        # Extract all screenshot paths referenced in the JSON report (from context fields)
+        grep -o 'screenshots/[^"]*\.png' results/merged-report.json | sort -u | while read expected_path; do
+            # Extract components from expected path: screenshots/parent-dir/test-file/filename.png
+            if [[ "$expected_path" =~ screenshots/([^/]+)/([^/]+)/(.+) ]]; then
+                parent_dir="${BASH_REMATCH[1]}"
+                test_file="${BASH_REMATCH[2]}"
+                filename="${BASH_REMATCH[3]}"
+
+                # Try to find the actual screenshot in various possible locations
+                actual_screenshot=""
+
+                # 1. Try full structure first: screenshots/parent-dir/test-file/filename.png
+                if [ -f "screenshots/$parent_dir/$test_file/$filename" ]; then
+                    actual_screenshot="screenshots/$parent_dir/$test_file/$filename"
+                # 2. Try flat structure: screenshots/test-file/filename.png
+                elif [ -f "screenshots/$test_file/$filename" ]; then
+                    actual_screenshot="screenshots/$test_file/$filename"
+                # 3. Try direct file: screenshots/filename.png
+                elif [ -f "screenshots/$filename" ]; then
+                    actual_screenshot="screenshots/$filename"
+                fi
+
+                if [ -n "$actual_screenshot" ] && [ -f "$actual_screenshot" ]; then
+                    # Create the expected directory structure in results/html
+                    target_path="results/html/$expected_path"
+                    target_dir=$(dirname "$target_path")
+                    mkdir -p "$target_dir"
+
+                    # Copy the screenshot to the expected location
+                    cp "$actual_screenshot" "$target_path"
+                    echo "Mapped screenshot: $(basename "$test_file") -> $parent_dir/$test_file"
+                fi
+            fi
+        done
+    else
+        echo "❌ No JSON report found, cannot determine expected screenshot paths"
+        # Fallback: copy whatever structure exists
+        if [ -d "screenshots" ] && [ "$(find screenshots -name '*.png' | wc -l)" -gt 0 ]; then
+            echo "Fallback: copying existing screenshot structure..."
+            cp -r screenshots/* results/html/screenshots/ 2>/dev/null || true
+        fi
+    fi
 
     echo "✅ Screenshots copied successfully"
-    echo "DEBUG: Final screenshot structure in HTML output:"
+    echo "Final screenshot structure:"
     find results/html/screenshots -type f -name "*.png" | head -10
-
-    echo "DEBUG: Full results/html structure:"
-    find results/html -type f | head -20
 else
     echo "⚠️ No screenshots directory found"
-    echo "DEBUG: Available files and directories:"
-    find . -maxdepth 2 -type d
 fi
 
 echo "=== Final consolidated report ready ==="
