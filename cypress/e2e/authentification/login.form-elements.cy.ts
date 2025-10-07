@@ -30,15 +30,4 @@ describe('Utopia Map Login Form Elements', () => {
       .should('be.visible')
       .should('contain.text', 'Forgot Password?')
   })
-
-  it('should fail intentionally to test artifact upload', () => {
-    // This test is intentionally failing to verify artifact creation and upload
-    cy.get('h2').should('contain.text', 'Login')
-
-    // Take a screenshot before the intentional failure
-    cy.screenshot('before-intentional-failure')
-
-    // This assertion will fail intentionally
-    cy.get('body').should('contain.text', 'This text does not exist on the page')
-  })
 })
