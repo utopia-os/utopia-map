@@ -24,7 +24,7 @@ npx directus-sync@3.4.0 push \
   || exit 1
 
 echo "Seed data"
-npx directus-sync@3.4.1 seed push \
+npx directus-sync@3.4.0 seed push \
   --seed-path $PROJECT_FOLDER/seed \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
