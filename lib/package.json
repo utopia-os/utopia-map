@@ -118,6 +118,8 @@
     "date-fns": "^3.3.1",
     "leaflet": "^1.9.4",
     "leaflet.locatecontrol": "^0.79.0",
+    "mapbox-gl": "^3.15.0",
+    "mapbox-gl-leaflet": "^0.0.16",
     "radash": "^12.1.0",
     "react-colorful": "^5.6.1",
     "react-dropzone": "^14.3.8",

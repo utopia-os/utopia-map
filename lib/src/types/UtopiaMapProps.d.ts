@@ -20,6 +20,9 @@ export interface UtopiaMapProps {
   expandLayerControl?: boolean
   tileServerUrl?: string
   tileServerAttribution?: string
+  tilesType?: 'raster' | 'mapbox'
+  mapboxStyle?: string
+  mapboxToken?: string
   show_request_password?: boolean
   hideSignup?: boolean
 }
