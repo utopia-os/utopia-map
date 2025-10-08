@@ -1,23 +1,23 @@
 {
   "collection": "maps",
-  "field": "default_theme",
-  "type": "string",
+  "field": "show_fullscreen_control",
+  "type": "boolean",
   "meta": {
     "collection": "maps",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "default_theme",
-    "group": null,
+    "field": "show_fullscreen_control",
+    "group": "Controls",
     "hidden": false,
-    "interface": "select-dropdown-m2o",
+    "interface": "boolean",
     "note": null,
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 9,
+    "sort": 6,
     "special": [
-      "m2o"
+      "cast-boolean"
     ],
     "translations": null,
     "validation": null,
@@ -25,11 +25,11 @@
     "width": "half"
   },
   "schema": {
-    "name": "default_theme",
+    "name": "show_fullscreen_control",
     "table": "maps",
-    "data_type": "character varying",
-    "default_value": null,
-    "max_length": 255,
+    "data_type": "boolean",
+    "default_value": false,
+    "max_length": null,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,
@@ -39,7 +39,7 @@
     "is_generated": false,
     "generation_expression": null,
     "has_auto_increment": false,
-    "foreign_key_table": "Themes",
-    "foreign_key_column": "theme"
+    "foreign_key_table": null,
+    "foreign_key_column": null
   }
 }
