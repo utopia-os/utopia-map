@@ -264,8 +264,6 @@ type Subscription {
   directus_sync_id_map_mutated(event: EventEnum): directus_sync_id_map_mutated
   directus_policies_mutated(event: EventEnum): directus_policies_mutated
   relations_mutated(event: EventEnum): relations_mutated
-  types_mutated(event: EventEnum): types_mutated
-  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   attestations_mutated(event: EventEnum): attestations_mutated
   attestations_directus_users_mutated(event: EventEnum): attestations_directus_users_mutated
   contactInfos_mutated(event: EventEnum): contactInfos_mutated
@@ -275,6 +273,7 @@ type Subscription {
   groupSubheaders_mutated(event: EventEnum): groupSubheaders_mutated
   groupSubheaders_groupTypes_mutated(event: EventEnum): groupSubheaders_groupTypes_mutated
   groupTypes_mutated(event: EventEnum): groupTypes_mutated
+  marker_icons_mutated(event: EventEnum): marker_icons_mutated
   inviteLinks_mutated(event: EventEnum): inviteLinks_mutated
   items_mutated(event: EventEnum): items_mutated
   itemSecrets_mutated(event: EventEnum): itemSecrets_mutated
@@ -286,15 +285,16 @@ type Subscription {
   items_tags_1_mutated(event: EventEnum): items_tags_1_mutated
   junction_directus_users_tags_mutated(event: EventEnum): junction_directus_users_tags_mutated
   junction_directus_users_tags_1_mutated(event: EventEnum): junction_directus_users_tags_1_mutated
+  maps_mutated(event: EventEnum): maps_mutated
   layers_directus_users_1_mutated(event: EventEnum): layers_directus_users_1_mutated
   layers_files_mutated(event: EventEnum): layers_files_mutated
   layers_maps_mutated(event: EventEnum): layers_maps_mutated
-  maps_mutated(event: EventEnum): maps_mutated
   Themes_mutated(event: EventEnum): Themes_mutated
   startEnd_mutated(event: EventEnum): startEnd_mutated
   team_mutated(event: EventEnum): team_mutated
   texts_mutated(event: EventEnum): texts_mutated
   types_profileTemplate_mutated(event: EventEnum): types_profileTemplate_mutated
+  types_mutated(event: EventEnum): types_mutated
 }
 
 """The `Boolean` scalar type represents `true` or `false`."""
@@ -1396,6 +1396,8 @@ type directus_settings {
   public_registration_email_filter_func: count_functions
   visual_editor_urls: JSON
   visual_editor_urls_func: count_functions
+  accepted_terms: Boolean
+  project_id: ID
 }
 
 type directus_settings_mutated {
@@ -1964,10 +1966,10 @@ type layers {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
-  notifications_func: count_functions
   maps(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   maps_func: count_functions
+  notifications(filter: layers_directus_users_1_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_directus_users_1]
+  notifications_func: count_functions
 }
 
 type layers_directus_users_1 {
@@ -2042,6 +2044,10 @@ type maps {
   tile_server_url: String
   url: String
   zoom: Int
+  show_fullscreen_control: Boolean
+  mapbox_style: String
+  mapbox_token: String
+  tiles_type: String
   layers(filter: layers_maps_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): [layers_maps]
   layers_func: count_functions
 }
@@ -2055,8 +2061,8 @@ type maps_mutated {
 type marker_icons {
   id: ID!
   image(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
-  size: Float
   image_outline(filter: directus_files_filter, sort: [String], limit: Int, offset: Int, page: Int, search: String): directus_files
+  size: Float
   size_outline: Float
 }
 
@@ -2073,6 +2079,9 @@ type policy_me_globals_type {
 }
 
 type relations {
+  direction: String
+  heading: String
+  hideWhenEmpty: Boolean
   id: ID!
   relation: String
 }
@@ -2734,8 +2743,8 @@ input create_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications: [create_layers_directus_users_1_input]
   maps: [create_layers_maps_input]
+  notifications: [create_layers_directus_users_1_input]
 }
 
 input create_layers_maps_input {
@@ -2773,14 +2782,18 @@ input create_maps_input {
   tile_server_url: String
   url: String
   zoom: Int
+  show_fullscreen_control: Boolean
+  mapbox_style: String
+  mapbox_token: String
+  tiles_type: String
   layers: [create_layers_maps_input]
 }
 
 input create_marker_icons_input {
   id: ID!
   image: create_directus_files_input
-  size: Float
   image_outline: create_directus_files_input
+  size: Float
   size_outline: Float
 }
 
@@ -3694,10 +3707,10 @@ input layers_filter {
   public_edit_items: boolean_filter_operators
   sort: number_filter_operators
   userProfileLayer: boolean_filter_operators
-  notifications: layers_directus_users_1_quantifier_filter
-  notifications_func: count_function_filter_operators
   maps: layers_maps_quantifier_filter
   maps_func: count_function_filter_operators
+  notifications: layers_directus_users_1_quantifier_filter
+  notifications_func: count_function_filter_operators
   _and: [layers_filter]
   _or: [layers_filter]
 }
@@ -3745,6 +3758,10 @@ input maps_filter {
   tile_server_url: string_filter_operators
   url: string_filter_operators
   zoom: number_filter_operators
+  show_fullscreen_control: boolean_filter_operators
+  mapbox_style: string_filter_operators
+  mapbox_token: string_filter_operators
+  tiles_type: string_filter_operators
   layers: layers_maps_quantifier_filter
   layers_func: count_function_filter_operators
   _and: [maps_filter]
@@ -3754,8 +3771,8 @@ input maps_filter {
 input marker_icons_filter {
   id: string_filter_operators
   image: directus_files_filter
-  size: number_filter_operators
   image_outline: directus_files_filter
+  size: number_filter_operators
   size_outline: number_filter_operators
   _and: [marker_icons_filter]
   _or: [marker_icons_filter]
@@ -3777,6 +3794,9 @@ input number_filter_operators {
 }
 
 input relations_filter {
+  direction: string_filter_operators
+  heading: string_filter_operators
+  hideWhenEmpty: boolean_filter_operators
   id: number_filter_operators
   relation: string_filter_operators
   _and: [relations_filter]
@@ -4155,6 +4175,8 @@ input update_directus_settings_input {
   """$t:fields.directus_settings.public_registration_email_filter_note"""
   public_registration_email_filter: JSON
   visual_editor_urls: JSON
+  accepted_terms: Boolean
+  project_id: ID
 }
 
 input update_directus_shares_input {
@@ -4270,8 +4292,8 @@ input update_layers_input {
   public_edit_items: Boolean
   sort: Int
   userProfileLayer: Boolean
-  notifications: [update_layers_directus_users_1_input]
   maps: [update_layers_maps_input]
+  notifications: [update_layers_directus_users_1_input]
 }
 
 input update_layers_maps_input {
@@ -4309,14 +4331,18 @@ input update_maps_input {
   tile_server_url: String
   url: String
   zoom: Int
+  show_fullscreen_control: Boolean
+  mapbox_style: String
+  mapbox_token: String
+  tiles_type: String
   layers: [update_layers_maps_input]
 }
 
 input update_marker_icons_input {
   id: ID
   image: update_directus_files_input
-  size: Float
   image_outline: update_directus_files_input
+  size: Float
   size_outline: Float
 }
 
