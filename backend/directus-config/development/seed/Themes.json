@@ -1,0 +1,49 @@
+{
+    "collection": "Themes",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "theme-light",
+            "theme": "light"
+        },
+        {
+            "_sync_id": "theme-dark",
+            "theme": "dark"
+        },
+        {
+            "_sync_id": "theme-valentine",
+            "theme": "valentine"
+        },
+        {
+            "_sync_id": "theme-retro",
+            "theme": "retro"
+        },
+        {
+            "_sync_id": "theme-aqua",
+            "theme": "aqua"
+        },
+        {
+            "_sync_id": "theme-cyberpunk",
+            "theme": "cyberpunk"
+        },
+        {
+            "_sync_id": "theme-caramellatte",
+            "theme": "caramellatte"
+        },
+        {
+            "_sync_id": "theme-abyss",
+            "theme": "abyss"
+        },
+        {
+            "_sync_id": "theme-silk",
+            "theme": "silk"
+        }
+    ]
+}
