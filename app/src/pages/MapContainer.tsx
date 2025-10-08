@@ -86,6 +86,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         expandLayerControl={map.expand_layer_control}
         tileServerUrl={map.tile_server_url}
         tileServerAttribution={map.tile_server_attribution}
+        showFullscreenControl={map.show_fullscreen_control}
       >
         {layers &&
           apis &&

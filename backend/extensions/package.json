@@ -1,6 +1,9 @@
 {
   "name": "directus-extensions",
+  "engines": {
+    "node": ">=22.20.0"
+  },
   "dependencies": {
-    "directus-extension-sync": "^3.0.4"
+    "directus-extension-sync": "3.0.4"
   }
 }

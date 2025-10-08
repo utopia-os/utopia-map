@@ -1,4 +1,4 @@
-FROM node:20-alpine as third-party-ext
+FROM node:22.20.0-alpine as third-party-ext
 RUN apk add python3 g++ make
 WORKDIR /extensions
 ADD extensions .
@@ -7,6 +7,6 @@ RUN npm install
 RUN mkdir -p ./directus
 RUN cd node_modules && find . -maxdepth 1 -type d -name "directus-extension-*" -exec mv {} ../directus \;
 
-FROM directus/directus:11.7.2
+FROM directus/directus:11.9.3
 # Copy third party extensions
 COPY --from=third-party-ext /extensions/directus ./extensions
