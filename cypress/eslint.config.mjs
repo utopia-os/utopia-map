@@ -68,8 +68,8 @@ export default tseslint.config(
   {
     files: ['cypress/support/**/*.{js,ts}'],
     rules: {
-      // Allow console in support files for debugging
-      'no-console': 'off'
+      // Enable console warnings in support files
+      'no-console': 'warn'
     }
   },
 

@@ -7,8 +7,8 @@ import addContext from 'mochawesome/addContext'
 
 // Global exception handler
 Cypress.on('uncaught:exception', (err) => {
+  // eslint-disable-next-line no-console
   console.log('Uncaught exception:', err.message)
-  // returning false here prevents Cypress from failing the test
   return false
 })
 
