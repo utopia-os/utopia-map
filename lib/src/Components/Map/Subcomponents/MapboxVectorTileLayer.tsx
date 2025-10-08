@@ -4,7 +4,6 @@ import { useMap } from 'react-leaflet'
 
 import type { Map as MapboxMap } from 'mapbox-gl'
 import 'mapbox-gl-leaflet'
-import 'mapbox-gl/dist/mapbox-gl.css'
 
 type MapboxGLLayer = L.Layer & {
   getMapboxMap: () => MapboxMap | undefined
