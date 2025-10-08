@@ -89,10 +89,6 @@ npx directus-sync push --directus-url http://localhost:8055 --directus-email adm
 ### Testing Strategy
 
 - **Unit Tests**: Vitest for lib components with coverage reporting
-<!-- 
-  TODO: implement this component testing feature or remove this information from here
-  - **Component Tests**: Cypress for React component integration
--->
 - **Linting**: ESLint with TypeScript rules for code quality
 - **Type Checking**: TypeScript strict mode across all packages
 - **End-to-End Tests**: Cypress for testing the app's UI and user flows
