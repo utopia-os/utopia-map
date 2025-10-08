@@ -28,7 +28,7 @@ export const TextView = ({
 }: {
   item?: Item
   itemId?: string
-  text?: string
+  text?: string | null
   truncate?: boolean
   rawText?: string
 }) => {
@@ -44,7 +44,15 @@ export const TextView = ({
 
   if (rawText) {
     innerText = replacedText = rawText
-  } else if (text) {
+  } else if (text === undefined) {
+    // Field was omitted by backend (no permission)
+    innerText =
+      replacedText = `Login to see this ${item?.layer?.name ? (item.layer.name.endsWith('s') ? item.layer.name.slice(0, -1) : item.layer.name) : ''}`
+  } else if (text === null || text === '') {
+    // Field is not set or empty - show nothing
+    innerText = ''
+  } else {
+    // Field has a value
     innerText = text
   }
 
