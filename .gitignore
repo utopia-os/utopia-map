@@ -1,3 +1,7 @@
 .claude/
 data/
-node_modules
+node_modules/
+cypress/node_modules/
+cypress/results/
+cypress/runner-results/
+cypress/screenshots/
