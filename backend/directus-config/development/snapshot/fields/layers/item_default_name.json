@@ -1,38 +1,33 @@
 {
   "collection": "layers",
-  "field": "item_presets",
-  "type": "json",
+  "field": "item_default_name",
+  "type": "string",
   "meta": {
     "collection": "layers",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "item_presets",
+    "field": "item_default_name",
     "group": null,
-    "hidden": true,
-    "interface": null,
+    "hidden": false,
+    "interface": "input",
     "note": null,
-    "options": {
-      "allowOther": true,
-      "schema": null
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 17,
-    "special": [
-      "cast-json"
-    ],
+    "sort": 16,
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
-    "name": "item_presets",
+    "name": "item_default_name",
     "table": "layers",
-    "data_type": "json",
-    "default_value": null,
-    "max_length": null,
+    "data_type": "character varying",
+    "default_value": "item",
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,

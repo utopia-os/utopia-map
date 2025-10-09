@@ -6,6 +6,7 @@ To run the backend you can simply execute
 To fill in all required data execute the following commands in order:
 ```
 cd backend
+./push.sh
 ./seed.sh
 ```
 
@@ -22,6 +23,8 @@ npx directus-sync pull \
   --directus-password admin123
 ```
 
+You can run `./pull.sh` to run this command and modify it via `export PROJECT=...` for a different project configuration.
+
 ## Push Data from Harddrive to Docker
 
 To push local changes or to seed directus use the following command
@@ -32,6 +35,8 @@ npx directus-sync push \
   --directus-email admin@it4c.dev \
   --directus-password admin123
 ```
+
+You can run `./push.sh` to run this command and modify it via `export PROJECT=...` for a different project configuration.
 
 ## Seed Data for local development
 

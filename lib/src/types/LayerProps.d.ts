@@ -25,4 +25,5 @@ export interface LayerProps {
   public_edit_items?: boolean
   listed?: boolean
   item_presets?: Record<string, unknown>
+  item_default_name?: string
 }
