@@ -173,8 +173,7 @@ export const PopupView = ({ children }: { children?: React.ReactNode }) => {
           </ItemViewPopup>
 
           <Tooltip offset={[0, -38]} direction='top'>
-            {item.name ||
-              (item.layer?.name.endsWith('s') ? item.layer.name.slice(0, -1) : item.layer?.name)}
+            {item.name || item.layer?.item_default_name}
           </Tooltip>
         </Marker>
       </TemplateItemContext.Provider>

@@ -46,8 +46,7 @@ export const TextView = ({
     innerText = replacedText = rawText
   } else if (text === undefined) {
     // Field was omitted by backend (no permission)
-    innerText =
-      replacedText = `Login to see this ${item?.layer?.name ? (item.layer.name.endsWith('s') ? item.layer.name.slice(0, -1) : item.layer.name) : ''}`
+    innerText = replacedText = `Login to see this ${item?.layer?.item_default_name ?? 'item'}`
   } else if (text === null || text === '') {
     // Field is not set or empty - show nothing
     innerText = ''

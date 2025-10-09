@@ -60,9 +60,7 @@ export function HeaderView({
   const avatar =
     (item?.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ||
     item?.image_external
-  const title =
-    item?.name ??
-    (item?.layer?.name.endsWith('s') ? item.layer?.name.slice(0, -1) : item?.layer?.name)
+  const title = item?.name ?? item?.layer?.item_default_name
   const subtitle = item?.subname
 
   const [address] = useState<string>('')
