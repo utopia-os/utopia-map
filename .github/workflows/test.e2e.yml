@@ -58,7 +58,7 @@ jobs:
         run: |
           mkdir -p ./data/uploads
           sudo chmod 777 -R ./data
-          cd backend && ./seed.sh
+          cd backend && ./push.sh && ./seed.sh
         working-directory: ./
 
       - name: Wait for Application to be Ready
