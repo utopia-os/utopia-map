@@ -24,6 +24,7 @@ export const GalleryView = ({ item }: { item: Item }) => {
   const appState = useAppState()
   const images =
     item.gallery?.flatMap((g, index) => {
+      if (!g.directus_files_id) return []
       const file = g.directus_files_id
       if (typeof file === 'string') return []
       const { id, type, width, height } = file

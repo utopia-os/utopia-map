@@ -35,6 +35,8 @@ export const Layer = ({
   // eslint-disable-next-line camelcase
   public_edit_items,
   listed = true,
+  // eslint-disable-next-line camelcase
+  item_default_name = 'item',
 }: LayerProps) => {
   const setItemsApi = useSetItemsApi()
   const setItemsData = useSetItemsData()
@@ -65,6 +67,8 @@ export const Layer = ({
         // eslint-disable-next-line camelcase
         public_edit_items,
         listed,
+        // eslint-disable-next-line camelcase
+        item_default_name,
       })
     api &&
       setItemsApi({
@@ -86,6 +90,8 @@ export const Layer = ({
         // eslint-disable-next-line camelcase
         public_edit_items,
         listed,
+        // eslint-disable-next-line camelcase
+        item_default_name,
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, api])
