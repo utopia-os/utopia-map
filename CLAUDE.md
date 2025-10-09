@@ -37,11 +37,6 @@ npm run test:unit:dev         # Run Vitest in watch mode
 npm run docs:generate         # Generate TypeDoc documentation
 ```
 
-### Root Level
-```bash
-./scripts/check-lint.sh       # Run linting on both app and lib (used by PR hooks)
-```
-
 ### Backend (Directus)
 ```bash
 cd app
@@ -94,9 +89,9 @@ npx directus-sync push --directus-url http://localhost:8055 --directus-email adm
 ### Testing Strategy
 
 - **Unit Tests**: Vitest for lib components with coverage reporting
-- **Component Tests**: Cypress for React component integration
 - **Linting**: ESLint with TypeScript rules for code quality
 - **Type Checking**: TypeScript strict mode across all packages
+- **End-to-End Tests**: Cypress for testing the app's UI and user flows
 
 ### Import Conventions
 

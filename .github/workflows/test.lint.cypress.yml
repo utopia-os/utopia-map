@@ -1,0 +1,34 @@
+name: test:lint:cypress
+
+on: push
+
+jobs:
+  files-changed:
+    name: Detect File Changes - lint - cypress
+    runs-on: ubuntu-latest
+    outputs:
+      cypress: ${{ steps.filter.outputs.cypress }}
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            cypress:
+              - '.github/workflows/test.lint.cypress.yml'
+              - '.github/workflows/test.e2e.yml'
+              - 'cypress/**/*'
+
+  lint:
+    if: needs.files-changed.outputs.cypress == 'true'
+    name: Lint - cypress
+    needs: files-changed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+      - uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        with:
+          node-version-file: '.tool-versions'
+      - name: Lint
+        run: npm install && npm run lint
+        working-directory: cypress/

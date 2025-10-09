@@ -51,6 +51,133 @@
 			    ]
 		    },
             "layer" : "layer-people"
+        },
+        {
+            "_sync_id": "item-places-2",
+            "name": "Community Garden Berlin",
+            "subname": "Organic vegetables and sustainable farming",
+            "text": "A thriving community garden in Berlin where neighbors grow organic vegetables together. We focus on #sustainability #community #gardening #organic practices. Join us for weekly workshops on #permaculture and #composting!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    13.404954,
+				    52.520008
+			    ]
+		    },
+            "layer" : "layer-places"
+        },
+        {
+            "_sync_id": "item-event-2",
+            "name": "Tech Meetup Munich",
+            "text": "Monthly #technology #networking event for developers and tech enthusiasts. Topics include #javascript #opensource #webdev and #innovation. Great for #learning and meeting like-minded people!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    11.576124,
+				    48.137154
+			    ]
+		    },
+            "layer" : "layer-events",
+            "start": "2025-12-15T18:00:00",
+            "end": "2025-12-15T21:00:00"
+        },
+        {
+            "_sync_id": "item-people-2",
+            "name": "Jane Developer",
+            "text": "Full-stack developer passionate about #opensource projects and #javascript frameworks. Interested in #sustainability tech and #community building. Always happy to collaborate on #innovation projects!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    2.349014,
+				    48.864716
+			    ]
+		    },
+            "layer" : "layer-people"
+        },
+        {
+            "_sync_id": "item-places-3",
+            "name": "Café Collaboration London",
+            "subname": "Co-working space and coffee shop",
+            "text": "A vibrant co-working café in London perfect for #networking and #collaboration. Features excellent coffee, fast wifi, and a #community of freelancers and entrepreneurs. Regular #events and workshops on #business and #creativity.",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    -0.127758,
+				    51.507351
+			    ]
+		    },
+            "layer" : "layer-places"
+        },
+        {
+            "_sync_id": "item-event-3",
+            "name": "Sustainability Workshop NYC",
+            "text": "Learn about #sustainability practices and #environmental solutions in this hands-on workshop. Topics include #recycling #renewable energy and #green living. Perfect for #activists and #eco enthusiasts!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    -74.005941,
+				    40.712784
+			    ]
+		    },
+            "layer" : "layer-events",
+            "start": "2025-11-20T14:00:00",
+            "end": "2025-11-20T17:00:00"
+        },
+        {
+            "_sync_id": "item-people-3",
+            "name": "Alex Entrepreneur",
+            "text": "Serial entrepreneur focused on #sustainability and #innovation. Building #community-driven solutions for #environmental challenges. Always looking for #collaboration opportunities in #greentech!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    -122.419416,
+				    37.774929
+			    ]
+		    },
+            "layer" : "layer-people"
+        },
+        {
+            "_sync_id": "item-places-4",
+            "name": "Makerspace Tokyo",
+            "subname": "Innovation hub for creators",
+            "text": "State-of-the-art makerspace in Tokyo with 3D printers, laser cutters, and electronics lab. Perfect for #makers #innovation #prototyping and #learning. Join our #community of inventors and #entrepreneurs!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    139.691706,
+				    35.689487
+			    ]
+		    },
+            "layer" : "layer-places"
+        },
+        {
+            "_sync_id": "item-event-4",
+            "name": "Open Source Conference",
+            "text": "Annual conference celebrating #opensource software and #collaboration. Features talks on #javascript #python #webdev and #community building. Great for #developers #learning and #networking!",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    -0.118092,
+				    51.509865
+			    ]
+		    },
+            "layer" : "layer-events",
+            "start": "2025-10-10T09:00:00",
+            "end": "2025-10-12T18:00:00"
+        },
+        {
+            "_sync_id": "item-places-5",
+            "name": "Test & Special Characters!",
+            "subname": "Edge case for search testing",
+            "text": "This item tests special characters: @#$%^&*()_+ and unicode: café naïve résumé. Also tests very long content that might affect search performance and display. Contains #testing #edgecase #unicode #special-chars tags.",
+            "position": {
+			    "type": "Point",
+			    "coordinates": [
+				    4.902257,
+				    52.367573
+			    ]
+		    },
+            "layer" : "layer-places"
         }
     ]
 }
