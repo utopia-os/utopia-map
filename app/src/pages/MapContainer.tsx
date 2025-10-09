@@ -113,6 +113,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               public_edit_items={layer.public_edit_items}
               listed={layer.listed}
               api={apis.find((api) => api.id === layer.id)?.api}
+              item_default_name={layer.item_default_name}
             >
               <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
