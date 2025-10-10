@@ -1,4 +1,3 @@
-import { QrCodeIcon } from '@heroicons/react/24/solid'
 import { LuNavigation } from 'react-icons/lu'
 
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
@@ -10,10 +9,9 @@ import type { Item } from '#types/Item'
 
 interface ActionButtonsProps {
   item: Item
-  onQrModalOpen: () => void
 }
 
-export function ActionButtons({ item, onQrModalOpen }: ActionButtonsProps) {
+export function ActionButtons({ item }: ActionButtonsProps) {
   const myProfile = useMyProfile()
   const { getNavigationUrl, isMobile, isIOS } = useNavigationUrl(
     item.position?.coordinates as [number, number] | undefined,
@@ -33,16 +31,6 @@ export function ActionButtons({ item, onQrModalOpen }: ActionButtonsProps) {
         >
           <LuNavigation className='tw:h-4 tw:w-4' />
         </a>
-      )}
-      {myProfile.myProfile?.id === item.id && (
-        <button
-          onClick={onQrModalOpen}
-          className='tw:btn tw:mr-2 tw:px-3 tw:tooltip tw:tooltip-top'
-          title='QR-Code'
-          data-tip='QR Code'
-        >
-          <QrCodeIcon className='tw:h-4 tw:w-4' />
-        </button>
       )}
       {myProfile.myProfile?.id !== item.id && <ShareButton item={item} />}
     </>

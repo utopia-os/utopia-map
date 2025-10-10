@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { useMyProfile } from '#components/Map/hooks/useMyProfile'
+
 import { ActionButtons } from './ActionButtons'
 import { ConnectionStatus } from './ConnectionStatus'
 import { DeleteModal } from './DeleteModal'
@@ -24,17 +26,25 @@ export function HeaderView({
 }: HeaderViewProps) {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [qrModalOpen, setQrModalOpen] = useState<boolean>(false)
+  const myProfile = useMyProfile()
 
   if (!item) return null
 
   const hasAvatar = !!(item.image ?? item.image_external)
+  const isMyProfile = myProfile.myProfile?.id === item.id
+  const showQrButton = big && isMyProfile
 
   return (
     <>
       <div className='tw:flex tw:flex-row'>
         <div className={'tw:grow tw:flex tw:flex-1 tw:min-w-0'}>
           <div className='tw:flex tw:flex-1 tw:min-w-0 tw:items-center'>
-            {hasAvatar && <ItemAvatar item={item} big={big} />}
+            <ItemAvatar
+              item={item}
+              big={big}
+              showQrButton={showQrButton}
+              onQrClick={() => setQrModalOpen(true)}
+            />
             <ItemTitle
               item={item}
               big={big}
@@ -62,7 +72,7 @@ export function HeaderView({
           <div className='tw:grow'></div>
           <div className='tw:flex'>
             <ConnectionStatus item={item} />
-            <ActionButtons item={item} onQrModalOpen={() => setQrModalOpen(true)} />
+            <ActionButtons item={item} />
           </div>
         </div>
       )}
