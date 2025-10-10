@@ -38,7 +38,7 @@ export function useReverseGeocode(
     }
 
     const [longitude, latitude] = coordinates
-    if (!latitude || !longitude) {
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
       return
     }
 
