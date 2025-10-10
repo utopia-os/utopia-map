@@ -29,7 +29,7 @@ export function ItemAvatar({ item, big = false }: ItemAvatarProps) {
         <img
           className='tw:w-full tw:h-full tw:object-cover tw:rounded-full tw:border-white'
           src={avatar}
-          alt={item.name + ' logo'}
+          alt={item.name ?? '' + ' logo'}
           onLoad={() => setImageLoaded(true)}
           onError={() => setImageLoaded(false)}
           style={{ display: imageLoaded ? 'block' : 'none' }}
