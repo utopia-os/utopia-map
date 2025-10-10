@@ -25,4 +25,7 @@ export interface ItemType {
   show_address?: boolean
   cta_relation?: string
   show_cta_button?: boolean
+  show_qr_button?: boolean
+  show_navigation_button?: boolean
+  show_share_button?: boolean
 }
