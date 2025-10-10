@@ -105,7 +105,7 @@ export function ActionButton({
                 .filter((item) => {
                   return search === ''
                     ? item
-                    : item.name.toLowerCase().includes(search.toLowerCase())
+                    : item.name?.toLowerCase().includes(search.toLowerCase())
                 })
                 .map((i) => (
                   <div

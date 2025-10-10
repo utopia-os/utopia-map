@@ -13,11 +13,12 @@
     "interface": "group-detail",
     "note": null,
     "options": {
-      "headerIcon": "wysiwyg"
+      "headerIcon": "wysiwyg",
+      "start": "closed"
     },
     "readonly": false,
     "required": false,
-    "sort": 7,
+    "sort": 8,
     "special": [
       "alias",
       "no-data",

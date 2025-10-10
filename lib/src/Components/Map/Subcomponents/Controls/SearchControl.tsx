@@ -79,7 +79,7 @@ export const SearchControl = () => {
         items.filter((item) => {
           return (
             value.length > 2 &&
-            ((item.layer?.listed && item.name.toLowerCase().includes(value.toLowerCase())) ||
+            ((item.layer?.listed && item.name?.toLowerCase().includes(value.toLowerCase())) ||
               item.text?.toLowerCase().includes(value.toLowerCase()))
           )
         }),

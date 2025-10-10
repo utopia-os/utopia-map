@@ -9,7 +9,7 @@ const isClickInsideRectangle = (e: MouseEvent, element: HTMLElement) => {
 }
 
 interface Props {
-  title: string
+  title?: string
   isOpened: boolean
   onClose: () => void
   children: React.ReactNode
@@ -52,7 +52,9 @@ const DialogModal = ({
         }
       >
         <div className='tw:card-body tw:p-2'>
-          <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>{title}</h2>
+          {title && (
+            <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>{title}</h2>
+          )}
 
           {children}
           {showCloseButton && (

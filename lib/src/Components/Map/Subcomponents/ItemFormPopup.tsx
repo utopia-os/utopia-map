@@ -146,7 +146,7 @@ export function ItemFormPopup(props: Props) {
         (i) => i.user_created?.id === user?.id && i.layer === popupForm.layer,
       )
 
-      const itemName = formItem.name || user?.first_name
+      const itemName = formItem.name ?? user?.first_name
       if (!itemName) {
         toast.error('Name must be defined')
         return false
