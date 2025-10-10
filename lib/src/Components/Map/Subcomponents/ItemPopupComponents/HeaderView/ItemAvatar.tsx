@@ -26,7 +26,7 @@ export function ItemAvatar({
   const imageSize = extraLarge ? 320 : 160
   const avatar =
     (item.image &&
-      appState.assetsApi.url + item.image + `?width=${imageSize}&heigth=${imageSize}`) ??
+      appState.assetsApi.url + item.image + `?width=${imageSize}&height=${imageSize}`) ??
     item.image_external
 
   const hasAvatar = !!avatar
