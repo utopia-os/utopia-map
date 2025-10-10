@@ -30,7 +30,7 @@ export function QRModal({ item, isOpen, onClose }: QRModalProps) {
         <div className='tw:flex tw:flex-col tw:items-center tw:gap-4 tw:my-8'>
           <ItemAvatar item={item} extraLarge={true} />
           <div className='tw:p-8 tw:mt-4 tw:rounded-lg tw:inline-block tw:border-base-300 tw:bg-base-200 tw:border-1'>
-            <QRCode value={inviteLink} size={156} />
+            <QRCode value={inviteLink} size={164} />
           </div>
         </div>
 
