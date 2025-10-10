@@ -8,7 +8,7 @@ import type { Item } from '#types/Item'
  */
 export const StartEndView = ({ item }: { item?: Item }) => {
   return (
-    <div className='tw:flex tw:flex-row tw:mb-4 tw:mt-1'>
+    <div className='tw:flex tw:flex-row tw:mb-4 tw:mt-4'>
       <div className='tw:basis-2/5 tw:flex tw:flex-row'>
         <CalendarIcon className='tw:h-4 tw:w-4 tw:mr-2' />
         <time

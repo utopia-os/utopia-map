@@ -48,7 +48,7 @@ export function ItemTitle({
           <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
           <span title={address} className='tw:truncate'>
             {address}
-            {distance && distance >= 0.1 && ` (${formatDistance(distance) ?? ''})`}
+            {distance && distance >= 0.1 ? ` (${formatDistance(distance) ?? ''})` : ''}
           </span>
         </div>
       )}

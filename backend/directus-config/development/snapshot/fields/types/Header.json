@@ -13,6 +13,7 @@
     "interface": "group-detail",
     "note": null,
     "options": {
+      "headerIcon": "credit_card",
       "start": "closed"
     },
     "readonly": false,

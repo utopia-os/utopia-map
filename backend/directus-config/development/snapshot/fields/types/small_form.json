@@ -13,11 +13,12 @@
     "interface": "group-detail",
     "note": null,
     "options": {
-      "headerIcon": "edit_square"
+      "headerIcon": "edit_square",
+      "start": "closed"
     },
     "readonly": false,
     "required": false,
-    "sort": 8,
+    "sort": 9,
     "special": [
       "alias",
       "no-data",
