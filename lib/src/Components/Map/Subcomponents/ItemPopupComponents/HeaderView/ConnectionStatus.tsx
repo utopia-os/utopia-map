@@ -31,10 +31,11 @@ export function ConnectionStatus({ item }: ConnectionStatusProps) {
     return <p className='tw:flex tw:items-center tw:mr-2'>✅ Connected</p>
   }
 
+  const tags = getItemTags(item);
   return (
     <button
       style={{
-        backgroundColor: `${item.color ?? (getItemTags(item)[0]?.color ? getItemTags(item)[0].color : item.layer.markerDefaultColor || '#000')}`,
+        backgroundColor: `${item.color ?? (tags[0]?.color ? tags[0].color : item.layer.markerDefaultColor || '#000')}`,
       }}
       className='tw:btn tw:text-white tw:mr-2 tw:tooltip tw:tooltip-top '
       data-tip={'Connect'}
