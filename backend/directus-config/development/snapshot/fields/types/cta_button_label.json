@@ -4,7 +4,23 @@
   "type": "string",
   "meta": {
     "collection": "types",
-    "conditions": null,
+    "conditions": [
+      {
+        "hidden": true,
+        "name": "show cta button",
+        "readonly": false,
+        "required": false,
+        "rule": {
+          "_and": [
+            {
+              "show_cta_button": {
+                "_eq": false
+              }
+            }
+          ]
+        }
+      }
+    ],
     "display": null,
     "display_options": null,
     "field": "cta_button_label",
@@ -15,7 +31,7 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 1,
+    "sort": 6,
     "special": null,
     "translations": null,
     "validation": null,

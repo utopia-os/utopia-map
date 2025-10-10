@@ -1,13 +1,13 @@
 {
   "collection": "types",
-  "field": "show_address",
+  "field": "show_navigation_button",
   "type": "boolean",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "show_address",
+    "field": "show_navigation_button",
     "group": "Header",
     "hidden": false,
     "interface": "boolean",
@@ -15,7 +15,7 @@
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 1,
+    "sort": 4,
     "special": [
       "cast-boolean"
     ],
@@ -25,10 +25,10 @@
     "width": "half"
   },
   "schema": {
-    "name": "show_address",
+    "name": "show_navigation_button",
     "table": "types",
     "data_type": "boolean",
-    "default_value": true,
+    "default_value": false,
     "max_length": null,
     "numeric_precision": null,
     "numeric_scale": null,
