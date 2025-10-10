@@ -17,9 +17,13 @@ export function ActionButtons({ item }: ActionButtonsProps) {
     item.position?.coordinates as [number, number] | undefined,
   )
 
+  const showNavigationButton = item.layer?.itemType.show_navigation_button ?? true
+  const showShareButton = item.layer?.itemType.show_share_button ?? true
+  const isOtherProfile = myProfile.myProfile?.id !== item.id
+
   return (
     <>
-      {item.position?.coordinates && myProfile.myProfile?.id !== item.id && (
+      {item.position?.coordinates && isOtherProfile && showNavigationButton && (
         <a
           href={getNavigationUrl()}
           target='_blank'
@@ -32,7 +36,7 @@ export function ActionButtons({ item }: ActionButtonsProps) {
           <LuNavigation className='tw:h-4 tw:w-4' />
         </a>
       )}
-      {myProfile.myProfile?.id !== item.id && <ShareButton item={item} />}
+      {isOtherProfile && showShareButton && <ShareButton item={item} />}
     </>
   )
 }

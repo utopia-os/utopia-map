@@ -8,6 +8,7 @@ import type { Item } from '#types/Item'
 interface ItemAvatarProps {
   item: Item
   big?: boolean
+  extraLarge?: boolean
   showQrButton?: boolean
   onQrClick?: () => void
 }
@@ -15,14 +16,17 @@ interface ItemAvatarProps {
 export function ItemAvatar({
   item,
   big = false,
+  extraLarge = false,
   showQrButton = false,
   onQrClick,
 }: ItemAvatarProps) {
   const appState = useAppState()
   const [imageLoaded, setImageLoaded] = useState(false)
 
+  const imageSize = extraLarge ? 320 : 160
   const avatar =
-    (item.image && appState.assetsApi.url + item.image + '?width=160&heigth=160') ??
+    (item.image &&
+      appState.assetsApi.url + item.image + `?width=${imageSize}&heigth=${imageSize}`) ??
     item.image_external
 
   const hasAvatar = !!avatar
@@ -38,12 +42,12 @@ export function ItemAvatar({
 
   if (!hasAvatar) return null
 
+  const avatarSize = extraLarge ? 'tw:w-32' : big ? 'tw:w-16' : 'tw:w-10'
+
   return (
     <div className='tw:avatar tw:relative'>
       <div
-        className={`${
-          big ? 'tw:w-16' : 'tw:w-10'
-        } tw:inline tw:items-center tw:justify-center tw:overflow-visible`}
+        className={`${avatarSize} tw:inline tw:items-center tw:justify-center tw:overflow-visible`}
       >
         <img
           className='tw:w-full tw:h-full tw:object-cover tw:rounded-full tw:border-white'

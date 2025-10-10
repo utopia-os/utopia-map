@@ -32,7 +32,7 @@ export function HeaderView({
 
   const hasAvatar = !!(item.image ?? item.image_external)
   const isMyProfile = myProfile.myProfile?.id === item.id
-  const showQrButton = big && isMyProfile
+  const showQrButton = big && isMyProfile && (item.layer?.itemType.show_qr_button ?? true)
 
   return (
     <>

@@ -105,7 +105,7 @@ export function ItemTitle({
     >
       <div
         ref={titleRef}
-        className={`${fontSize} tw:font-bold`}
+        className={`${fontSize} tw:font-bold ${!big ? 'tw:truncate' : ''}`}
         title={title}
         data-cy='profile-title'
       >
