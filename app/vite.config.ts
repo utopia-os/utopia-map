@@ -20,9 +20,6 @@ export default defineConfig({
      */
   },
   plugins: [react(), tailwindcss(), tsConfigPaths()],
-  resolve: {
-    dedupe: ['react', 'react-dom', 'react-router-dom'],
-  },
   build: {
     sourcemap: true,
     rollupOptions: {
@@ -32,7 +29,7 @@ export default defineConfig({
             return 'utopia-ui'
           }
           if (id.includes('node_modules')) {
-            if (id.includes('react')) {
+            if (id.includes('react') || id.includes('scheduler') || id.includes('use-sync-external-store')) {
               return 'react'
             }
             if (id.includes('tiptap')) {
@@ -41,9 +38,7 @@ export default defineConfig({
             if (id.includes('leaflet')) {
               return 'leaflet'
             }
-            if (id.includes('lib/node_modules')) {
-              return 'utopia-ui-vendor'
-            } else return 'vendor'
+            return 'vendor'
           }
         },
       },

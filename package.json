@@ -1,0 +1,8 @@
+{
+  "name": "utopia-map-workspace",
+  "private": true,
+  "workspaces": [
+    "app",
+    "lib"
+  ]
+}
