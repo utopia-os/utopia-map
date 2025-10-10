@@ -8,8 +8,8 @@ import type { Item } from '#types/Item'
  */
 export const StartEndView = ({ item }: { item?: Item }) => {
   return (
-    <div className='tw:flex tw:flex-row tw:mb-4 tw:mt-4'>
-      <div className='tw:basis-2/5 tw:flex tw:flex-row'>
+    <div className='tw:flex tw:flex-row tw:mb-4 tw:mt-4 tw:bg-base-300 tw:px-4 tw:py-3 tw:rounded-selector tw:w-full'>
+      <div className='tw:basis-2/5 tw:flex tw:flex-row tw:font-bold'>
         <CalendarIcon className='tw:h-4 tw:w-4 tw:mr-2' />
         <time
           className='tw:align-middle'
@@ -21,7 +21,7 @@ export const StartEndView = ({ item }: { item?: Item }) => {
       <div className='tw:basis-1/5 tw:place-content-center'>
         <span>-</span>
       </div>
-      <div className='tw:basis-2/5 tw:flex tw:flex-row'>
+      <div className='tw:basis-2/5 tw:flex tw:flex-row tw:font-bold'>
         <CalendarIcon className='tw:h-4 tw:w-4 tw:mr-2' />
         <time
           className='tw:align-middle'

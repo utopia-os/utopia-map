@@ -18,7 +18,7 @@ export interface ItemType {
   questlog: boolean
   custom_profile_url?: string
   small_form_edit?: boolean
-  botton_label?: string
+  button_label?: string
   text_input_label?: string
   show_header_view_in_form?: boolean
   cta_button_label?: string
