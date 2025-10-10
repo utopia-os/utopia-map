@@ -70,7 +70,7 @@ export function EditMenu({
                 onClick={(e) =>
                   item.layer?.customEditLink
                     ? navigate(
-                        `${item.layer.customEditLink}${item.layer.customEditParameter ? `/${item.id}${params.toString() ? '?' + params.toString() : ''}` : ''} `,
+                        `${item.layer.customEditLink}${item.layer.customEditParameter ? `/${item.id}${params.toString() ? '?' + params.toString() : ''}` : ''}`,
                       )
                     : editCallback(e)
                 }
