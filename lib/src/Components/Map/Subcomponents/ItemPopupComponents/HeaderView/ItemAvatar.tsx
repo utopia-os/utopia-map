@@ -1,6 +1,5 @@
-import { useState } from 'react'
-
 import { QrCodeIcon } from '@heroicons/react/24/solid'
+import { useState } from 'react'
 
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 

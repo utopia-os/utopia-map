@@ -1,6 +1,5 @@
-import { useRef } from 'react'
-
 import { ShareIcon } from '@heroicons/react/24/solid'
+import { useRef } from 'react'
 
 import ChevronSVG from '#assets/chevron.svg'
 import ClipboardSVG from '#assets/share/clipboard.svg'
@@ -36,22 +35,20 @@ export function ShareButton({ item, dropdownDirection = 'down' }: ShareButtonPro
     closeDropdown()
   }
 
-  const handleNativeShare = async () => {
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: shareTitle,
-          url: shareUrl,
-        })
-        closeDropdown()
-      } catch (error) {
-        // User cancelled or error occurred
-        console.log('Share cancelled or failed:', error)
-      }
-    }
-  }
+  const canUseNativeShare =
+    typeof navigator !== 'undefined' && typeof navigator.share !== 'undefined'
 
-  const canUseNativeShare = typeof navigator !== 'undefined' && navigator.share
+  const handleNativeShare = () => {
+    void navigator
+      .share({
+        title: shareTitle,
+        url: shareUrl,
+      })
+      .then(closeDropdown)
+      .catch(() => {
+        // User cancelled or error occurred - ignore
+      })
+  }
 
   const platformConfigs: SharePlatformConfigs = {
     facebook: {
