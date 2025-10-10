@@ -291,9 +291,6 @@ export function UtopiaMapInner({
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }
         url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
-        zoomOffset={-1}
-        tileSize={512}
-        minZoom={2}
       />
       <MarkerClusterGroup
         ref={(r) => setClusterRef(r as any)}
