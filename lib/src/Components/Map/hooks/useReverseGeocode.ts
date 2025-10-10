@@ -92,10 +92,10 @@ export function useReverseGeocode(
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message)
+          setAddress('')
         } else {
-          setError('Unknown error occurred')
+          throw err
         }
-        setAddress('')
       } finally {
         setLoading(false)
       }

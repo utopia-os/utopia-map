@@ -47,7 +47,7 @@ export const useGeoDistance = (targetPoint?: Point) => {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('Calculation error')
+        throw err
       }
     }
   }, [myProfile, isMyProfileLoaded, targetPoint])
