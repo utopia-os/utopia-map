@@ -24,4 +24,5 @@ export interface ItemType {
   cta_button_label?: string
   show_address?: boolean
   cta_relation?: string
+  show_cta_button?: boolean
 }

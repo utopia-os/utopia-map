@@ -1,9 +1,9 @@
 import QRCode from 'react-qr-code'
 
-import ClipboardSVG from '#assets/share/clipboard.svg'
 import DialogModal from '#components/Templates/DialogModal'
 
 import { useShareLogic } from './hooks'
+import { ShareButton } from './ShareButton'
 
 import type { Item } from '#types/Item'
 
@@ -14,7 +14,7 @@ interface QRModalProps {
 }
 
 export function QRModal({ item, isOpen, onClose }: QRModalProps) {
-  const { inviteLink, copyLink } = useShareLogic(item)
+  const { inviteLink } = useShareLogic(item)
 
   return (
     <DialogModal
@@ -24,21 +24,15 @@ export function QRModal({ item, isOpen, onClose }: QRModalProps) {
       className='tw:w-[calc(100vw-2rem)] tw:max-w-96'
     >
       <div onClick={(e) => e.stopPropagation()} className='tw:text-center tw:p-4'>
-        <p className='tw:text-xl'>Share your profile with others to expand your network.</p>
+        <p className='tw:text-xl tw:font-bold'>Share your Profile to expand your Network!</p>
 
-        <div className='tw:p-8 tw:my-8 tw:rounded-lg tw:inline-block tw:border-base-300 tw:border-2 '>
+        <div className='tw:p-8 tw:my-8 tw:rounded-lg tw:inline-block tw:border-base-300 tw:bg-base-200 tw:border-1 '>
           <QRCode value={inviteLink} size={192} />
         </div>
 
         <div className='tw:flex tw:items-center tw:gap-2 tw:w-full tw:border-base-300 tw:border-2 tw:rounded-lg tw:p-3'>
           <span className='tw:text-sm tw:truncate tw:flex-1 tw:min-w-0'>{inviteLink}</span>
-          <button
-            onClick={copyLink}
-            className='tw:btn tw:btn-primary tw:btn-sm tw:flex-shrink-0'
-            title='Link kopieren'
-          >
-            <img src={ClipboardSVG} className='tw:w-4 tw:h-4' alt='Copy' />
-          </button>
+          <ShareButton item={item} dropdownDirection='up' />
         </div>
       </div>
     </DialogModal>

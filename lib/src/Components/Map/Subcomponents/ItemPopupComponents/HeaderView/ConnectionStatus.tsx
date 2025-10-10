@@ -23,6 +23,10 @@ export function ConnectionStatus({ item }: ConnectionStatusProps) {
       r.related_items_id === myProfile.myProfile?.id,
   )
 
+  if (!item.layer?.itemType.show_cta_button) {
+    return null
+  }
+
   if (isConnected) {
     return <p className='tw:flex tw:items-center tw:mr-2'>✅ Connected</p>
   }
