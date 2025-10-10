@@ -1,14 +1,14 @@
 {
   "collection": "maps",
-  "field": "tile_server_url",
+  "field": "mapbox_style",
   "type": "string",
   "meta": {
     "collection": "maps",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "mapbox_style",
+    "group": "mapbox",
     "hidden": false,
     "interface": "input",
     "note": null,
@@ -23,7 +23,7 @@
     "width": "full"
   },
   "schema": {
-    "name": "tile_server_url",
+    "name": "mapbox_style",
     "table": "maps",
     "data_type": "character varying",
     "default_value": null,

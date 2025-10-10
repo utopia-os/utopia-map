@@ -4,6 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css'
 import 'react-photo-album/rows.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'yet-another-react-lightbox/styles.css'
+import 'mapbox-gl/dist/mapbox-gl.css'
 
 import '#assets/css/tailwind.css'
 import '#assets/css/masonry.css'

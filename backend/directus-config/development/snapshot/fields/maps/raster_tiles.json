@@ -1,0 +1,60 @@
+{
+  "collection": "maps",
+  "field": "raster_tiles",
+  "type": "alias",
+  "meta": {
+    "collection": "maps",
+    "conditions": [
+      {
+        "hidden": false,
+        "name": "Tiles Type is Raster",
+        "readonly": false,
+        "required": true,
+        "rule": {
+          "_and": [
+            {
+              "tiles_type": {
+                "_eq": "raster"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "Tiles Type is not raster",
+        "readonly": true,
+        "required": false,
+        "rule": {
+          "_and": [
+            {
+              "tiles_type": {
+                "_neq": "raster"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "raster_tiles",
+    "group": "tile_server",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}
