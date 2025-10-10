@@ -31,7 +31,7 @@ export function ConnectionStatus({ item }: ConnectionStatusProps) {
     return <p className='tw:flex tw:items-center tw:mr-2'>✅ Connected</p>
   }
 
-  const tags = getItemTags(item);
+  const tags = getItemTags(item)
   return (
     <button
       style={{

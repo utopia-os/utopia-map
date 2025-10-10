@@ -90,8 +90,11 @@ export function useReverseGeocode(
           setAddress('')
         }
       } catch (err) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
-        setError(errorMessage)
+        if (err instanceof Error) {
+          setError(err.message)
+        } else {
+          setError('Unknown error occurred')
+        }
         setAddress('')
       } finally {
         setLoading(false)
