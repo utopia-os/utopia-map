@@ -137,7 +137,7 @@ export function ShareButton({ item, dropdownDirection = 'down' }: ShareButtonPro
               className='tw:w-6 tw:h-6 tw:rounded-full tw:flex tw:items-center tw:justify-center tw:text-white'
               style={{ backgroundColor: '#444' }}
             >
-              <img src={ChevronSVG} className='tw:w-3 tw:h-3' alt='Copy' />
+              <img src={ChevronSVG} className='tw:w-3 tw:h-3' alt='Email' />
             </div>
             Email
           </a>
