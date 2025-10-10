@@ -14,12 +14,10 @@ export const useNavigationUrl = (coordinates?: [number, number]) => {
 
     const [longitude, latitude] = coordinates
 
-    if (isMobile) {
-      return `geo:${latitude},${longitude}`
-    }
-
     if (isIOS) {
       return `https://maps.apple.com/?daddr=${latitude},${longitude}`
+    } else if (isMobile) {
+      return `geo:${latitude},${longitude}`
     } else {
       return `https://www.google.com/maps/dir/?api=1&destination=${latitude},${longitude}`
     }
