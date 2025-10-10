@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
 import { MapPinIcon } from '@heroicons/react/24/solid'
+import { useEffect, useRef, useState } from 'react'
 
 import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
 import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
@@ -63,11 +63,11 @@ export function ItemTitle({
         ? [
             { class: 'tw:text-2xl', pixels: 24 },
             { class: 'tw:text-xl', pixels: 20 },
-            { class: 'tw:text-lg', pixels: 18 }
+            { class: 'tw:text-lg', pixels: 18 },
           ]
         : [
             { class: 'tw:text-xl', pixels: 20 },
-            { class: 'tw:text-lg', pixels: 18 }
+            { class: 'tw:text-lg', pixels: 18 },
           ]
 
       let selectedSize = 'tw:text-lg'
@@ -99,7 +99,10 @@ export function ItemTitle({
   }, [title, big])
 
   return (
-    <div ref={containerRef} className={`${hasAvatar ? 'tw:ml-3' : ''} tw:overflow-hidden tw:flex-1 tw:min-w-0 `}>
+    <div
+      ref={containerRef}
+      className={`${hasAvatar ? 'tw:ml-3' : ''} tw:overflow-hidden tw:flex-1 tw:min-w-0 `}
+    >
       <div
         ref={titleRef}
         className={`${fontSize} tw:font-bold`}
