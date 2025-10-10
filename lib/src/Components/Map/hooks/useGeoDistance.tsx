@@ -45,7 +45,6 @@ export const useGeoDistance = (targetPoint?: Point) => {
       setDistance(dist)
     } catch (err) {
       setError('Calculation error')
-      throw err
     }
   }, [myProfile, isMyProfileLoaded, targetPoint])
 
