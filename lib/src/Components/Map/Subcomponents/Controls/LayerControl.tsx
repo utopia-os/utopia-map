@@ -38,8 +38,9 @@ export function LayerControl({ expandLayerControl = false }: { expandLayerContro
                         id={layer.name}
                         onChange={() => toggleVisibleLayer(layer)}
                         type='checkbox'
-                        className='tw:checkbox tw:checkbox-xs tw:checkbox-success'
+                        className='tw:checkbox tw:checkbox-xs tw:checkbox-success tw:text-white'
                         checked={isLayerVisible(layer)}
+                        style={{ backgroundColor: layer.menuColor, borderColor: layer.menuColor }}
                       />
                       <span className='tw:text-sm tw:label-text tw:mx-2 tw:cursor-pointer'>
                         {layer.name}

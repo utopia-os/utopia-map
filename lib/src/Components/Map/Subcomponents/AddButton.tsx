@@ -40,26 +40,31 @@ export default function AddButton({
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
           </label>
-          <ul tabIndex={0} className='tw:dropdown-content tw:pr-1 tw:list-none'>
+          <ul
+            tabIndex={0}
+            className='tw:dropdown-content tw:list-none tw:rounded tw:bg-base-100 tw:w-62 tw:p-0 tw:overflow-hidden'
+          >
             {layers.map(
               (layer) =>
                 layer.api?.createItem &&
                 hasUserPermission(layer.api.collectionName!, 'create', undefined, layer) &&
                 layer.listed && (
                   <li key={layer.name}>
-                    <a>
-                      <div className='tw:tooltip tw:tooltip-left' data-tip={layer.menuText}>
+                    <a
+                      className='tw:cursor-pointer'
+                      onClick={() => {
+                        triggerAction(layer)
+                      }}
+                      onTouchEnd={(e) => {
+                        triggerAction(layer)
+                        e.preventDefault()
+                      }}
+                    >
+                      <div className='tw:flex tw:flex-row tw:hover:bg-base-200 tw:p-2'>
                         <button
                           tabIndex={0}
-                          className='tw:z-500 tw:border-0 tw:p-0 tw:mb-3 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
+                          className='tw:z-500 tw:border-0 tw:p-0 tw:w-9 tw:h-9 tw:cursor-pointer tw:rounded-selector tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
-                          onClick={() => {
-                            triggerAction(layer)
-                          }}
-                          onTouchEnd={(e) => {
-                            triggerAction(layer)
-                            e.preventDefault()
-                          }}
                         >
                           <img
                             src={appState.assetsApi.url + layer.markerIcon.image}
@@ -69,6 +74,9 @@ export default function AddButton({
                             }}
                           />
                         </button>
+                        <div className='tw:ml-2 tw:flex tw:flex-col'>
+                          <p className='tw:font-bold tw:text-current tw:pt-2.5'>{layer.menuText}</p>
+                        </div>
                       </div>
                     </a>
                   </li>
