@@ -1,0 +1,46 @@
+{
+  "collection": "maps",
+  "field": "maplibre",
+  "type": "alias",
+  "meta": {
+    "collection": "maps",
+    "conditions": [
+      {
+        "hidden": false,
+        "name": "Show when maplibre tiles selected",
+        "options": null,
+        "rule": {
+          "_and": [
+            {
+              "tiles_type": {
+                "_eq": "maplibre"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "maplibre",
+    "group": "tile_server",
+    "hidden": true,
+    "interface": "group-detail",
+    "note": "Configuration for MapLibre GL vector tiles",
+    "options": {
+      "start": "open"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 3,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

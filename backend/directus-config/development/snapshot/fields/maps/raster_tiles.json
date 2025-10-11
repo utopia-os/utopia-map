@@ -1,0 +1,46 @@
+{
+  "collection": "maps",
+  "field": "raster_tiles",
+  "type": "alias",
+  "meta": {
+    "collection": "maps",
+    "conditions": [
+      {
+        "hidden": false,
+        "name": "Show when raster tiles selected",
+        "options": null,
+        "rule": {
+          "_and": [
+            {
+              "tiles_type": {
+                "_eq": "raster"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "display": null,
+    "display_options": null,
+    "field": "raster_tiles",
+    "group": "tile_server",
+    "hidden": true,
+    "interface": "group-detail",
+    "note": "Configuration for raster tile layers",
+    "options": {
+      "start": "open"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 2,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

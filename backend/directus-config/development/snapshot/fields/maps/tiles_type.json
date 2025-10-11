@@ -1,19 +1,28 @@
 {
   "collection": "maps",
-  "field": "tile_server_url",
+  "field": "tiles_type",
   "type": "string",
   "meta": {
     "collection": "maps",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "tiles_type",
+    "group": "tile_server",
     "hidden": false,
-    "interface": "input",
-    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
+    "interface": "select-dropdown",
+    "note": "Choose between raster tiles or vector tiles (MapLibre GL)",
     "options": {
-      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
+      "choices": [
+        {
+          "text": "Raster Tiles",
+          "value": "raster"
+        },
+        {
+          "text": "Vector Tiles (MapLibre GL)",
+          "value": "maplibre"
+        }
+      ]
     },
     "readonly": false,
     "required": false,
@@ -25,10 +34,10 @@
     "width": "full"
   },
   "schema": {
-    "name": "tile_server_url",
+    "name": "tiles_type",
     "table": "maps",
     "data_type": "character varying",
-    "default_value": null,
+    "default_value": "raster",
     "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
