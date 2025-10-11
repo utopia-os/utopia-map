@@ -149,6 +149,7 @@ function App() {
               />
             ),
             name: l.name, // name that appear in Sidebar
+            color: l.menuColor,
           })),
       )
       // eslint-disable-next-line no-catch-all/no-catch-all
