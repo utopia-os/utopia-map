@@ -10,6 +10,8 @@ import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 
+import type { MouseEvent as ReactMouseEvent, TouchEvent as ReactTouchEvent } from 'react'
+
 export default function AddButton({
   triggerAction,
 }: {
@@ -24,9 +26,20 @@ export default function AddButton({
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (containerRef.current) {
-      DomEvent.disableClickPropagation(containerRef.current)
-      DomEvent.disableScrollPropagation(containerRef.current)
+    const container = containerRef.current
+    if (!container) return
+
+    DomEvent.disableClickPropagation(container)
+    DomEvent.disableScrollPropagation(container)
+
+    const stopPointerPropagation = (event: PointerEvent) => {
+      event.stopPropagation()
+    }
+
+    DomEvent.on(container, 'pointerdown pointerup pointermove', stopPointerPropagation)
+
+    return () => {
+      DomEvent.off(container, 'pointerdown pointerup pointermove', stopPointerPropagation)
     }
   }, [])
 
@@ -44,6 +57,28 @@ export default function AddButton({
     return canAdd
   }
 
+  const stopPropagation = (
+    event: ReactMouseEvent<HTMLElement> | ReactTouchEvent<HTMLElement>,
+  ): void => {
+    event.preventDefault()
+    event.stopPropagation()
+    if (
+      'nativeEvent' in event &&
+      typeof event.nativeEvent.stopImmediatePropagation === 'function'
+    ) {
+      event.nativeEvent.stopImmediatePropagation()
+    }
+  }
+
+  const handleLayerSelect = (
+    event: ReactMouseEvent<HTMLButtonElement> | ReactTouchEvent<HTMLButtonElement>,
+    layer: (typeof layers)[number],
+  ) => {
+    stopPropagation(event)
+    triggerAction(layer)
+    setIsOpen(false)
+  }
+
   return (
     <>
       {canAddItems() ? (
@@ -54,7 +89,23 @@ export default function AddButton({
           <label
             tabIndex={0}
             className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg  tw:shadow tw:bg-base-100'
-            onClick={() => {
+            onMouseDown={(event) => {
+              stopPropagation(event)
+            }}
+            onMouseUp={(event) => {
+              stopPropagation(event)
+            }}
+            onClick={(event) => {
+              stopPropagation(event)
+              if (isMobile) {
+                setIsOpen(!isOpen)
+              }
+            }}
+            onTouchStart={(event) => {
+              stopPropagation(event)
+            }}
+            onTouchEnd={(event) => {
+              stopPropagation(event)
               if (isMobile) {
                 setIsOpen(!isOpen)
               }
@@ -62,7 +113,10 @@ export default function AddButton({
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
           </label>
-          <ul tabIndex={0} className='tw:dropdown-content tw:pr-1 tw:list-none'>
+          <ul
+            tabIndex={0}
+            className='tw:dropdown-content tw:pr-1 tw:list-none tw:space-y-3 tw:pb-3'
+          >
             {layers.map(
               (layer) =>
                 layer.api?.createItem &&
@@ -76,16 +130,22 @@ export default function AddButton({
                       >
                         <button
                           tabIndex={0}
-                          className='tw:z-500 tw:border-0 tw:p-0 tw:mb-3 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
+                          className='tw:z-500 tw:border-0 tw:p-0 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
-                          onClick={() => {
-                            triggerAction(layer)
-                            setIsOpen(false)
+                          onMouseDown={(event) => {
+                            stopPropagation(event)
                           }}
-                          onTouchEnd={(e) => {
-                            triggerAction(layer)
-                            setIsOpen(false)
-                            e.preventDefault()
+                          onMouseUp={(event) => {
+                            stopPropagation(event)
+                          }}
+                          onClick={(event) => {
+                            handleLayerSelect(event, layer)
+                          }}
+                          onTouchStart={(event) => {
+                            stopPropagation(event)
+                          }}
+                          onTouchEnd={(event) => {
+                            handleLayerSelect(event, layer)
                           }}
                         >
                           <img
