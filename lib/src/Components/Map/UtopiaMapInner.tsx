@@ -62,6 +62,8 @@ export function UtopiaMapInner({
   tileServerAttribution,
   tilesType,
   maplibreStyle,
+  zoomOffset = 0,
+  tileSize = 256,
 }: {
   children?: React.ReactNode
   geo?: GeoJsonObject
@@ -77,6 +79,8 @@ export function UtopiaMapInner({
   tileServerAttribution?: string
   tilesType?: 'raster' | 'maplibre'
   maplibreStyle?: string
+  zoomOffset?: number
+  tileSize?: number
 }) {
   const selectNewItemPosition = useSelectPosition()
   const setSelectNewItemPosition = useSetSelectPosition()
@@ -292,6 +296,8 @@ export function UtopiaMapInner({
       {tilesType === 'raster' ? (
         <TileLayer
           maxZoom={19}
+          tileSize={tileSize}
+          zoomOffset={zoomOffset}
           attribution={
             tileServerAttribution ??
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -299,7 +305,7 @@ export function UtopiaMapInner({
           url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
         />
       ) : (
-        <MapLibreLayer styleUrl={maplibreStyle} attribution={tileServerAttribution ?? ''} />
+        <MapLibreLayer styleUrl={maplibreStyle} attribution={tileServerAttribution} />
       )}
       <MarkerClusterGroup
         ref={(r) => setClusterRef(r as any)}

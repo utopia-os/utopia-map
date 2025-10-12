@@ -89,6 +89,8 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         tilesType={map.tiles_type}
         maplibreStyle={map.maplibre_style}
         showFullscreenControl={map.show_fullscreen_control}
+        zoomOffset={map.zoom_offset}
+        tileSize={map.tile_size}
       >
         {layers &&
           apis &&
