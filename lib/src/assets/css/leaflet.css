@@ -62,7 +62,6 @@ display: none !important;
 
  .leaflet-tooltip {
      border-radius: var(--radius-box);
-     transition: opacity 500ms;
      transition-delay: 50ms;
  }
 
