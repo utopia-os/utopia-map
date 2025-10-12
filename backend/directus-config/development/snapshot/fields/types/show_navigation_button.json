@@ -8,14 +8,14 @@
     "display": null,
     "display_options": null,
     "field": "show_navigation_button",
-    "group": "Header",
+    "group": "header_elements",
     "hidden": false,
     "interface": "boolean",
     "note": null,
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 4,
+    "sort": 2,
     "special": [
       "cast-boolean"
     ],

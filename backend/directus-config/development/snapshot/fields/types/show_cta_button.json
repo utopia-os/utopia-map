@@ -8,14 +8,14 @@
     "display": null,
     "display_options": null,
     "field": "show_cta_button",
-    "group": "Header",
+    "group": "header_elements",
     "hidden": false,
     "interface": "boolean",
     "note": null,
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 5,
+    "sort": 4,
     "special": [
       "cast-boolean"
     ],

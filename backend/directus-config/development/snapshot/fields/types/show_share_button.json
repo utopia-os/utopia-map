@@ -8,7 +8,7 @@
     "display": null,
     "display_options": null,
     "field": "show_share_button",
-    "group": "Header",
+    "group": "header_elements",
     "hidden": false,
     "interface": "boolean",
     "note": null,

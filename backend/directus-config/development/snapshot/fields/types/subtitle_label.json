@@ -1,20 +1,35 @@
 {
   "collection": "types",
-  "field": "cta_button_label",
+  "field": "subtitle_label",
   "type": "string",
   "meta": {
     "collection": "types",
     "conditions": [
       {
-        "hidden": true,
-        "name": "show cta button",
+        "hidden": false,
+        "name": "subtitle=custom",
         "readonly": false,
+        "required": true,
+        "rule": {
+          "_and": [
+            {
+              "subtitle_mode": {
+                "_eq": "custom"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "subtitle != custom",
+        "readonly": true,
         "required": false,
         "rule": {
           "_and": [
             {
-              "show_cta_button": {
-                "_eq": false
+              "subtitle_mode": {
+                "_neq": "custom"
               }
             }
           ]
@@ -23,15 +38,15 @@
     ],
     "display": null,
     "display_options": null,
-    "field": "cta_button_label",
-    "group": "header_elements",
+    "field": "subtitle_label",
+    "group": "Header",
     "hidden": false,
     "interface": "input",
     "note": null,
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 5,
+    "sort": 2,
     "special": null,
     "translations": null,
     "validation": null,
@@ -39,10 +54,10 @@
     "width": "half"
   },
   "schema": {
-    "name": "cta_button_label",
+    "name": "subtitle_label",
     "table": "types",
     "data_type": "character varying",
-    "default_value": null,
+    "default_value": "Subname",
     "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,

@@ -12,7 +12,7 @@ interface ItemTitleProps {
   item: Item
   big?: boolean
   truncateSubname?: boolean
-  showAddress?: boolean
+  subtitleMode?: 'address' | 'custom' | 'none'
   hasAvatar?: boolean
 }
 
@@ -20,7 +20,7 @@ export function ItemTitle({
   item,
   big = false,
   truncateSubname = true,
-  showAddress = true,
+  subtitleMode = 'address',
   hasAvatar = false,
 }: ItemTitleProps) {
   const { distance } = useGeoDistance(item.position ?? undefined)
@@ -31,12 +31,13 @@ export function ItemTitle({
 
   const { address } = useReverseGeocode(
     item.position?.coordinates as [number, number] | undefined,
-    showAddress,
+    subtitleMode === 'address',
     'municipality',
   )
 
   const title = item.name ?? item.layer?.item_default_name
   const subtitle = item.subname
+  const subtitleLabel = item.layer?.itemType.subtitle_label
 
   useEffect(() => {
     if (!containerRef.current || !title) {
@@ -111,7 +112,7 @@ export function ItemTitle({
       >
         {title}
       </div>
-      {showAddress && address && (
+      {subtitleMode === 'address' && address && (
         <div className='tw:text-sm tw:flex tw:items-center tw:text-gray-500 tw:w-full'>
           <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
           <span title={address} className='tw:truncate'>
@@ -120,7 +121,7 @@ export function ItemTitle({
           </span>
         </div>
       )}
-      {subtitle && !showAddress && (
+      {subtitleMode === 'custom' && subtitle && (
         <div
           className={`tw:text-sm tw:opacity-50 tw:items-center ${truncateSubname ? 'tw:truncate' : ''}`}
         >

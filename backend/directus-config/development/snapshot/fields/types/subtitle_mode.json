@@ -1,35 +1,48 @@
 {
   "collection": "types",
-  "field": "show_address",
-  "type": "boolean",
+  "field": "subtitle_mode",
+  "type": "string",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "show_address",
+    "field": "subtitle_mode",
     "group": "Header",
     "hidden": false,
-    "interface": "boolean",
+    "interface": "select-dropdown",
     "note": null,
-    "options": null,
+    "options": {
+      "choices": [
+        {
+          "text": "address",
+          "value": "address"
+        },
+        {
+          "text": "custom",
+          "value": "custom"
+        },
+        {
+          "text": "none",
+          "value": "none"
+        }
+      ]
+    },
     "readonly": false,
     "required": false,
     "sort": 1,
-    "special": [
-      "cast-boolean"
-    ],
+    "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
     "width": "half"
   },
   "schema": {
-    "name": "show_address",
+    "name": "subtitle_mode",
     "table": "types",
-    "data_type": "boolean",
-    "default_value": true,
-    "max_length": null,
+    "data_type": "character varying",
+    "default_value": "address",
+    "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,

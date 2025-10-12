@@ -22,7 +22,8 @@ export interface ItemType {
   text_input_label?: string
   show_header_view_in_form?: boolean
   cta_button_label?: string
-  show_address?: boolean
+  subtitle_mode?: 'address' | 'custom' | 'none'
+  subtitle_label?: string
   cta_relation?: string
   show_cta_button?: boolean
   show_qr_button?: boolean

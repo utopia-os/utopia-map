@@ -33,6 +33,7 @@ export function HeaderView({
   const hasAvatar = !!(item.image ?? item.image_external)
   const isMyProfile = myProfile.myProfile?.id === item.id
   const showQrButton = big && isMyProfile && (item.layer?.itemType.show_qr_button ?? true)
+  const subtitleMode = item.layer?.itemType.subtitle_mode ?? (showAddress ? 'address' : 'none')
 
   return (
     <>
@@ -49,7 +50,7 @@ export function HeaderView({
               item={item}
               big={big}
               truncateSubname={truncateSubname}
-              showAddress={showAddress}
+              subtitleMode={subtitleMode}
               hasAvatar={hasAvatar}
             />
           </div>
