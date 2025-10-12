@@ -78,7 +78,8 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                     {(location.pathname.includes(route.path) && route.path.length > 1) ||
                     location.pathname === route.path ? (
                       <span
-                        className='tw:absolute tw:inset-y-0 tw:left-0 tw:w-1 tw:rounded-tr-md tw:rounded-br-md tw:bg-primary '
+                        className='tw:absolute tw:inset-y-0 tw:left-0 tw:w-1 tw:rounded-tr-md tw:rounded-br-md'
+                        style={{ backgroundColor: route.color ?? '#777' }}
                         aria-hidden='true'
                       ></span>
                     ) : null}
