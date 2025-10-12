@@ -10,7 +10,11 @@ import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 
-import type { MouseEvent as ReactMouseEvent, TouchEvent as ReactTouchEvent } from 'react'
+import type {
+  MouseEvent as ReactMouseEvent,
+  TouchEvent as ReactTouchEvent,
+  PointerEvent as ReactPointerEvent,
+} from 'react'
 
 export default function AddButton({
   triggerAction,
@@ -58,7 +62,10 @@ export default function AddButton({
   }
 
   const stopPropagation = (
-    event: ReactMouseEvent<HTMLElement> | ReactTouchEvent<HTMLElement>,
+    event:
+      | ReactMouseEvent<HTMLElement>
+      | ReactTouchEvent<HTMLElement>
+      | ReactPointerEvent<HTMLElement>,
   ): void => {
     event.preventDefault()
     event.stopPropagation()
@@ -84,11 +91,17 @@ export default function AddButton({
       {canAddItems() ? (
         <div
           ref={containerRef}
-          className={`tw:dropdown tw:dropdown-top tw:dropdown-end ${!isMobile ? 'tw:dropdown-hover' : ''} tw:z-500 tw:absolute tw:right-4 tw:bottom-4 ${isOpen ? 'tw:dropdown-open' : ''}`}
+          className={`tw:dropdown tw:dropdown-top tw:dropdown-end tw:z-500 tw:absolute tw:right-4 tw:bottom-4 ${isOpen ? 'tw:dropdown-open' : ''}`}
         >
-          <label
-            tabIndex={0}
-            className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg  tw:shadow tw:bg-base-100'
+          <button
+            type='button'
+            className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg tw:shadow tw:bg-base-100'
+            onPointerDown={(event) => {
+              stopPropagation(event)
+            }}
+            onPointerUp={(event) => {
+              stopPropagation(event)
+            }}
             onMouseDown={(event) => {
               stopPropagation(event)
             }}
@@ -97,22 +110,18 @@ export default function AddButton({
             }}
             onClick={(event) => {
               stopPropagation(event)
-              if (isMobile) {
-                setIsOpen(!isOpen)
-              }
+              setIsOpen((prev) => !prev)
             }}
             onTouchStart={(event) => {
               stopPropagation(event)
             }}
             onTouchEnd={(event) => {
               stopPropagation(event)
-              if (isMobile) {
-                setIsOpen(!isOpen)
-              }
+              setIsOpen((prev) => !prev)
             }}
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
-          </label>
+          </button>
           <ul
             tabIndex={0}
             className='tw:dropdown-content tw:pr-1 tw:list-none tw:space-y-3 tw:pb-3'
