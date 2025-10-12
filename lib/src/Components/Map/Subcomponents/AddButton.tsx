@@ -10,11 +10,7 @@ import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 
-import type {
-  MouseEvent as ReactMouseEvent,
-  TouchEvent as ReactTouchEvent,
-  PointerEvent as ReactPointerEvent,
-} from 'react'
+import type { MouseEvent as ReactMouseEvent, TouchEvent as ReactTouchEvent } from 'react'
 
 export default function AddButton({
   triggerAction,
@@ -36,14 +32,15 @@ export default function AddButton({
     DomEvent.disableClickPropagation(container)
     DomEvent.disableScrollPropagation(container)
 
-    const stopPointerPropagation = (event: PointerEvent) => {
+    const handlePointerDown = (event: PointerEvent) => {
       event.stopPropagation()
+      event.preventDefault()
     }
 
-    DomEvent.on(container, 'pointerdown pointerup pointermove', stopPointerPropagation)
+    DomEvent.on(container, 'pointerdown', handlePointerDown)
 
     return () => {
-      DomEvent.off(container, 'pointerdown pointerup pointermove', stopPointerPropagation)
+      DomEvent.off(container, 'pointerdown', handlePointerDown)
     }
   }, [])
 
@@ -62,12 +59,12 @@ export default function AddButton({
   }
 
   const stopPropagation = (
-    event:
-      | ReactMouseEvent<HTMLElement>
-      | ReactTouchEvent<HTMLElement>
-      | ReactPointerEvent<HTMLElement>,
+    event: ReactMouseEvent<HTMLElement> | ReactTouchEvent<HTMLElement>,
   ): void => {
-    event.preventDefault()
+    const shouldPreventDefault = event.type === 'mousedown' || event.type === 'touchstart'
+    if (shouldPreventDefault) {
+      event.preventDefault()
+    }
     event.stopPropagation()
     if (
       'nativeEvent' in event &&
@@ -96,16 +93,7 @@ export default function AddButton({
           <button
             type='button'
             className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg tw:shadow tw:bg-base-100'
-            onPointerDown={(event) => {
-              stopPropagation(event)
-            }}
-            onPointerUp={(event) => {
-              stopPropagation(event)
-            }}
             onMouseDown={(event) => {
-              stopPropagation(event)
-            }}
-            onMouseUp={(event) => {
               stopPropagation(event)
             }}
             onClick={(event) => {
@@ -114,10 +102,6 @@ export default function AddButton({
             }}
             onTouchStart={(event) => {
               stopPropagation(event)
-            }}
-            onTouchEnd={(event) => {
-              stopPropagation(event)
-              setIsOpen((prev) => !prev)
             }}
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
@@ -144,17 +128,11 @@ export default function AddButton({
                           onMouseDown={(event) => {
                             stopPropagation(event)
                           }}
-                          onMouseUp={(event) => {
-                            stopPropagation(event)
-                          }}
                           onClick={(event) => {
                             handleLayerSelect(event, layer)
                           }}
                           onTouchStart={(event) => {
                             stopPropagation(event)
-                          }}
-                          onTouchEnd={(event) => {
-                            handleLayerSelect(event, layer)
                           }}
                         >
                           <img

@@ -89,7 +89,7 @@ export const SelectPositionToast = ({
         : undefined
 
     return (
-      <div className='tw:relative'>
+      <div>
         <div className='tw:flex tw:flex-row tw:items-center'>
           <div
             className='tw:flex tw:items-center tw:gap-3 tw:p-2 tw:rounded-selector tw:text-white tw:mr-2'
