@@ -15,11 +15,7 @@ export const useTheme = (defaultTheme = 'default') => {
         : false
 
     const fallbackTheme =
-      defaultTheme && defaultTheme !== 'default'
-        ? defaultTheme
-        : prefersDark
-        ? 'dark'
-        : 'light'
+      defaultTheme && defaultTheme !== 'default' ? defaultTheme : prefersDark ? 'dark' : 'light'
 
     const themeToApply = savedTheme ?? fallbackTheme
 
