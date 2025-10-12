@@ -8,6 +8,10 @@
     opacity: 0.5;
 }
 
+.leaflet-container{
+    background-color: var(--color-base-300);
+}
+
  .leaflet-control-attribution a{
     color: #000 !important;
  }
