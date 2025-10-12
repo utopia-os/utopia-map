@@ -37,7 +37,6 @@ export function ItemTitle({
 
   const title = item.name ?? item.layer?.item_default_name
   const subtitle = item.subname
-  const subtitleLabel = item.layer?.itemType.subtitle_label
 
   useEffect(() => {
     if (!containerRef.current || !title) {
