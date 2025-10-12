@@ -1,8 +1,4 @@
 /* eslint-disable import/no-unassigned-import */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import L from 'leaflet'
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'
@@ -10,10 +6,17 @@ import { useMap } from 'react-leaflet'
 import '@maplibre/maplibre-gl-leaflet'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
-// Augment Leaflet namespace with MapLibre GL types
 declare module 'leaflet' {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function maplibreGL(options: { style: string; attribution?: string }): any
+  interface MapLibreGLOptions {
+    style: string
+    attribution?: string
+  }
+
+  interface MapLibreGLLayer extends Layer {
+    addTo(map: Map): this
+  }
+
+  function maplibreGL(options: MapLibreGLOptions): MapLibreGLLayer
 }
 
 /**
@@ -33,13 +36,11 @@ export function MapLibreLayer({
   const map = useMap()
 
   useEffect(() => {
-    // Create MapLibre GL layer
     const mapLibreLayer = L.maplibreGL({
       style: styleUrl,
       attribution,
     })
 
-    // Add layer to map
     mapLibreLayer.addTo(map)
 
     // Cleanup function to remove layer when component unmounts
