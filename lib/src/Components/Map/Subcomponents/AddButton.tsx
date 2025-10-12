@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { useState } from 'react'
+import { DomEvent } from 'leaflet'
+import { useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
@@ -20,6 +21,14 @@ export default function AddButton({
   const { width } = useWindowDimensions()
   const isMobile = width < 768
   const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      DomEvent.disableClickPropagation(containerRef.current)
+      DomEvent.disableScrollPropagation(containerRef.current)
+    }
+  }, [])
 
   const canAddItems = () => {
     let canAdd = false
@@ -39,6 +48,7 @@ export default function AddButton({
     <>
       {canAddItems() ? (
         <div
+          ref={containerRef}
           className={`tw:dropdown tw:dropdown-top tw:dropdown-end ${!isMobile ? 'tw:dropdown-hover' : ''} tw:z-500 tw:absolute tw:right-4 tw:bottom-4 ${isOpen ? 'tw:dropdown-open' : ''}`}
         >
           <label
