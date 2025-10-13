@@ -57,6 +57,12 @@ export default function AddButton({
                       <div
                         className={`tw:tooltip tw:tooltip-left ${isMobile ? 'tw:tooltip-open' : ''}`}
                         data-tip={layer.menuText}
+                        style={
+                          {
+                            '--tooltip-color': layer.menuColor || '#777',
+                            '--tooltip-text-color': '#ffffff',
+                          } as React.CSSProperties
+                        }
                       >
                         <button
                           tabIndex={0}

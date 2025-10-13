@@ -78,3 +78,13 @@
 .modal-box {
     max-height: calc(100dvh - 2em);
 }
+
+/* Custom tooltip colors for layer-based tooltips */
+.tw\:tooltip[style*='--tooltip-color']::before,
+.tw\:tooltip[style*='--tooltip-color']::after {
+    background-color: rgba(0,0,0,0.67);
+}
+
+.tw\:tooltip[style*='--tooltip-color']::before {
+    color: var(--tooltip-text-color, #ffffff) !important;
+}
