@@ -59,6 +59,10 @@ function UtopiaMap({
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
+  tilesType = 'raster',
+  maplibreStyle,
+  zoomOffset,
+  tileSize,
 }: {
   /** height of the map (default '500px') */
   height?: string
@@ -94,6 +98,14 @@ function UtopiaMap({
   tileServerUrl?: string
   /** configure a custom tile server attribution */
   tileServerAttribution?: string
+  /** tiles type: 'raster' or 'maplibre' (default 'raster') */
+  tilesType?: 'raster' | 'maplibre'
+  /** MapLibre style URL for vector tiles (default: OpenFreeMap Liberty) */
+  maplibreStyle?: string
+  /** zoom offset which is needed for some raster tile provider (eg. Mapbox) */
+  zoomOffset?: number
+  /** tile size (default 256) */
+  tileSize?: number
 }) {
   return (
     <ContextWrapper>
@@ -116,6 +128,10 @@ function UtopiaMap({
           expandLayerControl={expandLayerControl}
           tileServerUrl={tileServerUrl}
           tileServerAttribution={tileServerAttribution}
+          tilesType={tilesType}
+          maplibreStyle={maplibreStyle}
+          zoomOffset={zoomOffset}
+          tileSize={tileSize}
         >
           {children}
         </UtopiaMapInner>

@@ -42,6 +42,7 @@ import { LayerControl } from './Subcomponents/Controls/LayerControl'
 import { SearchControl } from './Subcomponents/Controls/SearchControl'
 import { TagsControl } from './Subcomponents/Controls/TagsControl'
 import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
+import { MapLibreLayer } from './Subcomponents/MapLibreLayer'
 import { SelectPosition } from './Subcomponents/SelectPosition'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
@@ -59,6 +60,10 @@ export function UtopiaMapInner({
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
+  tilesType,
+  maplibreStyle,
+  zoomOffset = 0,
+  tileSize = 256,
 }: {
   children?: React.ReactNode
   geo?: GeoJsonObject
@@ -72,6 +77,10 @@ export function UtopiaMapInner({
   expandLayerControl?: boolean
   tileServerUrl?: string
   tileServerAttribution?: string
+  tilesType?: 'raster' | 'maplibre'
+  maplibreStyle?: string
+  zoomOffset?: number
+  tileSize?: number
 }) {
   const selectNewItemPosition = useSelectPosition()
   const setSelectNewItemPosition = useSetSelectPosition()
@@ -284,14 +293,20 @@ export function UtopiaMapInner({
         {showLayerControl && <LayerControl expandLayerControl={expandLayerControl ?? false} />}
         {showGratitudeControl && <GratitudeControl />}
       </Control>
-      <TileLayer
-        maxZoom={19}
-        attribution={
-          tileServerAttribution ??
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }
-        url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
-      />
+      {tilesType === 'raster' ? (
+        <TileLayer
+          maxZoom={19}
+          tileSize={tileSize}
+          zoomOffset={zoomOffset}
+          attribution={
+            tileServerAttribution ??
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }
+          url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
+        />
+      ) : (
+        <MapLibreLayer styleUrl={maplibreStyle} attribution={tileServerAttribution} />
+      )}
       <MarkerClusterGroup
         ref={(r) => setClusterRef(r as any)}
         showCoverageOnHover
