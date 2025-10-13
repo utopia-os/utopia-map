@@ -27,7 +27,7 @@ interface ItemSecret {
  */
 export interface Item {
   id: string
-  name: string
+  name?: string
   text?: string
   data?: string
   position?: Point | null

@@ -38,7 +38,9 @@ export const FormHeader = ({ item, state, setState }: Props) => {
           }
           className={'tw:-left-6 tw:top-14 tw:-mr-6'}
         />
-        <div className='tw:grow tw:mr-4 tw:pt-1'>
+        <div
+          className={`tw:grow tw:mr-4 ${item.layer?.itemType.subtitle_mode === 'custom' ? 'tw:pt-1' : 'tw:flex tw:items-center'}`}
+        >
           <TextInput
             placeholder='Name'
             defaultValue={item.name ? item.name : ''}
@@ -51,19 +53,21 @@ export const FormHeader = ({ item, state, setState }: Props) => {
             containerStyle='tw:grow tw:px-4'
             inputStyle='tw:input-md'
           />
-          <TextInput
-            placeholder='Subtitle'
-            required={false}
-            defaultValue={item.subname ? item.subname : ''}
-            updateFormValue={(v) =>
-              setState((prevState) => ({
-                ...prevState,
-                subname: v,
-              }))
-            }
-            containerStyle='tw:grow tw:px-4 tw:mt-1'
-            inputStyle='tw:input-sm'
-          />
+          {item.layer?.itemType.subtitle_mode === 'custom' && (
+            <TextInput
+              placeholder={item.layer.itemType.subtitle_label}
+              required={false}
+              defaultValue={item.subname ? item.subname : ''}
+              updateFormValue={(v) =>
+                setState((prevState) => ({
+                  ...prevState,
+                  subname: v,
+                }))
+              }
+              containerStyle='tw:grow tw:px-4 tw:mt-1'
+              inputStyle='tw:input-sm'
+            />
+          )}
         </div>
       </div>
     </div>

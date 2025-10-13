@@ -124,7 +124,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                     parameterField={
                       layer.itemType.custom_profile_url ? 'extended.external_profile_id' : 'id'
                     }
-                    text={layer.itemType.botton_label ?? 'Profile'}
+                    text={layer.itemType.button_label ?? 'Profile'}
                     target={layer.itemType.custom_profile_url ? '_blank' : '_self'}
                   />
                 )}

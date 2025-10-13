@@ -188,7 +188,7 @@ export function UtopiaMapInner({
           document.title = `${document.title.split('-')[0]} - ${title}`
           document
             .querySelector('meta[property="og:title"]')
-            ?.setAttribute('content', ref.item.name)
+            ?.setAttribute('content', ref.item.name ?? '')
           document
             .querySelector('meta[property="og:description"]')
             ?.setAttribute('content', ref.item.text ?? '')
