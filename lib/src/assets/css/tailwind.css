@@ -88,3 +88,9 @@
 .tw\:tooltip[style*='--tooltip-color']::before {
     color: var(--tooltip-text-color, #ffffff) !important;
 }
+
+/* Make sure tooltips sit above Leaflet panes when used inside map popups */
+.tw\:tooltip::before,
+.tw\:tooltip::after {
+    z-index: 4000;
+}
