@@ -48,7 +48,7 @@ export const SelectPositionToast = ({
       ? (selectNewItemPosition.layer?.markerIcon ?? selectNewItemPosition.markerIcon)
       : selectNewItemPosition.markerIcon
     const message = itemSelection
-      ? `Select the new position of ${selectNewItemPosition.name} on the map!`
+      ? `Select the new position of ${selectNewItemPosition.name ?? ''} on the map!`
       : 'Select the position on the map!'
 
     const dismissToast = () => {

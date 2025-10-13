@@ -43,9 +43,9 @@ import { SearchControl } from './Subcomponents/Controls/SearchControl'
 import { TagsControl } from './Subcomponents/Controls/TagsControl'
 import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
 import { MapLibreLayer } from './Subcomponents/MapLibreLayer'
+import { SelectPositionToast } from './Subcomponents/SelectPositionToast'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
-import { SelectPositionToast } from './Subcomponents/SelectPositionToast'
 
 export function UtopiaMapInner({
   children,
