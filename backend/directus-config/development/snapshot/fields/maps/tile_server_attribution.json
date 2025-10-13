@@ -11,11 +11,13 @@
     "group": "tile_server",
     "hidden": false,
     "interface": "input",
-    "note": null,
-    "options": null,
+    "note": "Attribution text for raster tiles",
+    "options": {
+      "placeholder": "&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>"
+    },
     "readonly": false,
     "required": false,
-    "sort": 2,
+    "sort": 4,
     "special": null,
     "translations": null,
     "validation": null,

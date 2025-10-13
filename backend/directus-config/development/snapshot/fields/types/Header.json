@@ -1,24 +1,24 @@
 {
   "collection": "types",
-  "field": "small_form",
+  "field": "Header",
   "type": "alias",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "small_form",
+    "field": "Header",
     "group": null,
     "hidden": false,
     "interface": "group-detail",
     "note": null,
     "options": {
-      "headerIcon": "edit_square",
+      "headerIcon": "credit_card",
       "start": "closed"
     },
     "readonly": false,
     "required": false,
-    "sort": 9,
+    "sort": 7,
     "special": [
       "alias",
       "no-data",

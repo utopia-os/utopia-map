@@ -1,24 +1,21 @@
 {
   "collection": "types",
-  "field": "small_form",
+  "field": "header_elements",
   "type": "alias",
   "meta": {
     "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "small_form",
-    "group": null,
+    "field": "header_elements",
+    "group": "Header",
     "hidden": false,
-    "interface": "group-detail",
+    "interface": "group-raw",
     "note": null,
-    "options": {
-      "headerIcon": "edit_square",
-      "start": "closed"
-    },
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 9,
+    "sort": 3,
     "special": [
       "alias",
       "no-data",

@@ -1,19 +1,32 @@
 {
-  "collection": "maps",
-  "field": "tile_server_url",
+  "collection": "types",
+  "field": "subtitle_mode",
   "type": "string",
   "meta": {
-    "collection": "maps",
+    "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "subtitle_mode",
+    "group": "Header",
     "hidden": false,
-    "interface": "input",
-    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
+    "interface": "select-dropdown",
+    "note": null,
     "options": {
-      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
+      "choices": [
+        {
+          "text": "address",
+          "value": "address"
+        },
+        {
+          "text": "custom",
+          "value": "custom"
+        },
+        {
+          "text": "none",
+          "value": "none"
+        }
+      ]
     },
     "readonly": false,
     "required": false,
@@ -22,13 +35,13 @@
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
-    "name": "tile_server_url",
-    "table": "maps",
+    "name": "subtitle_mode",
+    "table": "types",
     "data_type": "character varying",
-    "default_value": null,
+    "default_value": "address",
     "max_length": 255,
     "numeric_precision": null,
     "numeric_scale": null,

@@ -1,19 +1,19 @@
 {
   "collection": "maps",
-  "field": "tile_server_url",
+  "field": "maplibre_style",
   "type": "string",
   "meta": {
     "collection": "maps",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "maplibre_style",
+    "group": "maplibre",
     "hidden": false,
     "interface": "input",
-    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
+    "note": "MapLibre style URL (default: OpenFreeMap Liberty style)",
     "options": {
-      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
+      "placeholder": "https://tiles.openfreemap.org/styles/liberty"
     },
     "readonly": false,
     "required": false,
@@ -25,7 +25,7 @@
     "width": "full"
   },
   "schema": {
-    "name": "tile_server_url",
+    "name": "maplibre_style",
     "table": "maps",
     "data_type": "character varying",
     "default_value": null,

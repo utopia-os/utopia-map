@@ -1,35 +1,35 @@
 {
-  "collection": "maps",
-  "field": "tile_server_url",
-  "type": "string",
+  "collection": "types",
+  "field": "show_qr_button",
+  "type": "boolean",
   "meta": {
-    "collection": "maps",
+    "collection": "types",
     "conditions": null,
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "show_qr_button",
+    "group": "header_elements",
     "hidden": false,
-    "interface": "input",
-    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
-    "options": {
-      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
-    },
+    "interface": "boolean",
+    "note": null,
+    "options": null,
     "readonly": false,
     "required": false,
     "sort": 1,
-    "special": null,
+    "special": [
+      "cast-boolean"
+    ],
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
-    "name": "tile_server_url",
-    "table": "maps",
-    "data_type": "character varying",
-    "default_value": null,
-    "max_length": 255,
+    "name": "show_qr_button",
+    "table": "types",
+    "data_type": "boolean",
+    "default_value": false,
+    "max_length": null,
     "numeric_precision": null,
     "numeric_scale": null,
     "is_nullable": true,

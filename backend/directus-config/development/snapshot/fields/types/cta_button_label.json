@@ -1,32 +1,46 @@
 {
-  "collection": "maps",
-  "field": "tile_server_url",
+  "collection": "types",
+  "field": "cta_button_label",
   "type": "string",
   "meta": {
-    "collection": "maps",
-    "conditions": null,
+    "collection": "types",
+    "conditions": [
+      {
+        "hidden": true,
+        "name": "show cta button",
+        "readonly": false,
+        "required": false,
+        "rule": {
+          "_and": [
+            {
+              "show_cta_button": {
+                "_eq": false
+              }
+            }
+          ]
+        }
+      }
+    ],
     "display": null,
     "display_options": null,
-    "field": "tile_server_url",
-    "group": "raster_tiles",
+    "field": "cta_button_label",
+    "group": "header_elements",
     "hidden": false,
     "interface": "input",
-    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
-    "options": {
-      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
-    },
+    "note": null,
+    "options": null,
     "readonly": false,
     "required": false,
-    "sort": 1,
+    "sort": 5,
     "special": null,
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
-    "name": "tile_server_url",
-    "table": "maps",
+    "name": "cta_button_label",
+    "table": "types",
     "data_type": "character varying",
     "default_value": null,
     "max_length": 255,

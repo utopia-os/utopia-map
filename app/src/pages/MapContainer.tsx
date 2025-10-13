@@ -86,7 +86,11 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
         expandLayerControl={map.expand_layer_control}
         tileServerUrl={map.tile_server_url}
         tileServerAttribution={map.tile_server_attribution}
+        tilesType={map.tiles_type}
+        maplibreStyle={map.maplibre_style}
         showFullscreenControl={map.show_fullscreen_control}
+        zoomOffset={map.zoom_offset}
+        tileSize={map.tile_size}
       >
         {layers &&
           apis &&
@@ -120,7 +124,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                     parameterField={
                       layer.itemType.custom_profile_url ? 'extended.external_profile_id' : 'id'
                     }
-                    text={layer.itemType.botton_label ?? 'Profile'}
+                    text={layer.itemType.button_label ?? 'Profile'}
                     target={layer.itemType.custom_profile_url ? '_blank' : '_self'}
                   />
                 )}
