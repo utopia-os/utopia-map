@@ -22,10 +22,21 @@ export default defineConfig({
   plugins: [react(), tailwindcss(), tsConfigPaths()],
   build: {
     sourcemap: true,
+    modulePreload: {
+      // Don't preload maplibre chunks - only load when actually needed
+      resolveDependencies: (_filename, deps) => {
+        return deps.filter((dep) => !dep.includes('maplibre'))
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (id.includes('lib/src')) {
+          // Handle lib source (dev) or dist (prod)
+          if (id.includes('lib/src') || id.includes('lib/dist')) {
+            // Separate chunk for MapLibre components
+            if (id.includes('MapLibre')) {
+              return 'maplibre-layer'
+            }
             return 'utopia-ui'
           }
           if (id.includes('node_modules')) {
@@ -37,6 +48,10 @@ export default defineConfig({
             }
             if (id.includes('leaflet')) {
               return 'leaflet'
+            }
+            // Separate chunk for maplibre-gl
+            if (id.includes('maplibre-gl')) {
+              return 'maplibre-gl'
             }
             return 'vendor'
           }
