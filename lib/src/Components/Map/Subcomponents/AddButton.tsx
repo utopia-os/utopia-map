@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useState } from 'react'
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
@@ -18,6 +19,7 @@ export default function AddButton({
   const appState = useAppState()
   const { width } = useWindowDimensions()
   const isMobile = width < 768
+  const [hideTooltips, setHideTooltips] = useState(false)
 
   const canAddItems = () => {
     let canAdd = false
@@ -33,6 +35,14 @@ export default function AddButton({
     return canAdd
   }
 
+  const handleLayerClick = (layer: any) => {
+    triggerAction(layer)
+    // Verstecke Tooltips auf Mobile nach Layer-Auswahl
+    if (isMobile) {
+      setHideTooltips(true)
+    }
+  }
+
   return (
     <>
       {canAddItems() ? (
@@ -40,6 +50,16 @@ export default function AddButton({
           <label
             tabIndex={0}
             className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg  tw:shadow tw:bg-base-100'
+            onClick={() => {
+              if (hideTooltips) {
+                setHideTooltips(false)
+              }
+            }}
+            onTouchEnd={() => {
+              if (hideTooltips) {
+                setHideTooltips(false)
+              }
+            }}
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
           </label>
@@ -55,7 +75,7 @@ export default function AddButton({
                   <li key={layer.name}>
                     <a>
                       <div
-                        className={`tw:tooltip tw:tooltip-left ${isMobile ? 'tw:tooltip-open' : ''}`}
+                        className={`tw:tooltip tw:tooltip-left ${isMobile && !hideTooltips ? 'tw:tooltip-open' : ''}`}
                         data-tip={layer.menuText}
                         style={
                           {
@@ -68,11 +88,9 @@ export default function AddButton({
                           tabIndex={0}
                           className='tw:z-500 tw:border-0 tw:p-0 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
-                          onClick={() => {
-                            triggerAction(layer)
-                          }}
+                          onClick={() => handleLayerClick(layer)}
                           onTouchEnd={(e) => {
-                            triggerAction(layer)
+                            handleLayerClick(layer)
                             e.preventDefault()
                           }}
                         >
