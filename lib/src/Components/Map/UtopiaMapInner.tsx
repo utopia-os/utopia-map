@@ -45,6 +45,7 @@ import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
 import { MapLibreLayer } from './Subcomponents/MapLibreLayer'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
+import { SelectPositionToast } from './Subcomponents/SelectPositionToast'
 
 export function UtopiaMapInner({
   children,
