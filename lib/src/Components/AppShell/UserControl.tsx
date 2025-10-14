@@ -94,7 +94,9 @@ export const UserControl = () => {
                 </div>
               </div>
             )}
-            <div className='tw:ml-2 tw:mr-2'>{userProfile.name ?? user?.first_name}</div>
+            <div className='tw:ml-2 tw:mr-2 tw:hidden tw:sm:block'>
+              {userProfile.name ?? user?.first_name}
+            </div>
           </Link>
           <div className='tw:dropdown tw:dropdown-end'>
             <label tabIndex={0} className='tw:btn tw:btn-ghost tw:btn-square'>

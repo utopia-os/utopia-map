@@ -10,6 +10,7 @@ export interface Route {
   name: string
   submenu?: Route[]
   blank?: boolean
+  color?: string
 }
 
 /**
@@ -35,7 +36,7 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
     <nav
       id='sidenav'
       className={`${appState.sideBarOpen ? 'tw:translate-x-0' : 'tw:-translate-x-full'}
-          ${appState.sideBarSlim ? 'tw:w-14' : 'tw:w-48'}
+          ${appState.sideBarSlim ? 'tw:w-15' : 'tw:w-48'}
           ${appState.embedded ? 'tw:mt-5.5 tw:h-[calc(100dvh-22px)]' : 'tw:mt-16 tw:h-[calc(100dvh-64px)]'}
           tw:fixed tw:left-0 tw:transition-all tw:duration-300 tw:top-0 tw:z-10035 
           tw:overflow-hidden tw:shadow-xl tw:dark:bg-zinc-800`}
@@ -62,7 +63,12 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                       if (screen.width < 640 && !appState.sideBarSlim) toggleSidebarOpen()
                     }}
                   >
-                    {route.icon}
+                    <div
+                      className='tw:p-1.5 tw:rounded-selector tw:text-white'
+                      style={{ backgroundColor: route.color ?? '#777' }}
+                    >
+                      {route.icon}
+                    </div>
                     <span
                       className={`${appState.sideBarSlim ? 'tw:hidden' : ''}`}
                       data-te-sidenav-slim='false'
@@ -72,7 +78,8 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                     {(location.pathname.includes(route.path) && route.path.length > 1) ||
                     location.pathname === route.path ? (
                       <span
-                        className='tw:absolute tw:inset-y-0 tw:left-0 tw:w-1 tw:rounded-tr-md tw:rounded-br-md tw:bg-primary '
+                        className='tw:absolute tw:inset-y-0 tw:left-0 tw:w-1 tw:rounded-tr-md tw:rounded-br-md'
+                        style={{ backgroundColor: route.color ?? '#777' }}
                         aria-hidden='true'
                       ></span>
                     ) : null}
@@ -104,7 +111,7 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                         target={route.blank ? '_blank' : '_self'}
                         to={route.path}
                         className={({ isActive }) =>
-                          `${isActive ? 'tw:font-semibold  tw:bg-base-200 tw:rounded-none!' : 'tw:font-normal tw:rounded-none!'}`
+                          `tw:px-4 ${isActive ? 'tw:font-semibold  tw:bg-base-200 tw:rounded-none!' : 'tw:font-normal tw:rounded-none!'}`
                         }
                         onClick={() => {
                           if (screen.width < 640 && !appState.sideBarSlim) toggleSidebarOpen()

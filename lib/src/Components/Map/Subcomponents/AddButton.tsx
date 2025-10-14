@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { useState } from 'react'
 import SVG from 'react-inlinesvg'
 
 import PlusSVG from '#assets/plus.svg'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
+import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 
 export default function AddButton({
   triggerAction,
@@ -15,6 +17,9 @@ export default function AddButton({
   const layers = useLayers()
   const hasUserPermission = useHasUserPermission()
   const appState = useAppState()
+  const { width } = useWindowDimensions()
+  const isMobile = width < 768
+  const [hideTooltips, setHideTooltips] = useState(false)
 
   const canAddItems = () => {
     let canAdd = false
@@ -30,6 +35,14 @@ export default function AddButton({
     return canAdd
   }
 
+  const handleLayerClick = (layer: any) => {
+    triggerAction(layer)
+    // Verstecke Tooltips auf Mobile nach Layer-Auswahl
+    if (isMobile) {
+      setHideTooltips(true)
+    }
+  }
+
   return (
     <>
       {canAddItems() ? (
@@ -37,10 +50,23 @@ export default function AddButton({
           <label
             tabIndex={0}
             className='tw:z-500 tw:btn tw:btn-circle tw:btn-lg  tw:shadow tw:bg-base-100'
+            onClick={() => {
+              if (hideTooltips) {
+                setHideTooltips(false)
+              }
+            }}
+            onTouchEnd={() => {
+              if (hideTooltips) {
+                setHideTooltips(false)
+              }
+            }}
           >
             <SVG src={PlusSVG} className='tw:h-5 tw:w-5' />
           </label>
-          <ul tabIndex={0} className='tw:dropdown-content tw:pr-1 tw:list-none'>
+          <ul
+            tabIndex={0}
+            className='tw:dropdown-content tw:pr-1 tw:list-none tw:space-y-3 tw:pb-3'
+          >
             {layers.map(
               (layer) =>
                 layer.api?.createItem &&
@@ -48,16 +74,23 @@ export default function AddButton({
                 layer.listed && (
                   <li key={layer.name}>
                     <a>
-                      <div className='tw:tooltip tw:tooltip-left' data-tip={layer.menuText}>
+                      <div
+                        className={`tw:tooltip tw:tooltip-left ${isMobile && !hideTooltips ? 'tw:tooltip-open' : ''}`}
+                        data-tip={layer.menuText}
+                        style={
+                          {
+                            '--tooltip-color': layer.menuColor || '#777',
+                            '--tooltip-text-color': '#ffffff',
+                          } as React.CSSProperties
+                        }
+                      >
                         <button
                           tabIndex={0}
-                          className='tw:z-500 tw:border-0 tw:p-0 tw:mb-3 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
+                          className='tw:z-500 tw:border-0 tw:p-0 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
-                          onClick={() => {
-                            triggerAction(layer)
-                          }}
+                          onClick={() => handleLayerClick(layer)}
                           onTouchEnd={(e) => {
-                            triggerAction(layer)
+                            handleLayerClick(layer)
                             e.preventDefault()
                           }}
                         >
