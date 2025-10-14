@@ -8,11 +8,13 @@
     "display": null,
     "display_options": null,
     "field": "tile_server_url",
-    "group": "tile_server",
+    "group": "raster_tiles",
     "hidden": false,
     "interface": "input",
-    "note": null,
-    "options": null,
+    "note": "Raster tile server URL template (e.g., https://tile.osmand.net/hd/{z}/{x}/{y}.png)",
+    "options": {
+      "placeholder": "https://tile.osmand.net/hd/{z}/{x}/{y}.png"
+    },
     "readonly": false,
     "required": false,
     "sort": 1,

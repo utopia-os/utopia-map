@@ -96,6 +96,11 @@ function MapContainer({
         tileServerUrl={map.tile_server_url}
         tileServerAttribution={map.tile_server_attribution}
         inviteApi={inviteApi}
+        tilesType={map.tiles_type}
+        maplibreStyle={map.maplibre_style}
+        showFullscreenControl={map.show_fullscreen_control}
+        zoomOffset={map.zoom_offset}
+        tileSize={map.tile_size}
       >
         {layers &&
           apis &&
@@ -119,6 +124,7 @@ function MapContainer({
               public_edit_items={layer.public_edit_items}
               listed={layer.listed}
               api={apis.find((api) => api.id === layer.id)?.api}
+              item_default_name={layer.item_default_name}
             >
               <PopupView>
                 {layer.itemType.show_start_end && <StartEndView></StartEndView>}
@@ -128,7 +134,7 @@ function MapContainer({
                     parameterField={
                       layer.itemType.custom_profile_url ? 'extended.external_profile_id' : 'id'
                     }
-                    text={layer.itemType.botton_label ?? 'Profile'}
+                    text={layer.itemType.button_label ?? 'Profile'}
                     target={layer.itemType.custom_profile_url ? '_blank' : '_self'}
                   />
                 )}

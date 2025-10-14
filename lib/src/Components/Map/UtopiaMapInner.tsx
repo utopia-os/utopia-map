@@ -36,12 +36,14 @@ import { useTags } from './hooks/useTags'
 import AddButton from './Subcomponents/AddButton'
 import { Control } from './Subcomponents/Controls/Control'
 import { FilterControl } from './Subcomponents/Controls/FilterControl'
+import { FullscreenControl } from './Subcomponents/Controls/FullscreenControl'
 import { GratitudeControl } from './Subcomponents/Controls/GratitudeControl'
 import { LayerControl } from './Subcomponents/Controls/LayerControl'
 import { SearchControl } from './Subcomponents/Controls/SearchControl'
 import { TagsControl } from './Subcomponents/Controls/TagsControl'
 import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
-import { SelectPosition } from './Subcomponents/SelectPosition'
+import { MapLibreLayer } from './Subcomponents/MapLibreLayer'
+import { SelectPositionToast } from './Subcomponents/SelectPositionToast'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
 
@@ -51,24 +53,34 @@ export function UtopiaMapInner({
   showFilterControl = false,
   showGratitudeControl = false,
   showLayerControl = true,
+  showFullscreenControl = false,
   showThemeControl = false,
   defaultTheme = '',
   donationWidget,
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
+  tilesType,
+  maplibreStyle,
+  zoomOffset = 0,
+  tileSize = 256,
 }: {
   children?: React.ReactNode
   geo?: GeoJsonObject
   showFilterControl?: boolean
   showLayerControl?: boolean
   showGratitudeControl?: boolean
+  showFullscreenControl?: boolean
   donationWidget?: boolean
   showThemeControl?: boolean
   defaultTheme?: string
   expandLayerControl?: boolean
   tileServerUrl?: string
   tileServerAttribution?: string
+  tilesType?: 'raster' | 'maplibre'
+  maplibreStyle?: string
+  zoomOffset?: number
+  tileSize?: number
 }) {
   const selectNewItemPosition = useSelectPosition()
   const setSelectNewItemPosition = useSetSelectPosition()
@@ -176,7 +188,7 @@ export function UtopiaMapInner({
           document.title = `${document.title.split('-')[0]} - ${title}`
           document
             .querySelector('meta[property="og:title"]')
-            ?.setAttribute('content', ref.item.name)
+            ?.setAttribute('content', ref.item.name ?? '')
           document
             .querySelector('meta[property="og:description"]')
             ?.setAttribute('content', ref.item.text ?? '')
@@ -276,18 +288,25 @@ export function UtopiaMapInner({
         <TagsControl />
       </Control>
       <Control position='bottomLeft' zIndex='999' absolute>
+        {showFullscreenControl && <FullscreenControl />}
         {showFilterControl && <FilterControl />}
         {showLayerControl && <LayerControl expandLayerControl={expandLayerControl ?? false} />}
         {showGratitudeControl && <GratitudeControl />}
       </Control>
-      <TileLayer
-        maxZoom={19}
-        attribution={
-          tileServerAttribution ??
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }
-        url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
-      />
+      {tilesType === 'raster' ? (
+        <TileLayer
+          maxZoom={19}
+          tileSize={tileSize}
+          zoomOffset={zoomOffset}
+          attribution={
+            tileServerAttribution ??
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }
+          url={tileServerUrl ?? 'https://tile.osmand.net/hd/{z}/{x}/{y}.png'}
+        />
+      ) : (
+        <MapLibreLayer styleUrl={maplibreStyle} attribution={tileServerAttribution} />
+      )}
       <MarkerClusterGroup
         ref={(r) => setClusterRef(r as any)}
         showCoverageOnHover
@@ -313,12 +332,10 @@ export function UtopiaMapInner({
       )}
       <MapEventListener />
       <AddButton triggerAction={setSelectNewItemPosition} />
-      {selectNewItemPosition != null && (
-        <SelectPosition
-          selectNewItemPosition={selectNewItemPosition}
-          setSelectNewItemPosition={setSelectNewItemPosition}
-        />
-      )}
+      <SelectPositionToast
+        selectNewItemPosition={selectNewItemPosition}
+        setSelectNewItemPosition={setSelectNewItemPosition}
+      />
     </div>
   )
 }

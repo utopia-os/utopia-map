@@ -40,7 +40,7 @@ export function LinkedItemsHeaderView({
               <img
                 className={'tw:w-10 tw:inline tw:rounded-full'}
                 src={avatar}
-                alt={item.name + ' logo'}
+                alt={(item.name ?? '') + ' logo'}
               />
             )}
             <div className={`${avatar ? 'tw:ml-2' : ''} tw:overflow-hidden`}>

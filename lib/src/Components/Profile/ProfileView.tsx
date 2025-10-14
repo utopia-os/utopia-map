@@ -3,7 +3,6 @@
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -12,7 +11,6 @@ import { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useAuth } from '#components/Auth/useAuth'
 import { useClusterRef } from '#components/Map/hooks/useClusterRef'
 import { useItems, useRemoveItem, useUpdateItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
@@ -52,7 +50,6 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
   const map = useMap()
   const selectPosition = useSelectPosition()
   const removeItem = useRemoveItem()
-  const { user } = useAuth()
   const tags = useTags()
   const navigate = useNavigate()
   const hasUserPermission = useHasUserPermission()
@@ -176,14 +173,19 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
       {item && (
         <MapOverlayPage
           key={item.id}
-          className={`tw:p-0! tw:overflow-scroll tw:m-4! tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-3xl tw:left-0! tw:sm:left-auto! tw:top-0 tw:bottom-0 tw:transition-opacity tw:duration-500 ${!selectPosition ? 'tw:opacity-100 tw:pointer-events-auto' : 'tw:opacity-0 tw:pointer-events-none'} tw:max-h-[1000px]`}
+          data-cy='profile-view'
+          className={`tw:@container tw:overflow-hidden tw:p-0! tw:m-4! tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-3xl tw:left-0! tw:sm:left-auto! tw:top-0 tw:bottom-0 tw:transition-opacity tw:duration-500 ${!selectPosition ? 'tw:opacity-100 tw:pointer-events-auto' : 'tw:opacity-0 tw:pointer-events-none'} tw:max-h-[1000px]`}
         >
           <>
-            <div className={'tw:px-6 tw:pt-6'}>
+            <div className={'tw:px-6 tw:pt-6'} data-cy='profile-header'>
               <HeaderView
                 api={item.layer?.api}
                 item={item}
-                deleteCallback={(e) => handleDelete(e, item, setLoading, removeItem, map, navigate)}
+                deleteCallback={(e: React.MouseEvent<HTMLElement>) => {
+                  handleDelete(e, item, setLoading, removeItem, map, navigate).catch(() => {
+                    // Error handling is already in handleDelete
+                  })
+                }}
                 editCallback={() => navigate('/edit-item/' + item.id)}
                 setPositionCallback={() => {
                   map.closePopup()
@@ -210,8 +212,8 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
                 needs={needs}
                 relations={relations}
                 updatePermission={updatePermission}
-                linkItem={(id) => linkItem(id, item, updateItem, user)}
-                unlinkItem={(id) => unlinkItem(id, item, updateItem, user)}
+                linkItem={(id) => linkItem(id, item, updateItem)}
+                unlinkItem={(id) => unlinkItem(id, item, updateItem)}
               />
             )}
           </>

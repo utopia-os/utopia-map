@@ -92,7 +92,11 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
           api={props.item.layer?.api}
           item={props.item}
           editCallback={handleEdit}
-          deleteCallback={handleDelete}
+          deleteCallback={(e: React.MouseEvent<HTMLElement>) => {
+            handleDelete(e).catch(() => {
+              // Error handling is already in handleDelete
+            })
+          }}
           setPositionCallback={() => {
             map.closePopup()
             setSelectPosition(props.item)

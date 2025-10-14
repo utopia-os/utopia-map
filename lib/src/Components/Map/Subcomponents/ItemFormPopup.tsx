@@ -127,14 +127,14 @@ export function ItemFormPopup(props: Props) {
         const itemWithLayer = {
           ...result.data,
           layer: popupForm.layer,
-          user_created: user ?? undefined,
+          user_created: formItem.user_created,
         }
         updateItem(itemWithLayer)
       }
 
       return result.success
     },
-    [popupForm, handleApiOperation, updateItem, user],
+    [popupForm, handleApiOperation, updateItem],
   )
 
   // Create new item or update existing user profile
@@ -146,7 +146,7 @@ export function ItemFormPopup(props: Props) {
         (i) => i.user_created?.id === user?.id && i.layer === popupForm.layer,
       )
 
-      const itemName = formItem.name || user?.first_name
+      const itemName = formItem.name ?? user?.first_name
       if (!itemName) {
         toast.error('Name must be defined')
         return false

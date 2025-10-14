@@ -55,12 +55,17 @@ function UtopiaMap({
   showLayerControl = true,
   showZoomControl = false,
   showThemeControl = false,
+  showFullscreenControl = false,
   defaultTheme,
   donationWidget,
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
   inviteApi,
+  tilesType = 'raster',
+  maplibreStyle,
+  zoomOffset,
+  tileSize,
 }: {
   /** height of the map (default '500px') */
   height?: string
@@ -84,6 +89,8 @@ function UtopiaMap({
   showZoomControl?: boolean
   /** show a widget to switch the theme */
   showThemeControl?: boolean
+  /** show fullscreen control widget (default false) */
+  showFullscreenControl?: boolean
   /** the defaut theme */
   defaultTheme?: string
   /** ask to donate to the Utopia Project OpenCollective campaign (default false) */
@@ -96,6 +103,14 @@ function UtopiaMap({
   tileServerAttribution?: string
   /** API to redeem invite codes */
   inviteApi: InviteApi
+  /** tiles type: 'raster' or 'maplibre' (default 'raster') */
+  tilesType?: 'raster' | 'maplibre'
+  /** MapLibre style URL for vector tiles (default: OpenFreeMap Liberty) */
+  maplibreStyle?: string
+  /** zoom offset which is needed for some raster tile provider (eg. Mapbox) */
+  zoomOffset?: number
+  /** tile size (default 256) */
+  tileSize?: number
 }) {
   // Check for invite code in localStorage and loaded profile, redeem if possible
   useRedeemInvite(inviteApi)
@@ -107,18 +122,24 @@ function UtopiaMap({
         zoom={zoom}
         zoomControl={showZoomControl}
         maxZoom={19}
+        minZoom={2}
       >
         <UtopiaMapInner
           geo={geo}
           showFilterControl={showFilterControl}
           showGratitudeControl={showGratitudeControl}
           showLayerControl={showLayerControl}
+          showFullscreenControl={showFullscreenControl}
           donationWidget={donationWidget}
           showThemeControl={showThemeControl}
           defaultTheme={defaultTheme}
           expandLayerControl={expandLayerControl}
           tileServerUrl={tileServerUrl}
           tileServerAttribution={tileServerAttribution}
+          tilesType={tilesType}
+          maplibreStyle={maplibreStyle}
+          zoomOffset={zoomOffset}
+          tileSize={tileSize}
         >
           {children}
         </UtopiaMapInner>

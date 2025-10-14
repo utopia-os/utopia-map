@@ -1,0 +1,29 @@
+{
+  "collection": "types",
+  "field": "header_elements",
+  "type": "alias",
+  "meta": {
+    "collection": "types",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "header_elements",
+    "group": "Header",
+    "hidden": false,
+    "interface": "group-raw",
+    "note": null,
+    "options": null,
+    "readonly": false,
+    "required": false,
+    "sort": 3,
+    "special": [
+      "alias",
+      "no-data",
+      "group"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

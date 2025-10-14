@@ -118,7 +118,7 @@ function App() {
       setError(
         typeof error === 'string'
           ? error
-          : error?.errors?.[0]?.message ||
+          : (error?.errors?.length > 0 ? error.errors[0]?.message : null) ||
               error?.message ||
               'Failed to connect to the server. Please check your connection and try again.',
       )
@@ -150,6 +150,7 @@ function App() {
               />
             ),
             name: l.name, // name that appear in Sidebar
+            color: l.menuColor,
           })),
       )
       // eslint-disable-next-line no-catch-all/no-catch-all
@@ -159,7 +160,7 @@ function App() {
       setError(
         typeof error === 'string'
           ? error
-          : error?.errors?.[0]?.message ||
+          : (error?.errors?.length > 0 ? error.errors[0]?.message : null) ||
               error?.message ||
               'Failed to load map layers. Please check your permissions and try again.',
       )

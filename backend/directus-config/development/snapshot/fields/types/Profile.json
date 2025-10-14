@@ -12,10 +12,13 @@
     "hidden": false,
     "interface": "group-detail",
     "note": null,
-    "options": null,
+    "options": {
+      "headerIcon": "lab_profile",
+      "start": "closed"
+    },
     "readonly": false,
     "required": false,
-    "sort": 9,
+    "sort": 10,
     "special": [
       "alias",
       "no-data",

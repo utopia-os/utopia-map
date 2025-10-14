@@ -198,8 +198,8 @@ export function ProfileForm() {
                   state={state}
                   setState={setState}
                   updatePermission={updatePermission}
-                  linkItem={(id: string) => linkItem(id, item, updateItem, user)}
-                  unlinkItem={(id: string) => unlinkItem(id, item, updateItem, user)}
+                  linkItem={(id: string) => linkItem(id, item, updateItem)}
+                  unlinkItem={(id: string) => unlinkItem(id, item, updateItem)}
                   setUrlParams={setUrlParams}
                 ></TabsForm>
               )}

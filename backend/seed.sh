@@ -15,16 +15,8 @@ PGDATABASE="${PGDATABASE:-'directus'}"
 PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
-echo "Sync collections"
-npx directus-sync push \
-  --dump-path $PROJECT_FOLDER \
-  --directus-url $DIRECTUS_URL \
-  --directus-email $DIRECTUS_EMAIL \
-  --directus-password $DIRECTUS_PASSWORD \
-  || exit 1
-
 echo "Seed data"
-npx directus-sync seed push \
+npx directus-sync@3.4.0 seed push \
   --seed-path $PROJECT_FOLDER/seed \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \

@@ -4,16 +4,51 @@
   "type": "alias",
   "meta": {
     "collection": "types",
-    "conditions": null,
+    "conditions": [
+      {
+        "name": "Tabs Template",
+        "options": {
+          "start": "open"
+        },
+        "readonly": false,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_eq": "tabs"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "hidden": true,
+        "name": "Not Tabs Template",
+        "options": {
+          "start": "closed"
+        },
+        "readonly": true,
+        "rule": {
+          "_and": [
+            {
+              "template": {
+                "_neq": "tabs"
+              }
+            }
+          ]
+        }
+      }
+    ],
     "display": null,
     "display_options": null,
     "field": "Tabs",
-    "group": "accordion-ykcgp6",
+    "group": "Profile",
     "hidden": false,
-    "interface": "group-detail",
+    "interface": "group-raw",
     "note": null,
     "options": {
-      "headerColor": "#1A5FB4"
+      "headerColor": "#1A5FB4",
+      "start": "closed"
     },
     "readonly": false,
     "required": false,

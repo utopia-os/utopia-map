@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Color } from '@tiptap/extension-color'
 import { Image } from '@tiptap/extension-image'
 import { Link } from '@tiptap/extension-link'
@@ -13,6 +10,8 @@ import { Markdown } from 'tiptap-markdown'
 import { InputLabel } from './InputLabel'
 import { TextEditorMenu } from './TextEditorMenu'
 
+import type { MarkdownStorage } from 'tiptap-markdown'
+
 interface RichTextEditorProps {
   labelTitle?: string
   labelStyle?: string
@@ -21,6 +20,12 @@ interface RichTextEditorProps {
   placeholder?: string
   showMenu?: boolean
   updateFormValue?: (value: string) => void
+}
+
+declare module '@tiptap/core' {
+  interface Storage {
+    markdown: MarkdownStorage
+  }
 }
 
 /**
@@ -35,10 +40,10 @@ export function RichTextEditor({
   updateFormValue,
 }: RichTextEditorProps) {
   const handleChange = () => {
-    let newValue: string | undefined = editor?.storage.markdown.getMarkdown()
+    let newValue: string | undefined = editor.storage.markdown.getMarkdown()
 
     const regex = /!\[.*?\]\(.*?\)/g
-    newValue = newValue?.replace(regex, (match: string) => match + '\n\n')
+    newValue = newValue.replace(regex, (match: string) => match + '\n\n')
     if (updateFormValue && newValue) {
       updateFormValue(newValue)
     }
@@ -79,8 +84,8 @@ export function RichTextEditor({
   })
 
   useEffect(() => {
-    if (editor?.storage.markdown.getMarkdown() === '' || !editor?.storage.markdown.getMarkdown()) {
-      editor?.commands.setContent(defaultValue)
+    if (editor.storage.markdown.getMarkdown() === '' || !editor.storage.markdown.getMarkdown()) {
+      editor.commands.setContent(defaultValue)
     }
   }, [defaultValue, editor])
 
@@ -92,12 +97,10 @@ export function RichTextEditor({
       <div
         className={`editor-wrapper tw:border-base-content/20 tw:rounded-box tw:border tw:flex tw:flex-col tw:flex-1 tw:min-h-0`}
       >
-        {editor ? (
-          <>
-            {showMenu ? <TextEditorMenu editor={editor} /> : null}
-            <EditorContent editor={editor} />
-          </>
-        ) : null}
+        <>
+          {showMenu ? <TextEditorMenu editor={editor} /> : null}
+          <EditorContent editor={editor} />
+        </>
       </div>
     </div>
   )
