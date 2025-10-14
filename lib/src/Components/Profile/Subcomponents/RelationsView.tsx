@@ -24,10 +24,6 @@ export const RelationsView = ({
   const items = useItems()
   const appState = useAppState()
 
-  useEffect(() => {
-    console.log(relatedItems)
-  }, [])
-
   if (!item.relations) return
 
   const relationsOfRightType = item.relations.filter((r) => r.type === relation)
