@@ -1,12 +1,10 @@
 import { useEffect } from 'react'
-
 import { Link } from 'react-router-dom'
 
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useItems } from '#components/Map/hooks/useItems'
 
 import type { Item } from '#types/Item'
-import { Link } from 'react-router-dom'
 
 interface Props {
   item: Item
