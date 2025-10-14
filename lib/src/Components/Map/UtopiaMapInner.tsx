@@ -64,6 +64,7 @@ export function UtopiaMapInner({
   maplibreStyle,
   zoomOffset = 0,
   tileSize = 256,
+  showZoomControl,
 }: {
   children?: React.ReactNode
   geo?: GeoJsonObject
@@ -81,6 +82,7 @@ export function UtopiaMapInner({
   maplibreStyle?: string
   zoomOffset?: number
   tileSize?: number
+  showZoomControl?: boolean
 }) {
   const selectNewItemPosition = useSelectPosition()
   const setSelectNewItemPosition = useSetSelectPosition()
@@ -285,7 +287,9 @@ export function UtopiaMapInner({
       <Outlet />
       <Control position='topLeft' zIndex='1000' absolute>
         <SearchControl />
-        <TagsControl />
+        <div className={`${showZoomControl ? 'tw:pl-14' : ''}`}>
+          <TagsControl />
+        </div>
       </Control>
       <Control position='bottomLeft' zIndex='999' absolute>
         {showFullscreenControl && <FullscreenControl />}
