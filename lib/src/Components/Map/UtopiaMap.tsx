@@ -115,6 +115,7 @@ function UtopiaMap({
         zoom={zoom}
         zoomControl={showZoomControl}
         maxZoom={19}
+        minZoom={2}
       >
         <UtopiaMapInner
           geo={geo}

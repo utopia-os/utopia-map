@@ -43,7 +43,7 @@ import { SearchControl } from './Subcomponents/Controls/SearchControl'
 import { TagsControl } from './Subcomponents/Controls/TagsControl'
 import { TextView } from './Subcomponents/ItemPopupComponents/TextView'
 import { MapLibreLayer } from './Subcomponents/MapLibreLayer'
-import { SelectPosition } from './Subcomponents/SelectPosition'
+import { SelectPositionToast } from './Subcomponents/SelectPositionToast'
 
 import type { Feature, Geometry as GeoJSONGeometry, GeoJsonObject } from 'geojson'
 
@@ -332,12 +332,10 @@ export function UtopiaMapInner({
       )}
       <MapEventListener />
       <AddButton triggerAction={setSelectNewItemPosition} />
-      {selectNewItemPosition != null && (
-        <SelectPosition
-          selectNewItemPosition={selectNewItemPosition}
-          setSelectNewItemPosition={setSelectNewItemPosition}
-        />
-      )}
+      <SelectPositionToast
+        selectNewItemPosition={selectNewItemPosition}
+        setSelectNewItemPosition={setSelectNewItemPosition}
+      />
     </div>
   )
 }
