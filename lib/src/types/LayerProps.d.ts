@@ -13,8 +13,8 @@ export interface LayerProps {
   name: string
   menuColor: string
   menuText: string
-  markerIcon: MarkerIcon
-  markerShape: string
+  markerIcon?: MarkerIcon
+  markerShape?: string
   markerDefaultColor: string
   markerDefaultColor2?: string
   api?: ItemsApi<Item>

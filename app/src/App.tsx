@@ -56,6 +56,7 @@ import MapContainer from './pages/MapContainer'
 import { getBottomRoutes, routes } from './routes/sidebar'
 import { config } from './config'
 import { InviteApi } from './api/inviteApi'
+import { MapPinIcon } from '@heroicons/react/24/solid'
 
 const userApi = new UserApi()
 const inviteApi = new InviteApi(userApi)
@@ -139,14 +140,19 @@ function App() {
           ?.filter((l: LayerProps) => l.listed)
           .map((l: LayerProps) => ({
             path: '/' + l.name, // url
-            icon: (
+            icon: l.markerIcon?.image ? (
               <SVG
                 src={`${config.apiUrl}assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
-                className='tw:w-6 tw:h-6'
+                style={{
+                  width: `${(l.markerIcon.size ?? 18) * 1.3}px`,
+                  height: `${(l.markerIcon.size ?? 18) * 1.3}px`,
+                }}
                 preProcessor={(code: string) =>
                   code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
                 }
               />
+            ) : (
+              <MapPinIcon className='tw:w-6 tw:h-6' />
             ),
             name: l.name, // name that appear in Sidebar
             color: l.menuColor,
