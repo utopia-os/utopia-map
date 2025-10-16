@@ -62,6 +62,7 @@ export interface Item {
   openCollectiveSlug?: string
   secrets?: ItemSecret[]
   extended?: JSON
+  address?: string
 
   // {
   // coordinates: [number, number]

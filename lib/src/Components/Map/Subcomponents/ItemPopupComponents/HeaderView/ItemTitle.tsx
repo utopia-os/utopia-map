@@ -1,10 +1,6 @@
-import { MapPinIcon } from '@heroicons/react/24/solid'
 import { useEffect, useRef, useState } from 'react'
 
-import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
-import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
-
-import { useFormatDistance } from './hooks'
+import { ItemSubtitle } from './ItemSubtitle'
 
 import type { Item } from '#types/Item'
 
@@ -23,20 +19,11 @@ export function ItemTitle({
   subtitleMode = 'address',
   hasAvatar = false,
 }: ItemTitleProps) {
-  const { distance } = useGeoDistance(item.position ?? undefined)
-  const { formatDistance } = useFormatDistance()
   const titleRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const [fontSize, setFontSize] = useState<string>('tw:text-xl')
 
-  const { address } = useReverseGeocode(
-    item.position?.coordinates as [number, number] | undefined,
-    subtitleMode === 'address',
-    'municipality',
-  )
-
   const title = item.name ?? item.layer?.item_default_name
-  const subtitle = item.subname
 
   useEffect(() => {
     if (!containerRef.current || !title) {
@@ -111,22 +98,7 @@ export function ItemTitle({
       >
         {title}
       </div>
-      {subtitleMode === 'address' && address && (
-        <div className='tw:text-sm tw:flex tw:items-center tw:text-gray-500 tw:w-full'>
-          <MapPinIcon className='tw:w-4 tw:mr-1 tw:flex-shrink-0' />
-          <span title={address} className='tw:truncate'>
-            {address}
-            {distance && distance >= 0.1 ? ` (${formatDistance(distance) ?? ''})` : ''}
-          </span>
-        </div>
-      )}
-      {subtitleMode === 'custom' && subtitle && (
-        <div
-          className={`tw:text-sm tw:opacity-50 tw:items-center ${truncateSubname ? 'tw:truncate' : ''}`}
-        >
-          {subtitle}
-        </div>
-      )}
+      <ItemSubtitle item={item} mode={subtitleMode} truncate={truncateSubname} />
     </div>
   )
 }
