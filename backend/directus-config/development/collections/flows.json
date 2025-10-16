@@ -294,7 +294,7 @@
     "icon": "home_pin",
     "color": null,
     "description": "Requests the items address on update / create",
-    "status": "active",
+    "status": "inactive",
     "trigger": "event",
     "accountability": "all",
     "options": {
