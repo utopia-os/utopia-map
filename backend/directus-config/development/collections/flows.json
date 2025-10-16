@@ -270,6 +270,48 @@
     "_syncId": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081"
   },
   {
+    "name": "Reverse Geocoder: Trigger Populare Items",
+    "icon": "home_pin",
+    "color": null,
+    "description": "Set multiple items addresses at once",
+    "status": "active",
+    "trigger": "manual",
+    "accountability": "all",
+    "options": {
+      "collections": [
+        "items"
+      ],
+      "requireConfirmation": true,
+      "async": true,
+      "location": "collection",
+      "confirmationDescription": "Be aware that you can run into request limits on the external reverse geocoder"
+    },
+    "operation": "c7317e38-c026-4dc0-8b73-42340e205c33",
+    "_syncId": "d8b14c06-fb08-4a27-8a4b-75e6a4cd7216"
+  },
+  {
+    "name": "Reverse Geocoder: On Create and Update",
+    "icon": "home_pin",
+    "color": null,
+    "description": "Requests the items address on update / create",
+    "status": "active",
+    "trigger": "event",
+    "accountability": "all",
+    "options": {
+      "type": "filter",
+      "scope": [
+        "items.update",
+        "items.create"
+      ],
+      "collections": [
+        "items"
+      ],
+      "return": "$last"
+    },
+    "operation": "0d18abcf-70f9-4545-b583-e18e5ec533fa",
+    "_syncId": "e28759ce-3995-4943-bbfc-f1ed08d42497"
+  },
+  {
     "name": "Slug Generation",
     "icon": "bolt",
     "color": null,
@@ -288,5 +330,19 @@
     },
     "operation": "55857562-e0ab-49a5-a292-18f6c1cb075e",
     "_syncId": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1"
+  },
+  {
+    "name": "Reverse Geocoder: Single Item Address",
+    "icon": "home_pin",
+    "color": null,
+    "description": "Single item address request",
+    "status": "active",
+    "trigger": "operation",
+    "accountability": "all",
+    "options": {
+      "return": "$last"
+    },
+    "operation": "fa077e33-be44-48d4-b3a4-9f61c99c002c",
+    "_syncId": "fbf2ab06-eab8-4dc4-8e25-101f6a4edba6"
   }
 ]

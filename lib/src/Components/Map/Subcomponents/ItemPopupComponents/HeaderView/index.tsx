@@ -12,6 +12,8 @@ import { QRModal } from './QRModal'
 
 import type { HeaderViewProps } from './types'
 
+export { ItemSubtitle } from './ItemSubtitle'
+
 export function HeaderView({
   item,
   api,
