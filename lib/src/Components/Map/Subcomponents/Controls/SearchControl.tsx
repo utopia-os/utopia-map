@@ -184,7 +184,7 @@ export const SearchControl = () => {
                     }
                   }}
                 >
-                  {item.layer?.markerIcon.image ? (
+                  {item.layer?.markerIcon?.image ? (
                     <div
                       className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center'
                       data-cy='search-item-icon'
