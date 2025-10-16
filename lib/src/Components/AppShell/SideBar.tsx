@@ -64,7 +64,7 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                     }}
                   >
                     <div
-                      className='tw:p-1.5 tw:rounded-selector tw:text-white'
+                      className='tw:p-1.5 tw:rounded-selector tw:text-white tw:h-9 tw:w-9 tw:flex tw:items-center tw:justify-center'
                       style={{ backgroundColor: route.color ?? '#777' }}
                     >
                       {route.icon}

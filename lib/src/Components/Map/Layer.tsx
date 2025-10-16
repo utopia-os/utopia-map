@@ -41,6 +41,9 @@ export const Layer = ({
   const setItemsApi = useSetItemsApi()
   const setItemsData = useSetItemsData()
 
+  // Ensure markerShape has a valid value, default to 'circle' if null or empty
+  const normalizedMarkerShape = markerShape || 'circle'
+
   const addTag = useAddTag()
   const [newTagsToAdd] = useState<Tag[]>([])
   const [tagsReady] = useState<boolean>(false)
@@ -55,7 +58,7 @@ export const Layer = ({
         menuText,
         menuColor,
         markerIcon,
-        markerShape,
+        markerShape: normalizedMarkerShape,
         markerDefaultColor,
         markerDefaultColor2,
         api,
@@ -79,7 +82,7 @@ export const Layer = ({
         menuText,
         menuColor,
         markerIcon,
-        markerShape,
+        markerShape: normalizedMarkerShape,
         markerDefaultColor,
         markerDefaultColor2,
         api,
@@ -116,7 +119,7 @@ export const Layer = ({
         name,
         markerDefaultColor,
         markerDefaultColor2,
-        markerShape,
+        markerShape: normalizedMarkerShape,
         markerIcon,
         menuText,
       }}
