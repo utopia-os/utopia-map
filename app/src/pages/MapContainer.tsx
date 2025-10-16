@@ -102,7 +102,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
               menuText={layer.menuText}
               menuColor={layer.menuColor}
               markerIcon={layer.markerIcon}
-              markerShape={layer.markerShape || 'circle'}
+              markerShape={layer.markerShape}
               userProfileLayer={layer.userProfileLayer}
               markerDefaultColor={layer.menuColor}
               markerDefaultColor2={
