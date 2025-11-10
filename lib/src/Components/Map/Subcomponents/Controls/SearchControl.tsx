@@ -192,7 +192,10 @@ export const SearchControl = () => {
                       <SVG
                         src={appState.assetsApi.url + item.layer.markerIcon.image}
                         className='tw:text-current tw:mr-2 tw:mt-0'
-                        style={{ width: `${(item.layer.markerIcon.size ?? 18) * 1.2}px` }}
+                        style={{
+                          width: `${(item.layer.markerIcon.size ?? 18) * 1.2}px`,
+                          height: `${(item.layer.markerIcon.size ?? 18) * 1.2}px`,
+                        }}
                         preProcessor={(code: string): string => {
                           code = code.replace(/fill=".*?"/g, 'fill="currentColor"')
                           code = code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
