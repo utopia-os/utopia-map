@@ -11,7 +11,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import FlagIcon from '@heroicons/react/24/outline/FlagIcon'
-import MagnifyingGlassIcon from '@heroicons/react/24/outline/MagnifyingGlassIcon'
+import MapPinIcon from '@heroicons/react/24/outline/MapPinIcon'
 import axios from 'axios'
 import { LatLng, LatLngBounds, marker } from 'leaflet'
 import { useRef, useState } from 'react'
@@ -167,59 +167,84 @@ export const SearchControl = () => {
               {itemsResults.length > 0 && tagsResults.length > 0 && (
                 <hr className='tw:opacity-50'></hr>
               )}
-              {itemsResults.slice(0, 5).map((item) => (
-                <div
-                  key={item.id}
-                  className='tw:cursor-pointer tw:hover:font-bold tw:flex tw:flex-row'
-                  data-cy='search-item-result'
-                  onClick={() => {
-                    const marker = Object.entries(leafletRefs).find((r) => r[1].item === item)?.[1]
-                      .marker
-                    if (marker) {
-                      navigate(`/${item.id}?${new URLSearchParams(window.location.search)}`)
-                    } else {
-                      navigate(
-                        'item/' + item.id + '?' + new URLSearchParams(window.location.search),
-                      )
-                    }
-                  }}
-                >
-                  {item.layer?.markerIcon?.image ? (
-                    <div
-                      className='tw:w-7 tw:h-full tw:flex tw:justify-center tw:items-center'
-                      data-cy='search-item-icon'
-                    >
-                      <SVG
-                        src={appState.assetsApi.url + item.layer.markerIcon.image}
-                        className='tw:text-current tw:mr-2 tw:mt-0'
-                        style={{
-                          width: `${(item.layer.markerIcon.size ?? 18) * 1.2}px`,
-                          height: `${(item.layer.markerIcon.size ?? 18) * 1.2}px`,
-                        }}
-                        preProcessor={(code: string): string => {
-                          code = code.replace(/fill=".*?"/g, 'fill="currentColor"')
-                          code = code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
-                          return code
-                        }}
+              {itemsResults.slice(0, 5).map((item) => {
+                // Calculate color using the same logic as PopupView
+                const itemTags =
+                  item.text
+                    ?.match(/#[^\s#]+/g)
+                    ?.map((tag) =>
+                      tags.find((t) => t.name.toLowerCase() === tag.slice(1).toLowerCase()),
+                    )
+                    .filter(Boolean) ?? []
+
+                let color1 = item.layer?.markerDefaultColor ?? '#777'
+                if (item.color) {
+                  color1 = item.color
+                } else if (itemTags[0]) {
+                  color1 = itemTags[0].color
+                }
+
+                return (
+                  <div
+                    key={item.id}
+                    className='tw:cursor-pointer tw:hover:font-bold tw:flex tw:flex-row tw:items-center tw:gap-2'
+                    data-cy='search-item-result'
+                    onClick={() => {
+                      const marker = Object.entries(leafletRefs).find(
+                        (r) => r[1].item === item,
+                      )?.[1].marker
+                      if (marker) {
+                        navigate(`/${item.id}?${new URLSearchParams(window.location.search)}`)
+                      } else {
+                        navigate(
+                          'item/' + item.id + '?' + new URLSearchParams(window.location.search),
+                        )
+                      }
+                    }}
+                  >
+                    {item.layer?.markerIcon?.image ? (
+                      <div
+                        className='tw:p-1.5 tw:rounded-selector tw:text-white tw:h-7 tw:w-7 tw:flex tw:items-center tw:justify-center tw:flex-shrink-0 tw:overflow-hidden'
+                        style={{ backgroundColor: color1 }}
+                      >
+                        <SVG
+                          src={appState.assetsApi.url + item.layer.markerIcon.image}
+                          className='tw:text-current tw:max-w-full tw:max-h-full'
+                          style={{
+                            width: `${item.layer.markerIcon.size ?? 18}px`,
+                            height: `${item.layer.markerIcon.size ?? 18}px`,
+                          }}
+                          preProcessor={(code: string): string => {
+                            code = code.replace(/fill=".*?"/g, 'fill="currentColor"')
+                            code = code.replace(/stroke=".*?"/g, 'stroke="currentColor"')
+                            return code
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className='tw:w-7 tw:h-7 tw:flex-shrink-0'
+                        data-cy='search-item-icon-placeholder'
                       />
-                    </div>
-                  ) : (
-                    <div className='tw:w-7' data-cy='search-item-icon-placeholder' />
-                  )}
-                  <div>
-                    <div className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'>
-                      {item.name}
+                    )}
+                    <div className='tw:flex tw:flex-col tw:min-w-0'>
+                      <div className='tw:text-sm tw:font-bold tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'>
+                        {item.name}
+                      </div>
+                      <div className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'>
+                        {item.text}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
               {Array.from(geoResults).length > 0 &&
                 (itemsResults.length > 0 || tagsResults.length > 0) && (
                   <hr className='tw:opacity-50'></hr>
                 )}
               {Array.from(geoResults).map((geo) => (
                 <div
-                  className='tw:flex tw:flex-row tw:hover:font-bold tw:cursor-pointer'
+                  className='tw:flex tw:flex-row tw:items-center tw:hover:font-bold tw:cursor-pointer tw:gap-2'
                   data-cy='search-geo-result'
                   key={Math.random()}
                   onClick={() => {
@@ -252,19 +277,21 @@ export const SearchControl = () => {
                     hide()
                   }}
                 >
-                  <MagnifyingGlassIcon
-                    className='tw:text-current tw:mr-2 tw:mt-0 tw:w-5'
-                    data-cy='search-geo-icon'
-                  />
-                  <div>
+                  <div className='tw:h-7 tw:w-7 tw:flex tw:items-center tw:justify-center tw:flex-shrink-0'>
+                    <MapPinIcon
+                      className='tw:text-current tw:w-5 tw:h-5'
+                      data-cy='search-geo-icon'
+                    />
+                  </div>
+                  <div className='tw:flex tw:flex-col tw:min-w-0'>
                     <div
-                      className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      className='tw:text-sm tw:font-bold tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'
                       data-cy='search-geo-name'
                     >
                       {geo?.properties.name ? geo?.properties.name : value}
                     </div>
                     <div
-                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'
                       data-cy='search-geo-details'
                     >
                       {geo?.properties?.city && `${capitalizeFirstLetter(geo?.properties?.city)}, `}{' '}
@@ -284,7 +311,7 @@ export const SearchControl = () => {
               ))}
               {isGeoCoordinate(value) && (
                 <div
-                  className='tw:flex tw:flex-row tw:hover:font-bold tw:cursor-pointer'
+                  className='tw:flex tw:flex-row tw:items-center tw:hover:font-bold tw:cursor-pointer tw:gap-2'
                   data-cy='search-coordinate-result'
                   onClick={() => {
                     marker(
@@ -309,19 +336,21 @@ export const SearchControl = () => {
                     )
                   }}
                 >
-                  <FlagIcon
-                    className='tw:text-current tw:mr-2 tw:mt-0 tw:w-4'
-                    data-cy='search-coordinate-icon'
-                  />
-                  <div>
+                  <div className='tw:h-7 tw:w-7 tw:flex tw:items-center tw:justify-center tw:flex-shrink-0'>
+                    <FlagIcon
+                      className='tw:text-current tw:w-5 tw:h-5'
+                      data-cy='search-coordinate-icon'
+                    />
+                  </div>
+                  <div className='tw:flex tw:flex-col tw:min-w-0'>
                     <div
-                      className='tw:text-sm tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      className='tw:text-sm tw:font-bold tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'
                       data-cy='search-coordinate-text'
                     >
                       {value}
                     </div>
                     <div
-                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap tw:max-w-[17rem]'
+                      className='tw:text-xs tw:overflow-hidden tw:text-ellipsis tw:whitespace-nowrap'
                       data-cy='search-coordinate-label'
                     >
                       {'Coordiante'}
