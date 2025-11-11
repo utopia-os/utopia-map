@@ -206,6 +206,7 @@ export const SearchControl = () => {
                       <div
                         className='tw:p-1.5 tw:rounded-selector tw:text-white tw:h-7 tw:w-7 tw:flex tw:items-center tw:justify-center tw:flex-shrink-0 tw:overflow-hidden'
                         style={{ backgroundColor: color1 }}
+                        data-cy='search-item-icon'
                       >
                         <SVG
                           src={appState.assetsApi.url + item.layer.markerIcon.image}
