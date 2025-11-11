@@ -39,28 +39,33 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
     // get timestamp for the end of the current day
     const now = new Date()
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const etartOfDayISO = startOfDay.toISOString()
+    const startOfDayISO = startOfDay.toISOString()
 
     layers.map((layer: LayerProps) => {
+      // Only apply date filter if showPastItems is not explicitly set to true
+      const dateFilter = layer.showPastItems
+        ? undefined
+        : {
+            _or: [
+              {
+                end: {
+                  _gt: startOfDayISO,
+                },
+              },
+              {
+                end: {
+                  _null: true,
+                },
+              },
+            ],
+          }
+
       apis &&
         setApis((current) => [
           ...current,
           {
             id: layer.id,
-            api: new itemsApi<Place>('items', layer.id, undefined, {
-              _or: [
-                {
-                  end: {
-                    _gt: etartOfDayISO,
-                  },
-                },
-                {
-                  end: {
-                    _null: true,
-                  },
-                },
-              ],
-            }),
+            api: new itemsApi<Place>('items', layer.id, undefined, dateFilter),
           },
         ])
     })
