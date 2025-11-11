@@ -33,9 +33,10 @@ export const useNavigationUrl = (coordinates?: [number, number]) => {
 export const useShareLogic = (item?: Item) => {
   const shareUrl = window.location.href
   const shareTitle = item?.name ?? 'Utopia Map Item'
-  const inviteLink = item?.secrets
-    ? `${window.location.origin}/invite/${item.secrets[0].secret}`
-    : shareUrl
+  const inviteLink =
+    item?.secrets && item.secrets.length > 0
+      ? `${window.location.origin}/invite/${item.secrets[0].secret}`
+      : shareUrl
 
   const copyLink = () => {
     navigator.clipboard
