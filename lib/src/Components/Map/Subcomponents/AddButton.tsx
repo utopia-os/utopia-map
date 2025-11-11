@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { MapPinIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import SVG from 'react-inlinesvg'
 
@@ -94,13 +95,18 @@ export default function AddButton({
                             e.preventDefault()
                           }}
                         >
-                          <img
-                            src={appState.assetsApi.url + layer.markerIcon.image}
-                            style={{
-                              filter: 'invert(100%) brightness(200%)',
-                              width: `${(layer.markerIcon.size ?? 18) * 1.3}px`,
-                            }}
-                          />
+                          {layer.markerIcon?.image ? (
+                            <img
+                              src={appState.assetsApi.url + layer.markerIcon.image}
+                              style={{
+                                filter: 'invert(100%) brightness(200%)',
+                                width: `${(layer.markerIcon.size ?? 18) * 1.3}px`,
+                                height: `${(layer.markerIcon.size ?? 18) * 1.3}px`,
+                              }}
+                            />
+                          ) : (
+                            <MapPinIcon className='tw:w-6 tw:h-6' style={{ color: '#ffffff' }} />
+                          )}
                         </button>
                       </div>
                     </a>

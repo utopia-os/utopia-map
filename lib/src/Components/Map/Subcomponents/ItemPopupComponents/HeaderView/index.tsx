@@ -85,7 +85,9 @@ export function HeaderView({
         onConfirm={deleteCallback ?? (() => undefined)}
       />
 
-      <QRModal item={item} isOpen={qrModalOpen} onClose={() => setQrModalOpen(false)} />
+      {showQrButton && (
+        <QRModal item={item} isOpen={qrModalOpen} onClose={() => setQrModalOpen(false)} />
+      )}
     </>
   )
 }

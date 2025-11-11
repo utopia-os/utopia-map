@@ -40,7 +40,7 @@ const MarkerIconFactory = (
 ) => {
   if (icon)
     return divIcon({
-      html: `<div class="svg-container">${createSvg(shape, color1, color2)}<img class="overlay-svg" style="width: ${icon.size ? icon.size : '12.5'}px; filter: invert(1) brightness(2);" src="${`${assetsURL ?? ''}` + icon.image}"></div>`,
+      html: `<div class="svg-container">${createSvg(shape, color1, color2)}<img class="overlay-svg" style="width: ${icon.size ? icon.size : '12.5'}px; height: ${icon.size ? icon.size : '12.5'}px; filter: invert(1) brightness(2);" src="${`${assetsURL ?? ''}` + icon.image}"></div>`,
       iconAnchor: [17, 40],
       popupAnchor: [0, -40],
       iconSize: new Point(40, 46),
