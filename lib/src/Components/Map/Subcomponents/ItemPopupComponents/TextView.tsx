@@ -5,6 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import Markdown from 'react-markdown'
+import { Link as RouterLink } from 'react-router-dom'
 import remarkBreaks from 'remark-breaks'
 
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
@@ -46,7 +47,9 @@ export const TextView = ({
     innerText = replacedText = rawText
   } else if (text === undefined) {
     // Field was omitted by backend (no permission)
-    innerText = replacedText = `Login to see this ${item?.layer?.item_default_name ?? 'item'}`
+    innerText = replacedText = `[Login](/login) to see this ${
+      item?.layer?.item_default_name ?? 'item'
+    }`
   } else if (text === null || text === '') {
     // Field is not set or empty - show nothing
     innerText = ''
@@ -127,7 +130,12 @@ export const TextView = ({
       else return children
     }
 
-    // Default: Link
+    // Internal Link (React Router)
+    if (href.startsWith('/')) {
+      return <RouterLink to={href}>{children}</RouterLink>
+    }
+
+    // External Link
     return (
       <a href={href} target='_blank' rel='noreferrer'>
         {children}
