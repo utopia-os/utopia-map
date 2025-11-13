@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -15,6 +14,12 @@ import { toast } from 'react-toastify'
 import { useSetAppState } from '#components/AppShell/hooks/useAppState'
 import { useTheme } from '#components/AppShell/hooks/useTheme'
 import { containsUUID } from '#utils/ContainsUUID'
+import {
+  removeItemFromUrl,
+  resetMetaTags as resetMetaTagsUtil,
+  setItemInUrl,
+  updateMetaTags,
+} from '#utils/UrlHelper'
 
 import { useClusterRef, useSetClusterRef } from './hooks/useClusterRef'
 import {
@@ -156,34 +161,19 @@ export function UtopiaMapInner({
     popupopen: (e) => {
       const item = Object.entries(leafletRefs).find((r) => r[1].popup === e.popup)?.[1].item
       if (window.location.pathname.split('/')[1] !== item?.id) {
-        const params = new URLSearchParams(window.location.search)
-        if (!location.pathname.includes('/item/')) {
-          window.history.pushState(
-            {},
-            '',
-            `/${item?.id}` + `${params.toString() !== '' ? `?${params}` : ''}`,
-          )
+        if (!location.pathname.includes('/item/') && item?.id) {
+          setItemInUrl(item.id)
         }
-        let title = ''
-        if (item?.name) title = item.name
-        document.title = `${document.title.split('-')[0]} - ${title}`
+        if (item?.name) {
+          updateMetaTags(item.name, item.text)
+        }
       }
     },
     popupclose: () => {
       // Remove UUID from URL when popup closes
       if (containsUUID(window.location.pathname)) {
-        const params = new URLSearchParams(window.location.search)
-        window.history.pushState({}, '', '/' + `${params.toString() !== '' ? `?${params}` : ''}`)
-        // Reset page title
-        document.title = document.title.split('-')[0]
-        // Reset meta tags
-        document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
-        document
-          .querySelector('meta[property="og:description"]')
-          ?.setAttribute(
-            'content',
-            `${document.querySelector('meta[name="description"]')?.getAttribute('content')}`,
-          )
+        removeItemFromUrl()
+        resetMetaTagsUtil()
       }
     },
   })
@@ -202,15 +192,9 @@ export function UtopiaMapInner({
             clusterRef?.zoomToShowLayer(ref.marker, () => {
               ref.marker.openPopup()
             })
-          let title = ''
-          if (ref.item.name) title = ref.item.name
-          document.title = `${document.title.split('-')[0]} - ${title}`
-          document
-            .querySelector('meta[property="og:title"]')
-            ?.setAttribute('content', ref.item.name ?? '')
-          document
-            .querySelector('meta[property="og:description"]')
-            ?.setAttribute('content', ref.item.text ?? '')
+          if (ref.item.name) {
+            updateMetaTags(ref.item.name, ref.item.text)
+          }
         }
       }
     }
@@ -222,18 +206,10 @@ export function UtopiaMapInner({
   }, [leafletRefs, location])
 
   const resetMetaTags = () => {
-    const params = new URLSearchParams(window.location.search)
     if (containsUUID(window.location.pathname)) {
-      window.history.pushState({}, '', '/' + `${params.toString() !== '' ? `?${params}` : ''}`)
+      removeItemFromUrl()
     }
-    document.title = document.title.split('-')[0]
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
-    document
-      .querySelector('meta[property="og:description"]')
-      ?.setAttribute(
-        'content',
-        `${document.querySelector('meta[name="description"]')?.getAttribute('content')}`,
-      )
+    resetMetaTagsUtil()
   }
 
   const onEachFeature = (feature: Feature<GeoJSONGeometry, any>, layer: L.Layer) => {
