@@ -169,6 +169,23 @@ export function UtopiaMapInner({
         document.title = `${document.title.split('-')[0]} - ${title}`
       }
     },
+    popupclose: () => {
+      // Remove UUID from URL when popup closes
+      if (containsUUID(window.location.pathname)) {
+        const params = new URLSearchParams(window.location.search)
+        window.history.pushState({}, '', '/' + `${params.toString() !== '' ? `?${params}` : ''}`)
+        // Reset page title
+        document.title = document.title.split('-')[0]
+        // Reset meta tags
+        document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
+        document
+          .querySelector('meta[property="og:description"]')
+          ?.setAttribute(
+            'content',
+            `${document.querySelector('meta[name="description"]')?.getAttribute('content')}`,
+          )
+      }
+    },
   })
 
   const openPopup = () => {
@@ -206,7 +223,7 @@ export function UtopiaMapInner({
 
   const resetMetaTags = () => {
     const params = new URLSearchParams(window.location.search)
-    if (!containsUUID(window.location.pathname)) {
+    if (containsUUID(window.location.pathname)) {
       window.history.pushState({}, '', '/' + `${params.toString() !== '' ? `?${params}` : ''}`)
     }
     document.title = document.title.split('-')[0]
