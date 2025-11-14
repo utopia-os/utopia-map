@@ -160,20 +160,28 @@ export function UtopiaMapInner({
   useMapEvents({
     popupopen: (e) => {
       const item = Object.entries(leafletRefs).find((r) => r[1].popup === e.popup)?.[1].item
-      if (window.location.pathname.split('/')[1] !== item?.id) {
-        if (!location.pathname.includes('/item/') && item?.id) {
+
+      // Only update URL if no profile is open
+      if (!location.pathname.includes('/item/')) {
+        if (window.location.pathname.split('/')[1] !== item?.id && item?.id) {
           setItemInUrl(item.id)
         }
         if (item?.name) {
           updateMetaTags(item.name, item.text)
         }
       }
+      // If profile is open, don't change URL but still update meta tags
+      else if (item?.name) {
+        updateMetaTags(item.name, item.text)
+      }
     },
     popupclose: () => {
-      // Remove UUID from URL when popup closes
-      if (containsUUID(window.location.pathname)) {
-        removeItemFromUrl()
-        resetMetaTagsUtil()
+      // Only remove UUID from URL if no profile is open
+      if (!location.pathname.includes('/item/')) {
+        if (containsUUID(window.location.pathname)) {
+          removeItemFromUrl()
+          resetMetaTagsUtil()
+        }
       }
     },
   })
