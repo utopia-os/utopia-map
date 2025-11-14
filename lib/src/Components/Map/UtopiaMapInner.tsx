@@ -157,9 +157,18 @@ export function UtopiaMapInner({
     return null
   }
 
+  // Track if we're currently switching popups to prevent URL cleanup
+  const popupCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   useMapEvents({
     popupopen: (e) => {
       const item = Object.entries(leafletRefs).find((r) => r[1].popup === e.popup)?.[1].item
+
+      // Cancel any pending popup close URL cleanup - we're opening a new popup
+      if (popupCloseTimeoutRef.current) {
+        clearTimeout(popupCloseTimeoutRef.current)
+        popupCloseTimeoutRef.current = null
+      }
 
       // Only update URL if no profile is open
       if (!location.pathname.includes('/item/')) {
@@ -178,10 +187,15 @@ export function UtopiaMapInner({
     popupclose: () => {
       // Only remove UUID from URL if no profile is open
       if (!location.pathname.includes('/item/')) {
-        if (containsUUID(window.location.pathname)) {
-          removeItemFromUrl()
-          resetMetaTagsUtil()
-        }
+        // Wait briefly to see if another popup is being opened
+        // If so, the popupopen handler will cancel this timeout
+        popupCloseTimeoutRef.current = setTimeout(() => {
+          if (containsUUID(window.location.pathname)) {
+            removeItemFromUrl()
+            resetMetaTagsUtil()
+          }
+          popupCloseTimeoutRef.current = null
+        }, 50)
       }
     },
   })
