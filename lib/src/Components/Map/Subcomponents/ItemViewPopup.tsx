@@ -5,7 +5,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { LatLng } from 'leaflet'
 import { forwardRef, useState } from 'react'
@@ -17,6 +16,7 @@ import { useRemoveItem, useUpdateItem } from '#components/Map/hooks/useItems'
 import { usePopupForm } from '#components/Map/hooks/usePopupForm'
 import { useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import { timeAgo } from '#utils/TimeAgo'
+import { removeItemFromUrl } from '#utils/UrlHelper'
 
 import { HeaderView } from './ItemPopupComponents/HeaderView'
 import { TextView } from './ItemPopupComponents/TextView'
@@ -80,8 +80,7 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
     }
     setLoading(false)
     map.closePopup()
-    const params = new URLSearchParams(window.location.search)
-    window.history.pushState({}, '', '/' + `${params ? `?${params}` : ''}`)
+    removeItemFromUrl()
     navigate('/')
   }
 
