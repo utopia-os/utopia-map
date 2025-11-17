@@ -32,7 +32,7 @@ export const Autocomplete = ({
     setFocus && inputRef.current?.focus()
   }, [setFocus])
 
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase()

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import type { Route } from './SideBar'
+import type { ReactElement } from 'react'
 
 function SidebarSubmenu({
   submenu,
@@ -10,7 +11,7 @@ function SidebarSubmenu({
   icon,
 }: {
   path: string
-  icon: JSX.Element
+  icon: ReactElement
   name: string
   submenu?: Route[]
 }) {

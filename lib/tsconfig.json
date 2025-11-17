@@ -24,7 +24,7 @@
       }
     },
   "include": ["src", "vite.config.ts", "setupTest.ts", "cypress.config.ts", "cypress/support/commands.ts", "cypress/support/component.ts"],
-  "exclude": ["node_modules", "dist", "example"],
+  "exclude": ["node_modules", "dist", "example", "**/*.spec.ts", "**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx"],
   "typeRoots": [
     "./src/types",
     "./node_modules/@types/"

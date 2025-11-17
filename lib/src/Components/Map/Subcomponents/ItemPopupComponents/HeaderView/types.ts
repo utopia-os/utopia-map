@@ -1,5 +1,6 @@
 import type { Item } from '#types/Item'
 import type { ItemsApi } from '#types/ItemsApi'
+import type { ReactElement } from 'react'
 
 export interface HeaderViewProps {
   item?: Item
@@ -16,7 +17,7 @@ export interface HeaderViewProps {
 
 export interface PlatformConfig {
   shareUrl: string
-  icon: JSX.Element
+  icon: ReactElement
   label: string
   bgColor: string
 }

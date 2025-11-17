@@ -3,3 +3,7 @@ dist/
 examples/
 docs/
 coverage/
+**/*.spec.ts
+**/*.spec.tsx
+**/*.test.ts
+**/*.test.tsx
