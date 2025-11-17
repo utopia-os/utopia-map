@@ -39,8 +39,12 @@ export const OverlayItemsIndexPage = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [addItemPopupOpen, setAddItemPopupOpen] = useState<boolean>(false)
+  const [itemsToShow, setItemsToShow] = useState<number>(30)
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
 
   const tabRef = useRef<HTMLFormElement>(null)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   function scroll() {
     tabRef.current?.scrollIntoView()
@@ -64,6 +68,65 @@ export const OverlayItemsIndexPage = ({
   const getItemTags = useGetItemTags()
 
   const layer = layers.find((l) => l.name === layerName)
+
+  // Filter and sort items once
+  const filteredAndSortedItems = items
+    .filter((i) => i.layer?.name === layerName)
+    .filter((item) =>
+      filterTags.length === 0
+        ? item
+        : filterTags.some((tag) =>
+            getItemTags(item).some(
+              (filterTag) => filterTag.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
+            ),
+          ),
+    )
+    .sort((a, b) => {
+      const dateA = a.date_updated
+        ? new Date(a.date_updated).getTime()
+        : a.date_created
+          ? new Date(a.date_created).getTime()
+          : 0
+      const dateB = b.date_updated
+        ? new Date(b.date_updated).getTime()
+        : b.date_created
+          ? new Date(b.date_created).getTime()
+          : 0
+      return dateB - dateA
+    })
+
+  const visibleItems = filteredAndSortedItems.slice(0, itemsToShow)
+  const hasMore = filteredAndSortedItems.length > itemsToShow
+
+  // Intersection Observer for infinite scroll
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    const scrollContainer = scrollContainerRef.current
+    if (!sentinel || !scrollContainer) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && !isLoadingMore) {
+          setIsLoadingMore(true)
+          // Load immediately without delay for smoother UX
+          setItemsToShow((prev) => prev + 24)
+          setIsLoadingMore(false)
+        }
+      },
+      {
+        root: scrollContainer,
+        rootMargin: '400px', // Start loading earlier (was 200px)
+        threshold: 0.1,
+      },
+    )
+
+    observer.observe(sentinel)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [isLoadingMore, hasMore, visibleItems.length])
 
   const submitNewItem = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
@@ -129,44 +192,18 @@ export const OverlayItemsIndexPage = ({
               <TagsControl />
             </Control>
           </div>
-          <div className='tw:overflow-scroll fade tw:flex-1'>
+          <div ref={scrollContainerRef} className='tw:overflow-scroll fade tw:flex-1'>
             <div className='tw:columns-1 tw:md:columns-2 tw:lg:columns-3 tw:2xl:columns-4 tw:gap-6 tw:pt-4'>
-              {items
-                .filter((i) => i.layer?.name === layerName)
-                .filter((item) =>
-                  filterTags.length === 0
-                    ? item
-                    : filterTags.some((tag) =>
-                        getItemTags(item).some(
-                          (filterTag) =>
-                            filterTag.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
-                        ),
-                      ),
-                )
-                .sort((a, b) => {
-                  // Convert date_created to milliseconds, handle undefined by converting to lowest possible date (0 milliseconds)
-                  const dateA = a.date_updated
-                    ? new Date(a.date_updated).getTime()
-                    : a.date_created
-                      ? new Date(a.date_created).getTime()
-                      : 0
-                  const dateB = b.date_updated
-                    ? new Date(b.date_updated).getTime()
-                    : b.date_created
-                      ? new Date(b.date_created).getTime()
-                      : 0
-                  return dateB - dateA // Subtracts milliseconds which are numbers
-                })
-                .map((i, k) => (
-                  <div key={k} className='tw:break-inside-avoid tw:mb-6'>
-                    <ItemCard
-                      i={i}
-                      loading={loading}
-                      url={url}
-                      deleteCallback={() => deleteItem(i)}
-                    />
-                  </div>
-                ))}
+              {visibleItems.map((i, k) => (
+                <div key={k} className='tw:break-inside-avoid tw:mb-6'>
+                  <ItemCard
+                    i={i}
+                    loading={loading}
+                    url={url}
+                    deleteCallback={() => deleteItem(i)}
+                  />
+                </div>
+              ))}
               {addItemPopupOpen && (
                 <form ref={tabRef} autoComplete='off' onSubmit={(e) => submitNewItem(e)}>
                   <div className='tw:cursor-pointer tw:break-inside-avoid card tw:border-[1px] tw:border-base-300 card-body tw:shadow-xl tw:bg-base-100 tw:text-base-content tw:p-6 tw:mb-10'>
@@ -205,6 +242,12 @@ export const OverlayItemsIndexPage = ({
                 </form>
               )}
             </div>
+            {/* Sentinel element for infinite scroll */}
+            {hasMore && (
+              <div ref={sentinelRef} className='tw:w-full tw:py-8 tw:flex tw:justify-center'>
+                {isLoadingMore && <span className='loading loading-spinner loading-lg'></span>}
+              </div>
+            )}
           </div>
         </div>
       </MapOverlayPage>
