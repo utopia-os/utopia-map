@@ -21,6 +21,28 @@
   },
   {
     "name": "Condition",
+    "key": "condition_8xh1o",
+    "type": "condition",
+    "position_x": 19,
+    "position_y": 1,
+    "options": {
+      "filter": {
+        "$trigger": {
+          "payload": {
+            "position": {
+              "_nempty": true
+            }
+          }
+        }
+      }
+    },
+    "resolve": "0d18abcf-70f9-4545-b583-e18e5ec533fa",
+    "reject": null,
+    "flow": "e28759ce-3995-4943-bbfc-f1ed08d42497",
+    "_syncId": "717fbd27-7c73-42a9-9408-532d5cd5248d"
+  },
+  {
+    "name": "Condition",
     "key": "condition_d2q1f",
     "type": "condition",
     "position_x": 36,
@@ -243,20 +265,6 @@
   },
   {
     "name": "Run Script",
-    "key": "exec_dsl0t",
-    "type": "exec",
-    "position_x": 56,
-    "position_y": 1,
-    "options": {
-      "code": "// Your function in the myScript operation\nmodule.exports = function (data) {\n    const payload = {...data.$trigger.payload}\n    payload.address = data.get_address_string.data.features[0].properties.city;\n    return payload;\n};"
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "e28759ce-3995-4943-bbfc-f1ed08d42497",
-    "_syncId": "d18a1aaf-77a6-453e-8142-5ca4f4181b05"
-  },
-  {
-    "name": "Run Script",
     "key": "exec_kuwlb",
     "type": "exec",
     "position_x": 37,
@@ -301,7 +309,7 @@
     "name": "Get Address String",
     "key": "get_address_string",
     "type": "request",
-    "position_x": 19,
+    "position_x": 37,
     "position_y": 1,
     "options": {
       "method": "GET",
@@ -1252,10 +1260,10 @@
     "name": "Update Data",
     "key": "item_update_h2lfe",
     "type": "item-update",
-    "position_x": 38,
+    "position_x": 55,
     "position_y": 1,
     "options": {
-      "permissions": "$trigger",
+      "permissions": "$full",
       "emitEvents": false,
       "collection": "items",
       "key": [
@@ -1265,7 +1273,7 @@
         "address": "{{$last.data.features[0].properties.city}}"
       }
     },
-    "resolve": "d18a1aaf-77a6-453e-8142-5ca4f4181b05",
+    "resolve": null,
     "reject": null,
     "flow": "e28759ce-3995-4943-bbfc-f1ed08d42497",
     "_syncId": "7e6101d2-3d8c-49e2-894e-3121c9eff06b"

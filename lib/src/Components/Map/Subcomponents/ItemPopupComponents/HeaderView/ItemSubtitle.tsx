@@ -1,5 +1,7 @@
 import { MapPinIcon } from '@heroicons/react/24/solid'
+import { useEffect, useRef } from 'react'
 
+import { useAuth } from '#components/Auth/useAuth'
 import { useGeoDistance } from '#components/Map/hooks/useGeoDistance'
 import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
 
@@ -20,6 +22,7 @@ export function ItemSubtitle({
   truncate = true,
   showDistance = true,
 }: ItemSubtitleProps) {
+  const { user } = useAuth()
   const { distance } = useGeoDistance(item.position ?? undefined)
   const { formatDistance } = useFormatDistance()
 
@@ -34,6 +37,36 @@ export function ItemSubtitle({
 
   const address = item.address && item.address.trim() !== '' ? item.address : geocodedAddress
   const subtitle = item.subname
+
+  // Track if we've already backfilled this item to avoid duplicate updates
+  const backfilledRef = useRef(new Set<string>())
+
+  // Frontend backfill: Save geocoded address to database for items without address
+  // Only for logged-in users to avoid permission issues with public role
+  useEffect(() => {
+    const itemId = item.id
+    const hasNoAddress = !item.address || item.address.trim() === ''
+    const hasGeocodedAddress = geocodedAddress && geocodedAddress.trim() !== ''
+    const notYetBackfilled = !backfilledRef.current.has(itemId)
+    const isLoggedIn = !!user?.id
+
+    if (
+      hasNoAddress &&
+      hasGeocodedAddress &&
+      notYetBackfilled &&
+      isLoggedIn &&
+      item.layer?.api?.updateItem
+    ) {
+      // Mark as backfilled immediately to prevent duplicate calls
+      backfilledRef.current.add(itemId)
+
+      // Asynchronously save to database (silent fail)
+      void item.layer.api.updateItem({ id: itemId, address: geocodedAddress }).catch(() => {
+        // Silent fail - if update fails, remove from backfilled set to retry later
+        backfilledRef.current.delete(itemId)
+      })
+    }
+  }, [geocodedAddress, item.address, item.id, item.layer?.api, user?.id])
 
   if (mode === 'address' && address) {
     return (

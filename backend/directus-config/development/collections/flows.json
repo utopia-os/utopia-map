@@ -294,21 +294,20 @@
     "icon": "home_pin",
     "color": null,
     "description": "Requests the items address on update / create",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
-      "type": "filter",
+      "type": "action",
       "scope": [
-        "items.update",
-        "items.create"
+        "items.create",
+        "items.update"
       ],
       "collections": [
         "items"
-      ],
-      "return": "$last"
+      ]
     },
-    "operation": "0d18abcf-70f9-4545-b583-e18e5ec533fa",
+    "operation": "717fbd27-7c73-42a9-9408-532d5cd5248d",
     "_syncId": "e28759ce-3995-4943-bbfc-f1ed08d42497"
   },
   {
