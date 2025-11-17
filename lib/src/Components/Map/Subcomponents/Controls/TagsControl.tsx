@@ -6,7 +6,7 @@ export const TagsControl = () => {
   const removeFilterTag = useRemoveFilterTag()
 
   return (
-    <div className='tw:flex tw:flex-wrap tw:mt-4 tw:w-[calc(100vw-2rem)] tw:max-w-xs'>
+    <div className='tw:flex tw:flex-wrap tw:mt-4 tw:w-[calc(100vw-2rem)] tw:max-w-xs tw:relative'>
       {filterTags.map((tag) => (
         <div
           key={tag.id}
