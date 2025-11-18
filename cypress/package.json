@@ -21,7 +21,7 @@
     "utopia-map"
   ],
   "devDependencies": {
-    "@eslint/js": "^9.36.0",
+    "@eslint/js": "^9.39.1",
     "@types/mochawesome": "^6.2.4",
     "@types/node": "^24.5.2",
     "cypress": "^15.3.0",
