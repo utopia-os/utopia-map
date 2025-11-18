@@ -36,8 +36,7 @@ cd backend/
 ./push.sh
 ./seed.sh
 ```
-Frontend running on http://localhost:8080
-Backend running on http://localhost:8055
+After this the frontend is running on http://localhost:8080 and the backend running on http://localhost:8055
 
 ## Get your Map! 🌱 🌍
 
