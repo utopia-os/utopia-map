@@ -30,7 +30,7 @@
     "eslint-plugin-cypress": "^5.1.1",
     "mochawesome": "^7.1.4",
     "mochawesome-merge": "^4.3.0",
-    "mochawesome-report-generator": "^6.2.0",
+    "mochawesome-report-generator": "^6.3.2",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.44.1"
   }
