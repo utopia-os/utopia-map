@@ -32,6 +32,8 @@ jobs:
             backend
             app
             lib
+            deps
+            deps-dev
             docu
             docker
             release

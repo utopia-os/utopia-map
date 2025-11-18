@@ -1,0 +1,165 @@
+version: 2
+updates:
+  # ============================================================================
+  # NPM ECOSYSTEM - Main Application & Library
+  # ============================================================================
+  
+  # Main App (Frontend)
+  - package-ecosystem: "npm"
+    directory: "/app"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/parser"
+          - "@typescript-eslint/eslint-plugin"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Library (utopia-ui)
+  - package-ecosystem: "npm"
+    directory: "/lib"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      tiptap:
+        patterns:
+          - "@tiptap/core"
+          - "@tiptap/extension-*"
+          - "@tiptap/pm"
+          - "@tiptap/react"
+          - "@tiptap/starter-kit"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/parser"
+          - "@typescript-eslint/eslint-plugin"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Backend Extensions
+  - package-ecosystem: "npm"
+    directory: "/backend/extensions"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Cypress E2E Tests
+  - package-ecosystem: "npm"
+    directory: "/cypress"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    labels:
+      - "dependencies"
+      - "javascript"
+  # ============================================================================
+  # NPM ECOSYSTEM - Library Examples (Lower Priority)
+  # ============================================================================
+
+  # Example 1: Basic Map
+  - package-ecosystem: "npm"
+    directory: "/lib/examples/1-basic-map"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Example 2: Static Layers
+  - package-ecosystem: "npm"
+    directory: "/lib/examples/2-static-layers"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # Example 3: Tags
+  - package-ecosystem: "npm"
+    directory: "/lib/examples/3-tags"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  # ============================================================================
+  # GITHUB ACTIONS ECOSYSTEM
+  # ============================================================================
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    labels:
+      - "dependencies"
+      - "github_actions"
