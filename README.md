@@ -27,7 +27,6 @@ Clone the repository and get started with the following commands:
 ```bash
 docker compose up -d
 ```
-
 **Initialize backend**
 
 ```bash
@@ -37,6 +36,12 @@ cd backend/
 ./seed.sh
 ```
 After this the frontend is running on http://localhost:8080 and the backend on http://localhost:8055
+
+**Start dev server**
+```bash
+cd app/
+npm run dev
+```
 
 ## Get your Map! 🌱 🌍
 
