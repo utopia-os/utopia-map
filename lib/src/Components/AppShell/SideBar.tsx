@@ -4,11 +4,9 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { useAppState, useSetAppState } from './hooks/useAppState'
 import SidebarSubmenu from './SidebarSubmenu'
 
-import type { ReactElement } from 'react'
-
 export interface Route {
   path: string
-  icon: ReactElement
+  icon: JSX.Element
   name: string
   submenu?: Route[]
   blank?: boolean
