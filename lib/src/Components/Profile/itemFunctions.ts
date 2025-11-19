@@ -273,7 +273,7 @@ export const onUpdateItem = async (
   setLoading(true)
 
   state.text
-    .toLocaleLowerCase()
+    ?.toLocaleLowerCase()
     .match(hashTagRegex)
     ?.map((tag) => {
       if (!tags.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase())) {
