@@ -43,7 +43,7 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-no-catch-all": "^1.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.18",
