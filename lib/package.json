@@ -63,7 +63,7 @@
     "cypress": "^15.6.0",
     "daisyui": "^5.2.3",
     "eslint": "^8.24.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-config-standard": "^17.1.0",
     "eslint-import-resolver-typescript": "^3.6.3",
     "eslint-plugin-import": "^2.31.0",
