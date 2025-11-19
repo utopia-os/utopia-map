@@ -45,7 +45,7 @@
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.1",
     "@rollup/plugin-alias": "^5.1.1",
-    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-commonjs": "^29.0.0",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-typescript": "^12.1.2",
     "@tailwindcss/postcss": "^4.0.14",
