@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -15,6 +14,12 @@ import { toast } from 'react-toastify'
 import { useSetAppState } from '#components/AppShell/hooks/useAppState'
 import { useTheme } from '#components/AppShell/hooks/useTheme'
 import { containsUUID } from '#utils/ContainsUUID'
+import {
+  removeItemFromUrl,
+  resetMetaTags as resetMetaTagsUtil,
+  setItemInUrl,
+  updateMetaTags,
+} from '#utils/UrlHelper'
 
 import { useClusterRef, useSetClusterRef } from './hooks/useClusterRef'
 import {
@@ -152,21 +157,45 @@ export function UtopiaMapInner({
     return null
   }
 
+  // Track if we're currently switching popups to prevent URL cleanup
+  const popupCloseTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
   useMapEvents({
     popupopen: (e) => {
       const item = Object.entries(leafletRefs).find((r) => r[1].popup === e.popup)?.[1].item
-      if (window.location.pathname.split('/')[1] !== item?.id) {
-        const params = new URLSearchParams(window.location.search)
-        if (!location.pathname.includes('/item/')) {
-          window.history.pushState(
-            {},
-            '',
-            `/${item?.id}` + `${params.toString() !== '' ? `?${params}` : ''}`,
-          )
+
+      // Cancel any pending popup close URL cleanup - we're opening a new popup
+      if (popupCloseTimeoutRef.current) {
+        clearTimeout(popupCloseTimeoutRef.current)
+        popupCloseTimeoutRef.current = null
+      }
+
+      // Only update URL if no profile is open
+      if (!location.pathname.includes('/item/')) {
+        if (window.location.pathname.split('/')[1] !== item?.id && item?.id) {
+          setItemInUrl(item.id)
         }
-        let title = ''
-        if (item?.name) title = item.name
-        document.title = `${document.title.split('-')[0]} - ${title}`
+        if (item?.name) {
+          updateMetaTags(item.name, item.text)
+        }
+      }
+      // If profile is open, don't change URL but still update meta tags
+      else if (item?.name) {
+        updateMetaTags(item.name, item.text)
+      }
+    },
+    popupclose: () => {
+      // Only remove UUID from URL if no profile is open
+      if (!location.pathname.includes('/item/')) {
+        // Wait briefly to see if another popup is being opened
+        // If so, the popupopen handler will cancel this timeout
+        popupCloseTimeoutRef.current = setTimeout(() => {
+          if (containsUUID(window.location.pathname)) {
+            removeItemFromUrl()
+            resetMetaTagsUtil()
+          }
+          popupCloseTimeoutRef.current = null
+        }, 50)
       }
     },
   })
@@ -185,15 +214,9 @@ export function UtopiaMapInner({
             clusterRef?.zoomToShowLayer(ref.marker, () => {
               ref.marker.openPopup()
             })
-          let title = ''
-          if (ref.item.name) title = ref.item.name
-          document.title = `${document.title.split('-')[0]} - ${title}`
-          document
-            .querySelector('meta[property="og:title"]')
-            ?.setAttribute('content', ref.item.name ?? '')
-          document
-            .querySelector('meta[property="og:description"]')
-            ?.setAttribute('content', ref.item.text ?? '')
+          if (ref.item.name) {
+            updateMetaTags(ref.item.name, ref.item.text)
+          }
         }
       }
     }
@@ -205,18 +228,10 @@ export function UtopiaMapInner({
   }, [leafletRefs, location])
 
   const resetMetaTags = () => {
-    const params = new URLSearchParams(window.location.search)
-    if (!containsUUID(window.location.pathname)) {
-      window.history.pushState({}, '', '/' + `${params.toString() !== '' ? `?${params}` : ''}`)
+    if (containsUUID(window.location.pathname)) {
+      removeItemFromUrl()
     }
-    document.title = document.title.split('-')[0]
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', document.title)
-    document
-      .querySelector('meta[property="og:description"]')
-      ?.setAttribute(
-        'content',
-        `${document.querySelector('meta[name="description"]')?.getAttribute('content')}`,
-      )
+    resetMetaTagsUtil()
   }
 
   const onEachFeature = (feature: Feature<GeoJSONGeometry, any>, layer: L.Layer) => {
