@@ -87,7 +87,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svg": "^2.0.0",
     "tailwindcss": "^4.0.14",
-    "typedoc": "^0.27.6",
+    "typedoc": "^0.28.14",
     "typedoc-plugin-coverage": "^3.4.1",
     "typedoc-plugin-missing-exports": "^3.1.0",
     "typescript": "^5.7.3",
