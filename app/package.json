@@ -18,7 +18,7 @@
     "@tailwindcss/vite": "^4.0.15",
     "@types/geojson": "^7946.0.10",
     "axios": "^1.6.5",
-    "date-fns": "^3.3.1",
+    "date-fns": "^4.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
