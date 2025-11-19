@@ -15,7 +15,7 @@
     "utopia-ui": "latest"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0",
+    "@eslint/js": "^9.39.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",
