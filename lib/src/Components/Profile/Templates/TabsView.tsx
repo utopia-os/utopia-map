@@ -17,6 +17,7 @@ import { ActionButton } from '#components/Profile/Subcomponents/ActionsButton'
 import { LinkedItemsHeaderView } from '#components/Profile/Subcomponents/LinkedItemsHeaderView'
 import { TagView } from '#components/Templates/TagView'
 import { timeAgo } from '#utils/TimeAgo'
+import { setUrlParam } from '#utils/UrlHelper'
 
 import type { Item } from '#types/Item'
 import type { Tag } from '#types/Tag'
@@ -67,11 +68,7 @@ export const TabsView = ({
   const updateActiveTab = useCallback(
     (id: number) => {
       setActiveTab(id)
-
-      const params = new URLSearchParams(window.location.search)
-      params.set('tab', `${id}`)
-      const newUrl = location.pathname + '?' + params.toString()
-      window.history.pushState({}, '', newUrl)
+      setUrlParam('tab', `${id}`)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [location.pathname],
