@@ -22,7 +22,7 @@
   ],
   "devDependencies": {
     "@eslint/js": "^9.36.0",
-    "@types/mochawesome": "^6.2.4",
+    "@types/mochawesome": "^6.2.5",
     "@types/node": "^24.5.2",
     "cypress": "^15.6.0",
     "cypress-split": "^1.24.25",
