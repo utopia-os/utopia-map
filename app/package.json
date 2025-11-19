@@ -15,7 +15,7 @@
   "dependencies": {
     "@directus/sdk": "^17.0.2",
     "@heroicons/react": "^2.1.1",
-    "@tailwindcss/vite": "^4.0.15",
+    "@tailwindcss/vite": "^4.1.17",
     "@types/geojson": "^7946.0.10",
     "axios": "^1.6.5",
     "date-fns": "^3.3.1",
