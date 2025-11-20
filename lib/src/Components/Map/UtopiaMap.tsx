@@ -3,8 +3,10 @@ import { MapContainer } from 'react-leaflet'
 
 import { ContextWrapper } from '#components/AppShell/ContextWrapper'
 
+import { useRedeemInvite } from './hooks/useRedeemInvite'
 import { UtopiaMapInner } from './UtopiaMapInner'
 
+import type { InviteApi } from '#types/InviteApi'
 import type { GeoJsonObject } from 'geojson'
 
 /**
@@ -59,6 +61,7 @@ function UtopiaMap({
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
+  inviteApi,
   tilesType = 'raster',
   maplibreStyle,
   zoomOffset,
@@ -98,6 +101,8 @@ function UtopiaMap({
   tileServerUrl?: string
   /** configure a custom tile server attribution */
   tileServerAttribution?: string
+  /** API to redeem invite codes */
+  inviteApi: InviteApi
   /** tiles type: 'raster' or 'maplibre' (default 'raster') */
   tilesType?: 'raster' | 'maplibre'
   /** MapLibre style URL for vector tiles (default: OpenFreeMap Liberty) */
@@ -107,6 +112,8 @@ function UtopiaMap({
   /** tile size (default 256) */
   tileSize?: number
 }) {
+  // Check for invite code in localStorage and loaded profile, redeem if possible
+  useRedeemInvite(inviteApi)
   return (
     <ContextWrapper>
       <MapContainer
