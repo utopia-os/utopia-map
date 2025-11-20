@@ -36,12 +36,12 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
   const [apis, setApis] = useState<layerApi[]>([])
 
   useEffect(() => {
-    // get timestamp for the end of the current day
+    // get timestamp for the start of the current day
     const now = new Date()
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     const startOfDayISO = startOfDay.toISOString()
 
-    layers.map((layer: LayerProps) => {
+    const newApis = layers.map((layer: LayerProps) => {
       // Only apply date filter if showPastItems is not explicitly set to true
       const dateFilter = layer.showPastItems
         ? undefined
@@ -60,15 +60,13 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
             ],
           }
 
-      apis &&
-        setApis((current) => [
-          ...current,
-          {
-            id: layer.id,
-            api: new itemsApi<Place>('items', layer.id, undefined, dateFilter),
-          },
-        ])
+      return {
+        id: layer.id,
+        api: new itemsApi<Place>('items', layer.id, undefined, dateFilter),
+      }
     })
+
+    setApis(newApis)
   }, [layers])
 
   useEffect(() => {}, [apis])
