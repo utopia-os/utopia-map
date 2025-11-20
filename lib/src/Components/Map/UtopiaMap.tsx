@@ -140,6 +140,7 @@ function UtopiaMap({
           maplibreStyle={maplibreStyle}
           zoomOffset={zoomOffset}
           tileSize={tileSize}
+          showZoomControl={showZoomControl}
         >
           {children}
         </UtopiaMapInner>

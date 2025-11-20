@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    groups:
+      react-ecosystem:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+      typescript-eslint:
+        patterns:
+          - "@typescript-eslint/parser"
+          - "@typescript-eslint/eslint-plugin"
+      tiptap:
+        patterns:
+          - "@tiptap/core"
+          - "@tiptap/extension-*"
+          - "@tiptap/pm"
+          - "@tiptap/react"
+          - "@tiptap/starter-kit"
+    labels:
+      - "dependencies"
+      - "javascript"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+      time: "03:00"
+      timezone: "Europe/Berlin"
+    open-pull-requests-limit: 99
+    labels:
+      - "dependencies"
+      - "github_actions"
