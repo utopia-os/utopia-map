@@ -26,4 +26,5 @@ export interface LayerProps {
   listed?: boolean
   item_presets?: Record<string, unknown>
   item_default_name?: string
+  showPastItems?: boolean
 }
