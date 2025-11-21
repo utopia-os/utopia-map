@@ -39,7 +39,11 @@ jobs:
           mkdir -p ./data/uploads
           sudo chmod 777 -R ./data
           docker compose -f docker-compose.yml up -d
-          sleep 5
+          npx directus-sync@3.4.0 wait-server-ready \
+            --directus-url http://localhost:8055 \
+            --directus-email admin@it4c.dev \
+            --directus-password admin123 \
+            --timeout 120
           cd backend && ./push.sh && ./seed.sh
         working-directory: ${{env.WORKING_DIRECTORY}}
 
