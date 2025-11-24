@@ -12,10 +12,10 @@ jobs:
       test_failed: ${{ steps.report-results.outputs.test_failed }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v5.0.0
 
       - name: Set up Node.js
-        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v5.0.0
         with:
           node-version-file: ./.tool-versions
           cache: 'npm'
@@ -156,10 +156,10 @@ jobs:
     if: failure() && needs.cypress-e2e-tests.result == 'failure'
     steps:
       - name: Checkout code
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v5.0.0
         with:
           node-version: '20'
           cache: 'npm'
