@@ -32,6 +32,6 @@
     "mochawesome-merge": "^5.0.0",
     "mochawesome-report-generator": "^6.3.2",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.44.1"
+    "typescript-eslint": "^8.47.0"
   }
 }
