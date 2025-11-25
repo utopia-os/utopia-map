@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useContext, createContext } from 'react'
 import { BrowserRouter as Router, useInRouterContext } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
@@ -54,8 +53,6 @@ export const ContextWrapper = ({ children }: { children: React.ReactNode }) => {
 
 // eslint-disable-next-line react/prop-types
 export const Wrappers = ({ children }) => {
-  const queryClient = new QueryClient()
-
   return (
     <PermissionsProvider initialPermissions={[]}>
       <TagsProvider initialTags={[]}>
@@ -64,30 +61,28 @@ export const Wrappers = ({ children }) => {
             <ItemsProvider initialItems={[]}>
               <SelectPositionProvider>
                 <LeafletRefsProvider initialLeafletRefs={{}}>
-                  <QueryClientProvider client={queryClient}>
-                    <AppStateProvider>
-                      <ClusterRefProvider>
-                        <PopupFormProvider>
-                          <QuestsProvider initialOpen={true}>
-                            <ToastContainer
-                              position='top-right'
-                              autoClose={2000}
-                              hideProgressBar
-                              newestOnTop={false}
-                              closeOnClick
-                              rtl={false}
-                              pauseOnFocusLoss
-                              draggable
-                              pauseOnHover
-                              theme='light'
-                              closeButton={CloseButton}
-                            />
-                            {children}
-                          </QuestsProvider>
-                        </PopupFormProvider>
-                      </ClusterRefProvider>
-                    </AppStateProvider>
-                  </QueryClientProvider>
+                  <AppStateProvider>
+                    <ClusterRefProvider>
+                      <PopupFormProvider>
+                        <QuestsProvider initialOpen={true}>
+                          <ToastContainer
+                            position='top-right'
+                            autoClose={2000}
+                            hideProgressBar
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme='light'
+                            closeButton={CloseButton}
+                          />
+                          {children}
+                        </QuestsProvider>
+                      </PopupFormProvider>
+                    </ClusterRefProvider>
+                  </AppStateProvider>
                 </LeafletRefsProvider>
               </SelectPositionProvider>
             </ItemsProvider>

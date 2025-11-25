@@ -44,7 +44,7 @@ export function RichTextEditor({
 
     const regex = /!\[.*?\]\(.*?\)/g
     newValue = newValue.replace(regex, (match: string) => match + '\n\n')
-    if (updateFormValue && newValue) {
+    if (updateFormValue) {
       updateFormValue(newValue)
     }
   }
