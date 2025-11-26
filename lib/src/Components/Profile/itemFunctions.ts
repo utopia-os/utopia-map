@@ -14,6 +14,7 @@ import { toast } from 'react-toastify'
 import { encodeTag } from '#utils/FormatTags'
 import { hashTagRegex } from '#utils/HashTagRegex'
 import { randomColor } from '#utils/RandomColor'
+import { removeItemFromUrl } from '#utils/UrlHelper'
 
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
@@ -185,8 +186,7 @@ export const handleDelete = async (
     toast.success('Item deleted')
 
     map.closePopup()
-    const params = new URLSearchParams(window.location.search)
-    window.history.pushState({}, '', '/' + `${params ? `?${params}` : ''}`)
+    removeItemFromUrl()
     navigate('/')
   } catch (error) {
     toast.error(error instanceof Error ? error.message : String(error))
@@ -273,7 +273,7 @@ export const onUpdateItem = async (
   setLoading(true)
 
   state.text
-    .toLocaleLowerCase()
+    ?.toLocaleLowerCase()
     .match(hashTagRegex)
     ?.map((tag) => {
       if (!tags.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase())) {
