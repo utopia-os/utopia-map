@@ -3,7 +3,7 @@ import { MapContainer } from 'react-leaflet'
 
 import { ContextWrapper } from '#components/AppShell/ContextWrapper'
 
-import { useRedeemInvite } from './hooks/useRedeemInvite'
+import { useStoredInviteCode } from './hooks/useStoredInviteCode'
 import { UtopiaMapInner } from './UtopiaMapInner'
 
 import type { InviteApi } from '#types/InviteApi'
@@ -112,8 +112,8 @@ function UtopiaMap({
   /** tile size (default 256) */
   tileSize?: number
 }) {
-  // Check for invite code in localStorage and loaded profile, redeem if possible
-  useRedeemInvite(inviteApi)
+  // Check for invite code in localStorage
+  useStoredInviteCode()
   return (
     <ContextWrapper>
       <MapContainer

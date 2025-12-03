@@ -23,7 +23,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const { myProfile, isMyProfileLoaded } = useMyProfile()
+  const { myProfile, isMyProfileLoaded, createEmptyProfile } = useMyProfile()
 
   if (!id) throw new Error('Invite ID is required')
 
@@ -31,20 +31,42 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const [isRedeemingDone, setRedeemingDone] = useState(false)
   const [isValidationDone, setValidationDone] = useState(false)
 
-  useEffect(() => {
-    async function redeemInvite(id: string, myProfileId: string) {
-      const invitingProfileId = await inviteApi.redeemInvite(id, myProfileId)
+  async function redeemInvite(id: string, myProfileId: string) {
+    const invitingProfileId = await inviteApi.redeemInvite(id, myProfileId)
 
-      if (invitingProfileId) {
-        toast.success('Invite redeemed successfully!')
-        setRedeemingDone(true)
-        navigate(`/item/${invitingProfileId}`)
-      } else {
-        toast.error('Failed to redeem invite')
-        navigate('/')
-      }
+    if (invitingProfileId) {
+      toast.success('Invite redeemed successfully!')
+      localStorage.removeItem('inviteCode')
+      setRedeemingDone(true)
+      navigate(`/item/${invitingProfileId}`)
+    } else {
+      toast.error('Failed to redeem invite')
+      navigate('/')
+    }
+  }
+
+  const confirmFollowAsync = async () => {
+    if (!isAuthenticated) return
+
+    if (!isMyProfileLoaded || isRedeemingDone) return
+
+    const myActualProfile = myProfile ?? (await createEmptyProfile())
+
+    if (!myActualProfile) {
+      toast.error('Failed to create profile')
+      return
     }
 
+    await redeemInvite(id, myActualProfile.id)
+
+    setRedeemingDone(true)
+  }
+
+  const confirmFollow = () => {
+    void confirmFollowAsync()
+  }
+
+  useEffect(() => {
     async function validateInvite(id: string) {
       const invitingProfileId = await inviteApi.validateInvite(id)
 
@@ -72,23 +94,14 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
     if (!isAuthenticationInitialized) return
 
-    if (isAuthenticated) {
-      if (!isMyProfileLoaded || isRedeemingDone) return
+    if (isValidationDone) return
 
-      if (!myProfile) {
-        toast.error('Could not find your profile to redeem the invite.')
-      } else {
-        void redeemInvite(id, myProfile.id)
-      }
-      setRedeemingDone(true)
-    } else {
-      if (isValidationDone) return
-
+    if (!isAuthenticated) {
       // Save invite code in local storage
       localStorage.setItem('inviteCode', id)
-
-      void validateInvite(id)
     }
+
+    void validateInvite(id)
   }, [
     id,
     isAuthenticated,
@@ -100,6 +113,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
     itemsApi,
     isRedeemingDone,
     isValidationDone,
+    createEmptyProfile,
   ])
 
   const goToSignup = () => {
@@ -108,6 +122,35 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
   const goToLogin = () => {
     navigate('/login')
+  }
+
+  const goToStart = () => {
+    navigate('/')
+  }
+
+  if (isAuthenticated) {
+    return (
+      <MapOverlayPage backdrop className='tw:max-w-xs tw:h-fit'>
+        <h2 className='tw-text-2xl tw-font-semibold tw-mb-2 tw-text-center'>Confirmation</h2>
+        {invitingProfile ? (
+          <div className='tw-text-center tw-mb-4'>
+            <p className='tw-text-sm tw-text-gray-600'>
+              Do you want to follow <strong>{invitingProfile.name}</strong>?
+            </p>
+            <div className='tw-flex tw:justify-center tw:mt-4'>
+              <button className='tw-btn tw-btn-primary' onClick={confirmFollow}>
+                Yes
+              </button>
+              <button className='tw-btn tw-btn-secondary' onClick={goToStart}>
+                No
+              </button>
+            </div>
+          </div>
+        ) : (
+          <p className='tw-text-center'>Validating invite...</p>
+        )}
+      </MapOverlayPage>
+    )
   }
 
   return (
@@ -121,17 +164,12 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
             community.
           </p>
           <div className='tw-flex tw:justify-center tw:mt-4'>
-            <button
-              className='tw-btn tw-btn-primary'
-              onClick={isAuthenticated ? () => navigate('/') : goToSignup}
-            >
-              {isAuthenticated ? 'Go to Dashboard' : 'Sign Up'}
+            <button className='tw-btn tw-btn-primary' onClick={goToSignup}>
+              {'Sign Up'}
             </button>
-            {!isAuthenticated && (
-              <button className='tw-btn tw-btn-secondary' onClick={goToLogin}>
-                Login
-              </button>
-            )}
+            <button className='tw-btn tw-btn-secondary' onClick={goToLogin}>
+              Login
+            </button>
           </div>
         </div>
       ) : (
