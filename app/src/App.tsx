@@ -143,7 +143,7 @@ function App() {
             path: '/' + l.name, // url
             icon: l.markerIcon?.image ? (
               <SVG
-                src={`${config.apiUrl}assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
+                src={`${config.apiUrl}/assets/${l.markerIcon.image_outline ?? l.markerIcon.image}`}
                 style={{
                   width: `${(l.markerIcon.size ?? 18) * 1.3}px`,
                   height: `${(l.markerIcon.size ?? 18) * 1.3}px`,
@@ -184,7 +184,7 @@ function App() {
         link.rel = 'icon'
         document.getElementsByTagName('head')[0].appendChild(link)
       }
-      link.href = map?.logo && config.apiUrl + 'assets/' + map.logo // Specify the path to your favicon
+      link.href = map?.logo && config.apiUrl + '/assets/' + map.logo // Specify the path to your favicon
     }
 
     // Only set loading to false when both map and layers are successfully loaded
@@ -206,7 +206,7 @@ function App() {
       <div className='App tw:overflow-x-hidden'>
         <AuthProvider userApi={userApi} inviteApi={inviteApi}>
           <AppShell
-            assetsApi={new assetsApi(config.apiUrl + 'assets/')}
+            assetsApi={new assetsApi(config.apiUrl + '/assets/')}
             appName={map.name}
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
