@@ -72,22 +72,36 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
       if (!invitingProfileId) {
         toast.error('Invalid invite code')
-        setValidationDone(true)
         navigate('/')
         return
       }
 
       const invitingProfile = await itemsApi.getItem(invitingProfileId)
 
+      if (invitingProfileId === myProfile?.id) {
+        toast.error('You cannot invite yourself')
+        // Navigate to own profile
+        navigate('/item/' + myProfile.id)
+        return
+      }
+
+      if (
+        myProfile?.relations?.some(
+          (r) => r.type === 'is_following' && r.related_items_id === invitingProfileId,
+        )
+      ) {
+        toast.error('You are already following this profile')
+        navigate('/item/' + invitingProfileId)
+        return
+      }
+
       if (!invitingProfile) {
         toast.error('Inviting profile not found')
-        setValidationDone(true)
         navigate('/')
         return
       }
 
       setInvitingProfile(invitingProfile)
-      setValidationDone(true)
     }
 
     if (!id) throw new Error('Invite ID is required')
@@ -101,7 +115,10 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       localStorage.setItem('inviteCode', id)
     }
 
+    if (!isMyProfileLoaded) return
+
     void validateInvite(id)
+    setValidationDone(true)
   }, [
     id,
     isAuthenticated,
