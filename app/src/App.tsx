@@ -200,7 +200,7 @@ function App() {
       <div className='App tw:overflow-x-hidden'>
         <AuthProvider userApi={userApi} inviteApi={inviteApi}>
           <AppShell
-            assetsApi={new assetsApi(config.apiUrl + 'assets/')}
+            assetsApi={new assetsApi(config.apiUrl + '/assets/')}
             appName={map.name}
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
