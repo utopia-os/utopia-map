@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable @typescript-eslint/ban-types */
 import { useCallback, useReducer, createContext, useContext } from 'react'
 
 import type { Item } from '#types/Item'
