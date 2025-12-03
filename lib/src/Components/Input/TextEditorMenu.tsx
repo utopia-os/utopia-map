@@ -16,14 +16,14 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
     selector: (ctx) => {
       return {
         isBold: ctx.editor.isActive('bold'),
-        canBold: ctx.editor.can().chain().focus().toggleBold().run(),
+        canBold: ctx.editor.can().toggleBold(),
         isItalic: ctx.editor.isActive('italic'),
-        canItalic: ctx.editor.can().chain().focus().toggleItalic().run(),
+        canItalic: ctx.editor.can().toggleItalic(),
         isStrike: ctx.editor.isActive('strike'),
-        canStrike: ctx.editor.can().chain().focus().toggleStrike().run(),
+        canStrike: ctx.editor.can().toggleStrike(),
         isCode: ctx.editor.isActive('code'),
-        canCode: ctx.editor.can().chain().focus().toggleCode().run(),
-        canClearMarks: ctx.editor.can().chain().focus().unsetAllMarks().run(),
+        canCode: ctx.editor.can().toggleCode(),
+        canClearMarks: ctx.editor.can().unsetAllMarks(),
         isParagraph: ctx.editor.isActive('paragraph'),
         isHeading1: ctx.editor.isActive('heading', { level: 1 }),
         isHeading2: ctx.editor.isActive('heading', { level: 2 }),
@@ -36,8 +36,8 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
         isOrderedList: ctx.editor.isActive('orderedList'),
         isCodeBlock: ctx.editor.isActive('codeBlock'),
         isBlockquote: ctx.editor.isActive('blockquote'),
-        canUndo: ctx.editor.can().chain().focus().undo().run(),
-        canRedo: ctx.editor.can().chain().focus().redo().run(),
+        canUndo: ctx.editor.can().undo(),
+        canRedo: ctx.editor.can().redo(),
       }
     },
   })

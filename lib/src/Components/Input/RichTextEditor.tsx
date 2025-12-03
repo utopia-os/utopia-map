@@ -98,7 +98,7 @@ export function RichTextEditor({
         className={`editor-wrapper tw:border-base-content/20 tw:rounded-box tw:border tw:flex tw:flex-col tw:flex-1 tw:min-h-0`}
       >
         <>
-          {showMenu ? <TextEditorMenu editor={editor} /> : null}
+          {showMenu && editor ? <TextEditorMenu editor={editor} /> : null}
           <EditorContent editor={editor} />
         </>
       </div>
