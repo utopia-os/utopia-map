@@ -345,7 +345,7 @@ export function UtopiaMapInner({
           eventHandlers={{
             click: (e) => {
               if (selectNewItemPosition) {
-                e.layer.closePopup()
+                e.propagatedFrom.closePopup()
                 setMapClicked({ position: e.latlng, setItemFormPopup: setPopupForm })
               }
             },
