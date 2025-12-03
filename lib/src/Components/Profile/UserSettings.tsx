@@ -44,7 +44,9 @@ export function UserSettings() {
           },
         },
       })
-      .then(() => navigate('/'))
+      .then(() => {
+        navigate('/')
+      })
       .catch((e) => {
         throw e
       })
@@ -62,7 +64,9 @@ export function UserSettings() {
           type='email'
           placeholder='new E-Mail'
           defaultValue={user?.email ? user.email : ''}
-          updateFormValue={(v) => setEmail(v)}
+          updateFormValue={(v) => {
+            setEmail(v)
+          }}
         />
         <TextInput
           type='password'
@@ -83,7 +87,9 @@ export function UserSettings() {
               ? ' tw:loading tw:btn-disabled tw:btn tw:btn-primary tw:float-right'
               : 'tw:btn tw:btn-primary tw:float-right'
           }
-          onClick={() => onUpdateUser()}
+          onClick={() => {
+            onUpdateUser()
+          }}
         >
           Update
         </button>

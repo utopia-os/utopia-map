@@ -20,8 +20,8 @@ export class itemsApi<T> implements ItemsApi<T> {
 
   constructor(
     collectionName: keyof MyCollections,
-    layerId?: string | undefined,
-    mapId?: string | undefined,
+    layerId?: string,
+    mapId?: string,
     filter?: any,
     customParameter?: any,
   ) {

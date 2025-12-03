@@ -50,7 +50,12 @@ export function LinkedItemsHeaderView({
             </div>
           </div>
         </div>
-        <div className='tw:col-span-1' onClick={(e) => e.stopPropagation()}>
+        <div
+          className='tw:col-span-1'
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
           {unlinkPermission && (
             <div className='tw:dropdown tw:dropdown-bottom'>
               <label

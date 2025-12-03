@@ -235,8 +235,7 @@ export function ItemFormPopup(props: Props) {
   }, [popupForm?.position])
 
   return (
-    popupForm &&
-    popupForm.layer.name === activeLayerName && (
+    popupForm?.layer.name === activeLayerName && (
       <LeafletPopup
         minWidth={275}
         maxWidth={275}

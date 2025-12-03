@@ -1,32 +1,36 @@
 {
-    "extends": "../tsconfig.base.json",
-    "compilerOptions": {
-      "outDir": "dist",
-      "declaration": true,
-      "declarationDir": "dist/types", // 🔹 Muss innerhalb von dist/ liegen
-      "emitDeclarationOnly": true, // Nur `.d.ts` generieren, kein JavaScript
-      "sourceMap": false,
-      "allowJs": false,
-      "forceConsistentCasingInFileNames": true,
-      "noImplicitReturns": true,
-      "noImplicitThis": true,
-      "strictNullChecks": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "allowSyntheticDefaultImports": true,
-      "paths": {
-        "#assets/*": ["./src/assets/*"],
-        "#components/*": ["./src/Components/*"],
-        "#utils/*": ["./src/Utils/*"],
-        "#types/*": ["./src/types/*"],
-        "#src/*": ["./src/*"],
-        "#root/*": ["./*"]
-      }
-    },
-  "include": ["src", "vite.config.ts", "setupTest.ts", "cypress.config.ts", "cypress/support/commands.ts", "cypress/support/component.ts"],
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": true,
+    "declarationDir": "dist/types", // 🔹 Muss innerhalb von dist/ liegen
+    "emitDeclarationOnly": true, // Nur `.d.ts` generieren, kein JavaScript
+    "sourceMap": false,
+    "allowJs": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "#assets/*": ["./src/assets/*"],
+      "#components/*": ["./src/Components/*"],
+      "#utils/*": ["./src/Utils/*"],
+      "#types/*": ["./src/types/*"],
+      "#src/*": ["./src/*"],
+      "#root/*": ["./*"]
+    }
+  },
+  "include": [
+    "src",
+    "vite.config.ts",
+    "setupTest.ts",
+    "cypress.config.ts",
+    "cypress/support/commands.ts",
+    "cypress/support/component.ts"
+  ],
   "exclude": ["node_modules", "dist", "example"],
-  "typeRoots": [
-    "./src/types",
-    "./node_modules/@types/"
-  ]
+  "typeRoots": ["./src/types", "./node_modules/@types/"]
 }

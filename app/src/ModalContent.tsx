@@ -22,7 +22,9 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <div className='tw:grid'>
             <label
               className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => clickAction1()}
+              onClick={() => {
+                clickAction1()
+              }}
             >
               Close
             </label>
@@ -45,7 +47,9 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <div className='tw:grid'>
             <label
               className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => clickAction1()}
+              onClick={() => {
+                clickAction1()
+              }}
             >
               Close
             </label>

@@ -57,7 +57,9 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
                     to={`${route.path}${params && '?' + params.toString()}`}
                     className={({ isActive }) =>
-                      `${isActive ? 'tw:font-semibold  tw:bg-base-200 tw:rounded-none!' : 'tw:font-normal tw:rounded-none!'}`
+                      isActive
+                        ? 'tw:font-semibold  tw:bg-base-200 tw:rounded-none!'
+                        : 'tw:font-normal tw:rounded-none!'
                     }
                     onClick={() => {
                       if (screen.width < 640 && !appState.sideBarSlim) toggleSidebarOpen()
@@ -70,7 +72,7 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                       {route.icon}
                     </div>
                     <span
-                      className={`${appState.sideBarSlim ? 'tw:hidden' : ''}`}
+                      className={appState.sideBarSlim ? 'tw:hidden' : ''}
                       data-te-sidenav-slim='false'
                     >
                       {route.name}
@@ -119,7 +121,7 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                       >
                         {route.icon}
                         <span
-                          className={`${appState.sideBarSlim ? 'tw:hidden' : ''}`}
+                          className={appState.sideBarSlim ? 'tw:hidden' : ''}
                           data-te-sidenav-slim='false'
                         >
                           {route.name}
@@ -143,7 +145,9 @@ export function SideBar({ routes, bottomRoutes }: { routes: Route[]; bottomRoute
                 'tw:w-5 tw:h-5 tw:mb-4 tw:mr-5 tw:mt-2  tw:cursor-pointer tw:float-right tw:delay-400 tw:duration-500 tw:transition-all ' +
                 (!appState.sideBarSlim ? 'tw:rotate-180' : '')
               }
-              onClick={() => toggleSidebarSlim()}
+              onClick={() => {
+                toggleSidebarSlim()
+              }}
             />
           </div>
         </div>

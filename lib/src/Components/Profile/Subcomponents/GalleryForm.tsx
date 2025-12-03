@@ -28,7 +28,9 @@ export const GalleryForm = ({ state, setState, hideInputLabel = false }: Props) 
 
   const [imageSelectedToDelete, setImageSelectedToDelete] = useState<number | null>(null)
 
-  const closeModal = () => setImageSelectedToDelete(null)
+  const closeModal = () => {
+    setImageSelectedToDelete(null)
+  }
 
   const upload = async (acceptedFiles: File[]) => {
     setState((prevState) => ({
@@ -116,7 +118,9 @@ export const GalleryForm = ({ state, setState, hideInputLabel = false }: Props) 
             {image.state === 'uploaded' && (
               <button
                 className='tw:m-2 tw:bg-red-500 tw:text-white tw:p-2 tw:rounded-full tw:absolute tw:top-0 tw:right-0 tw:hover:bg-red-600 tw:cursor-pointer'
-                onClick={() => setImageSelectedToDelete(index)}
+                onClick={() => {
+                  setImageSelectedToDelete(index)
+                }}
                 type='button'
               >
                 <TrashIcon className='tw:h-5 tw:w-5' data-testid='trash' />
@@ -142,7 +146,11 @@ export const GalleryForm = ({ state, setState, hideInputLabel = false }: Props) 
         showCloseButton={false}
         onClose={closeModal}
       >
-        <div onClick={(e) => e.stopPropagation()}>
+        <div
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
           <span>Do you want to delete this image?</span>
           <div className='tw:grid'>
             <div className='tw:flex tw:justify-between'>

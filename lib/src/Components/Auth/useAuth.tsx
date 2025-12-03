@@ -135,7 +135,8 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
     setLoading(true)
     try {
       await userApi.requestPasswordReset(email, resetUrl)
-      return setLoading(false)
+      setLoading(false)
+      return
     } catch (error) {
       setLoading(false)
       throw error
@@ -146,7 +147,8 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
     setLoading(true)
     try {
       await userApi.passwordReset(token, newPassword)
-      return setLoading(false)
+      setLoading(false)
+      return
     } catch (error) {
       setLoading(false)
       throw error

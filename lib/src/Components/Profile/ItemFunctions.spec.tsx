@@ -12,10 +12,16 @@ const toastUpdateMock: (id: number, options: any) => void = vi.fn()
 
 vi.mock('react-toastify', () => ({
   toast: {
-    error: (t: string) => toastErrorMock(t),
-    success: (t: string) => toastSuccessMock(t),
+    error: (t: string) => {
+      toastErrorMock(t)
+    },
+    success: (t: string) => {
+      toastSuccessMock(t)
+    },
     loading: (t: string) => toastLoadingMock(t),
-    update: (id: number, options: any) => toastUpdateMock(id, options),
+    update: (id: number, options: any) => {
+      toastUpdateMock(id, options)
+    },
   },
 }))
 

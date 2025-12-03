@@ -51,7 +51,9 @@ export const Tabs: React.FC<TabsProps> = ({ items, setUrlParams }: TabsProps) =>
             key={index}
             role='tab'
             className={`tw:tab ${index === activeIndex ? 'tw:tab-active' : ''}`}
-            onClick={() => updateActiveTab(index)}
+            onClick={() => {
+              updateActiveTab(index)
+            }}
           >
             {item.title}
           </div>

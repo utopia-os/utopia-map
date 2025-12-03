@@ -11,7 +11,9 @@ export const ColorPicker = ({ color, onChange, className }) => {
   const popover = useRef<HTMLDivElement>(null)
   const [isOpen, toggle] = useState(false)
 
-  const close = useCallback(() => toggle(false), [])
+  const close = useCallback(() => {
+    toggle(false)
+  }, [])
   useClickOutside(popover, close)
 
   const colorPickerRef = useRef<HTMLDivElement>(null)
@@ -34,11 +36,23 @@ export const ColorPicker = ({ color, onChange, className }) => {
 
   return (
     <div ref={colorPickerRef} className={`picker ${className}`}>
-      <div className='swatch' style={{ backgroundColor: color }} onClick={() => toggle(true)} />
+      <div
+        className='swatch'
+        style={{ backgroundColor: color }}
+        onClick={() => {
+          toggle(true)
+        }}
+      />
 
       {isOpen && (
         <div className='popover tw:z-10000' ref={popover}>
-          <HexColorPicker color={color} onChange={onChange} onClick={() => toggle(false)} />
+          <HexColorPicker
+            color={color}
+            onChange={onChange}
+            onClick={() => {
+              toggle(false)
+            }}
+          />
         </div>
       )}
     </div>

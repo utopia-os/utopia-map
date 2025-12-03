@@ -172,7 +172,9 @@ export const OverlayItemsIndexPage = ({
                   <div className='tw:cursor-pointer tw:break-inside-avoid card tw:border-[1px] tw:border-base-300 card-body tw:shadow-xl tw:bg-base-100 tw:text-base-content tw:p-6 tw:mb-10'>
                     <label
                       className='tw:btn tw:btn-sm tw:rounded-2xl tw:btn-circle tw:btn-ghost tw:hover:bg-transparent tw:absolute tw:right-0 tw:top-0 tw:text-gray-600'
-                      onClick={() => setAddItemPopupOpen(false)}
+                      onClick={() => {
+                        setAddItemPopupOpen(false)
+                      }}
                     >
                       <p className='tw:text-center'>✕</p>
                     </label>

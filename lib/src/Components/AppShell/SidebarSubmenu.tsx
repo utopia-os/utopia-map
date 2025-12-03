@@ -31,7 +31,12 @@ function SidebarSubmenu({
   return (
     <div className='flex-col'>
       {/** Route header */}
-      <div className='w-full' onClick={() => setIsExpanded(!isExpanded)}>
+      <div
+        className='w-full'
+        onClick={() => {
+          setIsExpanded(!isExpanded)
+        }}
+      >
         {icon} <span>{name} </span>
         <ChevronDownIcon
           className={

@@ -56,11 +56,11 @@ export default tseslint.config(
       },
     },
     plugins: {
-      'react': react,
+      react: react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       'import-x': importXPlugin,
-      'promise': promisePlugin,
+      promise: promisePlugin,
       'no-catch-all': noCatchAllPlugin,
     },
     settings: {
@@ -81,11 +81,11 @@ export default tseslint.config(
       // Basic rules
       'no-console': 'error',
       'no-debugger': 'error',
-      'camelcase': 'error',
+      camelcase: 'error',
 
       // Standard JS rules (replacing eslint-config-standard)
-      'semi': ['error', 'never'],
-      'quotes': ['error', 'single', { avoidEscape: true }],
+      semi: ['error', 'never'],
+      quotes: ['error', 'single', { avoidEscape: true }],
       'comma-dangle': ['error', 'always-multiline'],
       // Disabled: conflicts with common TypeScript/React patterns
       // 'space-before-function-paren': ['error', 'always'],
@@ -102,7 +102,7 @@ export default tseslint.config(
       'linebreak-style': ['error', 'unix'],
 
       // Additional standard rules that were missing
-      'eqeqeq': ['error', 'always', { null: 'ignore' }],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'new-cap': ['error', { newIsCap: true, capIsNew: false, properties: true }],
       'array-callback-return': ['error', { allowImplicit: false, checkForEach: false }],
 
@@ -151,7 +151,16 @@ export default tseslint.config(
       'import-x/order': [
         'error',
         {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object', 'type'],
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
           'newlines-between': 'always',
           alphabetize: {
             order: 'asc',
@@ -222,10 +231,13 @@ export default tseslint.config(
       '@typescript-eslint/no-empty-function': 'off',
 
       // Configure no-unused-expressions to allow logical AND and ternary patterns
-      '@typescript-eslint/no-unused-expressions': ['error', {
-        allowShortCircuit: true,
-        allowTernary: true,
-      }],
+      '@typescript-eslint/no-unused-expressions': [
+        'error',
+        {
+          allowShortCircuit: true,
+          allowTernary: true,
+        },
+      ],
     },
   },
 

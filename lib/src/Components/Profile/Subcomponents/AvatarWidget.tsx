@@ -201,7 +201,13 @@ export const AvatarWidget: React.FC<AvatarWidgetProps> = ({ avatar, setAvatar, i
         }}
         closeOnClickOutside={false}
       >
-        <ReactCrop crop={crop} onChange={(c) => setCrop(c)} aspect={1}>
+        <ReactCrop
+          crop={crop}
+          onChange={(c) => {
+            setCrop(c)
+          }}
+          aspect={1}
+        >
           <img src={image} ref={imgRef} onLoad={onImageLoad} />
         </ReactCrop>
         <button

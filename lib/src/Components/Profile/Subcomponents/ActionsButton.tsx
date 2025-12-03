@@ -89,7 +89,9 @@ export function ActionButton({
           <DialogModal
             title={'Select'}
             isOpened={modalOpen}
-            onClose={() => setModalOpen(false)}
+            onClose={() => {
+              setModalOpen(false)
+            }}
             className='tw:w-xl tw:sm:w-2xl tw:min-h-80 tw:bg-base-200'
           >
             <TextInput

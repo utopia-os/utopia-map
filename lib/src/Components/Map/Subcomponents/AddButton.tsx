@@ -89,7 +89,9 @@ export default function AddButton({
                           tabIndex={0}
                           className='tw:z-500 tw:border-0 tw:p-0 tw:w-10 tw:h-10 tw:cursor-pointer tw:rounded-full tw:mouse tw:drop-shadow-md tw:transition tw:ease-in tw:duration-200 tw:focus:outline-hidden tw:flex tw:items-center tw:justify-center'
                           style={{ backgroundColor: layer.menuColor || '#777' }}
-                          onClick={() => handleLayerClick(layer)}
+                          onClick={() => {
+                            handleLayerClick(layer)
+                          }}
                           onTouchEnd={(e) => {
                             handleLayerClick(layer)
                             e.preventDefault()

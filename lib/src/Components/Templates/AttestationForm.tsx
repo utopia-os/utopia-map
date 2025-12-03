@@ -68,7 +68,7 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
             },
           },
         )
-        .then(() =>
+        .then(() => {
           navigate(
             '/item/' +
               // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -79,8 +79,8 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
                   i.layer?.userProfileLayer === true,
               )?.id +
               '?tab=2',
-          ),
-        )
+          )
+        })
   }
 
   const [selectedEmoji, setSelectedEmoji] = useState('select badge')

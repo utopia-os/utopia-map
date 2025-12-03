@@ -206,7 +206,9 @@ export const LocateControl = (): JSX.Element => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       if (lc) lc.stop()
       // Reset flag after a delay to allow future updates
-      setTimeout(() => setHasUpdatedPosition(false), 5000)
+      setTimeout(() => {
+        setHasUpdatedPosition(false)
+      }, 5000)
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.update(toastId, {
@@ -278,7 +280,9 @@ export const LocateControl = (): JSX.Element => {
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'
               onClick={() => {
-                void itemUpdatePosition().then(() => setShowLocationModal(false))
+                void itemUpdatePosition().then(() => {
+                  setShowLocationModal(false)
+                })
               }}
             >
               Yes

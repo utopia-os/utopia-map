@@ -20,22 +20,22 @@ export const FormHeader = ({ item, state, setState }: Props) => {
       <div className='tw:flex'>
         <AvatarWidget
           avatar={state.image}
-          setAvatar={(i) =>
+          setAvatar={(i) => {
             setState((prevState) => ({
               ...prevState,
               image: i,
             }))
-          }
+          }}
           item={item}
         />
         <ColorPicker
           color={state.color}
-          onChange={(c) =>
+          onChange={(c) => {
             setState((prevState) => ({
               ...prevState,
               color: c,
             }))
-          }
+          }}
           className={'tw:-left-6 tw:top-14 tw:-mr-6'}
         />
         <div
@@ -44,12 +44,12 @@ export const FormHeader = ({ item, state, setState }: Props) => {
           <TextInput
             placeholder='Name'
             defaultValue={item.name ? item.name : ''}
-            updateFormValue={(v) =>
+            updateFormValue={(v) => {
               setState((prevState) => ({
                 ...prevState,
                 name: v,
               }))
-            }
+            }}
             containerStyle='tw:grow tw:px-4'
             inputStyle='tw:input-md'
           />
@@ -58,12 +58,12 @@ export const FormHeader = ({ item, state, setState }: Props) => {
               placeholder={item.layer.itemType.subtitle_label}
               required={false}
               defaultValue={item.subname ? item.subname : ''}
-              updateFormValue={(v) =>
+              updateFormValue={(v) => {
                 setState((prevState) => ({
                   ...prevState,
                   subname: v,
                 }))
-              }
+              }}
               containerStyle='tw:grow tw:px-4 tw:mt-1'
               inputStyle='tw:input-sm'
             />
