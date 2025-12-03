@@ -77,6 +77,7 @@
             "template": "flex",
             "show_text": true,
             "show_profile_button" : true,
+            "show_qr_button" : true, 
             "show_start_end" : false,
             "show_text_input" : false,
             "show_name_input" : false,
