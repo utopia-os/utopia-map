@@ -32,7 +32,7 @@ declare module 'leaflet' {
  * React wrapper for leaflet.locatecontrol that provides user geolocation functionality
  * @category Map Controls
  */
-export const LocateControl = (): JSX.Element => {
+export const LocateControl = (): React.JSX.Element => {
   const map = useMap()
   const myProfile = useMyProfile()
   const updateItem = useUpdateItem()

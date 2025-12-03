@@ -6,7 +6,7 @@ import SidebarSubmenu from './SidebarSubmenu'
 
 export interface Route {
   path: string
-  icon: JSX.Element
+  icon: React.JSX.Element
   name: string
   submenu?: Route[]
   blank?: boolean

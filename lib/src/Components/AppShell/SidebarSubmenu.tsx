@@ -10,7 +10,7 @@ function SidebarSubmenu({
   icon,
 }: {
   path: string
-  icon: JSX.Element
+  icon: React.JSX.Element
   name: string
   submenu?: Route[]
 }) {
