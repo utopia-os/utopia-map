@@ -11,7 +11,6 @@ type UseItemManagerResult = ReturnType<typeof useLayerManager>
 
 const LayerContext = createContext<UseItemManagerResult>({
   layers: [],
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   addLayer: () => {},
 })
 

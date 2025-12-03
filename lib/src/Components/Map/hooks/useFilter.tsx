@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable no-case-declarations */
 import { useCallback, useReducer, createContext, useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
