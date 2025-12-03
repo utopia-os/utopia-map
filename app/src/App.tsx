@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable import/order */
+/* eslint-disable import-x/order */
 /* eslint-disable eqeqeq */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable react-hooks/exhaustive-deps */

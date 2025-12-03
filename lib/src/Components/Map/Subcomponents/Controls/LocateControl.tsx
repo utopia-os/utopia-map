@@ -15,7 +15,7 @@ import DialogModal from '#components/Templates/DialogModal'
 import type { Item } from '#types/Item'
 import type { LatLng } from 'leaflet'
 
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line import-x/no-unassigned-import
 import 'leaflet.locatecontrol'
 
 // Type definitions for leaflet.locatecontrol

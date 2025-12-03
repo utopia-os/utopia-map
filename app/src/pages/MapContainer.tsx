@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/no-relative-parent-imports */
+/* eslint-disable import-x/no-relative-parent-imports */
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */

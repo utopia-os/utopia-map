@@ -1,4 +1,4 @@
-/* @eslint-disable-next-line import/no-relative-parent-imports */
+// eslint-disable-next-line import-x/no-relative-parent-imports
 import { config } from '@/config'
 
 import type { UserApi } from 'utopia-ui'

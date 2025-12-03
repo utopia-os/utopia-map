@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createDirectus, rest, authentication } from '@directus/sdk'
 
-// eslint-disable-next-line import/no-relative-parent-imports
+// eslint-disable-next-line import-x/no-relative-parent-imports
 import { config } from '../config'
 
 import type { AuthenticationData, AuthenticationStorage } from '@directus/sdk'
