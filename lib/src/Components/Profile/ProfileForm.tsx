@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import classNames from 'classnames'

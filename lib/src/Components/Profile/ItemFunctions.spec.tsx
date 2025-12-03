@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 

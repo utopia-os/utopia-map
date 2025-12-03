@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 /* eslint-disable @typescript-eslint/no-floating-promises */

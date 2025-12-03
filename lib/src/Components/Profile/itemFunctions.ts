@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */

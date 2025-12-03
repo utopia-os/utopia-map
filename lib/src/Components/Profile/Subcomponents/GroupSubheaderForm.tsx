@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useEffect } from 'react'
 

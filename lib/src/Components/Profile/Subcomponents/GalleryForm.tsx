@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import imageCompression from 'browser-image-compression'
 import { useState } from 'react'
