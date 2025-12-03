@@ -77,7 +77,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         <li>
           <div
@@ -98,7 +98,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         <li>
           <div
@@ -119,7 +119,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         {/* <li>
           <div className='tw:@sm:tooltip tw:px-1.5 tw:mx-0.5' data-tip='Image' onClick={addImage}>
@@ -135,7 +135,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
             <MdHorizontalRule className='tw:w-5 tw:h-5' />
           </div>
         </li>
-        <div className='tw:flex-grow'></div>
+        <div className='tw:grow'></div>
         <li>
           <div
             className={`tw:@sm:tooltip tw:px-1.5 tw:mx-0.5 tw:hidden tw:@sm:block ${editorState.canUndo ? '' : 'tw:opacity-50'}`}
