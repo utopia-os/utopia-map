@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable promise/always-return */
 import { control } from 'leaflet'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'

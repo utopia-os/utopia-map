@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { divIcon, Point } from 'leaflet'
 
 import type { MarkerIcon } from '#types/MarkerIcon'

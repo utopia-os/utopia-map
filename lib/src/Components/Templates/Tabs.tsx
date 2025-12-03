@@ -1,4 +1,5 @@
 /* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 

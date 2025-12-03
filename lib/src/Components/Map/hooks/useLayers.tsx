@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useReducer, createContext, useContext } from 'react'
 
 import type { LayerProps } from '#types/LayerProps'

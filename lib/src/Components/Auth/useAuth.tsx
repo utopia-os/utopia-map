@@ -67,7 +67,7 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
         return undefined
       }
       // eslint-disable-next-line no-catch-all/no-catch-all
-    } catch (error) {
+    } catch {
       setLoading(false)
       return undefined
     } finally {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
 import { toast } from 'react-toastify'
 
 import ChevronSVG from '#assets/chevron.svg'

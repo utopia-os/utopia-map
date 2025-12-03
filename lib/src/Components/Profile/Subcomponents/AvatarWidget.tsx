@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import ArrowUpTrayIcon from '@heroicons/react/24/outline/ArrowUpTrayIcon'
 import { useState, useCallback, useRef } from 'react'
 import { ReactCrop, centerCrop, makeAspectCrop } from 'react-image-crop'

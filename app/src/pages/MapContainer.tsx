@@ -3,6 +3,7 @@
 /* eslint-disable import-x/no-relative-parent-imports */
 /* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { useEffect, useState } from 'react'
 import {

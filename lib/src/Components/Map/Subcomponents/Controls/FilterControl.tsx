@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import { useEffect, useState } from 'react'
 

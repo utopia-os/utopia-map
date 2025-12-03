@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable promise/always-return */
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'

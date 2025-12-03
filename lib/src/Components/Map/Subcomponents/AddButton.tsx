@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { MapPinIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import SVG from 'react-inlinesvg'

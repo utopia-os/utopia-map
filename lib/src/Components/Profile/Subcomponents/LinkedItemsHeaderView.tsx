@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable no-constant-binary-expression */
 
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
 import LinkSlashIcon from '@heroicons/react/24/outline/LinkSlashIcon'

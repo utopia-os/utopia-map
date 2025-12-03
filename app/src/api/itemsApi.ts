@@ -111,8 +111,8 @@ export class itemsApi<T> implements ItemsApi<T> {
 
   async deleteItem(id: string): Promise<boolean> {
     try {
-      const result = await directusClient.request(deleteItem(this.collectionName, id))
-      return result as unknown as boolean
+      await directusClient.request(deleteItem(this.collectionName, id))
+      return true
     } catch (error: any) {
       console.log(error)
       if (error.errors[0].message) throw error.errors[0].message

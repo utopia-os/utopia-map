@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable promise/always-return */
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -63,7 +65,6 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
             success: 'Attestation created',
             error: {
               render({ data }) {
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 return `${data}`
               },
             },

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-find */
 import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'

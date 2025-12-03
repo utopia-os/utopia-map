@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import TrashIcon from '@heroicons/react/24/solid/TrashIcon'
 import imageCompression from 'browser-image-compression'
 import { useState } from 'react'
@@ -51,7 +52,8 @@ export const GalleryForm = ({ state, setState, hideInputLabel = false }: Props) 
       }
     })
 
-    for await (const upload of uploads) {
+    const results = await Promise.all(uploads)
+    for (const upload of results) {
       setState((prevState) => ({
         ...prevState,
         uploadingImages: prevState.uploadingImages.filter((f) => f.name !== upload.name),

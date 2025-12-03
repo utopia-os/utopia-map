@@ -47,9 +47,11 @@ const DialogModal = ({
         className={`${className ?? ''} tw:card tw:shadow-xl tw:absolute tw:right-0 tw:top-0 tw:bottom-0 tw:left-0 tw:m-auto tw:transition-opacity tw:duration-300 tw:p-4 tw:max-w-xl tw:bg-base-100`}
         ref={ref}
         onCancel={onClose}
-        onClick={(e) =>
-          ref.current && !isClickInsideRectangle(e, ref.current) && closeOnClickOutside && onClose()
-        }
+        onClick={(e) => {
+          if (ref.current && !isClickInsideRectangle(e, ref.current) && closeOnClickOutside) {
+            onClose()
+          }
+        }}
       >
         <div className='tw:card-body tw:p-2'>
           {title && (
