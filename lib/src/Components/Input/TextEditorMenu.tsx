@@ -16,14 +16,14 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
     selector: (ctx) => {
       return {
         isBold: ctx.editor.isActive('bold'),
-        canBold: ctx.editor.can().chain().focus().toggleBold().run(),
+        canBold: ctx.editor.can().toggleBold(),
         isItalic: ctx.editor.isActive('italic'),
-        canItalic: ctx.editor.can().chain().focus().toggleItalic().run(),
+        canItalic: ctx.editor.can().toggleItalic(),
         isStrike: ctx.editor.isActive('strike'),
-        canStrike: ctx.editor.can().chain().focus().toggleStrike().run(),
+        canStrike: ctx.editor.can().toggleStrike(),
         isCode: ctx.editor.isActive('code'),
-        canCode: ctx.editor.can().chain().focus().toggleCode().run(),
-        canClearMarks: ctx.editor.can().chain().focus().unsetAllMarks().run(),
+        canCode: ctx.editor.can().toggleCode(),
+        canClearMarks: ctx.editor.can().unsetAllMarks(),
         isParagraph: ctx.editor.isActive('paragraph'),
         isHeading1: ctx.editor.isActive('heading', { level: 1 }),
         isHeading2: ctx.editor.isActive('heading', { level: 2 }),
@@ -36,8 +36,8 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
         isOrderedList: ctx.editor.isActive('orderedList'),
         isCodeBlock: ctx.editor.isActive('codeBlock'),
         isBlockquote: ctx.editor.isActive('blockquote'),
-        canUndo: ctx.editor.can().chain().focus().undo().run(),
-        canRedo: ctx.editor.can().chain().focus().redo().run(),
+        canUndo: ctx.editor.can().undo(),
+        canRedo: ctx.editor.can().redo(),
       }
     },
   })
@@ -77,7 +77,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         <li>
           <div
@@ -98,7 +98,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         <li>
           <div
@@ -119,7 +119,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
           </div>
         </li>
         <li>
-          <div className='tw:w-[1px] tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
+          <div className='tw:w-px tw:p-0 tw:mx-1 tw:bg-base-content/10 tw:my-1' />
         </li>
         {/* <li>
           <div className='tw:@sm:tooltip tw:px-1.5 tw:mx-0.5' data-tip='Image' onClick={addImage}>
@@ -135,7 +135,7 @@ export const TextEditorMenu = ({ editor }: { editor: Editor }) => {
             <MdHorizontalRule className='tw:w-5 tw:h-5' />
           </div>
         </li>
-        <div className='tw:flex-grow'></div>
+        <div className='tw:grow'></div>
         <li>
           <div
             className={`tw:@sm:tooltip tw:px-1.5 tw:mx-0.5 tw:hidden tw:@sm:block ${editorState.canUndo ? '' : 'tw:opacity-50'}`}
