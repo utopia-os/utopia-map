@@ -2122,6 +2122,18 @@
     "_syncId": "007e2024-7ca0-4f80-8fee-de3cc261bb16"
   },
   {
+    "collection": "relations",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "4d5d2bd8-7e1f-40c1-b10b-3f0ecac70877",
+    "_syncId": "52b17673-b63f-4a23-9003-6fcf8780b2ab"
+  },
+  {
     "collection": "startEnd",
     "action": "read",
     "permissions": null,
