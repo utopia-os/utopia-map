@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite --host",
     "build": "tsc && vite build",
-    "test:lint:eslint": "eslint --ext .ts,.tsx,.js,.jsx,.cjs,.mjs,.json,.yml,.yaml --max-warnings 0 .",
+    "test:lint:eslint": "eslint --max-warnings 0 .",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
     "daisyui": "^5.5.5",
     "eslint": "^9.36.0",
     "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-no-catch-all": "^1.1.0",
     "eslint-plugin-promise": "^7.2.1",
