@@ -91,3 +91,29 @@ ON CONFLICT (id) DO UPDATE
       item = excluded.item,
       sort = excluded.sort,
       types_id = excluded.types_id;
+
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'relations', '3', '1' , '3', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'user:text+gallery'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
+
+INSERT INTO public."types_profileTemplate" (collection, id, item, sort, types_id)
+SELECT
+  'relations', '4', '2' , '4', types.id
+FROM
+  public.types as types
+WHERE
+  name = 'user:text+gallery'
+ON CONFLICT (id) DO UPDATE
+  SET collection = excluded.collection,
+      item = excluded.item,
+      sort = excluded.sort,
+      types_id = excluded.types_id;
