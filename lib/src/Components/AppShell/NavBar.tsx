@@ -31,7 +31,9 @@ export default function NavBar({ appName }: { appName: string }) {
             className='tw:btn tw:btn-square tw:btn-ghost tw:ml-3'
             aria-controls='#sidenav'
             aria-haspopup='true'
-            onClick={() => toggleSidebar()}
+            onClick={() => {
+              toggleSidebar()
+            }}
           >
             <Bars3Icon className='tw:inline-block tw:w-5 tw:h-5' />
           </button>
@@ -50,7 +52,9 @@ export default function NavBar({ appName }: { appName: string }) {
               </Link>
               <button
                 className='tw:btn tw:px-2  tw:btn-ghost'
-                onClick={() => window.my_modal_3.showModal()}
+                onClick={() => {
+                  window.my_modal_3.showModal()
+                }}
               >
                 <QuestionMarkIcon className='tw:h-5 tw:w-5' />
               </button>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-promise-reject-errors */
 export const getImageDimensions = (
   file: File,
 ): Promise<{
@@ -13,7 +14,9 @@ export const getImageDimensions = (
         try {
           const img = new Image()
 
-          img.onload = () => resolve({ width: img.width, height: img.height })
+          img.onload = () => {
+            resolve({ width: img.width, height: img.height })
+          }
 
           img.src = fileReader.result as string // is the data URL because called with readAsDataURL
         } catch (error) {

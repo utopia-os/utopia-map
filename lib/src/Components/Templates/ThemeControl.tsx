@@ -52,7 +52,9 @@ export const ThemeControl = () => {
               name='theme'
               value={t}
               checked={theme === t}
-              onChange={() => setTheme(t)}
+              onChange={() => {
+                setTheme(t)
+              }}
               aria-label={t.toLowerCase()}
             />
           </li>

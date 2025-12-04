@@ -18,12 +18,12 @@ export const ContactInfoForm = ({
           type='email'
           required={false}
           defaultValue={state.contact}
-          updateFormValue={(v) =>
+          updateFormValue={(v) => {
             setState((prevState) => ({
               ...prevState,
               contact: v,
             }))
-          }
+          }}
         />
       </div>
 
@@ -35,12 +35,12 @@ export const ContactInfoForm = ({
           required={false}
           pattern='^\+?[0-9\s\-]{7,15}$'
           defaultValue={state.telephone}
-          updateFormValue={(v) =>
+          updateFormValue={(v) => {
             setState((prevState) => ({
               ...prevState,
               telephone: v,
             }))
-          }
+          }}
         />
       </div>
     </div>

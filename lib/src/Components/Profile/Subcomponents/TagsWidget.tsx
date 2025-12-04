@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { useEffect, useState } from 'react'
 
@@ -121,7 +122,9 @@ export const TagsWidget = ({ placeholder, containerStyle, defaultTags, onUpdate 
             <div className='tw:card-actions tw:justify-end'>
               <label
                 className='tw:btn tw:btn-xs tw:btn-circle tw:absolute tw:-right-2 tw:-top-2 tw:bg-white tw:text-gray-600'
-                onClick={() => deleteTag(tag)}
+                onClick={() => {
+                  deleteTag(tag)
+                }}
               >
                 ✕
               </label>
@@ -134,7 +137,9 @@ export const TagsWidget = ({ placeholder, containerStyle, defaultTags, onUpdate 
           pushFilteredSuggestions={pushFilteredSuggestions}
           setFocus={focusInput}
           inputProps={inputProps}
-          onSelected={(tag) => onSelected(tag)}
+          onSelected={(tag) => {
+            onSelected(tag)
+          }}
         />
       </div>
     </div>

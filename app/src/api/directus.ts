@@ -4,7 +4,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createDirectus, rest, authentication } from '@directus/sdk'
 
-// eslint-disable-next-line import/no-relative-parent-imports
+// eslint-disable-next-line import-x/no-relative-parent-imports
 import { config } from '../config'
 
 import type { AuthenticationData, AuthenticationStorage } from '@directus/sdk'
@@ -86,9 +86,10 @@ export const authLocalStorage = (mainKey = 'directus_storage') =>
     // implementation of set, here set the value at mainKey in localStorage, or remove it if value is null
     set: async (value: AuthenticationData | null) => {
       if (!value) {
-        return window.localStorage.removeItem(mainKey)
+        window.localStorage.removeItem(mainKey)
+        return
       }
-      return window.localStorage.setItem(mainKey, JSON.stringify(value))
+      window.localStorage.setItem(mainKey, JSON.stringify(value))
     },
   }) as AuthenticationStorage
 

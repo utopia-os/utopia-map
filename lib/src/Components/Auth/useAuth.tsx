@@ -67,7 +67,7 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
         return undefined
       }
       // eslint-disable-next-line no-catch-all/no-catch-all
-    } catch (error) {
+    } catch {
       setLoading(false)
       return undefined
     } finally {
@@ -135,7 +135,8 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
     setLoading(true)
     try {
       await userApi.requestPasswordReset(email, resetUrl)
-      return setLoading(false)
+      setLoading(false)
+      return
     } catch (error) {
       setLoading(false)
       throw error
@@ -146,7 +147,8 @@ export const AuthProvider = ({ userApi, children }: AuthProviderProps) => {
     setLoading(true)
     try {
       await userApi.passwordReset(token, newPassword)
-      return setLoading(false)
+      setLoading(false)
+      return
     } catch (error) {
       setLoading(false)
       throw error

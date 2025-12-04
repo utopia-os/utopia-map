@@ -1,4 +1,4 @@
-/* eslint-disable import/no-unassigned-import */
+/* eslint-disable import-x/no-unassigned-import */
 import L from 'leaflet'
 import { useEffect } from 'react'
 import { useMap } from 'react-leaflet'

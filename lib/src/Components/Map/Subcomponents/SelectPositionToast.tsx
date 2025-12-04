@@ -34,7 +34,9 @@ export const SelectPositionToast = ({
     }
 
     window.addEventListener('keydown', handleEscape)
-    return () => window.removeEventListener('keydown', handleEscape)
+    return () => {
+      window.removeEventListener('keydown', handleEscape)
+    }
   }, [selectNewItemPosition, setSelectNewItemPosition])
 
   const toastContent = useMemo(() => {

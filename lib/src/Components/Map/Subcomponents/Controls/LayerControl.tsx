@@ -36,7 +36,9 @@ export function LayerControl({ expandLayerControl = false }: { expandLayerContro
                     >
                       <input
                         id={layer.name}
-                        onChange={() => toggleVisibleLayer(layer)}
+                        onChange={() => {
+                          toggleVisibleLayer(layer)
+                        }}
                         type='checkbox'
                         className='tw:checkbox tw:checkbox-xs tw:checkbox-success tw:text-white'
                         checked={isLayerVisible(layer)}

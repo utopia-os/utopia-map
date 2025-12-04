@@ -14,18 +14,18 @@ export const ProfileStartEndForm = ({
     <PopupStartEndInput
       item={item}
       showLabels={false}
-      updateEndValue={(e) =>
+      updateEndValue={(e) => {
         setState((prevState) => ({
           ...prevState,
           end: e,
         }))
-      }
-      updateStartValue={(s) =>
+      }}
+      updateStartValue={(s) => {
         setState((prevState) => ({
           ...prevState,
           start: s,
         }))
-      }
+      }}
     ></PopupStartEndInput>
   )
 }

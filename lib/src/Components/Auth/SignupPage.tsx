@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -32,7 +33,7 @@ export function SignupPage() {
       },
       error: {
         render({ data }) {
-          return `${data as string}`
+          return data as string
         },
         autoClose: 10000,
       },
@@ -61,20 +62,26 @@ export function SignupPage() {
         type='text'
         placeholder='Name'
         value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        onChange={(e) => {
+          setUserName(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <input
         type='email'
         placeholder='E-Mail'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <input
         type='password'
         placeholder='Password'
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <div className='tw:card-actions tw:mt-4'>

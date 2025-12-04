@@ -29,12 +29,12 @@ export const OnepagerForm = ({
         <TextAreaInput
           placeholder='Beschreibung'
           defaultValue={state.text || ''}
-          updateFormValue={(v) =>
+          updateFormValue={(v) => {
             setState((prevState) => ({
               ...prevState,
               text: v,
             }))
-          }
+          }}
           inputStyle='tw:h-48'
         />
       </div>

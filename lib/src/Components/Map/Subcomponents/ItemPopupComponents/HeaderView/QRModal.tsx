@@ -24,7 +24,12 @@ export function QRModal({ item, isOpen, onClose }: QRModalProps) {
       onClose={onClose}
       className='tw:w-[calc(100vw-2rem)] tw:!max-w-96'
     >
-      <div onClick={(e) => e.stopPropagation()} className='tw:text-center tw:p-4'>
+      <div
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+        className='tw:text-center tw:p-4'
+      >
         <p className='tw:text-xl tw:font-bold'>Share your Profile to expand your Network!</p>
 
         <div className='tw:flex tw:flex-col tw:items-center tw:gap-4 tw:my-8'>

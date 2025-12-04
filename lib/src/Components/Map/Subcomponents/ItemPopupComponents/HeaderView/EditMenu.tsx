@@ -53,7 +53,12 @@ export function EditMenu({
   if (!hasDeletePermission && !hasUpdatePermission) return null
 
   return (
-    <div onClick={(e) => e.stopPropagation()} className={`${big ? 'tw:mt-5' : 'tw:mt-1'}`}>
+    <div
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+      className={big ? 'tw:mt-5' : 'tw:mt-1'}
+    >
       <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
         <label tabIndex={0} className='tw:btn tw:btn-ghost tw:px-2.5'>
           <EllipsisVerticalIcon className='tw:h-5 tw:w-5' />
@@ -67,13 +72,13 @@ export function EditMenu({
               <a
                 className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                 data-tip='Edit'
-                onClick={(e) =>
+                onClick={(e) => {
                   item.layer?.customEditLink
                     ? navigate(
                         `${item.layer.customEditLink}${item.layer.customEditParameter ? `/${item.id}${params.toString() ? '?' + params.toString() : ''}` : ''}`,
                       )
                     : editCallback(e)
-                }
+                }}
               >
                 <PencilIcon className='tw:h-5 tw:w-5' />
               </a>

@@ -60,21 +60,25 @@ export const ItemCard = ({
         // We could have an onClick callback instead
         const params = new URLSearchParams(window.location.search)
         if (windowDimensions.width < 786 && i.position)
-          navigate('/' + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
-        else navigate(url + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
+          navigate('/' + i.id + (params.size > 0 ? `?${params.toString()}` : ''))
+        else navigate(url + i.id + (params.size > 0 ? `?${params.toString()}` : ''))
       }}
     >
       <HeaderView
         loading={loading}
         item={i}
         api={i.layer?.api}
-        editCallback={() => handleEdit()}
+        editCallback={() => {
+          handleEdit()
+        }}
         setPositionCallback={() => {
           map.closePopup()
           setSelectPosition(i)
           navigate('/')
         }}
-        deleteCallback={() => deleteCallback(i)}
+        deleteCallback={() => {
+          deleteCallback(i)
+        }}
       ></HeaderView>
       <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
         {i.layer?.itemType.show_start_end && <StartEndView item={i}></StartEndView>}

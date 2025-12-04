@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
 import { toast } from 'react-toastify'
 
 import ChevronSVG from '#assets/chevron.svg'
@@ -41,7 +42,9 @@ const SocialShareBar = ({
             color: 'white',
             backgroundColor: '#444',
           }}
-          onClick={() => copyLink()}
+          onClick={() => {
+            copyLink()
+          }}
           title='share link via email'
         >
           <img src={ChevronSVG} alt='\/' className='tw:h-4 tw:w-4' />
@@ -55,7 +58,9 @@ const SocialShareBar = ({
             color: 'white',
             backgroundColor: '#888',
           }}
-          onClick={() => copyLink()}
+          onClick={() => {
+            copyLink()
+          }}
           title='copy Link'
         >
           <img src={ClipboardSVG} className='tw:w-5' />

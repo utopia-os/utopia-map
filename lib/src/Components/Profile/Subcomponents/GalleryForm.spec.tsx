@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 

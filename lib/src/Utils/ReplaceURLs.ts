@@ -7,7 +7,7 @@ export function fixUrls(message: string): string {
   message = message.replace(urlRegex, function (url) {
     let hyperlink = url.replace(' ', '')
 
-    if (!hyperlink.match('^https?://')) {
+    if (!/^https?:\/\//.exec(hyperlink)) {
       hyperlink = 'https://' + hyperlink
     }
     return hyperlink

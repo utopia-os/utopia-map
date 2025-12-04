@@ -16,7 +16,7 @@ export interface HeaderViewProps {
 
 export interface PlatformConfig {
   shareUrl: string
-  icon: JSX.Element
+  icon: React.JSX.Element
   label: string
   bgColor: string
 }

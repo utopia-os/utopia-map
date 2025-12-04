@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -68,7 +69,7 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
       },
       error: {
         render({ data }) {
-          return `${data as string}`
+          return data as string
         },
         autoClose: 10000,
       },
@@ -97,13 +98,17 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
         type='email'
         placeholder='E-Mail'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <input
         type='password'
         placeholder='Password'
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <div className='tw:text-right tw:text-primary'>

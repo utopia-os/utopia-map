@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -104,7 +103,9 @@ export function UtopiaMapInner({
   useTheme(defaultTheme)
 
   useEffect(() => {
-    layers.forEach((layer) => addVisibleLayer(layer))
+    layers.forEach((layer) => {
+      addVisibleLayer(layer)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layers])
 
@@ -302,7 +303,7 @@ export function UtopiaMapInner({
       <Outlet />
       <Control position='topLeft' zIndex='1000' absolute>
         <SearchControl />
-        <div className={`${showZoomControl ? 'tw:pl-14' : ''}`}>
+        <div className={showZoomControl ? 'tw:pl-14' : ''}>
           <TagsControl />
         </div>
       </Control>
@@ -327,7 +328,9 @@ export function UtopiaMapInner({
         <MapLibreLayer styleUrl={maplibreStyle} attribution={tileServerAttribution} />
       )}
       <MarkerClusterGroup
-        ref={(r) => setClusterRef(r as any)}
+        ref={(r) => {
+          setClusterRef(r as any)
+        }}
         showCoverageOnHover
         chunkedLoading
         maxClusterRadius={50}
@@ -342,7 +345,7 @@ export function UtopiaMapInner({
           eventHandlers={{
             click: (e) => {
               if (selectNewItemPosition) {
-                e.layer.closePopup()
+                e.propagatedFrom.closePopup()
                 setMapClicked({ position: e.latlng, setItemFormPopup: setPopupForm })
               }
             },

@@ -18,12 +18,12 @@ export const CrowdfundingForm = ({
           type='text'
           required={false}
           defaultValue={state.openCollectiveSlug}
-          updateFormValue={(v) =>
+          updateFormValue={(v) => {
             setState((prevState) => ({
               ...prevState,
               openCollectiveSlug: v,
             }))
-          }
+          }}
         />
       </div>
     </div>

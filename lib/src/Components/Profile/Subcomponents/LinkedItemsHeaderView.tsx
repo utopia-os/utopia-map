@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable no-constant-binary-expression */
 
 import EllipsisVerticalIcon from '@heroicons/react/16/solid/EllipsisVerticalIcon'
 import LinkSlashIcon from '@heroicons/react/24/outline/LinkSlashIcon'
@@ -51,7 +51,12 @@ export function LinkedItemsHeaderView({
             </div>
           </div>
         </div>
-        <div className='tw:col-span-1' onClick={(e) => e.stopPropagation()}>
+        <div
+          className='tw:col-span-1'
+          onClick={(e) => {
+            e.stopPropagation()
+          }}
+        >
           {unlinkPermission && (
             <div className='tw:dropdown tw:dropdown-bottom'>
               <label

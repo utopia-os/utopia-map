@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-catch-all/no-catch-all */
@@ -235,8 +236,7 @@ export function ItemFormPopup(props: Props) {
   }, [popupForm?.position])
 
   return (
-    popupForm &&
-    popupForm.layer.name === activeLayerName && (
+    popupForm?.layer.name === activeLayerName && (
       <LeafletPopup
         minWidth={275}
         maxWidth={275}

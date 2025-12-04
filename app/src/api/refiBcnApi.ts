@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 import axios from 'axios'
 
 import type { ItemsApi } from 'utopia-ui'

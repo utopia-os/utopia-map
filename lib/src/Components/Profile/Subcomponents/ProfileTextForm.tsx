@@ -44,12 +44,12 @@ export const ProfileTextForm = ({
         placeholder={'...'}
         // eslint-disable-next-line security/detect-object-injection
         defaultValue={state[field]}
-        updateFormValue={(v) =>
+        updateFormValue={(v) => {
           setState((prevState) => ({
             ...prevState,
             [field]: v,
           }))
-        }
+        }}
         showMenu={size === 'full'}
         containerStyle={size === 'full' ? 'tw:flex-1' : 'tw:h-24 tw:flex-none'}
       />

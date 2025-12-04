@@ -31,7 +31,9 @@ export const SelectUser = () => {
                   <td>
                     <input
                       type='checkbox'
-                      onChange={() => setSelectedUsers((prev) => [...prev, u.id])}
+                      onChange={() => {
+                        setSelectedUsers((prev) => [...prev, u.id])
+                      }}
                       className='checkbox checkbox-sm'
                     />
                   </td>

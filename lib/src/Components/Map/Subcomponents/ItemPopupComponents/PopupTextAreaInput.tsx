@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { TextAreaInput } from '#components/Input'
 
 import type { Item } from '#types/Item'

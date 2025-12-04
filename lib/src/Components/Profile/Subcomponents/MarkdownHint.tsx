@@ -6,7 +6,9 @@ export const MarkdownHint = () => {
   const [expended, setExpended] = useState<boolean>(false)
   return (
     <div
-      onClick={() => setExpended(true)}
+      onClick={() => {
+        setExpended(true)
+      }}
       title='Markdown is supported'
       className='flex tw:flex-row tw:text-gray-400 tw:cursor-pointer tw:items-center'
     >
