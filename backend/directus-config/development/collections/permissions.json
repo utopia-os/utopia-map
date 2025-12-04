@@ -1377,6 +1377,18 @@
     "_syncId": "d8c084e0-33fe-4d5e-9d90-ef8495414ad9"
   },
   {
+    "collection": "relations",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "263ff65e-de84-4e41-8eb2-9354fe69c484",
+    "_syncId": "d85d3625-2d0a-4971-9595-f1e6d80292d2"
+  },
+  {
     "collection": "startEnd",
     "action": "read",
     "permissions": null,
@@ -3027,6 +3039,18 @@
     ],
     "policy": "e1a6faf4-e93c-4f22-bc56-41b8e48b3ee7",
     "_syncId": "ef9e3e97-e9ad-4249-a631-404dbcd9d178"
+  },
+  {
+    "collection": "relations",
+    "action": "read",
+    "permissions": null,
+    "validation": null,
+    "presets": null,
+    "fields": [
+      "*"
+    ],
+    "policy": "e1a6faf4-e93c-4f22-bc56-41b8e48b3ee7",
+    "_syncId": "36fffb3d-3a75-4d08-b71b-980493898799"
   },
   {
     "collection": "startEnd",
