@@ -138,7 +138,7 @@ export const Landingpage = () => {
                     <li key={idx}>
                       <div className='w-24 h-24 mx-auto'>
                         <img
-                          src={`${config.apiUrl}assets/${item.image}`}
+                          src={`${config.apiUrl}/assets/${item.image}`}
                           className='w-full h-full rounded-full'
                           alt=''
                         />
