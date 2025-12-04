@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import { useAuth } from '#components/Auth/useAuth'
+import { useUpdateItem } from '#components/Map/hooks/useItems'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
 import { MapOverlayPage } from '#components/Templates/MapOverlayPage'
 
@@ -22,6 +23,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const { isAuthenticated, isInitialized: isAuthenticationInitialized } = useAuth()
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const updateItem = useUpdateItem()
 
   const { myProfile, isMyProfileLoaded, createEmptyProfile } = useMyProfile()
 
@@ -57,7 +59,25 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       return
     }
 
+    if (!invitingProfile) {
+      toast.error('Inviting profile not found')
+      return
+    }
+
     await redeemInvite(id, myActualProfile.id)
+
+    // Add new relation to local state
+    updateItem({
+      ...myActualProfile,
+      relations: [
+        ...(myActualProfile.relations ?? []),
+        {
+          type: 'is_following',
+          direction: 'outgoing',
+          related_items_id: invitingProfile.id,
+        },
+      ],
+    })
 
     setRedeemingDone(true)
   }
