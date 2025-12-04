@@ -4,6 +4,8 @@ import 'react-image-crop/dist/ReactCrop.css'
 import 'react-photo-album/rows.css'
 import 'react-toastify/dist/ReactToastify.css'
 import 'yet-another-react-lightbox/styles.css'
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.css'
+import 'react-leaflet-cluster/dist/assets/MarkerCluster.Default.css'
 
 import '#assets/css/tailwind.css'
 import '#assets/css/masonry.css'

@@ -12,10 +12,10 @@ jobs:
       test_failed: ${{ steps.report-results.outputs.test_failed }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v5.0.0
 
       - name: Set up Node.js
-        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v5.0.0
         with:
           node-version-file: ./.tool-versions
           cache: 'npm'
@@ -140,7 +140,7 @@ jobs:
 
       - name: Upload test artifacts on failure
         if: failure()
-        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.6.2
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: |
@@ -156,10 +156,10 @@ jobs:
     if: failure() && needs.cypress-e2e-tests.result == 'failure'
     steps:
       - name: Checkout code
-        uses: actions/checkout@ff7abcd0c3c05ccf6adc123a8cd1fd4fb30fb493 # v5.0.0
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v5.0.0
 
       - name: Setup Node.js
-        uses: actions/setup-node@89d709d423dc495668cd762a18dd4a070611be3f # v5.0.0
+        uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v5.0.0
         with:
           node-version: '20'
           cache: 'npm'
@@ -170,7 +170,7 @@ jobs:
         working-directory: ./cypress
 
       - name: Download test artifacts
-        uses: actions/download-artifact@4a24838f3d5601fd639834081e118c2995d51e1c # v5.0.0
+        uses: actions/download-artifact@f093f21ca4cfa7c75ccbbc2be54da76a0c7e1f05 # v5.0.0
         with:
           name: cypress-test-results-${{ github.run_id }}
           path: ./cypress
@@ -191,7 +191,7 @@ jobs:
           GITHUB_SHA: ${{ github.sha }}
 
       - name: Upload consolidated test report
-        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.6.2
         with:
           name: e2e-test-report-${{ github.run_id }}
           path: cypress/results/html/
@@ -200,7 +200,7 @@ jobs:
 
       - name: Upload raw test data (for debugging)
         if: failure()
-        uses: actions/upload-artifact@2848b2cda0e5190984587ec6bb1f36730ca78d50 # v4.6.2
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v4.6.2
         with:
           name: e2e-raw-data-${{ github.run_id }}
           path: |

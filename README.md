@@ -23,8 +23,23 @@ Utopia Map is made for networks and initiatives  that aim to connect people in r
 
 Clone the repository and get started with the following commands:
 
+**Start docker**
 ```bash
-npm install
+docker compose up -d
+```
+**Initialize backend**
+
+```bash
+sudo chmod 777 -R  ./data/
+cd backend/
+./push.sh
+./seed.sh
+```
+After this the frontend is running on http://localhost:8080 and the backend on http://localhost:8055
+
+**Start dev server**
+```bash
+cd app/
 npm run dev
 ```
 
