@@ -32,17 +32,19 @@ export const useMyProfile = () => {
       name: user.first_name ?? 'User',
     }
 
-    const result = await userLayer.api.createItem(newProfile)
+    const serverResponse = await userLayer.api.createItem(newProfile)
 
-    // Use server response for local state update
-    addItem({
-      ...result,
+    const newItem = {
+      ...serverResponse,
       user_created: user,
       layer: userLayer,
       public_edit: false,
-    })
+    }
 
-    return result
+    // Use server response for local state update
+    addItem(newItem)
+
+    return newItem
   }
 
   return { myProfile, isMyProfileLoaded, isUserProfileLayerLoaded, createEmptyProfile }
