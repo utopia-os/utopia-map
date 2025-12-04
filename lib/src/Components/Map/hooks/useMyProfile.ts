@@ -14,10 +14,10 @@ export const useMyProfile = () => {
     (item) => item.layer?.userProfileLayer && item.user_created?.id === user?.id,
   )
 
-  const isAnyUserProfileLoaded = !!items.find((item) => item.layer?.userProfileLayer)
+  const isUserProfileLayerLoaded = !!items.find((item) => item.layer?.userProfileLayer)
 
   // allItemsLoaded is not reliable
-  const isMyProfileLoaded = isAnyUserProfileLoaded && !!user
+  const isMyProfileLoaded = isUserProfileLayerLoaded && !!user
 
   const createEmptyProfile = async () => {
     if (!user) return
@@ -45,5 +45,5 @@ export const useMyProfile = () => {
     return result
   }
 
-  return { myProfile, isMyProfileLoaded, createEmptyProfile }
+  return { myProfile, isMyProfileLoaded, isUserProfileLayerLoaded, createEmptyProfile }
 }

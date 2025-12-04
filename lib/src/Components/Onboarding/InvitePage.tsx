@@ -25,7 +25,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const navigate = useNavigate()
   const updateItem = useUpdateItem()
 
-  const { myProfile, isMyProfileLoaded, createEmptyProfile } = useMyProfile()
+  const { myProfile, isUserProfileLayerLoaded, createEmptyProfile } = useMyProfile()
 
   if (!id) throw new Error('Invite ID is required')
 
@@ -50,7 +50,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const confirmFollowAsync = async () => {
     if (!isAuthenticated) return
 
-    if (!isMyProfileLoaded || isRedeemingDone) return
+    if (!isUserProfileLayerLoaded || isRedeemingDone) return
 
     const myActualProfile = myProfile ?? (await createEmptyProfile())
 
@@ -92,6 +92,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
       if (!invitingProfileId) {
         toast.error('Invalid invite code')
+        localStorage.removeItem('inviteCode')
         navigate('/')
         return
       }
@@ -100,6 +101,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
       if (invitingProfileId === myProfile?.id) {
         toast.error('You cannot invite yourself')
+        localStorage.removeItem('inviteCode')
         // Navigate to own profile
         navigate('/item/' + myProfile.id)
         return
@@ -111,12 +113,14 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
         )
       ) {
         toast.error('You are already following this profile')
+        localStorage.removeItem('inviteCode')
         navigate('/item/' + invitingProfileId)
         return
       }
 
       if (!invitingProfile) {
         toast.error('Inviting profile not found')
+        localStorage.removeItem('inviteCode')
         navigate('/')
         return
       }
@@ -135,10 +139,10 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       localStorage.setItem('inviteCode', id)
     }
 
-    if (!isMyProfileLoaded) return
+    if (!isUserProfileLayerLoaded) return
 
-    void validateInvite(id)
     setValidationDone(true)
+    void validateInvite(id)
   }, [
     id,
     isAuthenticated,
@@ -146,11 +150,11 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
     navigate,
     isAuthenticationInitialized,
     myProfile,
-    isMyProfileLoaded,
     itemsApi,
     isRedeemingDone,
     isValidationDone,
     createEmptyProfile,
+    isUserProfileLayerLoaded,
   ])
 
   const goToSignup = () => {
