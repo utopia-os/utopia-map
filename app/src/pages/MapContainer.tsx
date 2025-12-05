@@ -23,7 +23,6 @@ import {
 import { itemsApi } from '../api/itemsApi'
 
 import type { Place } from '../api/directus'
-import type { InviteApi } from '@/api/inviteApi'
 import type { LayerProps } from 'utopia-ui'
 
 interface layerApi {
@@ -31,15 +30,7 @@ interface layerApi {
   api: itemsApi<Place>
 }
 
-function MapContainer({
-  layers,
-  map,
-  inviteApi,
-}: {
-  layers: LayerProps[]
-  map: any
-  inviteApi: InviteApi
-}) {
+function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
   const [apis, setApis] = useState<layerApi[]>([])
 
   useEffect(() => {
@@ -96,7 +87,6 @@ function MapContainer({
         expandLayerControl={map.expand_layer_control}
         tileServerUrl={map.tile_server_url}
         tileServerAttribution={map.tile_server_attribution}
-        inviteApi={inviteApi}
         tilesType={map.tiles_type}
         maplibreStyle={map.maplibre_style}
         showFullscreenControl={map.show_fullscreen_control}

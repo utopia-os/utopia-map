@@ -221,10 +221,7 @@ function App() {
             <Content>
               <Quests />
               <Routes>
-                <Route
-                  path='/*'
-                  element={<MapContainer map={map} layers={layers} inviteApi={inviteApi} />}
-                >
+                <Route path='/*' element={<MapContainer map={map} layers={layers} />}>
                   <Route
                     path='invite/:id'
                     element={<InvitePage inviteApi={inviteApi} itemsApi={itemsApiInstance} />}

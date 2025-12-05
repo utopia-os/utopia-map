@@ -6,7 +6,6 @@ import { ContextWrapper } from '#components/AppShell/ContextWrapper'
 import { useStoredInviteCode } from './hooks/useStoredInviteCode'
 import { UtopiaMapInner } from './UtopiaMapInner'
 
-import type { InviteApi } from '#types/InviteApi'
 import type { GeoJsonObject } from 'geojson'
 
 /**
@@ -100,8 +99,6 @@ function UtopiaMap({
   tileServerUrl?: string
   /** configure a custom tile server attribution */
   tileServerAttribution?: string
-  /** API to redeem invite codes */
-  inviteApi: InviteApi
   /** tiles type: 'raster' or 'maplibre' (default 'raster') */
   tilesType?: 'raster' | 'maplibre'
   /** MapLibre style URL for vector tiles (default: OpenFreeMap Liberty) */
