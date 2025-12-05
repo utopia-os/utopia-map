@@ -1,19 +1,51 @@
 import { useAuth } from '#components/Auth/useAuth'
 
-import { useItems, useAllItemsLoaded } from './useItems'
+import { useItems, useAddItem } from './useItems'
+import { useLayers } from './useLayers'
 
 export const useMyProfile = () => {
   const items = useItems()
-  const allItemsLoaded = useAllItemsLoaded()
   const { user } = useAuth()
+  const layers = useLayers()
+  const addItem = useAddItem()
 
   // Find the user's profile item
   const myProfile = items.find(
     (item) => item.layer?.userProfileLayer && item.user_created?.id === user?.id,
   )
 
-  // allItemsLoaded is not reliable, so we check if items.length > 0
-  const isMyProfileLoaded = allItemsLoaded && items.length > 0 && !!user
+  const isUserProfileLayerLoaded = !!items.find((item) => item.layer?.userProfileLayer)
 
-  return { myProfile, isMyProfileLoaded }
+  // allItemsLoaded is not reliable
+  const isMyProfileLoaded = isUserProfileLayerLoaded && !!user
+
+  const createEmptyProfile = async () => {
+    if (!user) return
+
+    const userLayer = layers.find((l) => l.userProfileLayer === true)
+    if (!userLayer?.api?.createItem) {
+      throw new Error('User profile layer or create API not available')
+    }
+
+    const newProfile = {
+      id: crypto.randomUUID(),
+      name: user.first_name ?? 'User',
+    }
+
+    const serverResponse = await userLayer.api.createItem(newProfile)
+
+    const newItem = {
+      ...serverResponse,
+      user_created: user,
+      layer: userLayer,
+      public_edit: false,
+    }
+
+    // Use server response for local state update
+    addItem(newItem)
+
+    return newItem
+  }
+
+  return { myProfile, isMyProfileLoaded, isUserProfileLayerLoaded, createEmptyProfile }
 }

@@ -1,0 +1,27 @@
+{
+    "collection": "relations",
+    "meta": {
+        "insert_order": 1,
+        "create": true,
+        "update": true,
+        "delete": true,
+        "preserve_ids": true,
+        "ignore_on_update": []
+    },
+    "data": [
+        {
+            "_sync_id": "1",
+            "relation": "is_following",
+            "heading": "Following",
+            "direction": "outgoing",
+            "hideWhenEmpty": true
+        },
+        {
+            "_sync_id": "2",
+            "relation": "is_following",
+            "heading": "Follower",
+            "direction": "ingoing",
+            "hideWhenEmpty": true
+        }
+   ]
+}
