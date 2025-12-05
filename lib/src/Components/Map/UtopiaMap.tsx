@@ -61,7 +61,6 @@ function UtopiaMap({
   expandLayerControl,
   tileServerUrl,
   tileServerAttribution,
-  inviteApi,
   tilesType = 'raster',
   maplibreStyle,
   zoomOffset,
