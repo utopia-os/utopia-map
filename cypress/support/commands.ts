@@ -76,7 +76,12 @@ Cypress.Commands.add('searchFor', (query: string) => {
 Cypress.Commands.add('waitForMapReady', () => {
   cy.get('[data-cy="search-input"]', { timeout: 10000 }).should('be.visible')
   cy.get('.leaflet-container', { timeout: 10000 }).should('be.visible')
-  cy.wait(['@getLayerItems', '@getLayerItems', '@getLayerItems'], { timeout: 30000 })
+  cy.wait('@getLayers', { timeout: 15000 }).then((interception) => {
+    const layerCount = interception.response?.body?.data?.length || 3
+    for (let i = 0; i < layerCount; i++) {
+      cy.wait('@getLayerItems', { timeout: 15000 })
+    }
+  })
   cy.get('.leaflet-marker-icon', { timeout: 15000 }).should('have.length.at.least', 1)
 })
 

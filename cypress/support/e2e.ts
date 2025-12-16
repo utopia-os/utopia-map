@@ -66,6 +66,7 @@ beforeEach(() => {
     }
   }).as('photonApi')
 
+  cy.intercept('GET', '**/items/layers*').as('getLayers')
   cy.intercept('GET', '**/items/items*').as('getLayerItems')
 })
 
