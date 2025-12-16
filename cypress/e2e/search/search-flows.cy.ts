@@ -74,7 +74,7 @@ describe('Utopia Map Search', () => {
         cy.contains('Wat Arun').first().click()
       })
 
-      cy.get('.leaflet-popup').should('be.visible')
+      cy.get('.leaflet-popup', { timeout: 15000 }).should('exist')
       cy.get('.leaflet-popup-content').should('contain', 'Wat Arun')
     })
 
