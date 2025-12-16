@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { useContext, useMemo, useState } from 'react'
 import { Marker, Tooltip } from 'react-leaflet'
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 // in miliseconds
 const units = [
   { label: 'year', seconds: 31536000 },

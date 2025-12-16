@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { toast } from 'react-toastify'
 
 import type { Item } from '#types/Item'
