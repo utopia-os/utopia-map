@@ -21,7 +21,9 @@ const componentMap = {
   gallery: GalleryForm,
   inviteLinks: () => null,
   relations: () => null,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   tags_component: ProfileTagsForm,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   attestations_component: () => null,
   tabs: TabsContainerForm,
 }

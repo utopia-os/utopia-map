@@ -24,13 +24,13 @@ export const ProfileTagsForm = ({ state, setState, dataField, heading, placehold
       <TagsWidget
         // eslint-disable-next-line security/detect-object-injection
         defaultTags={state[dataField]}
-        onUpdate={(tags) =>
+        onUpdate={(tags) => {
           setState((prevState) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const updated = { ...prevState, [dataField]: tags }
             return updated
           })
-        }
+        }}
         placeholder={placeholder ?? defaultPlaceholder}
         containerStyle='tw:bg-transparent tw:w-full tw:flex-1 tw:text-xs tw:pb-2 tw:overflow-auto'
       />

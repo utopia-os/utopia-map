@@ -25,7 +25,9 @@ const componentMap: ComponentMap = {
   gallery: GalleryForm,
   inviteLinks: () => null,
   relations: () => null, // Relations are not editable in form
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   tags_component: ProfileTagsForm,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   attestations_component: () => null, // Attestations are view-only
 }
 
@@ -69,7 +71,7 @@ export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = 
     (index: number) => {
       setActiveTab(index)
       const params = new URLSearchParams(location.search)
-      params.set('tab', `${index}`)
+      params.set('tab', String(index))
       const newUrl = location.pathname + '?' + params.toString()
       navigate(newUrl)
     },
@@ -89,7 +91,9 @@ export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = 
             type='button'
             key={tab.id}
             className={`tw:flex-1 tw:flex tw:items-center tw:justify-center tw:gap-2 tw:py-2 tw:px-4 tw:rounded-md tw:transition-colors tw:cursor-pointer ${activeTab === index ? 'tw:bg-primary tw:text-primary-content' : 'hover:tw:bg-base-300'}`}
-            onClick={() => updateActiveTab(index)}
+            onClick={() => {
+              updateActiveTab(index)
+            }}
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()

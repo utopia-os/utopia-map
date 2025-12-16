@@ -27,7 +27,9 @@ const componentMap: ComponentMap = {
   crowdfundings: CrowdfundingView,
   inviteLinks: InviteLinkView,
   relations: RelationsView,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   tags_component: ProfileTagsView,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   attestations_component: AttestationsView,
 }
 
@@ -69,7 +71,7 @@ export const TabsContainerView = ({ item, tabs = [], iconAsLabels = false }: Pro
     (index: number) => {
       setActiveTab(index)
       const params = new URLSearchParams(location.search)
-      params.set('tab', `${index}`)
+      params.set('tab', String(index))
       const newUrl = location.pathname + '?' + params.toString()
       navigate(newUrl)
     },
@@ -88,7 +90,9 @@ export const TabsContainerView = ({ item, tabs = [], iconAsLabels = false }: Pro
           <button
             key={tab.id}
             className={`tw:flex-1 tw:flex tw:items-center tw:justify-center tw:gap-2 tw:py-2 tw:px-4 tw:rounded-md tw:transition-colors tw:cursor-pointer ${activeTab === index ? 'tw:bg-primary tw:text-primary-content' : 'hover:tw:bg-base-300'}`}
-            onClick={() => updateActiveTab(index)}
+            onClick={() => {
+              updateActiveTab(index)
+            }}
           >
             {tab.icon && <span>{tab.icon}</span>}
             {!(iconAsLabels && activeTab !== index) && <span>{tab.title}</span>}

@@ -24,7 +24,9 @@ const componentMap = {
   crowdfundings: CrowdfundingView,
   inviteLinks: InviteLinkView,
   relations: RelationsView,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   tags_component: ProfileTagsView,
+  // eslint-disable-next-line camelcase -- Keys match external data schema
   attestations_component: AttestationsView,
   tabs: TabsContainerView,
 }
