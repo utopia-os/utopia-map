@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useDebounce } from '#components/Map/hooks/useDebounce'
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
-import { useItems } from '#components/Map/hooks/useItems'
+import { useAllItemsLoaded, useItems } from '#components/Map/hooks/useItems'
 import { useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useTags } from '#components/Map/hooks/useTags'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
@@ -47,6 +47,7 @@ export const SearchControl = () => {
   const map = useMap()
   const tags = useTags()
   const items = useItems()
+  const allItemsLoaded = useAllItemsLoaded()
   const leafletRefs = useLeafletRefs()
   const addFilterTag = useAddFilterTag()
   const appState = useAppState()
@@ -114,6 +115,7 @@ export const SearchControl = () => {
                 value={value}
                 className='tw:input tw:input-bordered tw:h-12 tw:grow tw:shadow-xl tw:rounded-box tw:pr-12 tw:w-full'
                 data-cy='search-input'
+                data-items-loaded={allItemsLoaded ? 'true' : 'false'}
                 ref={searchInput}
                 onChange={(e) => setValue(e.target.value)}
                 onFocus={() => {
