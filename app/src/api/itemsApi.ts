@@ -100,7 +100,19 @@ export class itemsApi<T> implements ItemsApi<T> {
 
   async updateItem(item: T & { id?: string }): Promise<T> {
     try {
-      const result = await directusClient.request(updateItem(this.collectionName, item.id!, item))
+      const result = await directusClient.request(
+        updateItem(this.collectionName, item.id!, item, {
+          fields: [
+            '*',
+            'secrets.*',
+            'to.*',
+            'relations.*',
+            'user_created.*',
+            'markerIcon.*',
+            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
+          ],
+        }),
+      )
       return result as T
     } catch (error: any) {
       console.log(error)
