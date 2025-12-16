@@ -71,7 +71,7 @@ export const TabsContainerView = ({ item, tabs = [], iconAsLabels = false }: Pro
       const params = new URLSearchParams(location.search)
       params.set('tab', `${index}`)
       const newUrl = location.pathname + '?' + params.toString()
-      navigate(newUrl, { replace: false })
+      navigate(newUrl)
     },
     [location.pathname, location.search, navigate],
   )
