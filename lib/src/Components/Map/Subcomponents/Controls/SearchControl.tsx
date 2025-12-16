@@ -250,28 +250,18 @@ export const SearchControl = () => {
                   key={Math.random()}
                   onClick={() => {
                     searchInput.current?.blur()
-                    const geoMarker = marker(
-                      new LatLng(geo.geometry.coordinates[1], geo.geometry.coordinates[0]),
-                      {
-                        icon: MarkerIconFactory('circle', '#777', 'RGBA(35, 31, 32, 0.2)'),
-                      },
-                    )
+                    marker(new LatLng(geo.geometry.coordinates[1], geo.geometry.coordinates[0]), {
+                      icon: MarkerIconFactory('circle', '#777', 'RGBA(35, 31, 32, 0.2)'),
+                    })
                       .addTo(map)
                       .bindPopup(
                         `<h3 class="tw:text-base tw:font-bold">${geo?.properties.name ? geo?.properties.name : value}<h3>${capitalizeFirstLetter(geo?.properties?.osm_value)}`,
                       )
+                      .openPopup()
                       .addEventListener('popupclose', (e) => {
                         // eslint-disable-next-line no-console
                         console.log(e.target.remove())
                       })
-
-                    // Open popup after map finishes moving to ensure it's visible
-                    const openPopupAfterMove = () => {
-                      geoMarker.openPopup()
-                      map.off('moveend', openPopupAfterMove)
-                    }
-                    map.on('moveend', openPopupAfterMove)
-
                     if (geo.properties.extent)
                       map.fitBounds(
                         new LatLngBounds(
@@ -325,27 +315,26 @@ export const SearchControl = () => {
                   className='tw:flex tw:flex-row tw:items-center tw:hover:font-bold tw:cursor-pointer tw:gap-2'
                   data-cy='search-coordinate-result'
                   onClick={() => {
-                    const coords = extractCoordinates(value)!
-                    const coordMarker = marker(new LatLng(coords[0], coords[1]), {
-                      icon: MarkerIconFactory('circle', '#777', 'RGBA(35, 31, 32, 0.2)'),
-                    })
+                    marker(
+                      new LatLng(extractCoordinates(value)![0], extractCoordinates(value)![1]),
+                      {
+                        icon: MarkerIconFactory('circle', '#777', 'RGBA(35, 31, 32, 0.2)'),
+                      },
+                    )
                       .addTo(map)
                       .bindPopup(
-                        `<h3 class="tw:text-base tw:font-bold">${coords[0]}, ${coords[1]}</h3>`,
+                        `<h3 class="tw:text-base tw:font-bold">${extractCoordinates(value)![0]}, ${extractCoordinates(value)![1]}</h3>`,
                       )
+                      .openPopup()
                       .addEventListener('popupclose', (e) => {
                         // eslint-disable-next-line no-console
                         console.log(e.target.remove())
                       })
-
-                    // Open popup after map finishes moving to ensure it's visible
-                    const openPopupAfterMove = () => {
-                      coordMarker.openPopup()
-                      map.off('moveend', openPopupAfterMove)
-                    }
-                    map.on('moveend', openPopupAfterMove)
-
-                    map.setView(new LatLng(coords[0], coords[1]), 15, { duration: 1 })
+                    map.setView(
+                      new LatLng(extractCoordinates(value)![0], extractCoordinates(value)![1]),
+                      15,
+                      { duration: 1 },
+                    )
                   }}
                 >
                   <div className='tw:h-7 tw:w-7 tw:flex tw:items-center tw:justify-center tw:flex-shrink-0'>
