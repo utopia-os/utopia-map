@@ -17,7 +17,7 @@ export function MapOverlayPage({
   card?: boolean
 }) {
   const closeScreen = () => {
-    navigate(`/${window.location.search ? window.location.search : ''}`)
+    void navigate(`/${window.location.search ? window.location.search : ''}`)
   }
 
   const navigate = useNavigate()

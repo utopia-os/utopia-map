@@ -193,7 +193,7 @@ export const LocateControl = (): JSX.Element => {
       }
 
       // Navigate to the profile to show the popup
-      navigate(`/${result.id}`)
+      void navigate(`/${result.id}`)
 
       // Clean up and reset state
       setFoundLocation(null)

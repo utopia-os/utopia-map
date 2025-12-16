@@ -35,7 +35,7 @@ export const ItemCard = ({
     }
 
     if (i.layer.itemType.small_form_edit && i.position) {
-      navigate('/')
+      void navigate('/')
       // Wait for navigation to complete before setting popup
       setTimeout(() => {
         if (i.position && i.layer) {
@@ -49,7 +49,7 @@ export const ItemCard = ({
         }
       }, 100)
     } else {
-      navigate('/edit-item/' + i.id)
+      void navigate('/edit-item/' + i.id)
     }
   }
 
@@ -60,8 +60,8 @@ export const ItemCard = ({
         // We could have an onClick callback instead
         const params = new URLSearchParams(window.location.search)
         if (windowDimensions.width < 786 && i.position)
-          navigate('/' + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
-        else navigate(url + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
+          void navigate('/' + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
+        else void navigate(url + i.id + `${params.size > 0 ? `?${params.toString()}` : ''}`)
       }}
     >
       <HeaderView
@@ -72,7 +72,7 @@ export const ItemCard = ({
         setPositionCallback={() => {
           map.closePopup()
           setSelectPosition(i)
-          navigate('/')
+          void navigate('/')
         }}
         deleteCallback={() => deleteCallback(i)}
       ></HeaderView>

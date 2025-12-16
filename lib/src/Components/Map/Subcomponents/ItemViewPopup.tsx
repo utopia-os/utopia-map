@@ -81,7 +81,7 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
     setLoading(false)
     map.closePopup()
     removeItemFromUrl()
-    navigate('/')
+    void navigate('/')
   }
 
   return (
@@ -99,7 +99,7 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
           setPositionCallback={() => {
             map.closePopup()
             setSelectPosition(props.item)
-            navigate('/')
+            void navigate('/')
           }}
           loading={loading}
         />

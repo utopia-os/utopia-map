@@ -67,13 +67,15 @@ export function EditMenu({
               <a
                 className='tw:text-base-content! tw:tooltip tw:tooltip-top tw:cursor-pointer'
                 data-tip='Edit'
-                onClick={(e) =>
-                  item.layer?.customEditLink
-                    ? navigate(
-                        `${item.layer.customEditLink}${item.layer.customEditParameter ? `/${item.id}${params.toString() ? '?' + params.toString() : ''}` : ''}`,
-                      )
-                    : editCallback(e)
-                }
+                onClick={(e) => {
+                  if (item.layer?.customEditLink) {
+                    void navigate(
+                      `${item.layer.customEditLink}${item.layer.customEditParameter ? `/${item.id}${params.toString() ? '?' + params.toString() : ''}` : ''}`,
+                    )
+                  } else {
+                    editCallback(e)
+                  }
+                }}
               >
                 <PencilIcon className='tw:h-5 tw:w-5' />
               </a>

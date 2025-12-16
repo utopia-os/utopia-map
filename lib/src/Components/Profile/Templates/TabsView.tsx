@@ -263,7 +263,9 @@ export const TabsView = ({
                     <div
                       key={i.id}
                       className='tw:cursor-pointer tw:card tw:bg-base-200 tw:border-[1px] tw:border-base-300 tw:card-body tw:shadow-xl tw:text-base-content tw:p-6 tw:mr-4 tw:mb-4'
-                      onClick={() => navigate('/item/' + i.id)}
+                      onClick={() => {
+                        void navigate('/item/' + i.id)
+                      }}
                     >
                       <LinkedItemsHeaderView
                         unlinkPermission={updatePermission}

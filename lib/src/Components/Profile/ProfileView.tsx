@@ -186,11 +186,13 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
                     // Error handling is already in handleDelete
                   })
                 }}
-                editCallback={() => navigate('/edit-item/' + item.id)}
+                editCallback={() => {
+                  void navigate('/edit-item/' + item.id)
+                }}
                 setPositionCallback={() => {
                   map.closePopup()
                   setSelectPosition(item)
-                  navigate('/')
+                  void navigate('/')
                 }}
                 big
                 truncateSubname={false}

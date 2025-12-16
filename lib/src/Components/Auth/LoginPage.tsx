@@ -50,9 +50,9 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
       invitingProfileId = await redeemInvite(inviteCode)
     }
     if (invitingProfileId) {
-      navigate(`/item/${invitingProfileId}`)
+      void navigate(`/item/${invitingProfileId}`)
     } else {
-      navigate('/')
+      void navigate('/')
     }
   }, [navigate, redeemInvite])
 
