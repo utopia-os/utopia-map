@@ -1,4 +1,5 @@
 /* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -51,7 +52,9 @@ export const Tabs: React.FC<TabsProps> = ({ items, setUrlParams }: TabsProps) =>
             key={index}
             role='tab'
             className={`tw:tab ${index === activeIndex ? 'tw:tab-active' : ''}`}
-            onClick={() => updateActiveTab(index)}
+            onClick={() => {
+              updateActiveTab(index)
+            }}
           >
             {item.title}
           </div>

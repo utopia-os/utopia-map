@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable promise/always-return */
 import { control } from 'leaflet'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import SVG from 'react-inlinesvg'
@@ -15,7 +17,7 @@ import DialogModal from '#components/Templates/DialogModal'
 import type { Item } from '#types/Item'
 import type { LatLng } from 'leaflet'
 
-// eslint-disable-next-line import/no-unassigned-import
+// eslint-disable-next-line import-x/no-unassigned-import
 import 'leaflet.locatecontrol'
 
 // Type definitions for leaflet.locatecontrol
@@ -31,7 +33,7 @@ declare module 'leaflet' {
  * React wrapper for leaflet.locatecontrol that provides user geolocation functionality
  * @category Map Controls
  */
-export const LocateControl = (): JSX.Element => {
+export const LocateControl = (): React.JSX.Element => {
   const map = useMap()
   const myProfile = useMyProfile()
   const updateItem = useUpdateItem()
@@ -206,7 +208,9 @@ export const LocateControl = (): JSX.Element => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       if (lc) lc.stop()
       // Reset flag after a delay to allow future updates
-      setTimeout(() => setHasUpdatedPosition(false), 5000)
+      setTimeout(() => {
+        setHasUpdatedPosition(false)
+      }, 5000)
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.update(toastId, {
@@ -278,7 +282,9 @@ export const LocateControl = (): JSX.Element => {
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'
               onClick={() => {
-                void itemUpdatePosition().then(() => setShowLocationModal(false))
+                void itemUpdatePosition().then(() => {
+                  setShowLocationModal(false)
+                })
               }}
             >
               Yes

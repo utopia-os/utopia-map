@@ -1,4 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable promise/always-return */
+/* eslint-disable @typescript-eslint/use-unknown-in-catch-callback-variable */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -44,7 +47,9 @@ export function UserSettings() {
           },
         },
       })
-      .then(() => navigate('/'))
+      .then(() => {
+        void navigate('/')
+      })
       .catch((e) => {
         throw e
       })
@@ -62,7 +67,9 @@ export function UserSettings() {
           type='email'
           placeholder='new E-Mail'
           defaultValue={user?.email ? user.email : ''}
-          updateFormValue={(v) => setEmail(v)}
+          updateFormValue={(v) => {
+            setEmail(v)
+          }}
         />
         <TextInput
           type='password'
@@ -83,7 +90,9 @@ export function UserSettings() {
               ? ' tw:loading tw:btn-disabled tw:btn tw:btn-primary tw:float-right'
               : 'tw:btn tw:btn-primary tw:float-right'
           }
-          onClick={() => onUpdateUser()}
+          onClick={() => {
+            onUpdateUser()
+          }}
         >
           Update
         </button>

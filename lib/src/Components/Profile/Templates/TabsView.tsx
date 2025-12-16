@@ -88,9 +88,11 @@ export const TabsView = ({
         name='my_tabs_2'
         role='tab'
         className={'tw:tab tw:font-bold tw:ps-2! tw:pe-2! '}
-        aria-label={`${item.layer?.itemType.icon_as_labels && activeTab !== 0 ? '📝' : '📝\u00A0Info'}`}
+        aria-label={item.layer?.itemType.icon_as_labels && activeTab !== 0 ? '📝' : '📝\u00A0Info'}
         checked={activeTab === 0 && true}
-        onChange={() => updateActiveTab(0)}
+        onChange={() => {
+          updateActiveTab(0)
+        }}
       />
       <div
         role='tabpanel'
@@ -112,9 +114,13 @@ export const TabsView = ({
             name='my_tabs_2'
             role='tab'
             className={'tw:tab tw:font-bold tw:ps-2! tw:pe-2!'}
-            aria-label={`${item.layer.itemType.icon_as_labels && activeTab !== 3 ? '❤️' : '❤️\u00A0Trust'}`}
+            aria-label={
+              item.layer.itemType.icon_as_labels && activeTab !== 3 ? '❤️' : '❤️\u00A0Trust'
+            }
             checked={activeTab === 3 && true}
-            onChange={() => updateActiveTab(3)}
+            onChange={() => {
+              updateActiveTab(3)
+            }}
           />
           <div
             role='tabpanel'
@@ -195,9 +201,15 @@ export const TabsView = ({
             name='my_tabs_2'
             role='tab'
             className={`tw:tab tw:font-bold tw:ps-2! tw:pe-2! ${!(item.layer.itemType.icon_as_labels && activeTab !== 1) && 'tw:min-w-[10.4em]'} `}
-            aria-label={`${item.layer.itemType.icon_as_labels && activeTab !== 1 ? '♻️' : '♻️\u00A0Offers & Needs'}`}
+            aria-label={
+              item.layer.itemType.icon_as_labels && activeTab !== 1
+                ? '♻️'
+                : '♻️\u00A0Offers & Needs'
+            }
             checked={activeTab === 1 && true}
-            onChange={() => updateActiveTab(1)}
+            onChange={() => {
+              updateActiveTab(1)
+            }}
           />
           <div
             role='tabpanel'
@@ -228,7 +240,13 @@ export const TabsView = ({
                     <h3 className='tw:-mb-2 tw:col-span-1'>Needs</h3>
                     <div className='tw:flex tw:flex-wrap  tw:mb-4'>
                       {needs.map((n) => (
-                        <TagView key={n.id} tag={n} onClick={() => addFilterTag(n)} />
+                        <TagView
+                          key={n.id}
+                          tag={n}
+                          onClick={() => {
+                            addFilterTag(n)
+                          }}
+                        />
                       ))}
                     </div>
                   </div>
@@ -248,9 +266,13 @@ export const TabsView = ({
             name='my_tabs_2'
             role='tab'
             className='tw:tab tw:font-bold tw:ps-2! tw:pe-2! '
-            aria-label={`${item.layer.itemType.icon_as_labels && activeTab !== 2 ? '🔗' : '🔗\u00A0Links'}`}
+            aria-label={
+              item.layer.itemType.icon_as_labels && activeTab !== 2 ? '🔗' : '🔗\u00A0Links'
+            }
             checked={activeTab === 2 && true}
-            onChange={() => updateActiveTab(2)}
+            onChange={() => {
+              updateActiveTab(2)
+            }}
           />
           <div
             role='tabpanel'

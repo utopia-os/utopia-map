@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-find */
 import ChevronDownIcon from '@heroicons/react/24/outline/ChevronDownIcon'
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
@@ -10,7 +11,7 @@ function SidebarSubmenu({
   icon,
 }: {
   path: string
-  icon: JSX.Element
+  icon: React.JSX.Element
   name: string
   submenu?: Route[]
 }) {
@@ -31,7 +32,12 @@ function SidebarSubmenu({
   return (
     <div className='flex-col'>
       {/** Route header */}
-      <div className='w-full' onClick={() => setIsExpanded(!isExpanded)}>
+      <div
+        className='w-full'
+        onClick={() => {
+          setIsExpanded(!isExpanded)
+        }}
+      >
         {icon} <span>{name} </span>
         <ChevronDownIcon
           className={

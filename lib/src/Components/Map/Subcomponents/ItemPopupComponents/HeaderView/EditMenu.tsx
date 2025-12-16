@@ -53,7 +53,12 @@ export function EditMenu({
   if (!hasDeletePermission && !hasUpdatePermission) return null
 
   return (
-    <div onClick={(e) => e.stopPropagation()} className={`${big ? 'tw:mt-5' : 'tw:mt-1'}`}>
+    <div
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
+      className={big ? 'tw:mt-5' : 'tw:mt-1'}
+    >
       <div className='tw:dropdown tw:dropdown-bottom tw:dropdown-center'>
         <label tabIndex={0} className='tw:btn tw:btn-ghost tw:px-2.5'>
           <EllipsisVerticalIcon className='tw:h-5 tw:w-5' />

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import type { Item, Tag } from 'utopia-ui'
 
 export const tags: Tag[] = [

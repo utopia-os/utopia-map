@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable promise/always-return */
 import { useRef, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -62,14 +65,13 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
             success: 'Attestation created',
             error: {
               render({ data }) {
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 return `${data}`
               },
             },
           },
         )
-        .then(() =>
-          navigate(
+        .then(() => {
+          void navigate(
             '/item/' +
               // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               items.find(
@@ -79,8 +81,8 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
                   i.layer?.userProfileLayer === true,
               )?.id +
               '?tab=2',
-          ),
-        )
+          )
+        })
   }
 
   const [selectedEmoji, setSelectedEmoji] = useState('select badge')

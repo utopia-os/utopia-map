@@ -44,7 +44,9 @@ export function HeaderView({
               item={item}
               big={big}
               showQrButton={showQrButton}
-              onQrClick={() => setQrModalOpen(true)}
+              onQrClick={() => {
+                setQrModalOpen(true)
+              }}
             />
             <ItemTitle
               item={item}
@@ -64,7 +66,9 @@ export function HeaderView({
           loading={loading}
           hideMenu={hideMenu}
           big={big}
-          onDeleteModalOpen={() => setModalOpen(true)}
+          onDeleteModalOpen={() => {
+            setModalOpen(true)
+          }}
         />
       </div>
 
@@ -81,12 +85,20 @@ export function HeaderView({
       <DeleteModal
         item={item}
         isOpen={modalOpen}
-        onClose={() => setModalOpen(false)}
+        onClose={() => {
+          setModalOpen(false)
+        }}
         onConfirm={deleteCallback ?? (() => undefined)}
       />
 
       {showQrButton && (
-        <QRModal item={item} isOpen={qrModalOpen} onClose={() => setQrModalOpen(false)} />
+        <QRModal
+          item={item}
+          isOpen={qrModalOpen}
+          onClose={() => {
+            setQrModalOpen(false)
+          }}
+        />
       )}
     </>
   )

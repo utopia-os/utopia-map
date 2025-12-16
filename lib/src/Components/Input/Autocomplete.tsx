@@ -85,7 +85,9 @@ export const Autocomplete = ({
         ref={inputRef}
         {...inputProps}
         type='text'
-        onChange={(e) => handleChange(e)}
+        onChange={(e) => {
+          handleChange(e)
+        }}
         tabIndex='-1'
         onKeyDown={handleKeyDown}
         className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5'
@@ -94,7 +96,12 @@ export const Autocomplete = ({
         className={`tw:absolute tw:z-4000 ${filteredSuggestions.length > 0 && 'tw:bg-base-100 tw:rounded-xl tw:p-2'}`}
       >
         {filteredSuggestions.map((suggestion, index) => (
-          <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+          <li
+            key={index}
+            onClick={() => {
+              handleSuggestionClick(suggestion)
+            }}
+          >
             <TagView heighlight={index === heighlightedSuggestion} tag={suggestion}></TagView>
           </li>
         ))}
