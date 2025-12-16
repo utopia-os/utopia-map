@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon'
 import { useEffect, useState } from 'react'
 
@@ -18,7 +19,9 @@ export function FilterControl() {
   ]
 
   useEffect(() => {
-    groupTypes.map((layer) => addVisibleGroupType(layer.value))
+    groupTypes.map((layer) => {
+      addVisibleGroupType(layer.value)
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -48,7 +51,9 @@ export function FilterControl() {
                 >
                   <input
                     id={groupType.value}
-                    onChange={() => toggleVisibleGroupType(groupType.value)}
+                    onChange={() => {
+                      toggleVisibleGroupType(groupType.value)
+                    }}
                     type='checkbox'
                     className='tw:checkbox tw:checkbox-xs tw:checkbox-success'
                     checked={isGroupTypeVisible(groupType.value)}

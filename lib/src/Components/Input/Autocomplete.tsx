@@ -101,8 +101,15 @@ export const Autocomplete = ({
         ref={inputRef}
         {...inputProps}
         type='text'
+<<<<<<< refactor-tab-layout
         onChange={(e) => handleChange(e)}
         tabIndex={-1}
+=======
+        onChange={(e) => {
+          handleChange(e)
+        }}
+        tabIndex='-1'
+>>>>>>> main
         onKeyDown={handleKeyDown}
         className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5 tw:w-full'
       />
@@ -111,6 +118,7 @@ export const Autocomplete = ({
       >
         {filteredSuggestions.map((suggestion, index) => (
           <li
+<<<<<<< refactor-tab-layout
             key={suggestion.id}
             role='option'
             tabIndex={0}
@@ -124,6 +132,14 @@ export const Autocomplete = ({
             }}
           >
             <TagView heighlight={index === highlightedSuggestion} tag={suggestion}></TagView>
+=======
+            key={index}
+            onClick={() => {
+              handleSuggestionClick(suggestion)
+            }}
+          >
+            <TagView heighlight={index === heighlightedSuggestion} tag={suggestion}></TagView>
+>>>>>>> main
           </li>
         ))}
       </ul>

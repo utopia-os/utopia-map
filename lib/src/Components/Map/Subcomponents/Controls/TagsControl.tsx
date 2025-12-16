@@ -16,7 +16,9 @@ export const TagsControl = () => {
           <div className='tw:card-actions tw:justify-end'>
             <label
               className='tw:btn tw:btn-xs tw:btn-circle tw:absolute tw:-right-2 tw:-top-2 tw:bg-white tw:text-gray-600'
-              onClick={() => removeFilterTag(tag.name)}
+              onClick={() => {
+                removeFilterTag(tag.name)
+              }}
             >
               ✕
             </label>

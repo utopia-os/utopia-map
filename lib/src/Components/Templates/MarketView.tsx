@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -68,7 +69,9 @@ export const MarketView = () => {
           <div className='tw:flex tw:flex-wrap'>
             {groupAndCount(offers).map((o) => (
               <TagView
-                onClick={() => navigate(`/?tags=${o.object.name}`)}
+                onClick={() => {
+                  navigate(`/?tags=${o.object.name}`)
+                }}
                 key={o.object.id}
                 tag={o.object}
                 count={o.count}
@@ -81,7 +84,9 @@ export const MarketView = () => {
           <div className='tw:flex tw:flex-wrap'>
             {groupAndCount(needs).map((o) => (
               <TagView
-                onClick={() => navigate(`/?tags=${o.object.name}`)}
+                onClick={() => {
+                  navigate(`/?tags=${o.object.name}`)
+                }}
                 key={o.object.id}
                 tag={o.object}
                 count={o.count}

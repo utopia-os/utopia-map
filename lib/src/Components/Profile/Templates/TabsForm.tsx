@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable react/prop-types */
@@ -131,7 +132,9 @@ export const TabsForm = ({
                       <div
                         key={i.id}
                         className='tw:cursor-pointer tw:card tw:bg-base-200 tw:border-[1px] tw:border-base-300 tw:card-body tw:shadow-xl tw:text-base-content tw:mx-4 tw:p-6 tw:mb-4'
-                        onClick={() => navigate('/item/' + i.id)}
+                        onClick={() => {
+                          navigate('/item/' + i.id)
+                        }}
                       >
                         <LinkedItemsHeaderView
                           unlinkPermission={updatePermission}
