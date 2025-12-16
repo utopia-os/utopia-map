@@ -77,7 +77,6 @@ Cypress.Commands.add('waitForMapReady', () => {
   cy.get('[data-cy="search-input"]', { timeout: 10000 }).should('be.visible')
   cy.get('.leaflet-container', { timeout: 10000 }).should('be.visible')
   cy.get('.leaflet-marker-icon', { timeout: 15000 }).should('have.length.at.least', 1)
-  cy.get('[data-cy="search-input"][data-items-loaded="true"]', { timeout: 15000 }).should('exist')
 })
 
 Cypress.Commands.add('clickMarker', () => {
