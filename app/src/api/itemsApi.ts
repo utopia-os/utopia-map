@@ -11,6 +11,17 @@ import { directusClient } from './directus'
 import type { MyCollections } from './directus'
 import type { ItemsApi } from 'utopia-ui'
 
+// Fields to request when fetching items to include all relational data
+const ITEM_FIELDS = [
+  '*',
+  'secrets.*',
+  'to.*',
+  'relations.*',
+  'user_created.*',
+  'markerIcon.*',
+  { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
+]
+
 export class itemsApi<T> implements ItemsApi<T> {
   collectionName: keyof MyCollections
   filter: any
@@ -43,15 +54,7 @@ export class itemsApi<T> implements ItemsApi<T> {
     try {
       const result = await directusClient.request<T[]>(
         readItems(this.collectionName as never, {
-          fields: [
-            '*',
-            'secrets.*',
-            'to.*',
-            'relations.*',
-            'user_created.*',
-            'markerIcon.*',
-            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
-          ],
+          fields: ITEM_FIELDS,
           filter: this.filter,
           limit: -1,
         }),
@@ -72,15 +75,7 @@ export class itemsApi<T> implements ItemsApi<T> {
     try {
       const result = await directusClient.request(
         readItem(this.collectionName as never, id, {
-          fields: [
-            '*',
-            'secrets.*',
-            'to.*',
-            'relations.*',
-            'user_created.*',
-            'markerIcon.*',
-            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
-          ],
+          fields: ITEM_FIELDS,
         }),
       )
       return result as T
@@ -103,15 +98,7 @@ export class itemsApi<T> implements ItemsApi<T> {
             ...(this.mapId && { map: this.mapId }),
           },
           {
-            fields: [
-              '*',
-              'secrets.*',
-              'to.*',
-              'relations.*',
-              'user_created.*',
-              'markerIcon.*',
-              { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
-            ],
+            fields: ITEM_FIELDS,
           },
         ),
       )
@@ -127,15 +114,7 @@ export class itemsApi<T> implements ItemsApi<T> {
     try {
       const result = await directusClient.request(
         updateItem(this.collectionName, item.id!, item, {
-          fields: [
-            '*',
-            'secrets.*',
-            'to.*',
-            'relations.*',
-            'user_created.*',
-            'markerIcon.*',
-            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
-          ],
+          fields: ITEM_FIELDS,
         }),
       )
       return result as T
