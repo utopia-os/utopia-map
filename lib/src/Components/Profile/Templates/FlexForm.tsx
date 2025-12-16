@@ -5,7 +5,9 @@ import { CrowdfundingForm } from '#components/Profile/Subcomponents/Crowdfunding
 import { GalleryForm } from '#components/Profile/Subcomponents/GalleryForm'
 import { GroupSubheaderForm } from '#components/Profile/Subcomponents/GroupSubheaderForm'
 import { ProfileStartEndForm } from '#components/Profile/Subcomponents/ProfileStartEndForm'
+import { ProfileTagsForm } from '#components/Profile/Subcomponents/ProfileTagsForm'
 import { ProfileTextForm } from '#components/Profile/Subcomponents/ProfileTextForm'
+import { TabsContainerForm } from '#components/Profile/Subcomponents/TabsContainerForm'
 
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
@@ -17,8 +19,11 @@ const componentMap = {
   startEnd: ProfileStartEndForm,
   crowdfundings: CrowdfundingForm,
   gallery: GalleryForm,
-  inviteLinks: () => null, // Not needed for now
-  // weitere Komponenten hier
+  inviteLinks: () => null,
+  relations: () => null,
+  tags_component: ProfileTagsForm,
+  attestations_component: () => null,
+  tabs: TabsContainerForm,
 }
 
 export const FlexForm = ({

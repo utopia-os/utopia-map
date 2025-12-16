@@ -66,6 +66,7 @@ export const Autocomplete = ({
         heighlightedSuggestion > 0 && setHeighlightedSuggestion((current) => current - 1)
         break
       case 'Enter':
+        event.preventDefault()
         if (filteredSuggestions.length > 0) {
           // eslint-disable-next-line security/detect-object-injection
           onSelected(filteredSuggestions[heighlightedSuggestion])
@@ -80,7 +81,7 @@ export const Autocomplete = ({
   }
 
   return (
-    <div>
+    <div className='tw:flex-1'>
       <input
         ref={inputRef}
         {...inputProps}
@@ -88,7 +89,7 @@ export const Autocomplete = ({
         onChange={(e) => handleChange(e)}
         tabIndex='-1'
         onKeyDown={handleKeyDown}
-        className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5'
+        className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5 tw:w-full'
       />
       <ul
         className={`tw:absolute tw:z-4000 ${filteredSuggestions.length > 0 && 'tw:bg-base-100 tw:rounded-xl tw:p-2'}`}

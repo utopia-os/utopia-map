@@ -22,6 +22,7 @@ import { HeaderView } from '#components/Map/Subcomponents/ItemPopupComponents/He
 import { MapOverlayPage } from '#components/Templates'
 
 import { handleDelete, linkItem, unlinkItem } from './itemFunctions'
+import { AttestationsContext } from './hooks/useAttestations'
 import { FlexView } from './Templates/FlexView'
 import { OnepagerView } from './Templates/OnepagerView'
 import { SimpleView } from './Templates/SimpleView'
@@ -201,7 +202,11 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
 
             {template === 'simple' && <SimpleView item={item} />}
 
-            {template === 'flex' && <FlexView item={item} />}
+            {template === 'flex' && (
+              <AttestationsContext.Provider value={attestations}>
+                <FlexView item={item} />
+              </AttestationsContext.Provider>
+            )}
 
             {template === 'tabs' && (
               <TabsView
