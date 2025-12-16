@@ -44,7 +44,9 @@ export function Quests() {
             <div className='tw:card-actions tw:justify-end'>
               <label
                 className='tw:btn tw:btn-sm tw:btn-circle tw:btn-ghost tw:absolute tw:right-1 tw:top-1'
-                onClick={() => setQuestsOpen(false)}
+                onClick={() => {
+                  setQuestsOpen(false)
+                }}
               >
                 ✕
               </label>
