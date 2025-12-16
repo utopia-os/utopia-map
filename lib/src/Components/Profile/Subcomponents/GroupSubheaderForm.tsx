@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import { useEffect } from 'react'
 
@@ -57,12 +58,12 @@ export const GroupSubheaderForm = ({
           id='status'
           options={groupStates || []}
           value={state.status}
-          onValueChange={(v) =>
+          onValueChange={(v) => {
             setState((prevState) => ({
               ...prevState,
               status: v,
             }))
-          }
+          }}
         />
       </div>
       <div>
@@ -71,12 +72,12 @@ export const GroupSubheaderForm = ({
           id='groupType'
           options={groupTypes?.map((gt) => gt.groupTypes_id.name) || []}
           value={state.group_type}
-          onValueChange={(v) =>
+          onValueChange={(v) => {
             setState((prevState) => ({
               ...prevState,
               group_type: v,
             }))
-          }
+          }}
         />
       </div>
     </div>
