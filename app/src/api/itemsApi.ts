@@ -70,7 +70,19 @@ export class itemsApi<T> implements ItemsApi<T> {
 
   async getItem(id: string): Promise<T> {
     try {
-      const result = await directusClient.request(readItem(this.collectionName as never, id))
+      const result = await directusClient.request(
+        readItem(this.collectionName as never, id, {
+          fields: [
+            '*',
+            'secrets.*',
+            'to.*',
+            'relations.*',
+            'user_created.*',
+            'markerIcon.*',
+            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
+          ],
+        }),
+      )
       return result as T
     } catch (error: any) {
       console.log(error)
@@ -82,13 +94,27 @@ export class itemsApi<T> implements ItemsApi<T> {
   async createItem(item: T & { id?: string }): Promise<T> {
     try {
       const result = await directusClient.request(
-        createItem(this.collectionName, {
-          ...item,
-          ...(this.customParameter && this.customParameter),
-          ...(this.layerId && { layer: this.layerId }),
-          ...(this.layerId && { layer: this.layerId }),
-          ...(this.mapId && { map: this.mapId }),
-        }),
+        createItem(
+          this.collectionName,
+          {
+            ...item,
+            ...(this.customParameter && this.customParameter),
+            ...(this.layerId && { layer: this.layerId }),
+            ...(this.layerId && { layer: this.layerId }),
+            ...(this.mapId && { map: this.mapId }),
+          },
+          {
+            fields: [
+              '*',
+              'secrets.*',
+              'to.*',
+              'relations.*',
+              'user_created.*',
+              'markerIcon.*',
+              { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
+            ],
+          },
+        ),
       )
       return result as T
     } catch (error: any) {
