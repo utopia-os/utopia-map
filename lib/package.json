@@ -1,6 +1,6 @@
 {
   "name": "utopia-ui",
-  "version": "3.0.111",
+  "version": "3.0.112",
   "description": "Reuseable React Components to build mapping apps for real life communities and networks",
   "repository": "https://github.com/utopia-os/utopia-ui",
   "homepage": "https://utopia-os.org/",
@@ -98,7 +98,7 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^7.9.6"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
