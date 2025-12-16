@@ -71,7 +71,7 @@ export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = 
       const params = new URLSearchParams(location.search)
       params.set('tab', `${index}`)
       const newUrl = location.pathname + '?' + params.toString()
-      navigate(newUrl, { replace: false })
+      navigate(newUrl)
     },
     [location.pathname, location.search, navigate],
   )
