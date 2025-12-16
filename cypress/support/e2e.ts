@@ -5,6 +5,68 @@ import './commands'
 // for screenshot embedding
 import addContext from 'mochawesome/addContext'
 
+const photonMockData: Record<string, object> = {
+  berlin: {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {
+          osm_type: 'R',
+          osm_id: 62422,
+          osm_key: 'place',
+          osm_value: 'city',
+          type: 'city',
+          countrycode: 'DE',
+          name: 'Berlin',
+          country: 'Germany',
+          state: 'Berlin',
+          extent: [13.088345, 52.6755087, 13.7611609, 52.3382448],
+        },
+        geometry: { type: 'Point', coordinates: [13.3951309, 52.5173885] },
+      },
+    ],
+  },
+  'wat arun': {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {
+          osm_type: 'W',
+          osm_id: 25867629,
+          osm_key: 'tourism',
+          osm_value: 'attraction',
+          type: 'attraction',
+          countrycode: 'TH',
+          name: 'Wat Arun',
+          country: 'Thailand',
+          city: 'Bangkok',
+          extent: [100.4882, 13.7437, 100.4912, 13.7407],
+        },
+        geometry: { type: 'Point', coordinates: [100.4897, 13.7437] },
+      },
+    ],
+  },
+}
+
+beforeEach(() => {
+  cy.intercept('GET', 'https://photon.komoot.io/api/*', (req) => {
+    const url = new URL(req.url)
+    const query = (url.searchParams.get('q') || '').toLowerCase()
+
+    const mockKey = Object.keys(photonMockData).find((key) =>
+      query.includes(key.toLowerCase()),
+    )
+
+    if (mockKey) {
+      req.reply(photonMockData[mockKey])
+    } else {
+      req.reply({ type: 'FeatureCollection', features: [] })
+    }
+  }).as('photonApi')
+})
+
 // Global exception handler
 Cypress.on('uncaught:exception', (err) => {
   // eslint-disable-next-line no-console
