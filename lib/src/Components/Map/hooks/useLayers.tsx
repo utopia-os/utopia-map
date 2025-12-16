@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useReducer, createContext, useContext } from 'react'
 
 import type { LayerProps } from '#types/LayerProps'
@@ -11,7 +12,6 @@ type UseItemManagerResult = ReturnType<typeof useLayerManager>
 
 const LayerContext = createContext<UseItemManagerResult>({
   layers: [],
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   addLayer: () => {},
 })
 

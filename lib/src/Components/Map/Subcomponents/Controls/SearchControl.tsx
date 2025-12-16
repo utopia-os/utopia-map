@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -115,7 +116,9 @@ export const SearchControl = () => {
                 className='tw:input tw:input-bordered tw:h-12 tw:grow tw:shadow-xl tw:rounded-box tw:pr-12 tw:w-full'
                 data-cy='search-input'
                 ref={searchInput}
-                onChange={(e) => setValue(e.target.value)}
+                onChange={(e) => {
+                  setValue(e.target.value)
+                }}
                 onFocus={() => {
                   setHideSuggestions(false)
                   if (windowDimensions.width < 500) map.closePopup()
@@ -126,7 +129,9 @@ export const SearchControl = () => {
                 <button
                   className='tw:btn tw:btn-sm tw:btn-circle tw:absolute tw:right-2 tw:top-2'
                   data-cy='search-clear-button'
-                  onClick={() => setValue('')}
+                  onClick={() => {
+                    setValue('')
+                  }}
                 >
                   ✕
                 </button>
