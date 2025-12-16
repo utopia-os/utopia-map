@@ -5,3 +5,6 @@ cypress/node_modules/
 cypress/results/
 cypress/runner-results/
 cypress/screenshots/
+
+# Generated seed data (from prepare-seed.js)
+backend/directus-config/development/seed/items.json
