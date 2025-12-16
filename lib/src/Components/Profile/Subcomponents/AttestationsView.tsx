@@ -37,7 +37,7 @@ export const AttestationsView = ({ item, heading = 'Trust', hideWhenEmpty = true
       <table className='sm:tw:table-sm md:tw:table-md tw:w-full'>
         <tbody>
           {userAttestations.map((a, i) => (
-            <tr key={i}>
+            <tr key={a.id}>
               <td>
                 <div
                   className={`tw:cursor-pointer tw:text-3xl tw:mask ${a.shape === 'squircle' ? 'tw:mask-squircle' : a.shape === 'circle' ? 'tw:mask-circle' : 'tw:mask-hexagon-2'} tw:p-2 tw:my-2 tw:mr-2 tw:shadow-xl`}
