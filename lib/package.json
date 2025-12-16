@@ -98,7 +98,7 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^7.9.6"
+    "react-router-dom": "^7.10.1"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
