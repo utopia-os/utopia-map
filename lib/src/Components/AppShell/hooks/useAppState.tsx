@@ -4,6 +4,7 @@ import { useCallback, useState, createContext, useContext } from 'react'
 import type { AssetsApi } from '#types/AssetsApi'
 
 interface AppState {
+  appName: string
   assetsApi: AssetsApi
   sideBarOpen: boolean
   sideBarSlim: boolean
@@ -16,6 +17,7 @@ interface AppState {
 type UseAppManagerResult = ReturnType<typeof useAppManager>
 
 const initialAppState: AppState = {
+  appName: '',
   assetsApi: {} as AssetsApi,
   sideBarOpen: false,
   sideBarSlim: false,

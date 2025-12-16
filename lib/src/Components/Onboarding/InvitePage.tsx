@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
+import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useAuth } from '#components/Auth/useAuth'
 import { useUpdateItem } from '#components/Map/hooks/useItems'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
@@ -24,6 +25,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const updateItem = useUpdateItem()
+  const { appName } = useAppState()
 
   const { myProfile, isUserProfileLayerLoaded, createEmptyProfile } = useMyProfile()
 
@@ -172,23 +174,25 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   if (isAuthenticated) {
     return (
       <MapOverlayPage backdrop className='tw:max-w-xs tw:h-fit'>
-        <h2 className='tw-text-2xl tw-font-semibold tw-mb-2 tw-text-center'>Confirmation</h2>
+        <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>Confirmation</h2>
         {invitingProfile ? (
-          <div className='tw-text-center tw-mb-4'>
-            <p className='tw-text-sm tw-text-gray-600'>
+          <>
+            <p className='tw:text-sm tw:text-base-content/70 tw:text-center'>
               Do you want to follow <strong>{invitingProfile.name}</strong>?
             </p>
-            <div className='tw-flex tw:justify-center tw:mt-4'>
-              <button className='tw-btn tw-btn-primary' onClick={confirmFollow}>
-                Yes
-              </button>
-              <button className='tw-btn tw-btn-secondary' onClick={goToStart}>
+            <div className='tw:card-actions tw:justify-between'>
+              <button className='tw:btn tw:btn-ghost' onClick={goToStart}>
                 No
               </button>
+              <button className='tw:btn tw:btn-primary' onClick={confirmFollow}>
+                Yes
+              </button>
             </div>
-          </div>
+          </>
         ) : (
-          <p className='tw-text-center'>Validating invite...</p>
+          <div className='tw:flex tw:justify-center'>
+            <span className='tw:loading tw:loading-spinner tw:loading-md'></span>
+          </div>
         )}
       </MapOverlayPage>
     )
@@ -196,25 +200,28 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
   return (
     <MapOverlayPage backdrop className='tw:max-w-xs tw:h-fit'>
-      <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>Invitation</h2>
       {invitingProfile ? (
-        <div className='tw-text-center tw-mb-4'>
-          <p className='tw-text-lg tw-font-semibold'>Welcome to Utopia!</p>
-          <p className='tw-text-sm tw-text-gray-600'>
-            You have been invited by: <strong>{invitingProfile.name}</strong> to join the Utopia
-            community.
+        <>
+          <h2 className='tw:text-2xl tw:font-semibold tw:mb-2 tw:text-center'>
+            Welcome{appName && <> to {appName}</>}!
+          </h2>
+          <p className='tw:text-sm tw:text-base-content/70 tw:text-center'>
+            You have been invited by <strong>{invitingProfile.name}</strong> to join{' '}
+            {appName || 'the community'}.
           </p>
-          <div className='tw-flex tw:justify-center tw:mt-4'>
-            <button className='tw-btn tw-btn-primary' onClick={goToSignup}>
-              {'Sign Up'}
-            </button>
-            <button className='tw-btn tw-btn-secondary' onClick={goToLogin}>
+          <div className='tw:card-actions tw:justify-between'>
+            <button className='tw:btn tw:btn-ghost' onClick={goToLogin}>
               Login
             </button>
+            <button className='tw:btn tw:btn-primary' onClick={goToSignup}>
+              Sign Up
+            </button>
           </div>
-        </div>
+        </>
       ) : (
-        <p className='tw-text-center'>Validating invite...</p>
+        <div className='tw:flex tw:justify-center'>
+          <span className='tw:loading tw:loading-spinner tw:loading-md'></span>
+        </div>
       )}
     </MapOverlayPage>
   )

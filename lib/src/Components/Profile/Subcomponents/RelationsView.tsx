@@ -1,7 +1,9 @@
+import { MapPinIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
 
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useItems } from '#components/Map/hooks/useItems'
+import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
 
 import type { Item } from '#types/Item'
 
@@ -13,6 +15,35 @@ interface Props {
   hideWhenEmpty?: boolean
 }
 
+function RelationCard({ item }: { item: Item }) {
+  const appState = useAppState()
+  const avatar = item.image ? appState.assetsApi.url + item.image : null
+
+  const { address } = useReverseGeocode(
+    item.position?.coordinates as [number, number] | undefined,
+    true,
+    'municipality',
+  )
+
+  return (
+    <Link
+      to={item.id}
+      className='tw:flex tw:items-center tw:gap-3 tw:p-2 tw:rounded-lg tw:bg-base-200'
+    >
+      {avatar && (
+        <div className='tw:avatar'>
+          <div className='tw:w-12 tw:rounded-full'>
+            <img src={avatar} alt={item.name ?? ''} />
+          </div>
+        </div>
+      )}
+      <div className='tw:flex-1 tw:min-w-0'>
+        <div className='tw:font-bold tw:text-lg tw:truncate tw:text-base-content'>{item.name}</div>
+      </div>
+    </Link>
+  )
+}
+
 export const RelationsView = ({
   item,
   relation,
@@ -21,7 +52,6 @@ export const RelationsView = ({
   hideWhenEmpty = true,
 }: Props) => {
   const items = useItems()
-  const appState = useAppState()
 
   if (!item.relations) return
 
@@ -60,32 +90,16 @@ export const RelationsView = ({
   }
 
   return (
-    <div className='tw:my-10 tw:mt-2 tw:px-6'>
-      <h2 className='tw:text-lg tw:font-bold'>{heading}</h2>
+    <div className='tw:my-4 tw:px-6'>
+      <h2 className='tw:text-xl tw:font-bold tw:mb-3'>{heading}</h2>
       {hasRelatedItems ? (
-        <ul>
+        <div className='tw:grid tw:grid-cols-1 tw:@sm:grid-cols-2 tw:@lg:grid-cols-3 tw:gap-2'>
           {relatedItems.map((relatedItem) => (
-            <li key={relatedItem.id}>
-              <Link to={relatedItem.id} className='tw:flex tw:flex-row'>
-                <div>
-                  {relatedItem.image ? (
-                    <img
-                      className='tw:size-10 tw:rounded-full'
-                      src={appState.assetsApi.url + '/' + relatedItem.image}
-                    />
-                  ) : (
-                    <div className='tw:size-10 tw:rounded-full tw:bg-gray-200' />
-                  )}
-                </div>
-                <div className='tw:ml-2 tw:flex tw:items-center tw:min-h-[2.5rem]'>
-                  <div>{relatedItem.name}</div>
-                </div>
-              </Link>
-            </li>
+            <RelationCard key={relatedItem.id} item={relatedItem} />
           ))}
-        </ul>
+        </div>
       ) : (
-        <p>No related items found.</p>
+        <p className='tw:text-base-content/70'>No related items found.</p>
       )}
     </div>
   )
