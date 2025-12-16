@@ -17,7 +17,11 @@ export function DeleteModal({ item, isOpen, onClose, onConfirm }: DeleteModalPro
 
   return (
     <DialogModal isOpened={isOpen} title='Are you sure?' showCloseButton={false} onClose={onClose}>
-      <div onClick={(e) => e.stopPropagation()}>
+      <div
+        onClick={(e) => {
+          e.stopPropagation()
+        }}
+      >
         <span>
           Do you want to delete <b>{item.name}</b>?
         </span>

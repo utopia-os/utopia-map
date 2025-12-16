@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { MapPinIcon } from '@heroicons/react/24/solid'
 import { useEffect, useRef, useState } from 'react'
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { useCallback, useState, createContext, useContext } from 'react'
 
 type UseQuestManagerResult = ReturnType<typeof useQuestsManager>

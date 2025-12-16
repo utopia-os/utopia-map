@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import { createUser, passwordRequest, passwordReset, readMe, updateMe } from '@directus/sdk'
 
 import { directusClient } from './directus'
@@ -54,7 +53,8 @@ export class UserApi {
 
   async logout(): Promise<any> {
     try {
-      return await directusClient.logout()
+      await directusClient.logout()
+      return
     } catch (error: any) {
       console.log(error)
       if (error.errors[0].message) throw error.errors[0].message
@@ -98,7 +98,8 @@ export class UserApi {
 
   async requestPasswordReset(email: string, reset_url?: string): Promise<any> {
     try {
-      return await directusClient.request(passwordRequest(email, reset_url))
+      await directusClient.request(passwordRequest(email, reset_url))
+      return
     } catch (error: any) {
       console.log(error)
       if (error.errors[0].message) throw error.errors[0].message
@@ -108,7 +109,8 @@ export class UserApi {
 
   async passwordReset(reset_token: string, new_password: string): Promise<any> {
     try {
-      return await directusClient.request(passwordReset(reset_token, new_password))
+      await directusClient.request(passwordReset(reset_token, new_password))
+      return
     } catch (error: any) {
       console.log(error)
       if (error.errors[0].message) throw error.errors[0].message

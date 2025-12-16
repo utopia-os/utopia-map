@@ -15,6 +15,9 @@ PGDATABASE="${PGDATABASE:-'directus'}"
 PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
+echo "Preparing seed data with dynamic dates"
+node $SCRIPT_DIR/prepare-seed.js || exit 1
+
 echo "Seed data"
 npx directus-sync@3.4.0 seed push \
   --seed-path $PROJECT_FOLDER/seed \
