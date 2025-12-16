@@ -112,14 +112,14 @@ export const Autocomplete = ({
         {filteredSuggestions.map((suggestion, index) => (
           <li
             key={suggestion.id}
-            role="option"
+            role='option'
             tabIndex={0}
             aria-selected={index === highlightedSuggestion}
             onClick={() => handleSuggestionClick(suggestion)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleSuggestionClick(suggestion);
+                e.preventDefault()
+                handleSuggestionClick(suggestion)
               }
             }}
           >

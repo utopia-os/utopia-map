@@ -36,7 +36,7 @@ export const AttestationsView = ({ item, heading = 'Trust', hideWhenEmpty = true
       <h2 className='tw:text-lg tw:font-bold tw:mb-2'>{heading}</h2>
       <table className='sm:tw:table-sm md:tw:table-md tw:w-full'>
         <tbody>
-          {userAttestations.map((a, i) => (
+          {userAttestations.map((a) => (
             <tr key={a.id}>
               <td>
                 <div
