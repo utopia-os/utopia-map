@@ -6,8 +6,8 @@ import { CrowdfundingForm } from '#components/Profile/Subcomponents/Crowdfunding
 import { GalleryForm } from '#components/Profile/Subcomponents/GalleryForm'
 import { GroupSubheaderForm } from '#components/Profile/Subcomponents/GroupSubheaderForm'
 import { ProfileStartEndForm } from '#components/Profile/Subcomponents/ProfileStartEndForm'
-import { ProfileTextForm } from '#components/Profile/Subcomponents/ProfileTextForm'
 import { ProfileTagsForm } from '#components/Profile/Subcomponents/ProfileTagsForm'
+import { ProfileTextForm } from '#components/Profile/Subcomponents/ProfileTextForm'
 
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
@@ -34,7 +34,7 @@ interface TabItem {
   title: string
   icon?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  items: Array<{ collection: string; id: Key | null | undefined; item: any }>
+  items: { collection: string; id: Key | null | undefined; item: any }[]
 }
 
 interface Props {
@@ -42,24 +42,18 @@ interface Props {
   state: FormState
   setState: React.Dispatch<React.SetStateAction<FormState>>
   tabs: TabItem[]
-  icon_as_labels?: boolean
+  iconAsLabels?: boolean
 }
 
-export const TabsContainerForm = ({
-  item,
-  state,
-  setState,
-  tabs,
-  icon_as_labels = false,
-}: Props) => {
+export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = false }: Props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<number>(0)
 
-  const tabsLength = tabs?.length ?? 0
+  const tabsLength = tabs.length
 
   useEffect(() => {
-    if (!tabs || tabs.length === 0) return
+    if (tabs.length === 0) return
 
     const params = new URLSearchParams(location.search)
     const urlTab = params.get('tab')
@@ -82,7 +76,7 @@ export const TabsContainerForm = ({
     [location.pathname, location.search, navigate],
   )
 
-  if (!tabs || tabs.length === 0) {
+  if (tabs.length === 0) {
     return null
   }
 
@@ -92,7 +86,7 @@ export const TabsContainerForm = ({
       <div className='tw:flex tw:bg-base-200 tw:rounded-lg tw:p-1 tw:mb-4 tw:flex-none'>
         {tabs.map((tab, index) => (
           <button
-            type="button"
+            type='button'
             key={tab.id}
             className={`tw:flex-1 tw:flex tw:items-center tw:justify-center tw:gap-2 tw:py-2 tw:px-4 tw:rounded-md tw:transition-colors tw:cursor-pointer ${activeTab === index ? 'tw:bg-primary tw:text-primary-content' : 'hover:tw:bg-base-300'}`}
             onClick={() => updateActiveTab(index)}
@@ -104,15 +98,17 @@ export const TabsContainerForm = ({
             }}
           >
             {tab.icon && <span>{tab.icon}</span>}
-            {!(icon_as_labels && activeTab !== index) && <span>{tab.title}</span>}
+            {!(iconAsLabels && activeTab !== index) && <span>{tab.title}</span>}
           </button>
         ))}
       </div>
 
       {/* Tab Content */}
       <div className='tw:flex-1 tw:flex tw:flex-col tw:min-h-0'>
-        {tabs[activeTab]?.items.map((templateItem) => {
+        {/* eslint-disable-next-line security/detect-object-injection */}
+        {tabs[activeTab].items.map((templateItem) => {
           const TemplateComponent = componentMap[templateItem.collection]
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           return TemplateComponent ? (
             <TemplateComponent
               key={templateItem.id}

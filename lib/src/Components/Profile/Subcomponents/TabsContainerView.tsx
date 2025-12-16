@@ -1,5 +1,4 @@
-/* eslint-disable camelcase */
-import React, { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { AttestationsView } from '#components/Profile/Subcomponents/AttestationsView'
@@ -43,10 +42,10 @@ interface TabItem {
 interface Props {
   item: Item
   tabs: TabItem[]
-  icon_as_labels?: boolean
+  iconAsLabels?: boolean
 }
 
-export const TabsContainerView = ({ item, tabs = [], icon_as_labels = false }: Props) => {
+export const TabsContainerView = ({ item, tabs = [], iconAsLabels = false }: Props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<number>(0)
@@ -92,15 +91,17 @@ export const TabsContainerView = ({ item, tabs = [], icon_as_labels = false }: P
             onClick={() => updateActiveTab(index)}
           >
             {tab.icon && <span>{tab.icon}</span>}
-            {!(icon_as_labels && activeTab !== index) && <span>{tab.title}</span>}
+            {!(iconAsLabels && activeTab !== index) && <span>{tab.title}</span>}
           </button>
         ))}
       </div>
 
       {/* Tab Content */}
       <div className='tw:overflow-y-auto fade tw:pb-4 tw:overflow-x-hidden'>
-        {tabs[activeTab]?.items.map((templateItem) => {
+        {/* eslint-disable-next-line security/detect-object-injection */}
+        {tabs[activeTab].items.map((templateItem) => {
           const TemplateComponent = componentMap[templateItem.collection]
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           return TemplateComponent ? (
             <TemplateComponent key={templateItem.id} item={item} {...templateItem.item} />
           ) : (

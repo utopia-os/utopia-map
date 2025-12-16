@@ -12,16 +12,12 @@ interface Props {
   hideWhenEmpty?: boolean
 }
 
-export const ProfileTagsView = ({
-  item,
-  dataField,
-  heading,
-  hideWhenEmpty = true,
-}: Props) => {
+export const ProfileTagsView = ({ item, dataField, heading, hideWhenEmpty = true }: Props) => {
   const addFilterTag = useAddFilterTag()
   const allTags = useTags()
 
   // Get the tag IDs from the item based on dataField
+  // eslint-disable-next-line security/detect-object-injection
   const tagRelations = item[dataField] ?? []
 
   // Resolve tag IDs to full Tag objects

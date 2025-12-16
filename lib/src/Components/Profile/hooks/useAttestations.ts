@@ -8,7 +8,7 @@ export interface Attestation {
   shape: string
   date_created: string
   user_created: { id: string; first_name: string }
-  to: Array<{ directus_users_id: string }>
+  to: { directus_users_id: string }[]
 }
 
 export const AttestationsContext = createContext<Attestation[]>([])
