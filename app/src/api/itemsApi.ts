@@ -100,7 +100,6 @@ export class itemsApi<T> implements ItemsApi<T> {
             ...item,
             ...(this.customParameter && this.customParameter),
             ...(this.layerId && { layer: this.layerId }),
-            ...(this.layerId && { layer: this.layerId }),
             ...(this.mapId && { map: this.mapId }),
           },
           {
