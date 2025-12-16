@@ -110,7 +110,19 @@ export const Autocomplete = ({
         className={`tw:absolute tw:z-4000 ${filteredSuggestions.length > 0 ? 'tw:bg-base-100 tw:rounded-xl tw:p-2' : ''}`}
       >
         {filteredSuggestions.map((suggestion, index) => (
-          <li key={suggestion.id} onClick={() => handleSuggestionClick(suggestion)}>
+          <li
+            key={suggestion.id}
+            role="option"
+            tabIndex={0}
+            aria-selected={index === highlightedSuggestion}
+            onClick={() => handleSuggestionClick(suggestion)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleSuggestionClick(suggestion);
+              }
+            }}
+          >
             <TagView heighlight={index === highlightedSuggestion} tag={suggestion}></TagView>
           </li>
         ))}
