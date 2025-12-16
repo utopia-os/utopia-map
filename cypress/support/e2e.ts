@@ -65,6 +65,8 @@ beforeEach(() => {
       req.reply({ type: 'FeatureCollection', features: [] })
     }
   }).as('photonApi')
+
+  cy.intercept('GET', '**/items/items*').as('getLayerItems')
 })
 
 // Global exception handler
