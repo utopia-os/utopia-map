@@ -16,14 +16,18 @@ export const ProfileTagsForm = ({ state, setState, dataField, heading, placehold
   const defaultHeading = dataField === 'offers' ? 'Offers' : 'Needs'
   const defaultPlaceholder = dataField === 'offers' ? 'enter your offers' : 'enter your needs'
 
+  // Validate that defaultTags is an array
+  // eslint-disable-next-line security/detect-object-injection
+  const rawTags = state[dataField]
+  const defaultTags = Array.isArray(rawTags) ? rawTags : []
+
   return (
     <div className='tw:flex-1 tw:flex tw:flex-col tw:min-h-0'>
       <h3 className='tw:text-base tw:font-semibold tw:mt-4 tw:mb-2 tw:flex-none'>
         {heading ?? defaultHeading}
       </h3>
       <TagsWidget
-        // eslint-disable-next-line security/detect-object-injection
-        defaultTags={state[dataField]}
+        defaultTags={defaultTags}
         onUpdate={(tags) => {
           setState((prevState) => {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment

@@ -11,6 +11,18 @@ export interface Attestation {
   to: { directus_users_id: string }[]
 }
 
-export const AttestationsContext = createContext<Attestation[]>([])
+// Using undefined as default to detect missing provider
+export const AttestationsContext = createContext<Attestation[] | undefined>(undefined)
 
-export const useAttestations = () => useContext(AttestationsContext)
+export const useAttestations = (): Attestation[] => {
+  const context = useContext(AttestationsContext)
+  if (context === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'useAttestations: AttestationsContext.Provider is missing. ' +
+        'Make sure the component is wrapped in AttestationsContext.Provider.',
+    )
+    return []
+  }
+  return context
+}

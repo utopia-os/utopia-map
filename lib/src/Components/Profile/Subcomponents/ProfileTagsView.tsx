@@ -18,10 +18,17 @@ export const ProfileTagsView = ({ item, dataField, heading, hideWhenEmpty = true
 
   // Get the tag IDs from the item based on dataField
   // eslint-disable-next-line security/detect-object-injection
-  const tagRelations = item[dataField] ?? []
+  const rawTagRelations = item[dataField]
 
-  // Resolve tag IDs to full Tag objects
+  // Validate that tagRelations is an array
+  const tagRelations = Array.isArray(rawTagRelations) ? rawTagRelations : []
+
+  // Resolve tag IDs to full Tag objects, filtering out malformed entries
   const tags: Tag[] = tagRelations.reduce((acc: Tag[], relation) => {
+    // Skip if relation is missing tags_id (runtime validation for external data)
+    if (typeof relation !== 'object' || !('tags_id' in relation)) {
+      return acc
+    }
     const tag = allTags.find((t) => t.id === relation.tags_id)
     if (tag) acc.push(tag)
     return acc

@@ -1,35 +1,12 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { ContactInfoForm } from '#components/Profile/Subcomponents/ContactInfoForm'
-import { CrowdfundingForm } from '#components/Profile/Subcomponents/CrowdfundingForm'
-import { GalleryForm } from '#components/Profile/Subcomponents/GalleryForm'
-import { GroupSubheaderForm } from '#components/Profile/Subcomponents/GroupSubheaderForm'
-import { ProfileStartEndForm } from '#components/Profile/Subcomponents/ProfileStartEndForm'
-import { ProfileTagsForm } from '#components/Profile/Subcomponents/ProfileTagsForm'
-import { ProfileTextForm } from '#components/Profile/Subcomponents/ProfileTextForm'
+import { ComponentErrorBoundary } from '#components/Profile/ComponentErrorBoundary'
+import { formComponentMap } from '#components/Profile/componentMaps'
 
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
 import type { Key } from 'react'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ComponentMap = Record<string, React.ComponentType<any>>
-
-const componentMap: ComponentMap = {
-  groupSubheaders: GroupSubheaderForm,
-  texts: ProfileTextForm,
-  contactInfos: ContactInfoForm,
-  startEnd: ProfileStartEndForm,
-  crowdfundings: CrowdfundingForm,
-  gallery: GalleryForm,
-  inviteLinks: () => null,
-  relations: () => null, // Relations are not editable in form
-  // eslint-disable-next-line camelcase -- Keys match external data schema
-  tags_component: ProfileTagsForm,
-  // eslint-disable-next-line camelcase -- Keys match external data schema
-  attestations_component: () => null, // Attestations are view-only
-}
 
 interface TabItem {
   id: string
@@ -95,6 +72,7 @@ export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = 
               updateActiveTab(index)
             }}
             onKeyDown={(e) => {
+              // Prevent form submission on Enter
               if (e.key === 'Enter') {
                 e.preventDefault()
                 updateActiveTab(index)
@@ -111,16 +89,17 @@ export const TabsContainerForm = ({ item, state, setState, tabs, iconAsLabels = 
       <div className='tw:flex-1 tw:flex tw:flex-col tw:min-h-0'>
         {/* eslint-disable-next-line security/detect-object-injection */}
         {tabs[activeTab].items.map((templateItem) => {
-          const TemplateComponent = componentMap[templateItem.collection]
+          const TemplateComponent = formComponentMap[templateItem.collection]
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           return TemplateComponent ? (
-            <TemplateComponent
-              key={templateItem.id}
-              item={item}
-              state={state}
-              setState={setState}
-              {...templateItem.item}
-            />
+            <ComponentErrorBoundary key={templateItem.id} componentName={templateItem.collection}>
+              <TemplateComponent
+                item={item}
+                state={state}
+                setState={setState}
+                {...templateItem.item}
+              />
+            </ComponentErrorBoundary>
           ) : (
             <div className='tw:mt-2 tw:flex-none' key={templateItem.id}>
               {templateItem.collection} form not found
