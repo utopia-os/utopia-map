@@ -34,6 +34,7 @@ const handleApiOperation = async (
       type: 'success',
       isLoading: false,
       autoClose: 5000,
+      closeButton: true,
     })
     return { success: true, data }
   } catch (error) {
