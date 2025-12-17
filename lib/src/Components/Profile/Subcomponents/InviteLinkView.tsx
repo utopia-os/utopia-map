@@ -8,7 +8,12 @@ export const InviteLinkView = ({ item }: { item: Item }) => {
   // Only show if user has permission to view secrets.
   if (!item.secrets || item.secrets.length === 0) return
 
-  const link = `${window.location.origin}/invite/${item.secrets[0].secret}`
+  const firstSecret = item.secrets[0]
+  // Support both string secrets and object secrets with { secret: string }
+  const secretValue = typeof firstSecret === 'string' ? firstSecret : firstSecret.secret
+  if (!secretValue) return
+
+  const link = `${window.location.origin}/invite/${secretValue}`
 
   const copyToClipboard = () => {
     void navigator.clipboard

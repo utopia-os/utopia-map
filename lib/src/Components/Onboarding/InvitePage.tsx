@@ -76,6 +76,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
         {
           type: 'is_following',
           direction: 'outgoing',
+          // eslint-disable-next-line camelcase
           related_items_id: invitingProfile.id,
         },
       ],

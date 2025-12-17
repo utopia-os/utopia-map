@@ -1,9 +1,7 @@
-import { MapPinIcon } from '@heroicons/react/24/solid'
 import { Link } from 'react-router-dom'
 
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useItems } from '#components/Map/hooks/useItems'
-import { useReverseGeocode } from '#components/Map/hooks/useReverseGeocode'
 
 import type { Item } from '#types/Item'
 
@@ -18,12 +16,6 @@ interface Props {
 function RelationCard({ item }: { item: Item }) {
   const appState = useAppState()
   const avatar = item.image ? appState.assetsApi.url + item.image : null
-
-  const { address } = useReverseGeocode(
-    item.position?.coordinates as [number, number] | undefined,
-    true,
-    'municipality',
-  )
 
   return (
     <Link
