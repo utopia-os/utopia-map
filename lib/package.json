@@ -60,7 +60,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/coverage-v8": "^3.0.5",
     "cypress": "^15.7.1",
-    "daisyui": "^5.5.8",
+    "daisyui": "^5.5.14",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
