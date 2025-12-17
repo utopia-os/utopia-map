@@ -70,7 +70,19 @@ export class itemsApi<T> implements FullItemsApi<T> {
 
   async getItem(id: string): Promise<T> {
     try {
-      const result = await directusClient.request(readItem(this.collectionName, id))
+      const result = await directusClient.request(
+        readItem(this.collectionName, id, {
+          fields: [
+            '*',
+            'secrets.*',
+            'to.*',
+            'relations.*',
+            'user_created.*',
+            'markerIcon.*',
+            { offers: ['*'], needs: ['*'], gallery: ['*.*'] } as any,
+          ],
+        }),
+      )
       return result as T
     } catch (error: any) {
       console.log(error)

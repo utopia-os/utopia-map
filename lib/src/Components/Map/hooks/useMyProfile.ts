@@ -1,13 +1,20 @@
+import { useEffect, useRef } from 'react'
+
 import { useAuth } from '#components/Auth/useAuth'
 
-import { useItems, useAddItem } from './useItems'
+import { useItems, useAddItem, useUpdateItem } from './useItems'
 import { useLayers } from './useLayers'
+
+import type { Item } from '#types/Item'
+import type { LayerProps } from '#types/LayerProps'
 
 export const useMyProfile = () => {
   const items = useItems()
   const { user } = useAuth()
   const layers = useLayers()
   const addItem = useAddItem()
+  const updateItem = useUpdateItem()
+  const isReloadingSecretRef = useRef(false)
 
   // Find the user's profile item
   const myProfile = items.find(
@@ -18,6 +25,39 @@ export const useMyProfile = () => {
 
   // allItemsLoaded is not reliable
   const isMyProfileLoaded = isUserProfileLayerLoaded && !!user
+
+  // Helper function for background reload with retry
+  const reloadItemWithSecret = async (itemId: string, layer: LayerProps, baseItem: Item) => {
+    const maxRetries = 3
+    const retryDelay = 500 // ms
+
+    for (let i = 0; i < maxRetries; i++) {
+      await new Promise((resolve) => setTimeout(resolve, retryDelay))
+      const reloaded = await layer.api?.getItem?.(itemId)
+      if (reloaded?.secrets && reloaded.secrets.length > 0) {
+        updateItem({
+          ...baseItem,
+          ...reloaded,
+        })
+        break
+      }
+    }
+  }
+
+  // Automatically reload profile if secrets are missing (e.g., after signup)
+  useEffect(() => {
+    if (
+      myProfile?.layer?.api?.getItem &&
+      (!myProfile.secrets || myProfile.secrets.length === 0) &&
+      !isReloadingSecretRef.current
+    ) {
+      isReloadingSecretRef.current = true
+      void reloadItemWithSecret(myProfile.id, myProfile.layer, myProfile).finally(() => {
+        isReloadingSecretRef.current = false
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myProfile?.id, myProfile?.secrets?.length])
 
   const createEmptyProfile = async () => {
     if (!user) return
@@ -41,8 +81,13 @@ export const useMyProfile = () => {
       public_edit: false,
     }
 
-    // Use server response for local state update
+    // Add item immediately (without secret)
     addItem(newItem)
+
+    // Reload in background to get server-generated fields (like secrets)
+    if (userLayer.api.getItem) {
+      void reloadItemWithSecret(serverResponse.id, userLayer, newItem)
+    }
 
     return newItem
   }
