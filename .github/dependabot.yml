@@ -27,6 +27,10 @@ updates:
           - "@tiptap/pm"
           - "@tiptap/react"
           - "@tiptap/starter-kit"
+      vitest-ecosystem:
+        patterns:
+          - "vitest"
+          - "@vitest/*"
     labels:
       - "dependencies"
       - "javascript"
