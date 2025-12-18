@@ -56,7 +56,6 @@ export interface Item {
   color?: string
   markerIcon?: MarkerIcon
   avatar?: string
-  new?: boolean
   contact?: string
   telephone?: string
   next_appointment?: string

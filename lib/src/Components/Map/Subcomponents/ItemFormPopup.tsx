@@ -143,47 +143,58 @@ export function ItemFormPopup(props: Props) {
     async (formItem: Item) => {
       if (!popupForm) return false
 
-      const existingUserItem = items.find(
-        (i) => i.user_created?.id === user?.id && i.layer === popupForm.layer,
-      )
+      // For userProfileLayer, profile must already exist (auto-created on login)
+      if (popupForm.layer.userProfileLayer) {
+        const existingUserItem = items.find(
+          (i) => i.user_created?.id === user?.id && i.layer === popupForm.layer,
+        )
+        if (!existingUserItem) {
+          toast.error('Profile not found. Please wait for your profile to be created.')
+          return false
+        }
+        // Update existing profile
+        const result = await handleApiOperation(
+          () =>
+            popupForm.layer.api?.updateItem!({ ...formItem, id: existingUserItem.id }) ??
+            Promise.resolve({} as Item),
+          'Profile updated',
+        )
+        if (result.success && result.data) {
+          const itemWithLayer = {
+            ...result.data,
+            layer: popupForm.layer,
+            user_created: user ?? undefined,
+          }
+          updateItem(itemWithLayer)
+          resetFilterTags()
+        }
+        return result.success
+      }
 
+      // For non-userProfileLayer, create new item
       const itemName = formItem.name ?? user?.first_name
       if (!itemName) {
         toast.error('Name must be defined')
         return false
       }
 
-      const isUserProfileUpdate = popupForm.layer.userProfileLayer && existingUserItem
-
-      const operation = isUserProfileUpdate
-        ? () =>
-            popupForm.layer.api?.updateItem!({ ...formItem, id: existingUserItem.id }) ??
-            Promise.resolve({} as Item)
-        : () =>
-            popupForm.layer.api?.createItem!({
-              ...formItem,
-              name: itemName,
-              id: crypto.randomUUID(),
-            }) ?? Promise.resolve({} as Item)
-
       const result = await handleApiOperation(
-        operation,
-        isUserProfileUpdate ? 'Profile updated' : 'New item created',
+        () =>
+          popupForm.layer.api?.createItem!({
+            ...formItem,
+            name: itemName,
+            id: crypto.randomUUID(),
+          }) ?? Promise.resolve({} as Item),
+        'New item created',
       )
 
       if (result.success && result.data) {
-        // Ensure the item has the layer object attached
         const itemWithLayer = {
           ...result.data,
           layer: popupForm.layer,
           user_created: user ?? undefined,
         }
-
-        if (isUserProfileUpdate) {
-          updateItem(itemWithLayer)
-        } else {
-          addItem(itemWithLayer)
-        }
+        addItem(itemWithLayer)
         resetFilterTags()
       }
 

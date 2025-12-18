@@ -27,7 +27,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   const updateItem = useUpdateItem()
   const { appName } = useAppState()
 
-  const { myProfile, isUserProfileLayerLoaded, createEmptyProfile } = useMyProfile()
+  const { myProfile, isUserProfileLayerLoaded } = useMyProfile()
 
   if (!id) throw new Error('Invite ID is required')
 
@@ -50,14 +50,10 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   }
 
   const confirmFollowAsync = async () => {
-    if (!isAuthenticated) return
+    if (!isAuthenticated || !isUserProfileLayerLoaded || isRedeemingDone) return
 
-    if (!isUserProfileLayerLoaded || isRedeemingDone) return
-
-    const myActualProfile = myProfile ?? (await createEmptyProfile())
-
-    if (!myActualProfile) {
-      toast.error('Failed to create profile')
+    if (!myProfile) {
+      toast.error('Profile not found. Please wait for your profile to be created.')
       return
     }
 
@@ -66,13 +62,13 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       return
     }
 
-    await redeemInvite(id, myActualProfile.id)
+    await redeemInvite(id, myProfile.id)
 
     // Add new relation to local state
     updateItem({
-      ...myActualProfile,
+      ...myProfile,
       relations: [
-        ...(myActualProfile.relations ?? []),
+        ...(myProfile.relations ?? []),
         {
           type: 'is_following',
           direction: 'outgoing',
@@ -156,7 +152,6 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
     itemsApi,
     isRedeemingDone,
     isValidationDone,
-    createEmptyProfile,
     isUserProfileLayerLoaded,
   ])
 

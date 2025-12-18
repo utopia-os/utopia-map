@@ -206,8 +206,6 @@ export const onUpdateItem = async (
   setLoading,
   navigate,
   updateItem,
-  addItem,
-  user,
   params,
 ) => {
   let changedItem = {} as Item
@@ -292,54 +290,28 @@ export const onUpdateItem = async (
   // take care that addTag request comes before item request
   await sleep(200)
 
-  if (!item.new) {
-    const toastId = toast.loading('updating Item  ...')
+  const toastId = toast.loading('updating Item  ...')
 
-    const result = await handleApiOperation(
-      async () => {
-        const serverResult = await item?.layer?.api?.updateItem!(changedItem)
-        return serverResult!
-      },
-      toastId,
-      'Item updated',
-    )
+  const result = await handleApiOperation(
+    async () => {
+      const serverResult = await item?.layer?.api?.updateItem!(changedItem)
+      return serverResult!
+    },
+    toastId,
+    'Item updated',
+  )
 
-    if (result.success && result.data) {
-      // Use server response with additional client-side data
-      const itemWithLayer = {
-        ...result.data,
-        layer: item.layer,
-        markerIcon: state.marker_icon,
-        gallery: state.gallery,
-        user_created: item.user_created,
-      }
-      updateItem(itemWithLayer)
-      navigate(`/item/${item.id}${params && '?' + params}`)
+  if (result.success && result.data) {
+    // Use server response with additional client-side data
+    const itemWithLayer = {
+      ...result.data,
+      layer: item.layer,
+      markerIcon: state.marker_icon,
+      gallery: state.gallery,
+      user_created: item.user_created,
     }
-    setLoading(false)
-  } else {
-    item.new = false
-    const toastId = toast.loading('updating Item  ...')
-
-    const result = await handleApiOperation(
-      async () => {
-        const serverResult = await item.layer?.api?.createItem!(changedItem)
-        return serverResult!
-      },
-      toastId,
-      'Item updated',
-    )
-
-    if (result.success && result.data) {
-      // Use server response with additional client-side data
-      const itemWithLayer = {
-        ...result.data,
-        layer: item.layer,
-        user_created: user,
-      }
-      addItem(itemWithLayer)
-      navigate(`/${params && '?' + params}`)
-    }
-    setLoading(false)
+    updateItem(itemWithLayer)
+    navigate(`/item/${item.id}${params && '?' + params}`)
   }
+  setLoading(false)
 }

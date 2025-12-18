@@ -9,8 +9,7 @@ import { toast } from 'react-toastify'
 
 import TargetSVG from '#assets/target.svg'
 import { useAuth } from '#components/Auth/useAuth'
-import { useAddItem, useUpdateItem } from '#components/Map/hooks/useItems'
-import { useLayers } from '#components/Map/hooks/useLayers'
+import { useUpdateItem } from '#components/Map/hooks/useItems'
 import { useMyProfile } from '#components/Map/hooks/useMyProfile'
 import DialogModal from '#components/Templates/DialogModal'
 
@@ -37,8 +36,6 @@ export const LocateControl = (): React.JSX.Element => {
   const map = useMap()
   const myProfile = useMyProfile()
   const updateItem = useUpdateItem()
-  const addItem = useAddItem()
-  const layers = useLayers()
   const { user } = useAuth()
   const navigate = useNavigate()
 
@@ -138,61 +135,32 @@ export const LocateControl = (): React.JSX.Element => {
   const itemUpdatePosition = useCallback(async () => {
     if (!foundLocation || !user) return
 
-    const toastId = toast.loading(
-      myProfile.myProfile ? 'Updating position' : 'Creating profile at location',
-    )
+    if (!myProfile.myProfile) {
+      toast.error('Profile not found. Please wait for your profile to be created.')
+      return
+    }
+
+    const toastId = toast.loading('Updating position')
 
     try {
-      let result: Item
-
-      if (myProfile.myProfile) {
-        // Update existing profile
-        const updatedProfile = {
-          id: myProfile.myProfile.id,
-          position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
-        }
-        if (!myProfile.myProfile.layer?.api?.updateItem) {
-          throw new Error('Update API not available')
-        }
-        result = await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
-        // Use server response for local state update
-        updateItem({ ...result, layer: myProfile.myProfile.layer, user_created: user })
-        toast.update(toastId, {
-          render: 'Position updated',
-          type: 'success',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
-      } else {
-        // Create new profile
-        const userLayer = layers.find((l) => l.userProfileLayer === true)
-        if (!userLayer?.api?.createItem) {
-          throw new Error('User profile layer or create API not available')
-        }
-
-        const newProfile = {
-          id: crypto.randomUUID(),
-          name: user.first_name ?? 'User',
-          position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
-        }
-
-        result = await userLayer.api.createItem(newProfile as Item)
-        // Use server response for local state update
-        addItem({
-          ...result,
-          user_created: user,
-          layer: userLayer,
-          public_edit: false,
-        })
-        toast.update(toastId, {
-          render: 'Profile created at location',
-          type: 'success',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
+      // Update existing profile position
+      const updatedProfile = {
+        id: myProfile.myProfile.id,
+        position: { type: 'Point', coordinates: [foundLocation.lng, foundLocation.lat] },
       }
+      if (!myProfile.myProfile.layer?.api?.updateItem) {
+        throw new Error('Update API not available')
+      }
+      const result = await myProfile.myProfile.layer.api.updateItem(updatedProfile as Item)
+      // Use server response for local state update
+      updateItem({ ...result, layer: myProfile.myProfile.layer, user_created: user })
+      toast.update(toastId, {
+        render: 'Position updated',
+        type: 'success',
+        isLoading: false,
+        autoClose: 5000,
+        closeButton: true,
+      })
 
       // Navigate to the profile to show the popup
       navigate(`/${result.id}`)
@@ -232,7 +200,7 @@ export const LocateControl = (): React.JSX.Element => {
         throw error
       }
     }
-  }, [myProfile.myProfile, foundLocation, updateItem, addItem, layers, user, lc, navigate])
+  }, [myProfile.myProfile, foundLocation, updateItem, user, lc, navigate])
 
   return (
     <>
@@ -273,11 +241,7 @@ export const LocateControl = (): React.JSX.Element => {
         className='tw:bottom-1/3 tw:mx-4 tw:sm:mx-auto'
       >
         <div className='tw:text-center'>
-          <p className='tw:mb-4'>
-            {myProfile.myProfile
-              ? 'Do you like to place your profile at your current location?'
-              : 'Do you like to create your profile at your current location?'}
-          </p>
+          <p className='tw:mb-4'>Do you want to update your profile location?</p>
           <div className='tw:flex tw:justify-between'>
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'

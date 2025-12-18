@@ -15,6 +15,7 @@ export const useMyProfile = () => {
   const addItem = useAddItem()
   const updateItem = useUpdateItem()
   const isReloadingSecretRef = useRef(false)
+  const isCreatingProfileRef = useRef(false)
 
   // Find the user's profile item
   const myProfile = items.find(
@@ -39,6 +40,9 @@ export const useMyProfile = () => {
         updateItem({
           ...baseItem,
           ...reloaded,
+          // Preserve the full layer object (API returns only layer ID)
+          layer: baseItem.layer,
+          user_created: baseItem.user_created, // eslint-disable-line camelcase
         })
         break
       }
@@ -57,7 +61,7 @@ export const useMyProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [myProfile?.id, hasSecrets])
 
-  const createEmptyProfile = async () => {
+  const createEmptyProfile = async (): Promise<Item | undefined> => {
     if (!user) return
 
     const userLayer = layers.find((l) => l.userProfileLayer === true)
@@ -89,6 +93,17 @@ export const useMyProfile = () => {
 
     return newItem
   }
+
+  // Auto-create profile when user is logged in but has no profile
+  useEffect(() => {
+    if (user && isUserProfileLayerLoaded && !myProfile && !isCreatingProfileRef.current) {
+      isCreatingProfileRef.current = true
+      void createEmptyProfile().finally(() => {
+        isCreatingProfileRef.current = false
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, isUserProfileLayerLoaded, myProfile])
 
   return { myProfile, isMyProfileLoaded, isUserProfileLayerLoaded, createEmptyProfile }
 }
