@@ -39,10 +39,10 @@ export function InvitePage({ inviteApi }: Props) {
 
       if (invitingProfileId) {
         toast.success('Invite redeemed successfully!')
-        navigate(`/item/${invitingProfileId}`)
+        void navigate(`/item/${invitingProfileId}`)
       } else {
         toast.error('Failed to redeem invite')
-        navigate('/')
+        void navigate('/')
       }
     }
 
@@ -55,7 +55,7 @@ export function InvitePage({ inviteApi }: Props) {
       localStorage.setItem('inviteCode', id)
 
       // Redirect to login page
-      navigate('/login')
+      void navigate('/login')
     }
   }, [
     id,

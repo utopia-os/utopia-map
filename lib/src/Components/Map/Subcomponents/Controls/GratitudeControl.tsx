@@ -14,7 +14,7 @@ export const GratitudeControl = () => {
           <div
             className='tw:card-body tw:hover:bg-slate-300 tw:card tw:p-2 tw:h-10 tw:w-10 tw:transition-all tw:duration-300 tw:hover:cursor-pointer'
             onClick={() => {
-              navigate('/select-user')
+              void navigate('/select-user')
             }}
           >
             <HeartIcon className='tw:stroke-[2.5]' />
