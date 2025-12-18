@@ -28,7 +28,7 @@ export function RequestPasswordPage({ resetUrl }: { resetUrl: string }) {
       },
       error: {
         render({ data }) {
-          return `${data as string}`
+          return data as string
         },
       },
       pending: 'sending email ...',
@@ -42,7 +42,9 @@ export function RequestPasswordPage({ resetUrl }: { resetUrl: string }) {
         type='email'
         placeholder='E-Mail'
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <div className='tw:card-actions tw:mt-4'>

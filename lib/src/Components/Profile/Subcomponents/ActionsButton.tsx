@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import LinkIcon from '@heroicons/react/24/outline/LinkIcon'
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon'
 import { useState } from 'react'
@@ -89,7 +90,9 @@ export function ActionButton({
           <DialogModal
             title={'Select'}
             isOpened={modalOpen}
-            onClose={() => setModalOpen(false)}
+            onClose={() => {
+              setModalOpen(false)
+            }}
             className='tw:w-xl tw:sm:w-2xl tw:min-h-80 tw:bg-base-200'
           >
             <TextInput

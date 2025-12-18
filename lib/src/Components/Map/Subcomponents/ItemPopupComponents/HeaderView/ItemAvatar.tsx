@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { QrCodeIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 
@@ -53,8 +54,12 @@ export function ItemAvatar({
           className='tw:w-full tw:h-full tw:object-cover tw:rounded-full tw:border-white'
           src={avatar}
           alt={(item.name ?? '') + ' logo'}
-          onLoad={() => setImageLoaded(true)}
-          onError={() => setImageLoaded(false)}
+          onLoad={() => {
+            setImageLoaded(true)
+          }}
+          onError={() => {
+            setImageLoaded(false)
+          }}
           style={{ display: imageLoaded ? 'block' : 'none' }}
         />
         {!imageLoaded && <div className='tw:w-full tw:h-full tw:bg-gray-200 tw:rounded-full' />}

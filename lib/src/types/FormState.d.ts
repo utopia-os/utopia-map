@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import type { markerIcon } from '#utils/MarkerIconFactory'
 import type { GalleryItem, Item } from './Item'
 import type { Tag } from './Tag'

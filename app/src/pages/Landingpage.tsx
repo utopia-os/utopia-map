@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable import/no-relative-parent-imports */
+/* eslint-disable import-x/no-relative-parent-imports */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable new-cap */
@@ -138,7 +138,7 @@ export const Landingpage = () => {
                     <li key={idx}>
                       <div className='w-24 h-24 mx-auto'>
                         <img
-                          src={`${config.apiUrl}assets/${item.image}`}
+                          src={`${config.apiUrl}/assets/${item.image}`}
                           className='w-full h-full rounded-full'
                           alt=''
                         />

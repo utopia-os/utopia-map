@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
 import { useEffect, useState } from 'react'
 import { TextView } from 'utopia-ui'
@@ -22,7 +23,9 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <div className='tw:grid'>
             <label
               className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => clickAction1()}
+              onClick={() => {
+                clickAction1()
+              }}
             >
               Close
             </label>
@@ -33,7 +36,7 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <h3 className='tw:font-bold tw:text-lg'>Welcome to {map?.name || 'Utopia Map'}</h3>
           <img
             className='tw:float-right tw:w-32 tw:m-2'
-            src={config.apiUrl + 'assets/' + map.logo}
+            src={config.apiUrl + '/assets/' + map.logo}
           ></img>
           <p className='tw:py-3'>
             It is a tool for collaborative mapping to connect local initiatives, people and events.
@@ -45,7 +48,9 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
           <div className='tw:grid'>
             <label
               className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => clickAction1()}
+              onClick={() => {
+                clickAction1()
+              }}
             >
               Close
             </label>
