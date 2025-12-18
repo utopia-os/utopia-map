@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */ // Directus database fields use snake_case
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
+/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'

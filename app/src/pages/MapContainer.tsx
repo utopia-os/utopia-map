@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable import/no-relative-parent-imports */
-/* eslint-disable array-callback-return */
+/* eslint-disable import-x/no-relative-parent-imports */
 /* eslint-disable new-cap */
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 import {
   UtopiaMap,
@@ -36,34 +34,37 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
   const [apis, setApis] = useState<layerApi[]>([])
 
   useEffect(() => {
-    // get timestamp for the end of the current day
+    // get timestamp for the start of the current day
     const now = new Date()
     const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate())
-    const etartOfDayISO = startOfDay.toISOString()
+    const startOfDayISO = startOfDay.toISOString()
 
-    layers.map((layer: LayerProps) => {
-      apis &&
-        setApis((current) => [
-          ...current,
-          {
-            id: layer.id,
-            api: new itemsApi<Place>('items', layer.id, undefined, {
-              _or: [
-                {
-                  end: {
-                    _gt: etartOfDayISO,
-                  },
+    const newApis = layers.map((layer: LayerProps) => {
+      // Only apply date filter if showPastItems is not explicitly set to true
+      const dateFilter = layer.showPastItems
+        ? undefined
+        : {
+            _or: [
+              {
+                end: {
+                  _gt: startOfDayISO,
                 },
-                {
-                  end: {
-                    _null: true,
-                  },
+              },
+              {
+                end: {
+                  _null: true,
                 },
-              ],
-            }),
-          },
-        ])
+              },
+            ],
+          }
+
+      return {
+        id: layer.id,
+        api: new itemsApi<Place>('items', layer.id, undefined, dateFilter),
+      }
     })
+
+    setApis(newApis)
   }, [layers])
 
   useEffect(() => {}, [apis])

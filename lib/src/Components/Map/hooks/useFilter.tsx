@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable no-case-declarations */
 import { useCallback, useReducer, createContext, useContext, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -154,8 +152,8 @@ function useFilterManager(initialTags: Tag[]): {
       params.set('tags', `${urlTags || ''}${urlTags ? ';' : ''}${tag.name}`)
     }
     if (windowDimensions.width < 786 && location.pathname.split('/').length > 2)
-      navigate('/' + `${params ? `?${params}` : ''}`)
-    else navigate(location.pathname + `${params ? `?${params}` : ''}`)
+      navigate('/' + (params ? `?${params}` : ''))
+    else navigate(location.pathname + (params ? `?${params}` : ''))
 
     dispatchTags({
       type: 'ADD_TAG',
@@ -173,16 +171,16 @@ function useFilterManager(initialTags: Tag[]): {
     if (tags?.length === 0 && urlTags?.length && urlTags.length > 0) tags[0] = urlTags
     tags?.map((urlTag) => {
       if (!(urlTag.toLocaleLowerCase() === name.toLocaleLowerCase())) {
-        newUrlTags = newUrlTags + `${newUrlTags === '' ? urlTag : `;${urlTag}`}`
+        newUrlTags = newUrlTags + (newUrlTags === '' ? urlTag : `;${urlTag}`)
       }
       return null
     })
     if (newUrlTags !== '') {
-      params.set('tags', `${newUrlTags}`)
-      navigate(location.pathname + `${params ? `?${params}` : ''}`)
+      params.set('tags', newUrlTags)
+      navigate(location.pathname + (params ? `?${params}` : ''))
     } else {
       params.delete('tags')
-      navigate(location.pathname + `${params ? `?${params}` : ''}`)
+      navigate(location.pathname + (params ? `?${params}` : ''))
     }
 
     dispatchTags({

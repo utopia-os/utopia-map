@@ -9,7 +9,7 @@ jobs:
     outputs:
       changes: ${{ steps.filter.outputs.match }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.1.7
       - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         id: filter
         with:
@@ -27,10 +27,10 @@ jobs:
       WORKING_DIRECTORY: ./
     steps:
       - name: Checkout code
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.1.7
 
       - name: Setup Node.js
-        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f # v6.1.0
         with:
           node-version-file: '.tool-versions'
 
@@ -39,7 +39,8 @@ jobs:
           mkdir -p ./data/uploads
           sudo chmod 777 -R ./data
           docker compose -f docker-compose.yml up -d
-          sleep 5
+          # Wait for Directus to be ready using health endpoint polling
+          timeout 120 bash -c 'until curl -f http://localhost:8055/server/health; do echo "Waiting for Directus..."; sleep 5; done'
           cd backend && ./push.sh && ./seed.sh
         working-directory: ${{env.WORKING_DIRECTORY}}
 
@@ -52,7 +53,7 @@ jobs:
   #    WORKING_DIRECTORY: ./
   #  steps:
   #    - name: Checkout code
-  #      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.1.7
+  #      uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v4.1.7
   #
   #    - name: Build Docker Development
   #      run: docker compose build

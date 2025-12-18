@@ -44,10 +44,19 @@ export const GalleryView = ({ item }: { item: Item }) => {
         <RowsPhotoAlbum
           photos={images}
           targetRowHeight={150}
-          onClick={({ index: current }) => setIndex(current)}
+          onClick={({ index: current }) => {
+            setIndex(current)
+          }}
         />
 
-        <ReactLightbox index={index} slides={images} open={index >= 0} close={() => setIndex(-1)} />
+        <ReactLightbox
+          index={index}
+          slides={images}
+          open={index >= 0}
+          close={() => {
+            setIndex(-1)
+          }}
+        />
       </div>
     )
   else return <></>
