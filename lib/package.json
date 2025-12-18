@@ -131,7 +131,7 @@
     "react-toastify": "^9.1.3",
     "remark-breaks": "^4.0.0",
     "tiptap-markdown": "^0.9.0",
-    "yet-another-react-lightbox": "^3.26.0"
+    "yet-another-react-lightbox": "^3.27.0"
   },
   "imports": {
     "#assets/*": "./src/assets/*",
