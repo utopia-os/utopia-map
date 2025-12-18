@@ -1,20 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useCallback, useEffect, useRef } from 'react'
 
-export const useTimeout = (callback, delay) => {
+export const useTimeout = (callback: () => void, delay: number) => {
   const callbackRef = useRef(callback)
-  const timeoutRef = useRef<any>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     callbackRef.current = callback
   }, [callback])
 
   const set = useCallback(() => {
-    timeoutRef.current = setTimeout(() => callbackRef.current(), delay)
+    timeoutRef.current = setTimeout(() => {
+      callbackRef.current()
+    }, delay)
   }, [delay])
 
   const clear = useCallback(() => {

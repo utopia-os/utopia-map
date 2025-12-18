@@ -31,24 +31,24 @@ const CloseButton = ({ closeToast }: CloseButtonProps) => (
 
 export const ContextWrapper = ({ children }: { children: React.ReactNode }) => {
   const isWrapped = useContext(ContextCheckContext)
-
   const isInsideRouter = useInRouterContext()
 
-  let returnValue = children
+  // Build the component tree from inside out
+  let content = <>{children}</>
 
   if (!isWrapped) {
-    returnValue = (
+    content = (
       <ContextCheckContext.Provider value={true}>
-        <Wrappers>{returnValue}</Wrappers>
+        <Wrappers>{content}</Wrappers>
       </ContextCheckContext.Provider>
     )
   }
 
   if (!isInsideRouter) {
-    returnValue = <Router>{returnValue}</Router>
+    content = <Router>{content}</Router>
   }
 
-  return returnValue
+  return content
 }
 
 // eslint-disable-next-line react/prop-types

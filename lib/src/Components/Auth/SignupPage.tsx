@@ -29,7 +29,7 @@ export function SignupPage() {
           return `Hi ${data?.first_name ? data.first_name : 'Traveler'}`
         },
         // other options
-        icon: '✌️',
+        icon: () => '✌️',
       },
       error: {
         render({ data }) {
