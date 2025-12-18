@@ -25,7 +25,7 @@ export function SignupPage() {
     await toast.promise(register({ email, password }, userName), {
       success: {
         render({ data }) {
-          navigate('/')
+          void navigate('/')
           return `Hi ${data?.first_name ? data.first_name : 'Traveler'}`
         },
         // other options

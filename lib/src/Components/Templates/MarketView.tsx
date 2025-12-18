@@ -70,7 +70,7 @@ export const MarketView = () => {
             {groupAndCount(offers).map((o) => (
               <TagView
                 onClick={() => {
-                  navigate(`/?tags=${o.object.name}`)
+                  void navigate(`/?tags=${o.object.name}`)
                 }}
                 key={o.object.id}
                 tag={o.object}
@@ -85,7 +85,7 @@ export const MarketView = () => {
             {groupAndCount(needs).map((o) => (
               <TagView
                 onClick={() => {
-                  navigate(`/?tags=${o.object.name}`)
+                  void navigate(`/?tags=${o.object.name}`)
                 }}
                 key={o.object.id}
                 tag={o.object}

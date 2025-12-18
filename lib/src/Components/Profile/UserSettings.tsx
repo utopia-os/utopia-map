@@ -48,7 +48,7 @@ export function UserSettings() {
         },
       })
       .then(() => {
-        navigate('/')
+        void navigate('/')
       })
       .catch((e) => {
         throw e

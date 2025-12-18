@@ -133,7 +133,7 @@ export const TabsForm = ({
                         key={i.id}
                         className='tw:cursor-pointer tw:card tw:bg-base-200 tw:border-[1px] tw:border-base-300 tw:card-body tw:shadow-xl tw:text-base-content tw:mx-4 tw:p-6 tw:mb-4'
                         onClick={() => {
-                          navigate('/item/' + i.id)
+                          void navigate('/item/' + i.id)
                         }}
                       >
                         <LinkedItemsHeaderView
