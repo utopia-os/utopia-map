@@ -71,7 +71,7 @@ export const AttestationForm = ({ api }: { api?: ItemsApi<unknown> }) => {
           },
         )
         .then(() => {
-          navigate(
+          void navigate(
             '/item/' +
               // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
               items.find(

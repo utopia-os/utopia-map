@@ -45,12 +45,12 @@ export const UserControl = () => {
 
   const handleEdit = () => {
     if (!myProfile?.layer) {
-      navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
+      void navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
       return
     }
 
     if (myProfile.layer.itemType.small_form_edit && myProfile.position) {
-      navigate('/')
+      void navigate('/')
       // Wait for navigation to complete before setting popup
       setTimeout(() => {
         if (myProfile.position && myProfile.layer) {
@@ -65,7 +65,7 @@ export const UserControl = () => {
         }
       }, 100)
     } else {
-      navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
+      void navigate(userProfile.id ? `/edit-item/${userProfile.id}` : '#')
     }
   }
   const avatar: string | undefined =

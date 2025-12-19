@@ -42,10 +42,10 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       toast.success('Invite redeemed successfully!')
       localStorage.removeItem('inviteCode')
       setRedeemingDone(true)
-      navigate(`/item/${invitingProfileId}`)
+      void navigate(`/item/${invitingProfileId}`)
     } else {
       toast.error('Failed to redeem invite')
-      navigate('/')
+      void navigate('/')
     }
   }
 
@@ -92,7 +92,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       if (!invitingProfileId) {
         toast.error('Invalid invite code')
         localStorage.removeItem('inviteCode')
-        navigate('/')
+        void navigate('/')
         return
       }
 
@@ -102,7 +102,7 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
         toast.error('You cannot invite yourself')
         localStorage.removeItem('inviteCode')
         // Navigate to own profile
-        navigate('/item/' + myProfile.id)
+        void navigate('/item/' + myProfile.id)
         return
       }
 
@@ -113,14 +113,14 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
       ) {
         toast.error('You are already following this profile')
         localStorage.removeItem('inviteCode')
-        navigate('/item/' + invitingProfileId)
+        void navigate('/item/' + invitingProfileId)
         return
       }
 
       if (!invitingProfile) {
         toast.error('Inviting profile not found')
         localStorage.removeItem('inviteCode')
-        navigate('/')
+        void navigate('/')
         return
       }
 
@@ -156,15 +156,15 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
   ])
 
   const goToSignup = () => {
-    navigate('/signup')
+    void navigate('/signup')
   }
 
   const goToLogin = () => {
-    navigate('/login')
+    void navigate('/login')
   }
 
   const goToStart = () => {
-    navigate('/')
+    void navigate('/')
   }
 
   if (isAuthenticated) {

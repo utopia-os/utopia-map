@@ -22,7 +22,7 @@ export function SetNewPasswordPage() {
     await toast.promise(passwordReset(token, password), {
       success: {
         render() {
-          navigate('/')
+          void navigate('/')
           return 'New password set'
         },
       },
