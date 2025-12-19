@@ -1,6 +1,6 @@
 {
   "name": "utopia-ui",
-  "version": "3.0.111",
+  "version": "3.0.112",
   "description": "Reuseable React Components to build mapping apps for real life communities and networks",
   "repository": "https://github.com/utopia-os/utopia-ui",
   "homepage": "https://utopia-os.org/",
@@ -51,7 +51,7 @@
     "@rollup/plugin-typescript": "^12.3.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@testing-library/jest-dom": "^6.6.3",
-    "@testing-library/react": "^16.2.0",
+    "@testing-library/react": "^16.3.1",
     "@types/geojson": "^7946.0.14",
     "@types/leaflet": "^1.9.21",
     "@types/leaflet.markercluster": "^1.5.5",
@@ -84,9 +84,9 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svg": "^2.0.0",
     "tailwindcss": "^4.1.18",
-    "typedoc": "^0.27.6",
-    "typedoc-plugin-coverage": "^3.4.1",
-    "typedoc-plugin-missing-exports": "^3.1.0",
+    "typedoc": "^0.28.15",
+    "typedoc-plugin-coverage": "^4.0.2",
+    "typedoc-plugin-missing-exports": "^4.1.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.9.0",
     "vite": "^7.3.0",
@@ -96,7 +96,7 @@
   "peerDependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^7.10.1"
   },
   "dependencies": {
     "@heroicons/react": "^2.0.17",
@@ -116,7 +116,7 @@
     "classnames": "^2.5.1",
     "leaflet": "^1.9.4",
     "leaflet.locatecontrol": "^0.79.0",
-    "maplibre-gl": "^5.9.0",
+    "maplibre-gl": "^5.15.0",
     "radash": "^12.1.0",
     "react-colorful": "^5.6.1",
     "react-dropzone": "^14.3.8",
