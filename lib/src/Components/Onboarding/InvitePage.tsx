@@ -98,6 +98,13 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
 
       const invitingProfile = await itemsApi.getItem(invitingProfileId)
 
+      if (!invitingProfile) {
+        toast.error('Inviting profile not found')
+        localStorage.removeItem('inviteCode')
+        void navigate('/')
+        return
+      }
+
       if (invitingProfileId === myProfile?.id) {
         toast.error('You cannot invite yourself')
         localStorage.removeItem('inviteCode')
@@ -114,13 +121,6 @@ export function InvitePage({ inviteApi, itemsApi }: Props) {
         toast.error('You are already following this profile')
         localStorage.removeItem('inviteCode')
         void navigate('/item/' + invitingProfileId)
-        return
-      }
-
-      if (!invitingProfile) {
-        toast.error('Inviting profile not found')
-        localStorage.removeItem('inviteCode')
-        void navigate('/')
         return
       }
 
