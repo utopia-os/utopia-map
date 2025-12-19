@@ -13,5 +13,5 @@ export const useStoredInviteCode = () => {
     if (!inviteCode || !user) return
 
     navigate(`/invite/${inviteCode}`)
-  }, [inviteCode, user])
+  }, [inviteCode, navigate, user])
 }
