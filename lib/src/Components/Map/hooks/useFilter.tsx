@@ -117,7 +117,7 @@ function useFilterManager(initialTags: Tag[]): {
       params.set('layers', visibleNames.join(','))
     }
 
-    navigate(`${location.pathname}?${params.toString()}`, { replace: true })
+    void navigate(`${location.pathname}?${params.toString()}`, { replace: true })
   }, [visibleLayers, allLayers, navigate])
 
   const [visibleGroupTypes, dispatchGroupTypes] = useReducer(
@@ -152,8 +152,8 @@ function useFilterManager(initialTags: Tag[]): {
       params.set('tags', `${urlTags || ''}${urlTags ? ';' : ''}${tag.name}`)
     }
     if (windowDimensions.width < 786 && location.pathname.split('/').length > 2)
-      navigate('/' + (params ? `?${params}` : ''))
-    else navigate(location.pathname + (params ? `?${params}` : ''))
+      void navigate('/' + (params ? `?${params}` : ''))
+    else void navigate(location.pathname + (params ? `?${params}` : ''))
 
     dispatchTags({
       type: 'ADD_TAG',
@@ -177,10 +177,10 @@ function useFilterManager(initialTags: Tag[]): {
     })
     if (newUrlTags !== '') {
       params.set('tags', newUrlTags)
-      navigate(location.pathname + (params ? `?${params}` : ''))
+      void navigate(location.pathname + (params ? `?${params}` : ''))
     } else {
       params.delete('tags')
-      navigate(location.pathname + (params ? `?${params}` : ''))
+      void navigate(location.pathname + (params ? `?${params}` : ''))
     }
 
     dispatchTags({

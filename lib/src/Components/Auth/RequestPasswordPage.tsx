@@ -20,7 +20,7 @@ export function RequestPasswordPage({ resetUrl }: { resetUrl: string }) {
     await toast.promise(requestPasswordReset(email, resetUrl), {
       success: {
         render() {
-          navigate('/')
+          void navigate('/')
           return 'Check your mailbox'
         },
         // other options
