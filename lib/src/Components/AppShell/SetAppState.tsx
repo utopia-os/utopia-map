@@ -5,17 +5,23 @@ import { useSetAppState } from './hooks/useAppState'
 import type { AssetsApi } from '#types/AssetsApi'
 
 export const SetAppState = ({
+  appName,
   assetsApi,
   embedded,
   openCollectiveApiKey,
   hideSignup,
 }: {
+  appName: string
   assetsApi: AssetsApi
   embedded?: boolean
   openCollectiveApiKey?: string
   hideSignup?: boolean
 }) => {
   const setAppState = useSetAppState()
+
+  useEffect(() => {
+    setAppState({ appName })
+  }, [appName, setAppState])
 
   useEffect(() => {
     setAppState({ assetsApi })

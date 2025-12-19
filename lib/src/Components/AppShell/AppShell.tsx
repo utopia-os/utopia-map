@@ -28,6 +28,7 @@ export function AppShell({
     <ContextWrapper>
       <div className='tw:flex tw:flex-col tw:h-full'>
         <SetAppState
+          appName={appName}
           assetsApi={assetsApi}
           embedded={embedded}
           openCollectiveApiKey={openCollectiveApiKey}

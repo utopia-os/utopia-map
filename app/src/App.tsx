@@ -14,7 +14,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import type { Tag, LayerProps } from 'utopia-ui'
+import type { Item, Tag, LayerProps } from 'utopia-ui'
 
 import {
   AppShell,
@@ -69,6 +69,7 @@ function App() {
   const [mapApiInstance, setMapApiInstance] = useState<mapApi>()
   const [layersApiInstance, setLayersApiInstance] = useState<layersApi>()
   const [attestationApi, setAttestationApi] = useState<itemsApi<any>>()
+  const [itemsApiInstance, setItemsApiInstance] = useState<itemsApi<Item>>()
 
   const [map, setMap] = useState<any>()
   const [layers, setLayers] = useState<any>()
@@ -194,10 +195,15 @@ function App() {
     }
   }, [map, layers])
 
+  useEffect(() => {
+    if (!map) return
+    setItemsApiInstance(new itemsApi<Item>('items', undefined, map.id))
+  }, [map])
+
   const currentUrl = window.location.href
   const bottomRoutes = getBottomRoutes(currentUrl)
 
-  if (map && layers)
+  if (map && layers && itemsApiInstance)
     return (
       <div className='App tw:overflow-x-hidden'>
         <AuthProvider userApi={userApi} inviteApi={inviteApi}>
@@ -218,7 +224,10 @@ function App() {
               <Quests />
               <Routes>
                 <Route path='/*' element={<MapContainer map={map} layers={layers} />}>
-                  <Route path='invite/:id' element={<InvitePage inviteApi={inviteApi} />} />
+                  <Route
+                    path='invite/:id'
+                    element={<InvitePage inviteApi={inviteApi} itemsApi={itemsApiInstance} />}
+                  />
                   <Route
                     path='login'
                     element={

@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '#components/Auth/useAuth'
-import { useItems, useUpdateItem, useAddItem } from '#components/Map/hooks/useItems'
+import { useItems, useUpdateItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
 import { useAddTag, useGetItemTags, useTags } from '#components/Map/hooks/useTags'
@@ -55,9 +55,8 @@ export function ProfileForm() {
   const [updatePermission, setUpdatePermission] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [item, setItem] = useState<Item>()
-  const { user } = useAuth()
+  useAuth()
   const updateItem = useUpdateItem()
-  const addItem = useAddItem()
   const layers = useLayers()
   const location = useLocation()
   const tags = useTags()
@@ -75,20 +74,9 @@ export function ProfileForm() {
 
   useEffect(() => {
     const itemId = location.pathname.split('/')[2]
-    if (itemId === 'new') {
-      const layer = layers.find((l) => l.userProfileLayer)
-      setItem({
-        id: crypto.randomUUID(),
-        name: user?.first_name ?? '',
-        text: '',
-        layer,
-        new: true,
-      })
-    } else {
-      const item = items.find((i) => i.id === itemId)
-      if (item) setItem(item)
-    }
-  }, [items, location.pathname, layers, user?.first_name])
+    const item = items.find((i) => i.id === itemId)
+    if (item) setItem(item)
+  }, [items, location.pathname])
 
   useEffect(() => {
     if (!item) return
@@ -174,8 +162,6 @@ export function ProfileForm() {
                 setLoading,
                 navigate,
                 updateItem,
-                addItem,
-                user,
                 urlParams,
               )
             }}

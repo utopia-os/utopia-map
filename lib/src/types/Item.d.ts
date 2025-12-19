@@ -22,6 +22,8 @@ interface ItemSecret {
   secret: string
 }
 
+type ItemSecretValue = ItemSecret | string
+
 /**
  * @category Types
  */
@@ -54,13 +56,12 @@ export interface Item {
   color?: string
   markerIcon?: MarkerIcon
   avatar?: string
-  new?: boolean
   contact?: string
   telephone?: string
   next_appointment?: string
   gallery?: GalleryItem[]
   openCollectiveSlug?: string
-  secrets?: ItemSecret[]
+  secrets?: ItemSecretValue[]
   extended?: JSON
 
   // {
