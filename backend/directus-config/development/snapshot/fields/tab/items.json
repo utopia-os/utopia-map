@@ -1,0 +1,32 @@
+{
+  "collection": "tab",
+  "field": "items",
+  "type": "alias",
+  "meta": {
+    "collection": "tab",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{collection}}"
+    },
+    "field": "items",
+    "group": null,
+    "hidden": false,
+    "interface": "list-m2a",
+    "note": "Components inside this tab",
+    "options": {
+      "enableCreate": true,
+      "enableSelect": true
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 6,
+    "special": [
+      "m2a"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

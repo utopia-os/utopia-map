@@ -24,7 +24,7 @@ export const ContactInfoView = ({ item, heading }: { item: Item; heading: string
   }, [item, items])
 
   return (
-    <div className='tw:bg-base-200  tw:mb-6 tw:mt-6 tw:p-6'>
+    <div className='tw:bg-base-200 tw:p-6'>
       <h2 className='tw:text-lg tw:font-semibold'>{heading}</h2>
       <div className='tw:mt-4 tw:flex tw:items-center'>
         {profileOwner?.image && (

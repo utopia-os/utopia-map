@@ -1,0 +1,25 @@
+{
+  "collection": "tab_items",
+  "field": "tab_id",
+  "related_collection": "tab",
+  "meta": {
+    "junction_field": "item",
+    "many_collection": "tab_items",
+    "many_field": "tab_id",
+    "one_allowed_collections": null,
+    "one_collection": "tab",
+    "one_collection_field": null,
+    "one_deselect_action": "nullify",
+    "one_field": "items",
+    "sort_field": "sort"
+  },
+  "schema": {
+    "table": "tab_items",
+    "column": "tab_id",
+    "foreign_key_table": "tab",
+    "foreign_key_column": "id",
+    "constraint_name": "tab_items_tab_id_foreign",
+    "on_update": "NO ACTION",
+    "on_delete": "SET NULL"
+  }
+}
