@@ -32,7 +32,7 @@ export const UserControl = () => {
           return 'Bye bye'
         },
         // other options
-        icon: '👋',
+        icon: () => '👋',
       },
       error: {
         render({ data }) {

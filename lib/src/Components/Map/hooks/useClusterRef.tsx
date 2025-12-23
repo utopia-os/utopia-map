@@ -6,16 +6,16 @@ import { createContext, useContext, useState } from 'react'
 type UseClusterRefManagerResult = ReturnType<typeof useClusterRefManager>
 
 const ClusterRefContext = createContext<UseClusterRefManagerResult>({
-  clusterRef: {} as React.MutableRefObject<undefined>,
+  clusterRef: {} as React.RefObject<undefined>,
   setClusterRef: () => {},
 })
 
 function useClusterRefManager(): {
   clusterRef: any
-  setClusterRef: React.Dispatch<React.SetStateAction<React.MutableRefObject<undefined>>>
+  setClusterRef: React.Dispatch<React.SetStateAction<React.RefObject<undefined>>>
 } {
-  const [clusterRef, setClusterRef] = useState<React.MutableRefObject<undefined>>(
-    {} as React.MutableRefObject<undefined>,
+  const [clusterRef, setClusterRef] = useState<React.RefObject<undefined>>(
+    {} as React.RefObject<undefined>,
   )
 
   return { clusterRef, setClusterRef }

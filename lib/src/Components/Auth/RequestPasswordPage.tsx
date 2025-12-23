@@ -24,7 +24,7 @@ export function RequestPasswordPage({ resetUrl }: { resetUrl: string }) {
           return 'Check your mailbox'
         },
         // other options
-        icon: '📬',
+        icon: () => '📬',
       },
       error: {
         render({ data }) {

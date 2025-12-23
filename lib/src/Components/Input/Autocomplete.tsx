@@ -23,16 +23,17 @@ export const Autocomplete = ({
 }) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([])
   const [heighlightedSuggestion, setHeighlightedSuggestion] = useState<number>(0)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     pushFilteredSuggestions && setFilteredSuggestions(pushFilteredSuggestions)
   }, [pushFilteredSuggestions])
 
   useEffect(() => {
-    setFocus && inputRef.current?.focus()
+    if (setFocus) {
+      inputRef.current?.focus()
+    }
   }, [setFocus])
-
-  const inputRef = useRef<HTMLInputElement>()
 
   const getSuggestions = (value) => {
     const inputValue = value.trim().toLowerCase()
