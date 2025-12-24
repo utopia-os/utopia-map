@@ -125,7 +125,7 @@
     "react-inlinesvg": "^4.2.0",
     "react-leaflet": "^4.2.1",
     "react-leaflet-cluster": "^3.1.1",
-    "react-markdown": "^9.0.1",
+    "react-markdown": "^10.1.0",
     "react-photo-album": "^3.3.0",
     "react-qr-code": "^2.0.16",
     "react-toastify": "^9.1.3",
