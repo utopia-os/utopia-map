@@ -57,7 +57,7 @@
     "@types/leaflet.markercluster": "^1.5.5",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.0.5",
-    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "^4.0.16",
     "cypress": "^15.7.1",
     "daisyui": "^5.5.14",
