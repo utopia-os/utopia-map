@@ -13,7 +13,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@directus/sdk": "^17.0.2",
+    "@directus/sdk": "^20.3.0",
     "@heroicons/react": "^2.1.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/geojson": "^7946.0.10",
