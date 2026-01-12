@@ -19,7 +19,6 @@ interface RichTextEditorProps {
   updateFormValue?: (value: string) => void
 }
 
-
 /**
  * @category Input
  */
