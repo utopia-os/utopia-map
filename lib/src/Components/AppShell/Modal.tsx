@@ -1,7 +1,7 @@
 import { MapOverlayPage } from '#components/Templates'
 
 /**
- * @category Gaming
+ * @category AppShell
  */
 export function Modal({ children }: { children: React.ReactNode }) {
   return (
