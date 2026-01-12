@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
@@ -101,6 +101,9 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
         onChange={(e) => {
           setEmail(e.target.value)
         }}
+        onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+          setTimeout(() => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
+        }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
       <input
@@ -108,6 +111,9 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
         placeholder='Password'
         onChange={(e) => {
           setPassword(e.target.value)
+        }}
+        onFocus={(e: React.FocusEvent<HTMLInputElement>) => {
+          setTimeout(() => e.target.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300)
         }}
         className='tw:input tw:input-bordered tw:w-full tw:max-w-xs'
       />
@@ -150,8 +156,7 @@ export function LoginPage({ inviteApi, showRequestPassword }: Props) {
                 ></path>
               </svg>
               <span>
-                The map requires an additional password. If you don&apos;t have it yet, you can
-                request one.
+              Please use your existing <Link to="https://community.oceannomads.co/">Ocean Nomads Community</Link> email address to request or reset your password.
               </span>
             </div>
             <Link to='/reset-password' className='tw:w-full'>
