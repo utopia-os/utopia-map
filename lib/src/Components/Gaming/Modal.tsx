@@ -8,7 +8,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
     <MapOverlayPage
       backdrop
       card
-      className='tw:absolute tw:h-fit tw:max-h-[calc(100%-2.5em)] tw:top-4 tw:bottom-4 tw:left-1/2 tw:transform tw:-translate-x-1/2 tw:overflow-scroll tw:md:w-[calc(50%-32px)] tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-[612px] tw:transition-opacity tw:duration-500 tw:opacity-100 tw:pointer-events-auto'
+      className='tw:h-fit tw:max-h-[calc(100%-2.5em)] tw:overflow-auto tw:w-[calc(100%-32px)] tw:min-w-80 tw:max-w-[612px] tw:transition-opacity tw:duration-500 tw:opacity-100 tw:pointer-events-auto'
     >
       {children}
     </MapOverlayPage>

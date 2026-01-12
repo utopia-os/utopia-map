@@ -1,4 +1,5 @@
 export * from './AppShell'
 export { SideBar } from './SideBar'
 export { Content } from './Content'
+export { InfoRedirect } from './InfoRedirect'
 export { default as SVG } from 'react-inlinesvg'
