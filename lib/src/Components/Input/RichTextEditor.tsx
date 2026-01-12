@@ -1,11 +1,10 @@
-import { Color } from '@tiptap/extension-color'
 import { Image } from '@tiptap/extension-image'
 import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
+import { Markdown } from '@tiptap/markdown'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 import { useEffect, useMemo } from 'react'
-import { Markdown } from 'tiptap-markdown'
 
 import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
@@ -17,12 +16,8 @@ import {
   createHashtagSuggestion,
   createItemMentionSuggestion,
 } from '#components/TipTap/extensions'
-import { preprocessMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
-
 import { InputLabel } from './InputLabel'
 import { TextEditorMenu } from './TextEditorMenu'
-
-import type { MarkdownStorage } from 'tiptap-markdown'
 
 interface RichTextEditorProps {
   labelTitle?: string
@@ -34,11 +29,6 @@ interface RichTextEditorProps {
   updateFormValue?: (value: string) => void
 }
 
-declare module '@tiptap/core' {
-  interface Storage {
-    markdown: MarkdownStorage
-  }
-}
 
 /**
  * @category Input
@@ -64,7 +54,7 @@ export function RichTextEditor({
   )
 
   const handleChange = () => {
-    let newValue: string | undefined = editor.storage.markdown.getMarkdown()
+    let newValue: string | undefined = editor.getMarkdown()
 
     const regex = /!\[.*?\]\(.*?\)/g
     newValue = newValue.replace(regex, (match: string) => match + '\n\n')
@@ -75,7 +65,6 @@ export function RichTextEditor({
 
   const editor = useEditor({
     extensions: [
-      Color.configure({ types: ['textStyle', 'listItem'] }),
       StarterKit.configure({
         bulletList: {
           keepMarks: true,
@@ -86,11 +75,7 @@ export function RichTextEditor({
           keepAttributes: false,
         },
       }),
-      Markdown.configure({
-        linkify: true,
-        transformCopiedText: true,
-        transformPastedText: true,
-      }),
+      Markdown,
       Image,
       Link,
       Placeholder.configure({
@@ -108,7 +93,8 @@ export function RichTextEditor({
         getItemColor,
       }),
     ],
-    content: preprocessMarkdown(defaultValue),
+    content: defaultValue,
+    contentType: 'markdown',
     onUpdate: handleChange,
     editorProps: {
       attributes: {
@@ -118,8 +104,8 @@ export function RichTextEditor({
   })
 
   useEffect(() => {
-    if (editor.storage.markdown.getMarkdown() === '' || !editor.storage.markdown.getMarkdown()) {
-      editor.commands.setContent(preprocessMarkdown(defaultValue))
+    if (editor.getMarkdown() === '' || !editor.getMarkdown()) {
+      editor.commands.setContent(defaultValue, { contentType: 'markdown' })
     }
   }, [defaultValue, editor])
 
