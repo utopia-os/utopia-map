@@ -41,7 +41,7 @@ import {
   UserSettings,
 } from 'utopia-ui'
 
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 
 import './App.css'
 import { Suspense, useEffect, useState } from 'react'
@@ -196,6 +196,14 @@ function App() {
 
   const currentUrl = window.location.href
   const bottomRoutes = getBottomRoutes(currentUrl)
+  const navigate = useNavigate()
+
+  // Redirect to /info if map.info_open is true (on first load)
+  useEffect(() => {
+    if (map?.info_open && window.location.pathname === '/') {
+      void navigate('/info')
+    }
+  }, [map?.info_open, navigate])
 
   if (map && layers)
     return (
@@ -210,9 +218,6 @@ function App() {
           >
             <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
-            <Modal>
-              <ModalContent map={map} />
-            </Modal>
             <SideBar routes={[...routes, ...layerPageRoutes]} bottomRoutes={bottomRoutes} />
             <Content>
               <Quests />
@@ -256,6 +261,14 @@ function App() {
                       <Suspense fallback={<LoadingMapOverlay />}>
                         <UserSettings />
                       </Suspense>
+                    }
+                  />
+                  <Route
+                    path='info'
+                    element={
+                      <Modal>
+                        <ModalContent map={map} />
+                      </Modal>
                     }
                   />
                   <Route path='landingpage' element={<Landingpage />} />

@@ -4,7 +4,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { TextView } from 'utopia-ui'
 
 import { config } from './config'
@@ -61,21 +62,13 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
   )
 }
 
-const close = () => {
-  const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
-  myModal.close()
-}
-
 export const ModalContent = ({ map }: { map: any }) => {
-  useEffect(() => {
-    const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
-    if (map.info_open) {
-      myModal.showModal()
-    }
-  }, [map.info_open])
-
+  const navigate = useNavigate()
   const [chapter, setChapter] = useState<number>(1)
-  // const setQuestsOpen = useSetQuestOpen()
+
+  const close = () => {
+    void navigate('/')
+  }
 
   const ActiveChapter = () => {
     switch (chapter) {
@@ -86,7 +79,6 @@ export const ModalContent = ({ map }: { map: any }) => {
             clickAction1={() => {
               close()
               setTimeout(() => {
-                //  setQuestsOpen(true);
                 setChapter(1)
               }, 1000)
             }}
