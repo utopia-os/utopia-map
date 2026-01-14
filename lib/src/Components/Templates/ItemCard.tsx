@@ -82,7 +82,7 @@ export const ItemCard = ({
       ></HeaderView>
       <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
         {i.layer?.itemType.show_start_end && <StartEndView item={i}></StartEndView>}
-        {i.layer?.itemType.show_text && <TextView truncate text={i.text} itemId={i.id} />}
+        {i.layer?.itemType.show_text && <TextView truncate text={i.text} />}
       </div>
       <DateUserInfo item={i}></DateUserInfo>
     </div>
