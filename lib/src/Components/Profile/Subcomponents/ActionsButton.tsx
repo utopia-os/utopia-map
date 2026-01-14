@@ -1,16 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import LinkIcon from '@heroicons/react/24/outline/LinkIcon'
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon'
 import { useState } from 'react'
 
 import { TextInput } from '#components/Input'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
-import { useGetItemTags } from '#components/Map/hooks/useTags'
 import { HeaderView } from '#components/Map/Subcomponents/ItemPopupComponents/HeaderView'
 import DialogModal from '#components/Templates/DialogModal'
 
@@ -36,7 +33,7 @@ export function ActionButton({
   const hasUserPermission = useHasUserPermission()
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const [search, setSearch] = useState<string>('')
-  const getItemTags = useGetItemTags()
+  const getItemColor = useGetItemColor()
 
   const items = useItems()
 
@@ -45,11 +42,7 @@ export function ActionButton({
     .filter((i) => !existingRelations.some((s) => s.id === i.id))
     .filter((i) => i.id !== item.id)
 
-  const backgroundColor =
-    item.color ??
-    (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color
-      ? getItemTags(item)[0].color
-      : item.layer?.markerDefaultColor)
+  const backgroundColor = getItemColor(item)
 
   return (
     <>

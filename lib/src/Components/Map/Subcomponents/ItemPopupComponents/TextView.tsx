@@ -1,4 +1,3 @@
-import { Link } from '@tiptap/extension-link'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 import { useEffect, useRef } from 'react'
@@ -6,9 +5,10 @@ import { useNavigate } from 'react-router-dom'
 import { Markdown } from 'tiptap-markdown'
 
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
+import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
-import { Hashtag } from '#components/TipTap/extensions/Hashtag'
-import { VideoEmbed } from '#components/TipTap/extensions/VideoEmbed'
+import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
 import {
   preprocessMarkdown,
   removeMarkdownSyntax,
@@ -39,6 +39,8 @@ export const TextView = ({
   const addFilterTag = useAddFilterTag()
   const navigate = useNavigate()
   const containerRef = useRef<HTMLDivElement>(null)
+  const items = useItems()
+  const getItemColor = useGetItemColor()
 
   // Prepare the text content
   let innerText = ''
@@ -71,19 +73,17 @@ export const TextView = ({
         Markdown.configure({
           html: true, // Allow HTML in markdown (for our preprocessed tags)
           transformPastedText: true,
-        }),
-        Link.configure({
-          openOnClick: false, // We handle clicks ourselves
-          HTMLAttributes: {
-            target: '_blank',
-            rel: 'noopener noreferrer',
-          },
+          linkify: true,
         }),
         Hashtag.configure({
           tags,
           onTagClick: (tag) => {
             addFilterTag(tag)
           },
+        }),
+        ItemMention.configure({
+          items,
+          getItemColor,
         }),
         VideoEmbed,
       ],

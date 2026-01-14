@@ -1,43 +1,42 @@
 import { mergeAttributes, Node } from '@tiptap/core'
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 import Suggestion from '@tiptap/suggestion'
+import { useNavigate } from 'react-router-dom'
 
-import { decodeTag } from '#utils/FormatTags'
-
-import type { Tag } from '#types/Tag'
+import type { Item } from '#types/Item'
 import type { NodeViewProps } from '@tiptap/react'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnySuggestionOptions = Partial<SuggestionOptions<any>>
 
-export interface HashtagOptions {
-  tags: Tag[]
-  onTagClick?: (tag: Tag) => void
+export interface ItemMentionOptions {
   HTMLAttributes: Record<string, unknown>
   suggestion?: AnySuggestionOptions
+  items?: Item[]
+  getItemColor?: (item: Item | undefined, fallback?: string) => string
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    hashtag: {
-      insertHashtag: (attributes: { label: string; id?: string }) => ReturnType
+    itemMention: {
+      insertItemMention: (attributes: { id: string; label: string }) => ReturnType
     }
   }
 }
 
-export const Hashtag = Node.create<HashtagOptions>({
-  name: 'hashtag',
+export const ItemMention = Node.create<ItemMentionOptions>({
+  name: 'itemMention',
   group: 'inline',
   inline: true,
   atom: true,
 
   addOptions() {
     return {
-      tags: [],
-      onTagClick: undefined,
       HTMLAttributes: {},
       suggestion: undefined,
+      items: [],
+      getItemColor: undefined,
     }
   },
 
@@ -63,23 +62,23 @@ export const Hashtag = Node.create<HashtagOptions>({
   },
 
   parseHTML() {
-    return [{ tag: 'span[data-hashtag]' }]
+    return [{ tag: 'span[data-item-mention]' }]
   },
 
   renderHTML({ node, HTMLAttributes }) {
     return [
       'span',
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-        'data-hashtag': '',
-        class: 'hashtag',
+        'data-item-mention': '',
+        class: 'item-mention',
       }),
-      `#${node.attrs.label as string}`,
+      `@${node.attrs.label as string}`,
     ]
   },
 
   addCommands() {
     return {
-      insertHashtag:
+      insertItemMention:
         (attributes) =>
         ({ commands }) => {
           return commands.insertContent({
@@ -95,20 +94,21 @@ export const Hashtag = Node.create<HashtagOptions>({
       markdown: {
         serialize(
           state: { write: (text: string) => void },
-          node: { attrs: { label: string } },
+          node: { attrs: { id: string; label: string } },
         ) {
-          // Write as plain hashtag
-          state.write(`#${node.attrs.label}`)
+          // Write as markdown link: [@Label](/item/id)
+          const { id, label } = node.attrs
+          state.write(`[@${label}](/item/${id})`)
         },
         parse: {
-          // Parsing is handled by preprocessHashtags
+          // Parsing is handled by preprocessItemMentions
         },
       },
     }
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(HashtagComponent)
+    return ReactNodeViewRenderer(ItemMentionComponent)
   },
 
   addProseMirrorPlugins() {
@@ -126,11 +126,18 @@ export const Hashtag = Node.create<HashtagOptions>({
   },
 })
 
-function HashtagComponent({ node, extension, editor }: NodeViewProps) {
-  const options = extension.options as HashtagOptions
-  const tagName = node.attrs.label as string
-  const tag = options.tags.find((t) => t.name.toLowerCase() === tagName.toLowerCase())
+function ItemMentionComponent({ node, editor, extension }: NodeViewProps) {
+  const navigate = useNavigate()
+  const options = extension.options as ItemMentionOptions
+  const label = node.attrs.label as string
+  const id = node.attrs.id as string
   const isEditable = editor.isEditable
+
+  // Find the item to get its color
+  const item = options.items?.find((i) => i.id === id)
+  const color = options.getItemColor
+    ? options.getItemColor(item, 'var(--color-primary)')
+    : item?.color ?? 'var(--color-primary)'
 
   const handleClick = (e: React.MouseEvent) => {
     // Don't navigate when in edit mode
@@ -138,22 +145,21 @@ function HashtagComponent({ node, extension, editor }: NodeViewProps) {
 
     e.preventDefault()
     e.stopPropagation()
-    if (tag && options.onTagClick) {
-      options.onTagClick(tag)
-    }
+    // Navigate to /item/[uuid] - use absolute path to avoid double /item/item/
+    void navigate(`/item/${id}`, { replace: false })
   }
 
   return (
-    <NodeViewWrapper as='span' className='hashtag-wrapper'>
+    <NodeViewWrapper as='span' className='item-mention-wrapper'>
       <span
-        className='hashtag tw:font-bold'
+        className='item-mention tw:font-bold'
         style={{
-          color: tag?.color ?? 'inherit',
+          color,
           cursor: isEditable ? 'text' : 'pointer',
         }}
         onClick={handleClick}
       >
-        {decodeTag(`#${tagName}`)}
+        @{label}
       </span>
     </NodeViewWrapper>
   )

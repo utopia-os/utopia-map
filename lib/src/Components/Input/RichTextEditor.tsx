@@ -4,11 +4,15 @@ import { Link } from '@tiptap/extension-link'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Markdown } from 'tiptap-markdown'
 
-import { VideoEmbed } from '#components/TipTap/extensions/VideoEmbed'
-import { preprocessVideoLinks } from '#components/TipTap/utils/preprocessMarkdown'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
+import { useItems } from '#components/Map/hooks/useItems'
+import { useAddTag, useTags } from '#components/Map/hooks/useTags'
+import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
+import { createHashtagSuggestion, createItemMentionSuggestion } from '#components/TipTap/extensions'
+import { preprocessMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
 
 import { InputLabel } from './InputLabel'
 import { TextEditorMenu } from './TextEditorMenu'
@@ -42,6 +46,18 @@ export function RichTextEditor({
   showMenu = true,
   updateFormValue,
 }: RichTextEditorProps) {
+  const tags = useTags()
+  const addTag = useAddTag()
+  const items = useItems()
+  const getItemColor = useGetItemColor()
+
+  // Memoize suggestion configurations to prevent unnecessary re-renders
+  const hashtagSuggestion = useMemo(() => createHashtagSuggestion(tags, addTag), [tags, addTag])
+  const itemMentionSuggestion = useMemo(
+    () => createItemMentionSuggestion(items, getItemColor),
+    [items, getItemColor],
+  )
+
   const handleChange = () => {
     let newValue: string | undefined = editor.storage.markdown.getMarkdown()
 
@@ -77,8 +93,17 @@ export function RichTextEditor({
         emptyEditorClass: 'is-editor-empty',
       }),
       VideoEmbed,
+      Hashtag.configure({
+        tags,
+        suggestion: hashtagSuggestion,
+      }),
+      ItemMention.configure({
+        suggestion: itemMentionSuggestion,
+        items,
+        getItemColor,
+      }),
     ],
-    content: preprocessVideoLinks(defaultValue),
+    content: preprocessMarkdown(defaultValue),
     onUpdate: handleChange,
     editorProps: {
       attributes: {
@@ -89,7 +114,7 @@ export function RichTextEditor({
 
   useEffect(() => {
     if (editor.storage.markdown.getMarkdown() === '' || !editor.storage.markdown.getMarkdown()) {
-      editor.commands.setContent(preprocessVideoLinks(defaultValue))
+      editor.commands.setContent(preprocessMarkdown(defaultValue))
     }
   }, [defaultValue, editor])
 

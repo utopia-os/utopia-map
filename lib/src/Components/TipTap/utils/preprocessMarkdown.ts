@@ -56,6 +56,9 @@ export function preprocessMarkdown(text: string): string {
   // 5. Convert hashtags to hashtag tags
   result = preprocessHashtags(result)
 
+  // 6. Convert item mentions to item-mention tags
+  result = preprocessItemMentions(result)
+
   return result
 }
 
@@ -116,6 +119,33 @@ export function preprocessHashtags(text: string): string {
     /(?<!\[)(?<!\()#([a-zA-Z0-9À-ÖØ-öø-ʸ_-]+)(?!\]|\))/g,
     '<span data-hashtag data-label="$1">#$1</span>',
   )
+}
+
+/**
+ * Converts [@Label](/item/id) to item-mention HTML tags.
+ * Supports multiple formats:
+ * - [@Label](/item/id) - absolute path
+ * - [@Label](item/id) - relative path (legacy)
+ * - [@Label](/item/layer/id) - with layer (legacy)
+ */
+export function preprocessItemMentions(text: string): string {
+  let result = text
+
+  // Format with layer: [@Label](/item/layer/id) or [@Label](item/layer/id)
+  // Use non-greedy matching for label to handle consecutive mentions
+  result = result.replace(
+    /\[@([^\]]+?)\]\(\/?item\/[^/]+\/([a-f0-9-]+)\)/g,
+    '<span data-item-mention data-label="$1" data-id="$2">@$1</span>',
+  )
+
+  // Format without layer: [@Label](/item/id) or [@Label](item/id)
+  // UUID pattern: hex characters with dashes
+  result = result.replace(
+    /\[@([^\]]+?)\]\(\/?item\/([a-f0-9-]+)\)/g,
+    '<span data-item-mention data-label="$1" data-id="$2">@$1</span>',
+  )
+
+  return result
 }
 
 /**

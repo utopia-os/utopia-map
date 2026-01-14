@@ -23,6 +23,7 @@ export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
     .replace(/&lt;video-embed/g, '<video-embed')
     .replace(/&lt;\/video-embed&gt;/g, '</video-embed>')
     .replace(/&lt;span data-hashtag/g, '<span data-hashtag')
+    .replace(/&lt;span data-item-mention/g, '<span data-item-mention')
     .replace(/&lt;\/span&gt;/g, '</span>')
     .replace(/&gt;&lt;/g, '><')
     .replace(/"&gt;/g, '">')
@@ -47,6 +48,14 @@ export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
       const color = tag?.color ?? 'inherit'
       const decoded = decodeTag(`#${tagText}`)
       return `<span data-hashtag data-label="${label}" class="hashtag" style="color: ${color}; cursor: pointer;">${decoded}</span>`
+    },
+  )
+
+  // Convert item-mention spans to styled spans
+  html = html.replace(
+    /<span data-item-mention data-label="([^"]+)" data-id="([^"]+)">@([^<]+)<\/span>/g,
+    (_, label: string, id: string) => {
+      return `<a href="/item/${id}" class="item-mention" style="color: var(--color-primary, #3b82f6); cursor: pointer;">@${label}</a>`
     },
   )
 
