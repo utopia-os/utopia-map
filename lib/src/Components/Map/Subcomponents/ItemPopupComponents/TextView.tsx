@@ -10,6 +10,7 @@ import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
 import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
 import {
+  preprocessMarkdown,
   removeMarkdownSyntax,
   truncateMarkdown,
 } from '#components/TipTap/utils/preprocessMarkdown'
@@ -79,8 +80,8 @@ export const TextView = ({
         }),
         VideoEmbed,
       ],
-      content: innerText,
-      contentType: 'markdown',
+      // Preprocess markdown to convert hashtags and item mentions to HTML
+      content: preprocessMarkdown(innerText),
       editable: false,
       editorProps: {
         attributes: {
@@ -93,7 +94,7 @@ export const TextView = ({
 
   // Update content when text changes
   useEffect(() => {
-    editor.commands.setContent(innerText, { contentType: 'markdown' })
+    editor.commands.setContent(preprocessMarkdown(innerText))
   }, [editor, innerText])
 
   // Handle link clicks for internal navigation
