@@ -4,10 +4,10 @@ import tippy from 'tippy.js'
 
 import { SuggestionList } from './SuggestionList'
 
-import type { Instance as TippyInstance } from 'tippy.js'
-import type { SuggestionOptions } from '@tiptap/suggestion'
 import type { Item } from '#types/Item'
 import type { SuggestionListRef } from './SuggestionList'
+import type { SuggestionOptions } from '@tiptap/suggestion'
+import type { Instance as TippyInstance } from 'tippy.js'
 
 export const ItemMentionSuggestionPluginKey = new PluginKey('itemMentionSuggestion')
 
@@ -96,6 +96,7 @@ export function createItemMentionSuggestion(
     command: ({ editor, range, props }) => {
       // Insert item mention and a space after it
       // Using a single insertContent call with an array ensures atomic insertion
+      const item = props as Item
       editor
         .chain()
         .focus()
@@ -104,8 +105,8 @@ export function createItemMentionSuggestion(
           {
             type: 'itemMention',
             attrs: {
-              id: props.id,
-              label: props.name,
+              id: item.id,
+              label: item.name,
             },
           },
           {

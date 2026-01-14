@@ -8,8 +8,7 @@ import type { Tag } from '#types/Tag'
 import type { NodeViewProps } from '@tiptap/react'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnySuggestionOptions = Partial<SuggestionOptions<any>>
+type AnySuggestionOptions = Partial<SuggestionOptions>
 
 export interface HashtagOptions {
   tags: Tag[]
@@ -93,10 +92,7 @@ export const Hashtag = Node.create<HashtagOptions>({
   addStorage() {
     return {
       markdown: {
-        serialize(
-          state: { write: (text: string) => void },
-          node: { attrs: { label: string } },
-        ) {
+        serialize(state: { write: (text: string) => void }, node: { attrs: { label: string } }) {
           // Write as plain hashtag
           state.write(`#${node.attrs.label}`)
         },

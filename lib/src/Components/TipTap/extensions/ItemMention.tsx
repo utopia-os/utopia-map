@@ -7,8 +7,7 @@ import type { Item } from '#types/Item'
 import type { NodeViewProps } from '@tiptap/react'
 import type { SuggestionOptions } from '@tiptap/suggestion'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnySuggestionOptions = Partial<SuggestionOptions<any>>
+type AnySuggestionOptions = Partial<SuggestionOptions>
 
 export interface ItemMentionOptions {
   HTMLAttributes: Record<string, unknown>
@@ -137,7 +136,7 @@ function ItemMentionComponent({ node, editor, extension }: NodeViewProps) {
   const item = options.items?.find((i) => i.id === id)
   const color = options.getItemColor
     ? options.getItemColor(item, 'var(--color-primary)')
-    : item?.color ?? 'var(--color-primary)'
+    : (item?.color ?? 'var(--color-primary)')
 
   const handleClick = (e: React.MouseEvent) => {
     // Don't navigate when in edit mode

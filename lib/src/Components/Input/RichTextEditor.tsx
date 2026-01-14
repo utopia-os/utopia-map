@@ -10,8 +10,13 @@ import { Markdown } from 'tiptap-markdown'
 import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
 import { useAddTag, useTags } from '#components/Map/hooks/useTags'
-import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
-import { createHashtagSuggestion, createItemMentionSuggestion } from '#components/TipTap/extensions'
+import {
+  Hashtag,
+  ItemMention,
+  VideoEmbed,
+  createHashtagSuggestion,
+  createItemMentionSuggestion,
+} from '#components/TipTap/extensions'
 import { preprocessMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
 
 import { InputLabel } from './InputLabel'

@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */ // Directus database fields use snake_case
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
+
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '#components/Auth/useAuth'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems, useUpdateItem, useAddItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
-import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useAddTag, useTags } from '#components/Map/hooks/useTags'
 import { MapOverlayPage } from '#components/Templates'
 

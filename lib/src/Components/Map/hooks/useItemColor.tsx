@@ -12,7 +12,7 @@ export const useGetItemColor = (): ((item: Item | undefined, fallback?: string) 
   const getItemTags = useGetItemTags()
 
   return useCallback(
-    (item: Item | undefined, fallback: string = '#000') => {
+    (item: Item | undefined, fallback = '#000') => {
       if (!item) return fallback
 
       // 1. Item's own color takes highest priority
@@ -36,7 +36,7 @@ export const useGetItemColor = (): ((item: Item | undefined, fallback?: string) 
  * Hook that returns the calculated color for a specific item.
  * Priority: item.color > first tag color > layer default color > fallback
  */
-export const useItemColor = (item: Item | undefined, fallback: string = '#000'): string => {
+export const useItemColor = (item: Item | undefined, fallback = '#000'): string => {
   const getItemColor = useGetItemColor()
   return getItemColor(item, fallback)
 }

@@ -48,7 +48,9 @@ export function ActionButton({
     <>
       {hasUserPermission(collection, 'update', item) && (
         <>
-          <div className={`tw:absolute tw:right-6 tw:bottom-4 tw:flex tw:flex-col ${customStyle}`}>
+          <div
+            className={`tw:absolute tw:right-6 tw:bottom-4 tw:flex tw:flex-col ${customStyle ?? ''}`}
+          >
             {triggerItemSelected && (
               <button
                 tabIndex={0}

@@ -1,6 +1,6 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
+import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 
 import type { NodeViewProps } from '@tiptap/react'
 
@@ -13,17 +13,17 @@ const RUMBLE_REGEX = /(?:https?:\/\/)?rumble\.com\/embed\/([a-zA-Z0-9_-]+)/
  * Extracts video provider and ID from a URL
  */
 function parseVideoUrl(url: string): { provider: 'youtube' | 'rumble'; videoId: string } | null {
-  let match = url.match(YOUTUBE_REGEX)
+  let match = YOUTUBE_REGEX.exec(url)
   if (match) {
     return { provider: 'youtube', videoId: match[1] }
   }
 
-  match = url.match(YOUTUBE_SHORT_REGEX)
+  match = YOUTUBE_SHORT_REGEX.exec(url)
   if (match) {
     return { provider: 'youtube', videoId: match[1] }
   }
 
-  match = url.match(RUMBLE_REGEX)
+  match = RUMBLE_REGEX.exec(url)
   if (match) {
     return { provider: 'rumble', videoId: match[1] }
   }
@@ -57,7 +57,10 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
   addStorage() {
     return {
       markdown: {
-        serialize(state: { write: (text: string) => void }, node: { attrs: { provider: string; videoId: string } }) {
+        serialize(
+          state: { write: (text: string) => void },
+          node: { attrs: { provider: string; videoId: string } },
+        ) {
           const { provider, videoId } = node.attrs
           const url =
             provider === 'youtube'

@@ -8,10 +8,7 @@ import type { JSONContent, Extensions } from '@tiptap/core'
  * Converts pre-processed markdown/HTML to TipTap JSON format.
  * Creates a temporary editor instance to parse the content.
  */
-export function markdownToTiptapJson(
-  content: string,
-  extensions: Extensions,
-): JSONContent {
+export function markdownToTiptapJson(content: string, extensions: Extensions): JSONContent {
   // Create a temporary editor to parse HTML/markdown
   const editor = new Editor({
     extensions,

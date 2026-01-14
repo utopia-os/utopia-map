@@ -13,10 +13,7 @@ export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
   let html = text
 
   // Escape HTML first (but preserve our preprocessed tags)
-  html = html
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
+  html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
   // Restore our preprocessed tags
   html = html
@@ -69,18 +66,15 @@ export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
 
   // Links: [text](url)
-  html = html.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    (_, linkText: string, url: string) => {
-      const isExternal = url.startsWith('http')
-      const attrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''
-      return `<a href="${url}" ${attrs}>${linkText}</a>`
-    },
-  )
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, linkText: string, url: string) => {
+    const isExternal = url.startsWith('http')
+    const attrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''
+    return `<a href="${url}" ${attrs}>${linkText}</a>`
+  })
 
   // Headers: # text, ## text, etc.
   html = html.replace(/^(#{1,6})\s+(.*)$/gm, (_, hashes: string, content: string) => {
-    const level = hashes.length
+    const level = String(hashes.length)
     return `<h${level}>${content}</h${level}>`
   })
 

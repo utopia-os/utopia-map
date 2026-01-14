@@ -35,7 +35,7 @@ export const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>
           return true
         }
         if (event.key === 'Enter') {
-          const item = items[selectedIndex]
+          const item = items.at(selectedIndex)
           if (item) command(item)
           return true
         }
@@ -67,7 +67,11 @@ export const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>
             color = getItemColor(item as Item)
           }
 
-          const key = isNewTag ? `new-${item.name}` : 'id' in item ? item.id : `item-${index}`
+          const key = isNewTag
+            ? `new-${item.name}`
+            : 'id' in item
+              ? item.id
+              : `item-${String(index)}`
 
           return (
             <button
@@ -76,7 +80,9 @@ export const SuggestionList = forwardRef<SuggestionListRef, SuggestionListProps>
                 index === selectedIndex ? 'tw:bg-base-200' : ''
               }`}
               style={color ? { color } : undefined}
-              onClick={() => command(item)}
+              onClick={() => {
+                command(item)
+              }}
             >
               {isNewTag ? (
                 <span className='tw:flex tw:items-center tw:gap-1'>

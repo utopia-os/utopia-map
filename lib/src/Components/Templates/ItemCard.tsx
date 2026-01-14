@@ -6,8 +6,8 @@ import { usePopupForm } from '#components/Map/hooks/usePopupForm'
 import { useSetSelectPosition } from '#components/Map/hooks/useSelectPosition'
 import useWindowDimensions from '#components/Map/hooks/useWindowDimension'
 import { StartEndView } from '#components/Map/Subcomponents/ItemPopupComponents'
-import { TextViewStatic } from '#components/Map/Subcomponents/ItemPopupComponents/TextViewStatic'
 import { HeaderView } from '#components/Map/Subcomponents/ItemPopupComponents/HeaderView'
+import { TextViewStatic } from '#components/Map/Subcomponents/ItemPopupComponents/TextViewStatic'
 
 import { DateUserInfo } from './DateUserInfo'
 

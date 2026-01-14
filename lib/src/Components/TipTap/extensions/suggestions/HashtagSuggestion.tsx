@@ -4,10 +4,10 @@ import tippy from 'tippy.js'
 
 import { SuggestionList } from './SuggestionList'
 
-import type { Instance as TippyInstance } from 'tippy.js'
-import type { SuggestionOptions } from '@tiptap/suggestion'
 import type { Tag } from '#types/Tag'
 import type { SuggestionListRef } from './SuggestionList'
+import type { SuggestionOptions } from '@tiptap/suggestion'
+import type { Instance as TippyInstance } from 'tippy.js'
 
 export const HashtagSuggestionPluginKey = new PluginKey('hashtagSuggestion')
 
@@ -103,9 +103,9 @@ export function createHashtagSuggestion(
           }
           // Space key triggers selection of the first item (or creates new tag)
           if (props.event.key === ' ') {
-            const firstItem = currentItems[0]
-            if (firstItem && currentCommand) {
-              currentCommand(firstItem)
+            const firstItem = currentItems.at(0)
+            if (firstItem) {
+              currentCommand?.(firstItem)
               return true
             }
           }
@@ -123,10 +123,10 @@ export function createHashtagSuggestion(
       let tagToInsert: Tag
 
       // Create new tag if needed
-      if ('isNew' in props && props.isNew) {
+      if ('isNew' in props && (props as { isNew: boolean }).isNew) {
         const newTag: Tag = {
           id: crypto.randomUUID(),
-          name: props.name,
+          name: (props as { name: string }).name,
           color: '#888888', // Default color
         }
         if (addTag) {
