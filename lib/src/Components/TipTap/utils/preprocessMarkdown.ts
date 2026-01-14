@@ -130,15 +130,16 @@ export function preprocessItemMentions(text: string): string {
 
   // Format with layer: [@Label](/item/layer/id) or [@Label](item/layer/id)
   // Use non-greedy matching for label to handle consecutive mentions
+  // Use case-insensitive flag for UUID hex characters
   result = result.replace(
-    /\[@([^\]]+?)\]\(\/?item\/[^/]+\/([a-f0-9-]+)\)/g,
+    /\[@([^\]]+?)\]\(\/?item\/[^/]+\/([a-fA-F0-9-]+)\)/g,
     '<span data-item-mention data-label="$1" data-id="$2">@$1</span>',
   )
 
   // Format without layer: [@Label](/item/id) or [@Label](item/id)
-  // UUID pattern: hex characters with dashes
+  // UUID pattern: hex characters (case-insensitive) with dashes
   result = result.replace(
-    /\[@([^\]]+?)\]\(\/?item\/([a-f0-9-]+)\)/g,
+    /\[@([^\]]+?)\]\(\/?item\/([a-fA-F0-9-]+)\)/g,
     '<span data-item-mention data-label="$1" data-id="$2">@$1</span>',
   )
 
