@@ -1,8 +1,8 @@
+import { Markdown } from '@tiptap/markdown'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
 import { useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Markdown } from 'tiptap-markdown'
 
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
 import { useGetItemColor } from '#components/Map/hooks/useItemColor'
@@ -10,7 +10,6 @@ import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
 import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
 import {
-  preprocessMarkdown,
   removeMarkdownSyntax,
   truncateMarkdown,
 } from '#components/TipTap/utils/preprocessMarkdown'
@@ -63,18 +62,11 @@ export const TextView = ({
     innerText = truncateMarkdown(removeMarkdownSyntax(innerText), 100)
   }
 
-  // Pre-process the markdown
-  const processedText = innerText ? preprocessMarkdown(innerText) : ''
-
   const editor = useEditor(
     {
       extensions: [
         StarterKit,
-        Markdown.configure({
-          html: true, // Allow HTML in markdown (for our preprocessed tags)
-          transformPastedText: true,
-          linkify: true,
-        }),
+        Markdown,
         Hashtag.configure({
           tags,
           onTagClick: (tag) => {
@@ -87,7 +79,8 @@ export const TextView = ({
         }),
         VideoEmbed,
       ],
-      content: processedText,
+      content: innerText,
+      contentType: 'markdown',
       editable: false,
       editorProps: {
         attributes: {
@@ -95,13 +88,13 @@ export const TextView = ({
         },
       },
     },
-    [processedText, tags],
+    [innerText, tags],
   )
 
   // Update content when text changes
   useEffect(() => {
-    editor.commands.setContent(processedText)
-  }, [editor, processedText])
+    editor.commands.setContent(innerText, { contentType: 'markdown' })
+  }, [editor, innerText])
 
   // Handle link clicks for internal navigation
   useEffect(() => {
