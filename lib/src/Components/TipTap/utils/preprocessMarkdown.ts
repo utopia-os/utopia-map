@@ -1,4 +1,29 @@
+import { Editor } from '@tiptap/core'
+
 import { fixUrls, mailRegex } from '#utils/ReplaceURLs'
+
+import type { JSONContent, Extensions } from '@tiptap/core'
+
+/**
+ * Converts pre-processed markdown/HTML to TipTap JSON format.
+ * Creates a temporary editor instance to parse the content.
+ */
+export function markdownToTiptapJson(
+  content: string,
+  extensions: Extensions,
+): JSONContent {
+  // Create a temporary editor to parse HTML/markdown
+  const editor = new Editor({
+    extensions,
+    content,
+    // We immediately destroy this, so no need for DOM attachment
+  })
+
+  const json = editor.getJSON()
+  editor.destroy()
+
+  return json
+}
 
 /**
  * Pre-processes markdown text before passing to TipTap.

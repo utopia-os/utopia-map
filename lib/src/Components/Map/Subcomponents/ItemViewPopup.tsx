@@ -19,7 +19,7 @@ import { timeAgo } from '#utils/TimeAgo'
 import { removeItemFromUrl } from '#utils/UrlHelper'
 
 import { HeaderView } from './ItemPopupComponents/HeaderView'
-import { TextView } from './ItemPopupComponents/TextView'
+import { TextViewStatic } from './ItemPopupComponents/TextViewStatic'
 
 import type { Item } from '#types/Item'
 
@@ -104,7 +104,7 @@ export const ItemViewPopup = forwardRef((props: ItemViewPopupProps, ref: any) =>
           loading={loading}
         />
         <div className='tw:overflow-hidden tw:max-h-64 fade'>
-          {props.children ?? <TextView text={props.item.text} />}
+          {props.children ?? <TextViewStatic text={props.item.text} />}
         </div>
         <div className='tw:flex tw:-mb-1 tw:flex-row tw:mr-2 tw:mt-1'>
           {infoExpanded ? (
