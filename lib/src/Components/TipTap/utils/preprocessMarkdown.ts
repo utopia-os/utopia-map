@@ -61,9 +61,22 @@ export function preprocessMarkdown(text: string): string {
 
 /**
  * Converts YouTube and Rumble markdown links to video-embed HTML tags.
+ * Handles both standard markdown links [Text](url) and autolinks <url>
  */
 export function preprocessVideoLinks(text: string): string {
   let result = text
+
+  // YouTube autolinks: <https://www.youtube.com/watch?v=VIDEO_ID>
+  result = result.replace(
+    /<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([^>&]+)[^>]*>/g,
+    '<video-embed provider="youtube" video-id="$1"></video-embed>',
+  )
+
+  // YouTube short autolinks: <https://youtu.be/VIDEO_ID>
+  result = result.replace(
+    /<https?:\/\/youtu\.be\/([^>?]+)[^>]*>/g,
+    '<video-embed provider="youtube" video-id="$1"></video-embed>',
+  )
 
   // YouTube: [Text](https://www.youtube.com/watch?v=VIDEO_ID)
   result = result.replace(
@@ -75,6 +88,12 @@ export function preprocessVideoLinks(text: string): string {
   result = result.replace(
     /\[([^\]]*)\]\(https?:\/\/youtu\.be\/([^?)]+)[^)]*\)/g,
     '<video-embed provider="youtube" video-id="$2"></video-embed>',
+  )
+
+  // Rumble autolinks: <https://rumble.com/embed/VIDEO_ID>
+  result = result.replace(
+    /<https?:\/\/rumble\.com\/embed\/([^>]+)>/g,
+    '<video-embed provider="rumble" video-id="$1"></video-embed>',
   )
 
   // Rumble embed URLs: [Text](https://rumble.com/embed/VIDEO_ID)
