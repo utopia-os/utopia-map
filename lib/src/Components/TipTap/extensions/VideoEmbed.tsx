@@ -5,9 +5,10 @@ import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 import type { NodeViewProps } from '@tiptap/react'
 
 // Regex patterns for video URL detection
-const YOUTUBE_REGEX = /(?:https?:\/\/)?(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/
-const YOUTUBE_SHORT_REGEX = /(?:https?:\/\/)?youtu\.be\/([a-zA-Z0-9_-]+)/
-const RUMBLE_REGEX = /(?:https?:\/\/)?rumble\.com\/embed\/([a-zA-Z0-9_-]+)/
+// Using possessive-like patterns with specific character classes to avoid ReDoS
+const YOUTUBE_REGEX = /^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})(?:&|$)/
+const YOUTUBE_SHORT_REGEX = /^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{11})(?:\?|$)/
+const RUMBLE_REGEX = /^https?:\/\/rumble\.com\/embed\/([a-zA-Z0-9]+)(?:\/|$)/
 
 /**
  * Extracts video provider and ID from a URL
@@ -190,7 +191,7 @@ function VideoEmbedComponent({ node }: NodeViewProps) {
           allowFullScreen
           allow='fullscreen; picture-in-picture'
           className='video-embed'
-          frameBorder='0'
+          style={{ border: 'none' }}
         />
       </div>
     </NodeViewWrapper>
