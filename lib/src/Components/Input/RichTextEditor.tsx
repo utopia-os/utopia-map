@@ -7,6 +7,9 @@ import { StarterKit } from '@tiptap/starter-kit'
 import { useEffect } from 'react'
 import { Markdown } from 'tiptap-markdown'
 
+import { VideoEmbed } from '#components/TipTap/extensions/VideoEmbed'
+import { preprocessVideoLinks } from '#components/TipTap/utils/preprocessMarkdown'
+
 import { InputLabel } from './InputLabel'
 import { TextEditorMenu } from './TextEditorMenu'
 
@@ -73,8 +76,9 @@ export function RichTextEditor({
         placeholder,
         emptyEditorClass: 'is-editor-empty',
       }),
+      VideoEmbed,
     ],
-    content: defaultValue,
+    content: preprocessVideoLinks(defaultValue),
     onUpdate: handleChange,
     editorProps: {
       attributes: {
@@ -85,7 +89,7 @@ export function RichTextEditor({
 
   useEffect(() => {
     if (editor.storage.markdown.getMarkdown() === '' || !editor.storage.markdown.getMarkdown()) {
-      editor.commands.setContent(defaultValue)
+      editor.commands.setContent(preprocessVideoLinks(defaultValue))
     }
   }, [defaultValue, editor])
 
