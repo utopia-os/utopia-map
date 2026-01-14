@@ -1,7 +1,9 @@
-import { useRef, useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
+import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
 import {
   preprocessMarkdown,
@@ -36,6 +38,8 @@ export const TextViewStatic = ({
   }
 
   const tags = useTags()
+  const items = useItems()
+  const getItemColor = useGetItemColor()
   const addFilterTag = useAddFilterTag()
   const navigate = useNavigate()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -65,8 +69,8 @@ export const TextViewStatic = ({
   const html = useMemo(() => {
     if (!innerText) return ''
     const processed = preprocessMarkdown(innerText)
-    return simpleMarkdownToHtml(processed, tags)
-  }, [innerText, tags])
+    return simpleMarkdownToHtml(processed, tags, { items, getItemColor })
+  }, [innerText, tags, items, getItemColor])
 
   // Handle clicks for internal navigation and hashtags
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { decodeTag } from '#utils/FormatTags'
 
+import type { Item } from '#types/Item'
 import type { Tag } from '#types/Tag'
 
 /**
@@ -7,7 +8,14 @@ import type { Tag } from '#types/Tag'
  * Handles basic markdown syntax without requiring TipTap.
  * Used for lightweight popup/card previews.
  */
-export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
+export function simpleMarkdownToHtml(
+  text: string,
+  tags: Tag[],
+  options?: {
+    items?: Item[]
+    getItemColor?: (item: Item | undefined, fallback?: string) => string
+  },
+): string {
   if (!text) return ''
 
   let html = text
@@ -44,15 +52,20 @@ export function simpleMarkdownToHtml(text: string, tags: Tag[]): string {
       const tag = tags.find((t) => t.name.toLowerCase() === label.toLowerCase())
       const color = tag?.color ?? 'inherit'
       const decoded = decodeTag(`#${tagText}`)
-      return `<span data-hashtag data-label="${label}" class="hashtag" style="color: ${color}; cursor: pointer;">${decoded}</span>`
+      return `<span data-hashtag data-label="${label}" class="hashtag" style="color: ${color}; cursor: pointer; font-weight: bold;">${decoded}</span>`
     },
   )
 
-  // Convert item-mention spans to styled spans
+  // Convert item-mention spans to styled links with correct colors
   html = html.replace(
     /<span data-item-mention data-label="([^"]+)" data-id="([^"]+)">@([^<]+)<\/span>/g,
     (_, label: string, id: string) => {
-      return `<a href="/item/${id}" class="item-mention" style="color: var(--color-primary, #3b82f6); cursor: pointer;">@${label}</a>`
+      // Find item and get its color
+      const item = options?.items?.find((i) => i.id === id)
+      const color = options?.getItemColor
+        ? options.getItemColor(item, 'var(--color-primary, #3b82f6)')
+        : (item?.color ?? 'var(--color-primary, #3b82f6)')
+      return `<a href="/item/${id}" class="item-mention" style="color: ${color}; cursor: pointer; font-weight: bold;">@${label}</a>`
     },
   )
 
