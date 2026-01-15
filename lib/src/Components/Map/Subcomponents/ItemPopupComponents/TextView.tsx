@@ -86,13 +86,8 @@ export const TextView = ({
         },
       },
     },
-    [innerText, tags],
+    [innerText, tags, items, getItemColor, addFilterTag],
   )
-
-  // Update content when text changes
-  useEffect(() => {
-    editor.commands.setContent(innerText, { contentType: 'markdown' })
-  }, [editor, innerText])
 
   // Handle link clicks for internal navigation
   useEffect(() => {

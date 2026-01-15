@@ -6,8 +6,9 @@ import type { NodeViewProps } from '@tiptap/react'
 
 // Regex patterns for video URL detection
 // Using possessive-like patterns with specific character classes to avoid ReDoS
-const YOUTUBE_REGEX = /^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})(?:&|$)/
-const YOUTUBE_SHORT_REGEX = /^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{11})(?:\?|$)/
+// YouTube IDs are typically 11 chars but we allow 10-12 for flexibility
+const YOUTUBE_REGEX = /^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{10,12})(?:&|$)/
+const YOUTUBE_SHORT_REGEX = /^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{10,12})(?:\?|$)/
 const RUMBLE_REGEX = /^https?:\/\/rumble\.com\/embed\/([a-zA-Z0-9]+)(?:\/|$)/
 
 /**
@@ -71,7 +72,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
     },
     tokenize: (src: string) => {
       // Match YouTube autolinks: <https://www.youtube.com/watch?v=VIDEO_ID>
-      let match = /^<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})[^>]*>/.exec(
+      let match = /^<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{10,12})[^>]*>/.exec(
         src,
       )
       if (match) {
@@ -84,7 +85,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
       }
 
       // Match YouTube short autolinks: <https://youtu.be/VIDEO_ID>
-      match = /^<https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{11})[^>]*>/.exec(src)
+      match = /^<https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{10,12})[^>]*>/.exec(src)
       if (match) {
         return {
           type: 'videoEmbed',
