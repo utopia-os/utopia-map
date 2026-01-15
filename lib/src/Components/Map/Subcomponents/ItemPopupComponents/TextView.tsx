@@ -9,11 +9,7 @@ import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
 import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
-import {
-  preprocessMarkdown,
-  removeMarkdownSyntax,
-  truncateMarkdown,
-} from '#components/TipTap/utils/preprocessMarkdown'
+import { removeMarkdownSyntax, truncateMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
 
 import type { Item } from '#types/Item'
 
@@ -80,8 +76,9 @@ export const TextView = ({
         }),
         VideoEmbed,
       ],
-      // Preprocess markdown to convert hashtags and item mentions to HTML
-      content: preprocessMarkdown(innerText),
+      // Load content as markdown - the extensions' markdownTokenizer handles parsing
+      content: innerText,
+      contentType: 'markdown',
       editable: false,
       editorProps: {
         attributes: {
@@ -94,7 +91,7 @@ export const TextView = ({
 
   // Update content when text changes
   useEffect(() => {
-    editor.commands.setContent(preprocessMarkdown(innerText))
+    editor.commands.setContent(innerText, { contentType: 'markdown' })
   }, [editor, innerText])
 
   // Handle link clicks for internal navigation

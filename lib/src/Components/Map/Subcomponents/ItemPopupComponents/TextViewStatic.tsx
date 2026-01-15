@@ -5,11 +5,7 @@ import { useAddFilterTag } from '#components/Map/hooks/useFilter'
 import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
-import {
-  preprocessMarkdown,
-  removeMarkdownSyntax,
-  truncateMarkdown,
-} from '#components/TipTap/utils/preprocessMarkdown'
+import { preprocessMarkdown, truncateMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
 import { simpleMarkdownToHtml } from '#components/TipTap/utils/simpleMarkdownToHtml'
 
 import type { Item } from '#types/Item'
@@ -60,17 +56,22 @@ export const TextViewStatic = ({
     innerText = text
   }
 
-  // Apply truncation if needed
-  if (innerText && truncate) {
-    innerText = truncateMarkdown(removeMarkdownSyntax(innerText), 100)
-  }
-
-  // Pre-process and convert to HTML
+  // Pre-process markdown first (converts naked URLs to links, etc.)
+  // Then truncate the processed markdown
+  // Finally convert to HTML
   const html = useMemo(() => {
     if (!innerText) return ''
-    const processed = preprocessMarkdown(innerText)
+
+    // First preprocess to normalize all URLs/mentions/hashtags
+    let processed = preprocessMarkdown(innerText)
+
+    // Then truncate if needed (works on normalized markdown)
+    if (truncate) {
+      processed = truncateMarkdown(processed, 100)
+    }
+
     return simpleMarkdownToHtml(processed, tags, { items, getItemColor })
-  }, [innerText, tags, items, getItemColor])
+  }, [innerText, truncate, tags, items, getItemColor])
 
   // Handle clicks for internal navigation and hashtags
   useEffect(() => {

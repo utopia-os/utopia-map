@@ -55,26 +55,79 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
     }
   },
 
-  addStorage() {
+  // Markdown tokenizer for @tiptap/markdown - recognizes <https://youtube.com/...> and <https://rumble.com/...> syntax
+  markdownTokenizer: {
+    name: 'videoEmbed',
+    level: 'inline',
+    // Fast hint for the lexer - where might a video embed start?
+    start: (src: string) => {
+      // Look for autolinks with video URLs
+      const youtubeIndex = src.indexOf('<https://www.youtube.com/watch')
+      const youtubeShortIndex = src.indexOf('<https://youtu.be/')
+      const rumbleIndex = src.indexOf('<https://rumble.com/embed/')
+
+      const indices = [youtubeIndex, youtubeShortIndex, rumbleIndex].filter((i) => i >= 0)
+      return indices.length > 0 ? Math.min(...indices) : -1
+    },
+    tokenize: (src: string) => {
+      // Match YouTube autolinks: <https://www.youtube.com/watch?v=VIDEO_ID>
+      let match = /^<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})[^>]*>/.exec(
+        src,
+      )
+      if (match) {
+        return {
+          type: 'videoEmbed',
+          raw: match[0],
+          provider: 'youtube',
+          videoId: match[1],
+        }
+      }
+
+      // Match YouTube short autolinks: <https://youtu.be/VIDEO_ID>
+      match = /^<https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{11})[^>]*>/.exec(src)
+      if (match) {
+        return {
+          type: 'videoEmbed',
+          raw: match[0],
+          provider: 'youtube',
+          videoId: match[1],
+        }
+      }
+
+      // Match Rumble autolinks: <https://rumble.com/embed/VIDEO_ID>
+      match = /^<https?:\/\/rumble\.com\/embed\/([a-zA-Z0-9]+)[^>]*>/.exec(src)
+      if (match) {
+        return {
+          type: 'videoEmbed',
+          raw: match[0],
+          provider: 'rumble',
+          videoId: match[1],
+        }
+      }
+
+      return undefined
+    },
+  },
+
+  // Parse Markdown token to Tiptap JSON
+  parseMarkdown(token: { provider: string; videoId: string }) {
     return {
-      markdown: {
-        serialize(
-          state: { write: (text: string) => void },
-          node: { attrs: { provider: string; videoId: string } },
-        ) {
-          const { provider, videoId } = node.attrs
-          const url =
-            provider === 'youtube'
-              ? `https://www.youtube.com/watch?v=${videoId}`
-              : `https://rumble.com/embed/${videoId}`
-          // Write as markdown autolink
-          state.write(`<${url}>`)
-        },
-        parse: {
-          // Parsing is handled by preprocessVideoLinks
-        },
+      type: 'videoEmbed',
+      attrs: {
+        provider: token.provider,
+        videoId: token.videoId,
       },
     }
+  },
+
+  // Serialize Tiptap node to Markdown
+  renderMarkdown(node: { attrs: { provider: string; videoId: string } }) {
+    const { provider, videoId } = node.attrs
+    const url =
+      provider === 'youtube'
+        ? `https://www.youtube.com/watch?v=${videoId}`
+        : `https://rumble.com/embed/${videoId}`
+    return `<${url}>`
   },
 
   addAttributes() {
