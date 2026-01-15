@@ -4,6 +4,35 @@ import type { Item } from '#types/Item'
 import type { Tag } from '#types/Tag'
 
 /**
+ * Checks if a string contains potentially dangerous attributes (XSS prevention).
+ * Returns true if the string contains event handlers or javascript: URLs.
+ */
+function containsDangerousAttributes(str: string): boolean {
+  // Check for event handlers (onclick, onload, onerror, onmouseover, etc.)
+  const eventHandlerPattern = /\bon\w+\s*=/i
+  // Check for javascript: or data: URLs in attributes
+  const dangerousUrlPattern = /(?:javascript|data|vbscript):/i
+
+  return eventHandlerPattern.test(str) || dangerousUrlPattern.test(str)
+}
+
+/**
+ * Sanitizes a URL for safe use in href attributes.
+ * Returns '#' for dangerous URLs like javascript:, data:, vbscript:
+ */
+function sanitizeUrl(url: string): string {
+  const trimmed = url.trim().toLowerCase()
+  if (
+    trimmed.startsWith('javascript:') ||
+    trimmed.startsWith('data:') ||
+    trimmed.startsWith('vbscript:')
+  ) {
+    return '#'
+  }
+  return url
+}
+
+/**
  * Simple markdown to HTML converter for static rendering.
  * Handles basic markdown syntax without requiring TipTap.
  * Used for lightweight popup/card previews.
@@ -23,15 +52,37 @@ export function simpleMarkdownToHtml(
   // Escape HTML first (but preserve our preprocessed tags)
   html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-  // Restore our preprocessed tags
+  // Restore our preprocessed tags with STRICT patterns to prevent XSS
+  // Only restore tags that match exact expected format (no extra attributes allowed)
+  // After escaping: < becomes &lt;, > becomes &gt;, but " stays as "
   html = html
-    .replace(/&lt;video-embed/g, '<video-embed')
-    .replace(/&lt;\/video-embed&gt;/g, '</video-embed>')
-    .replace(/&lt;span data-hashtag/g, '<span data-hashtag')
-    .replace(/&lt;span data-item-mention/g, '<span data-item-mention')
-    .replace(/&lt;\/span&gt;/g, '</span>')
-    .replace(/&gt;&lt;/g, '><')
-    .replace(/"&gt;/g, '">')
+    // video-embed: only allow provider and video-id attributes
+    .replace(
+      /&lt;video-embed provider="(youtube|rumble)" video-id="([^"]+)"&gt;&lt;\/video-embed&gt;/g,
+      (match, provider, videoId) => {
+        // Validate videoId contains only safe characters
+        if (!/^[\w-]+$/.test(videoId)) return match
+        return `<video-embed provider="${provider}" video-id="${videoId}"></video-embed>`
+      },
+    )
+    // hashtag span: only allow data-hashtag and data-label attributes
+    .replace(
+      /&lt;span data-hashtag data-label="([^"]+)"&gt;(#[^&]+)&lt;\/span&gt;/g,
+      (match, label, tagText) => {
+        // Ensure no dangerous content in label
+        if (containsDangerousAttributes(label)) return match
+        return `<span data-hashtag data-label="${label}">${tagText}</span>`
+      },
+    )
+    // item-mention span: only allow data-item-mention, data-label, and data-id attributes
+    .replace(
+      /&lt;span data-item-mention data-label="([^"]+)" data-id="([^"]+)"&gt;(@[^&]+)&lt;\/span&gt;/g,
+      (match, label, id, mentionText) => {
+        // Ensure no dangerous content
+        if (containsDangerousAttributes(label) || containsDangerousAttributes(id)) return match
+        return `<span data-item-mention data-label="${label}" data-id="${id}">${mentionText}</span>`
+      },
+    )
 
   // Convert video-embed tags to iframes
   html = html.replace(
@@ -78,11 +129,12 @@ export function simpleMarkdownToHtml(
   // Inline code: `code`
   html = html.replace(/`([^`]+)`/g, '<code>$1</code>')
 
-  // Links: [text](url)
+  // Links: [text](url) - with URL sanitization for XSS prevention
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, linkText: string, url: string) => {
-    const isExternal = url.startsWith('http')
+    const safeUrl = sanitizeUrl(url)
+    const isExternal = safeUrl.startsWith('http')
     const attrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''
-    return `<a href="${url}" ${attrs}>${linkText}</a>`
+    return `<a href="${safeUrl}" ${attrs}>${linkText}</a>`
   })
 
   // Headers: # text, ## text, etc.
