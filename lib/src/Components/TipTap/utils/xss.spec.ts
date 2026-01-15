@@ -197,4 +197,3 @@ describe('XSS Prevention - simpleMarkdownToHtml', () => {
     })
   })
 })
-

@@ -6,7 +6,7 @@ import type { Item } from '#types/Item'
 
 export const ProfileTextView = ({
   item,
-  dataField = 'text',
+  dataField,
   heading,
   hideWhenEmpty,
 }: {

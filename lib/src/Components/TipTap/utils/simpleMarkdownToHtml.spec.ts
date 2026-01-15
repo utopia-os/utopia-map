@@ -129,7 +129,10 @@ describe('simpleMarkdownToHtml', () => {
   describe('Item Mentions', () => {
     it('renders mention as link with item color', () => {
       const input = '<span data-item-mention data-label="Alice" data-id="abc-123">@Alice</span>'
-      const result = simpleMarkdownToHtml(input, [], { items: mockItems, getItemColor: mockGetItemColor })
+      const result = simpleMarkdownToHtml(input, [], {
+        items: mockItems,
+        getItemColor: mockGetItemColor,
+      })
       expect(result).toContain('href="/item/abc-123"')
       expect(result).toContain('class="item-mention"')
       expect(result).toContain('style="color: #ef4444')
@@ -159,4 +162,3 @@ describe('simpleMarkdownToHtml', () => {
     })
   })
 })
-
