@@ -39,6 +39,46 @@ export const ItemMention = Node.create<ItemMentionOptions>({
     }
   },
 
+  // Markdown tokenizer for @tiptap/markdown - recognizes [@Label](/item/id) syntax
+  markdownTokenizer: {
+    name: 'itemMention',
+    level: 'inline',
+    // Fast hint for the lexer - where might an item mention start?
+    start: (src: string) => src.indexOf('[@'),
+    tokenize: (src: string) => {
+      // Match [@Label](/item/id) or [@Label](/item/layer/id)
+      // UUID pattern: hex characters (case-insensitive) with dashes
+      // eslint-disable-next-line security/detect-unsafe-regex
+      const match = /^\[@([^\]]+?)\]\(\/item\/(?:[^/]+\/)?([a-fA-F0-9-]+)\)/.exec(src)
+      if (match) {
+        return {
+          type: 'itemMention',
+          raw: match[0],
+          label: match[1],
+          id: match[2],
+        }
+      }
+      return undefined
+    },
+  },
+
+  // Parse Markdown token to Tiptap JSON
+  parseMarkdown(token: { label: string; id: string }) {
+    return {
+      type: 'itemMention',
+      attrs: {
+        label: token.label,
+        id: token.id,
+      },
+    }
+  },
+
+  // Serialize Tiptap node to Markdown
+  renderMarkdown(node: { attrs: { label: string; id: string } }) {
+    const { label, id } = node.attrs
+    return `[@${label}](/item/${id})`
+  },
+
   addAttributes() {
     return {
       id: {
@@ -85,24 +125,6 @@ export const ItemMention = Node.create<ItemMentionOptions>({
             attrs: attributes,
           })
         },
-    }
-  },
-
-  addStorage() {
-    return {
-      markdown: {
-        serialize(
-          state: { write: (text: string) => void },
-          node: { attrs: { id: string; label: string } },
-        ) {
-          // Write as markdown link: [@Label](/item/id)
-          const { id, label } = node.attrs
-          state.write(`[@${label}](/item/${id})`)
-        },
-        parse: {
-          // Parsing is handled by preprocessItemMentions
-        },
-      },
     }
   },
 

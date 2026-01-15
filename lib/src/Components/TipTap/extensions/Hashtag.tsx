@@ -40,6 +40,45 @@ export const Hashtag = Node.create<HashtagOptions>({
     }
   },
 
+  // Markdown tokenizer for @tiptap/markdown - recognizes #hashtag syntax
+  markdownTokenizer: {
+    name: 'hashtag',
+    level: 'inline',
+    // Fast hint for the lexer - where might a hashtag start?
+    start: (src: string) => {
+      // Look for # followed by word characters (but not inside links)
+      const match = /(?<!\[)#[a-zA-Z0-9À-ÖØ-öø-ʸ_-]/.exec(src)
+      return match ? match.index : -1
+    },
+    tokenize: (src: string) => {
+      // Match hashtag: #tagname (not preceded by [)
+      const match = /^#([a-zA-Z0-9À-ÖØ-öø-ʸ_-]+)/.exec(src)
+      if (match) {
+        return {
+          type: 'hashtag',
+          raw: match[0],
+          label: match[1],
+        }
+      }
+      return undefined
+    },
+  },
+
+  // Parse Markdown token to Tiptap JSON
+  parseMarkdown(token: { label: string }) {
+    return {
+      type: 'hashtag',
+      attrs: {
+        label: token.label,
+      },
+    }
+  },
+
+  // Serialize Tiptap node to Markdown
+  renderMarkdown(node: { attrs: { label: string } }) {
+    return `#${node.attrs.label}`
+  },
+
   addAttributes() {
     return {
       id: {
@@ -86,20 +125,6 @@ export const Hashtag = Node.create<HashtagOptions>({
             attrs: attributes,
           })
         },
-    }
-  },
-
-  addStorage() {
-    return {
-      markdown: {
-        serialize(state: { write: (text: string) => void }, node: { attrs: { label: string } }) {
-          // Write as plain hashtag
-          state.write(`#${node.attrs.label}`)
-        },
-        parse: {
-          // Parsing is handled by preprocessHashtags
-        },
-      },
     }
   },
 
