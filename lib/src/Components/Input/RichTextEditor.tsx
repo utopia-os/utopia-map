@@ -16,6 +16,7 @@ import {
   createHashtagSuggestion,
   createItemMentionSuggestion,
 } from '#components/TipTap/extensions'
+
 import { InputLabel } from './InputLabel'
 import { TextEditorMenu } from './TextEditorMenu'
 
