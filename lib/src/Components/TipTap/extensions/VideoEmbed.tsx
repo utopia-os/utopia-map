@@ -1,5 +1,5 @@
 import { mergeAttributes, Node } from '@tiptap/core'
-import { Plugin, PluginKey } from '@tiptap/pm/state'
+import { NodeSelection, Plugin, PluginKey, TextSelection } from '@tiptap/pm/state'
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 
 import type { NodeViewProps } from '@tiptap/react'
@@ -49,6 +49,9 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
   name: 'videoEmbed',
   group: 'block',
   atom: true,
+  selectable: true,
+  draggable: false,
+  isolating: true,
 
   addOptions() {
     return {
@@ -197,6 +200,27 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
     }
   },
 
+  addKeyboardShortcuts() {
+    return {
+      Enter: ({ editor }) => {
+        const { selection } = editor.state
+        if (!(selection instanceof NodeSelection)) return false
+        if (selection.node.type.name !== this.name) return false
+
+        const $to = selection.$to
+        const insertPos = $to.after($to.depth)
+
+        editor
+          .chain()
+          .insertContentAt(insertPos, { type: 'paragraph' })
+          .setTextSelection(insertPos + 1)
+          .run()
+
+        return true
+      },
+    }
+  },
+
   addProseMirrorPlugins() {
     const nodeType = this.type
 
@@ -211,12 +235,39 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
             const videoInfo = parseVideoUrl(text.trim())
             if (!videoInfo) return false
 
-            // Insert video embed node
-            const { state, dispatch } = view
-            const node = nodeType.create(videoInfo)
-            const tr = state.tr.replaceSelectionWith(node)
-            dispatch(tr)
+            event.preventDefault()
 
+            const { state, dispatch } = view
+            const { selection } = state
+            const videoNode = nodeType.create(videoInfo)
+
+            // Insert after selected node instead of replacing it
+            if (selection instanceof NodeSelection) {
+              const insertPos = selection.$to.after(selection.$to.depth)
+              dispatch(state.tr.insert(insertPos, videoNode))
+              return true
+            }
+
+            dispatch(state.tr.replaceSelectionWith(videoNode))
+            return true
+          },
+
+          handleTextInput(view, _from, _to, text) {
+            const { state, dispatch } = view
+            const { selection, schema } = state
+
+            if (!(selection instanceof NodeSelection)) return false
+            if (selection.node.type.name !== 'videoEmbed') return false
+
+            // Insert text in a new paragraph after the video instead of replacing it
+            const insertPos = selection.$to.after(selection.$to.depth)
+            const paragraph = schema.nodes.paragraph.create(null, schema.text(text))
+
+            const tr = state.tr.insert(insertPos, paragraph)
+            const cursorPos = insertPos + 1 + text.length
+            tr.setSelection(TextSelection.near(tr.doc.resolve(cursorPos)))
+
+            dispatch(tr)
             return true
           },
         },
