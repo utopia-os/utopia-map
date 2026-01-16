@@ -1,8 +1,6 @@
-import { Editor } from '@tiptap/core'
-
 import { fixUrls, mailRegex } from '#utils/ReplaceURLs'
 
-import type { JSONContent, Extensions } from '@tiptap/core'
+import { VIDEO_PREPROCESS_PATTERNS, createVideoEmbedTag } from './videoPatterns'
 
 /**
  * Converts naked URLs to markdown links, but skips URLs that are already
@@ -67,24 +65,6 @@ function convertNakedUrls(text: string): string {
 }
 
 /**
- * Converts pre-processed markdown/HTML to TipTap JSON format.
- * Creates a temporary editor instance to parse the content.
- */
-export function markdownToTiptapJson(content: string, extensions: Extensions): JSONContent {
-  // Create a temporary editor to parse HTML/markdown
-  const editor = new Editor({
-    extensions,
-    content,
-    // We immediately destroy this, so no need for DOM attachment
-  })
-
-  const json = editor.getJSON()
-  editor.destroy()
-
-  return json
-}
-
-/**
  * Pre-processes markdown text before passing to TipTap.
  * - Converts naked URLs to markdown links
  * - Converts email addresses to mailto links
@@ -127,39 +107,36 @@ export function preprocessVideoLinks(text: string): string {
   let result = text
 
   // YouTube autolinks: <https://www.youtube.com/watch?v=VIDEO_ID>
-  result = result.replace(
-    /<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([^>&]+)[^>]*>/g,
-    '<video-embed provider="youtube" video-id="$1"></video-embed>',
+  result = result.replace(VIDEO_PREPROCESS_PATTERNS.youtubeAutolink, (_, videoId: string) =>
+    createVideoEmbedTag('youtube', videoId),
   )
 
   // YouTube short autolinks: <https://youtu.be/VIDEO_ID>
-  result = result.replace(
-    /<https?:\/\/youtu\.be\/([^>?]+)[^>]*>/g,
-    '<video-embed provider="youtube" video-id="$1"></video-embed>',
+  result = result.replace(VIDEO_PREPROCESS_PATTERNS.youtubeShortAutolink, (_, videoId: string) =>
+    createVideoEmbedTag('youtube', videoId),
   )
 
   // YouTube: [Text](https://www.youtube.com/watch?v=VIDEO_ID)
   result = result.replace(
-    /\[([^\]]*)\]\(https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([^)&]+)[^)]*\)/g,
-    '<video-embed provider="youtube" video-id="$2"></video-embed>',
+    VIDEO_PREPROCESS_PATTERNS.youtubeLink,
+    (_match: string, _text: string, videoId: string) => createVideoEmbedTag('youtube', videoId),
   )
 
   // YouTube short URLs: [Text](https://youtu.be/VIDEO_ID)
   result = result.replace(
-    /\[([^\]]*)\]\(https?:\/\/youtu\.be\/([^?)]+)[^)]*\)/g,
-    '<video-embed provider="youtube" video-id="$2"></video-embed>',
+    VIDEO_PREPROCESS_PATTERNS.youtubeShortLink,
+    (_match: string, _text: string, videoId: string) => createVideoEmbedTag('youtube', videoId),
   )
 
   // Rumble autolinks: <https://rumble.com/embed/VIDEO_ID>
-  result = result.replace(
-    /<https?:\/\/rumble\.com\/embed\/([^>]+)>/g,
-    '<video-embed provider="rumble" video-id="$1"></video-embed>',
+  result = result.replace(VIDEO_PREPROCESS_PATTERNS.rumbleAutolink, (_, videoId: string) =>
+    createVideoEmbedTag('rumble', videoId),
   )
 
   // Rumble embed URLs: [Text](https://rumble.com/embed/VIDEO_ID)
   result = result.replace(
-    /\[([^\]]*)\]\(https?:\/\/rumble\.com\/embed\/([^)]+)\)/g,
-    '<video-embed provider="rumble" video-id="$2"></video-embed>',
+    VIDEO_PREPROCESS_PATTERNS.rumbleLink,
+    (_match: string, _text: string, videoId: string) => createVideoEmbedTag('rumble', videoId),
   )
 
   return result

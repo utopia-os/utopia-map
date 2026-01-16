@@ -2,36 +2,14 @@ import { mergeAttributes, Node } from '@tiptap/core'
 import { Plugin, PluginKey } from '@tiptap/pm/state'
 import { NodeViewWrapper, ReactNodeViewRenderer } from '@tiptap/react'
 
+import {
+  VIDEO_AUTOLINK_PATTERNS,
+  getVideoCanonicalUrl,
+  getVideoEmbedUrl,
+  parseVideoUrl,
+} from '#components/TipTap/utils/videoPatterns'
+
 import type { NodeViewProps } from '@tiptap/react'
-
-// Regex patterns for video URL detection
-// Using possessive-like patterns with specific character classes to avoid ReDoS
-// YouTube IDs are typically 11 chars but we allow 10-12 for flexibility
-const YOUTUBE_REGEX = /^https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{10,12})(?:&|$)/
-const YOUTUBE_SHORT_REGEX = /^https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{10,12})(?:\?|$)/
-const RUMBLE_REGEX = /^https?:\/\/rumble\.com\/embed\/([a-zA-Z0-9]+)(?:\/|$)/
-
-/**
- * Extracts video provider and ID from a URL
- */
-function parseVideoUrl(url: string): { provider: 'youtube' | 'rumble'; videoId: string } | null {
-  let match = YOUTUBE_REGEX.exec(url)
-  if (match) {
-    return { provider: 'youtube', videoId: match[1] }
-  }
-
-  match = YOUTUBE_SHORT_REGEX.exec(url)
-  if (match) {
-    return { provider: 'youtube', videoId: match[1] }
-  }
-
-  match = RUMBLE_REGEX.exec(url)
-  if (match) {
-    return { provider: 'rumble', videoId: match[1] }
-  }
-
-  return null
-}
 
 export interface VideoEmbedOptions {
   HTMLAttributes: Record<string, unknown>
@@ -72,9 +50,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
     },
     tokenize: (src: string) => {
       // Match YouTube autolinks: <https://www.youtube.com/watch?v=VIDEO_ID>
-      let match = /^<https?:\/\/(?:www\.)?youtube\.com\/watch\?v=([a-zA-Z0-9_-]{10,12})[^>]*>/.exec(
-        src,
-      )
+      let match = VIDEO_AUTOLINK_PATTERNS.youtube.exec(src)
       if (match) {
         return {
           type: 'videoEmbed',
@@ -85,7 +61,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
       }
 
       // Match YouTube short autolinks: <https://youtu.be/VIDEO_ID>
-      match = /^<https?:\/\/youtu\.be\/([a-zA-Z0-9_-]{10,12})[^>]*>/.exec(src)
+      match = VIDEO_AUTOLINK_PATTERNS.youtubeShort.exec(src)
       if (match) {
         return {
           type: 'videoEmbed',
@@ -96,7 +72,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
       }
 
       // Match Rumble autolinks: <https://rumble.com/embed/VIDEO_ID>
-      match = /^<https?:\/\/rumble\.com\/embed\/([a-zA-Z0-9]+)[^>]*>/.exec(src)
+      match = VIDEO_AUTOLINK_PATTERNS.rumble.exec(src)
       if (match) {
         return {
           type: 'videoEmbed',
@@ -124,10 +100,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
   // Serialize Tiptap node to Markdown
   renderMarkdown(node: { attrs: { provider: string; videoId: string } }) {
     const { provider, videoId } = node.attrs
-    const url =
-      provider === 'youtube'
-        ? `https://www.youtube.com/watch?v=${videoId}`
-        : `https://rumble.com/embed/${videoId}`
+    const url = getVideoCanonicalUrl(provider as 'youtube' | 'rumble', videoId)
     return `<${url}>`
   },
 
@@ -156,11 +129,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
 
   renderHTML({ node, HTMLAttributes }) {
     const { provider, videoId } = node.attrs as { provider: string; videoId: string }
-
-    const src =
-      provider === 'youtube'
-        ? `https://www.youtube-nocookie.com/embed/${videoId}`
-        : `https://rumble.com/embed/${videoId}`
+    const src = getVideoEmbedUrl(provider as 'youtube' | 'rumble', videoId)
 
     return [
       'div',
@@ -231,11 +200,7 @@ export const VideoEmbed = Node.create<VideoEmbedOptions>({
  */
 function VideoEmbedComponent({ node }: NodeViewProps) {
   const { provider, videoId } = node.attrs as { provider: string; videoId: string }
-
-  const src =
-    provider === 'youtube'
-      ? `https://www.youtube-nocookie.com/embed/${videoId}`
-      : `https://rumble.com/embed/${videoId}`
+  const src = getVideoEmbedUrl(provider as 'youtube' | 'rumble', videoId)
 
   return (
     <NodeViewWrapper>

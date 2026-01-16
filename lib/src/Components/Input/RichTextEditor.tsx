@@ -54,6 +54,8 @@ export function RichTextEditor({
   )
 
   const handleChange = () => {
+    if (!editor) return
+
     let newValue: string | undefined = editor.getMarkdown()
 
     const regex = /!\[.*?\]\(.*?\)/g
@@ -104,6 +106,8 @@ export function RichTextEditor({
   })
 
   useEffect(() => {
+    if (!editor) return
+
     if (editor.getMarkdown() === '' || !editor.getMarkdown()) {
       editor.commands.setContent(defaultValue, { contentType: 'markdown' })
     }
