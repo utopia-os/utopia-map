@@ -56,19 +56,20 @@ export const TextViewStatic = ({
     innerText = text
   }
 
-  // Pre-process markdown first (converts naked URLs to links, etc.)
-  // Then truncate the processed markdown
+  // First truncate the raw markdown (before preprocessing)
+  // Then preprocess (converts naked URLs, mentions, hashtags to HTML tags)
   // Finally convert to HTML
   const html = useMemo(() => {
     if (!innerText) return ''
 
-    // First preprocess to normalize all URLs/mentions/hashtags
-    let processed = preprocessMarkdown(innerText)
-
-    // Then truncate if needed (works on normalized markdown)
+    // First truncate if needed (works on raw markdown syntax)
+    let processed = innerText
     if (truncate) {
       processed = truncateMarkdown(processed, 100)
     }
+
+    // Then preprocess to normalize all URLs/mentions/hashtags to HTML tags
+    processed = preprocessMarkdown(processed)
 
     return simpleMarkdownToHtml(processed, tags, { items, getItemColor })
   }, [innerText, truncate, tags, items, getItemColor])
