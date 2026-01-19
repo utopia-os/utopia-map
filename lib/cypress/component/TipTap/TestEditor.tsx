@@ -3,10 +3,16 @@ import { Link } from '@tiptap/extension-link'
 import { Markdown } from '@tiptap/markdown'
 import { EditorContent, useEditor } from '@tiptap/react'
 import { StarterKit } from '@tiptap/starter-kit'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
+import {
+  Hashtag,
+  ItemMention,
+  VideoEmbed,
+  createHashtagSuggestion,
+  createItemMentionSuggestion,
+} from '#components/TipTap/extensions'
 import { createConfiguredMarked } from '#components/TipTap/utils/configureMarked'
 
 import type { Item } from '#types/Item'
@@ -20,10 +26,12 @@ export interface TestEditorProps {
   editable?: boolean
   tags?: Tag[]
   onTagClick?: (tag: Tag) => void
+  onAddTag?: (tag: Tag) => void
   items?: Item[]
   getItemColor?: (item: Item | undefined, fallback?: string) => string
   onReady?: (editor: Editor) => void
   testId?: string
+  enableSuggestions?: boolean
 }
 
 export function TestEditor({
@@ -31,11 +39,23 @@ export function TestEditor({
   editable = false,
   tags = [],
   onTagClick,
+  onAddTag,
   items = [],
   getItemColor,
   onReady,
   testId = 'test-editor',
+  enableSuggestions = false,
 }: TestEditorProps) {
+  const hashtagSuggestion = useMemo(
+    () => (enableSuggestions ? createHashtagSuggestion(tags, onAddTag) : undefined),
+    [tags, onAddTag, enableSuggestions],
+  )
+
+  const itemMentionSuggestion = useMemo(
+    () => (enableSuggestions ? createItemMentionSuggestion(items, getItemColor) : undefined),
+    [items, getItemColor, enableSuggestions],
+  )
+
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -51,10 +71,12 @@ export function TestEditor({
       Hashtag.configure({
         tags,
         onTagClick,
+        suggestion: hashtagSuggestion,
       }),
       ItemMention.configure({
         items,
         getItemColor,
+        suggestion: itemMentionSuggestion,
       }),
     ],
     content,
