@@ -31,7 +31,7 @@ describe('SuggestionList Component', () => {
     })
 
     it('renders "new tag" option with Neu: prefix', () => {
-      const items = [createTestTag('existing'), { isNew: true, name: 'newtag' }]
+      const items = [createTestTag('existing'), { isNew: true as const, name: 'newtag' }]
       const command = cy.stub()
 
       mount(<SuggestionList items={items} command={command} type='hashtag' />)
@@ -98,7 +98,7 @@ describe('SuggestionList Component', () => {
     })
 
     it('calls command with new tag item', () => {
-      const newItem = { isNew: true, name: 'newtag' }
+      const newItem = { isNew: true as const, name: 'newtag' }
       const items = [newItem]
       const command = cy.stub().as('command')
 
