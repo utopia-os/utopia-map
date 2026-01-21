@@ -12,7 +12,7 @@ import {
   PopupView,
   PopupButton,
   StartEndView,
-  TextView,
+  TextViewStatic,
   PopupForm,
   PopupStartEndInput,
   PopupTextAreaInput,
@@ -129,7 +129,7 @@ function MapContainer({ layers, map }: { layers: LayerProps[]; map: any }) {
                     target={layer.itemType.custom_profile_url ? '_blank' : '_self'}
                   />
                 )}
-                {layer.itemType.show_text && <TextView truncate></TextView>}
+                {layer.itemType.show_text && <TextViewStatic truncate></TextViewStatic>}
               </PopupView>
               <PopupForm>
                 {layer.itemType.show_header_view_in_form && <HeaderView hideMenu />}

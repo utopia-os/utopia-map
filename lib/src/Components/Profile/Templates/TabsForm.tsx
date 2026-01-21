@@ -143,7 +143,7 @@ export const TabsForm = ({
                           loading={loading}
                         />
                         <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
-                          <TextView truncate itemId={item.id} />
+                          <TextView truncate />
                         </div>
                       </div>
                     ))}
