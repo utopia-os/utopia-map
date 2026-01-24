@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { useCallback, useReducer, createContext, useContext, useState, useRef } from 'react'
@@ -132,45 +132,38 @@ function useTagsManager(initialTags: Tag[]): {
   )
 
   // Process all items and create missing tags
-  const processItemsTags = useCallback(
-    (items: Item[]) => {
-      const currentTags = tagsRef.current
-      const newTags: Tag[] = []
+  const processItemsTags = useCallback((items: Item[]) => {
+    const currentTags = tagsRef.current
+    const newTags: Tag[] = []
 
-      items.forEach((item) => {
-        const text = item.text
-        text?.match(hashTagRegex)?.forEach((tag) => {
-          const tagName = tag.slice(1)
-          const tagNameLower = tagName.toLocaleLowerCase()
+    items.forEach((item) => {
+      const text = item.text
+      text?.match(hashTagRegex)?.forEach((tag) => {
+        const tagName = tag.slice(1)
+        const tagNameLower = tagName.toLocaleLowerCase()
 
-          // Check if tag exists in current tags or already queued
-          const existsInTags = currentTags.some(
-            (t) => t.name.toLocaleLowerCase() === tagNameLower,
-          )
-          const existsInNew = newTags.some(
-            (t) => t.name.toLocaleLowerCase() === tagNameLower,
-          )
+        // Check if tag exists in current tags or already queued
+        const existsInTags = currentTags.some((t) => t.name.toLocaleLowerCase() === tagNameLower)
+        const existsInNew = newTags.some((t) => t.name.toLocaleLowerCase() === tagNameLower)
 
-          if (!existsInTags && !existsInNew) {
-            newTags.push({
-              id: crypto.randomUUID(),
-              name: tagName,
-              color: randomColor(),
-            })
-          }
-        })
-      })
-
-      // Add all new tags
-      newTags.forEach((tag) => {
-        dispatch({ type: 'ADD', tag })
-        if (apiRef.current.createItem) {
-          apiRef.current.createItem(tag)
+        if (!existsInTags && !existsInNew) {
+          newTags.push({
+            id: crypto.randomUUID(),
+            name: tagName,
+            color: randomColor(),
+          })
         }
       })
-    },
-    [],
-  )
+    })
+
+    // Add all new tags
+    newTags.forEach((tag) => {
+      dispatch({ type: 'ADD', tag })
+      if (apiRef.current.createItem) {
+        apiRef.current.createItem(tag)
+      }
+    })
+  }, [])
 
   return { tags, addTag, setTagApi, setTagData, getItemTags, processItemsTags, allTagsLoaded }
 }
