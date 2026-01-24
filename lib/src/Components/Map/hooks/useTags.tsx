@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
+
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-import { useCallback, useReducer, createContext, useContext, useState } from 'react'
+import { useCallback, useReducer, createContext, useContext, useState, useRef } from 'react'
 
 import { hashTagRegex } from '#utils/HashTagRegex'
+import { randomColor } from '#utils/RandomColor'
 
 import type { Item } from '#types/Item'
 import type { ItemsApi } from '#types/ItemsApi'
@@ -22,6 +23,7 @@ const TagContext = createContext<UseTagManagerResult>({
   setTagApi: () => {},
   setTagData: () => {},
   getItemTags: () => [],
+  processItemsTags: () => {},
   allTagsLoaded: false,
 })
 
@@ -31,6 +33,7 @@ function useTagsManager(initialTags: Tag[]): {
   setTagApi: (api: ItemsApi<Tag>) => void
   setTagData: (data: Tag[]) => void
   getItemTags: (item: Item) => Tag[]
+  processItemsTags: (items: Item[]) => void
   allTagsLoaded: boolean
 } {
   const [allTagsLoaded, setallTagsLoaded] = useState<boolean>(false)
@@ -53,10 +56,14 @@ function useTagsManager(initialTags: Tag[]): {
     }
   }, initialTags)
 
-  const [api, setApi] = useState<ItemsApi<Tag>>({} as ItemsApi<Tag>)
+  const apiRef = useRef<ItemsApi<Tag>>({} as ItemsApi<Tag>)
+  const tagsRef = useRef<Tag[]>(initialTags)
+
+  // Keep tagsRef in sync with tags state
+  tagsRef.current = tags
 
   const setTagApi = useCallback(async (api: ItemsApi<Tag>) => {
-    setApi(api)
+    apiRef.current = api
     const result = await api.getItems()
     setTagCount(result.length)
     if (tagCount === 0) setallTagsLoaded(true)
@@ -79,15 +86,22 @@ function useTagsManager(initialTags: Tag[]): {
     })
   }, [])
 
-  const addTag = (tag: Tag) => {
+  const addTag = useCallback((tag: Tag) => {
+    // Check against current tags using ref to avoid stale closure
+    const tagExists = tagsRef.current.some(
+      (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
+    )
+
     dispatch({
       type: 'ADD',
       tag,
     })
-    if (!tags.some((t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase())) {
-      api.createItem && api.createItem(tag)
+
+    // Only create in API if tag doesn't already exist
+    if (!tagExists && apiRef.current.createItem) {
+      apiRef.current.createItem(tag)
     }
-  }
+  }, [])
 
   const getItemTags = useCallback(
     (item: Item) => {
@@ -117,7 +131,41 @@ function useTagsManager(initialTags: Tag[]): {
     [tags],
   )
 
-  return { tags, addTag, setTagApi, setTagData, getItemTags, allTagsLoaded }
+  // Process all items and create missing tags
+  const processItemsTags = useCallback((items: Item[]) => {
+    const currentTags = tagsRef.current
+    const newTags: Tag[] = []
+
+    items.forEach((item) => {
+      const text = item.text
+      text?.match(hashTagRegex)?.forEach((tag) => {
+        const tagName = tag.slice(1)
+        const tagNameLower = tagName.toLocaleLowerCase()
+
+        // Check if tag exists in current tags or already queued
+        const existsInTags = currentTags.some((t) => t.name.toLocaleLowerCase() === tagNameLower)
+        const existsInNew = newTags.some((t) => t.name.toLocaleLowerCase() === tagNameLower)
+
+        if (!existsInTags && !existsInNew) {
+          newTags.push({
+            id: crypto.randomUUID(),
+            name: tagName,
+            color: randomColor(),
+          })
+        }
+      })
+    })
+
+    // Add all new tags
+    newTags.forEach((tag) => {
+      dispatch({ type: 'ADD', tag })
+      if (apiRef.current.createItem) {
+        apiRef.current.createItem(tag)
+      }
+    })
+  }, [])
+
+  return { tags, addTag, setTagApi, setTagData, getItemTags, processItemsTags, allTagsLoaded }
 }
 
 export const TagsProvider: React.FunctionComponent<{
@@ -155,4 +203,9 @@ export const useGetItemTags = (): UseTagManagerResult['getItemTags'] => {
 export const useAllTagsLoaded = (): UseTagManagerResult['allTagsLoaded'] => {
   const { allTagsLoaded } = useContext(TagContext)
   return allTagsLoaded
+}
+
+export const useProcessItemsTags = (): UseTagManagerResult['processItemsTags'] => {
+  const { processItemsTags } = useContext(TagContext)
+  return processItemsTags
 }
