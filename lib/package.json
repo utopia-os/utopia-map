@@ -111,7 +111,7 @@
     "@tiptap/pm": "^3.6.5",
     "@tiptap/react": "^3.13.0",
     "@tiptap/starter-kit": "^3.13.0",
-    "axios": "^1.13.2",
+    "axios": "^1.13.4",
     "browser-image-compression": "^2.0.2",
     "classnames": "^2.5.1",
     "leaflet": "^1.9.4",
