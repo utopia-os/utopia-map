@@ -23,7 +23,7 @@
     "react-rnd": "^10.4.1",
     "react-router-dom": "^7.11.0",
     "utopia-ui": "^3.0.112",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.5"
   },
   "devDependencies": {
     "@eslint-community/eslint-plugin-eslint-comments": "^4.6.0",
