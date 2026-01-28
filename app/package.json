@@ -17,7 +17,7 @@
     "@heroicons/react": "^2.1.1",
     "@tailwindcss/vite": "^4.1.18",
     "@types/geojson": "^7946.0.10",
-    "axios": "^1.13.2",
+    "axios": "^1.13.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-rnd": "^10.4.1",
