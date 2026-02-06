@@ -66,7 +66,7 @@ function useTagsManager(initialTags: Tag[]): {
     apiRef.current = api
     const result = await api.getItems()
     setTagCount(result.length)
-    if (tagCount === 0) setallTagsLoaded(true)
+    if (result.length === 0) setallTagsLoaded(true)
     if (result) {
       result.map((tag) => {
         // tag.name = tag.name.toLocaleLowerCase();
@@ -74,8 +74,6 @@ function useTagsManager(initialTags: Tag[]): {
         return null
       })
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setTagData = useCallback((data: Tag[]) => {
@@ -87,18 +85,15 @@ function useTagsManager(initialTags: Tag[]): {
   }, [])
 
   const addTag = useCallback((tag: Tag) => {
-    // Check against current tags using ref to avoid stale closure
     const tagExists = tagsRef.current.some(
       (t) => t.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
     )
+    if (tagExists) return
 
-    dispatch({
-      type: 'ADD',
-      tag,
-    })
+    tagsRef.current = [...tagsRef.current, tag]
+    dispatch({ type: 'ADD', tag })
 
-    // Only create in API if tag doesn't already exist
-    if (!tagExists && apiRef.current.createItem) {
+    if (apiRef.current.createItem) {
       apiRef.current.createItem(tag)
     }
   }, [])

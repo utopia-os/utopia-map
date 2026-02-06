@@ -92,16 +92,16 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
   })
 
   describe('API Integration', () => {
-    it('persists new tags via API.createItem', () => {
+    it('persists new tags via API.createItem', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(() => ({ addTag: useAddTag(), setTagApi: useSetTagApi() }), {
         wrapper: createWrapper([]),
       })
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // setTagApi is async internally — use async act to flush microtasks
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.addTag({ id: 'new-1', name: 'permaculture', color: '#84cc16' })
@@ -110,16 +110,15 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).toHaveBeenCalledWith(expect.objectContaining({ name: 'permaculture' }))
     })
 
-    it('does not call API for existing tags', () => {
+    it('does not call API for existing tags', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(() => ({ addTag: useAddTag(), setTagApi: useSetTagApi() }), {
         wrapper: createWrapper(existingTags),
       })
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.addTag({ id: 'dup-1', name: 'nature', color: '#000000' })
@@ -128,7 +127,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).not.toHaveBeenCalled()
     })
 
-    it('uses current API ref, not stale closure', () => {
+    it('uses current API ref, not stale closure', async () => {
       const { api: oldApi, createItem: oldCreateItem } = createMockApi()
       const { api: newApi, createItem: newCreateItem } = createMockApi()
 
@@ -136,12 +135,10 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         wrapper: createWrapper([]),
       })
 
-      act(() => {
-        result.current.setTagApi(oldApi)
-      })
-      act(() => {
-        result.current.setTagApi(newApi)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(oldApi))
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(newApi))
 
       act(() => {
         result.current.addTag({ id: '1', name: 'test', color: '#ff0000' })
@@ -153,7 +150,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
   })
 
   describe('Hashtag Detection & Auto-Creation (processItemsTags)', () => {
-    it('extracts hashtags from item text and creates tags', () => {
+    it('extracts hashtags from item text and creates tags', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(
@@ -165,9 +162,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper([]) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([mockItem('Join our #gardening workshop this weekend!')])
@@ -178,7 +174,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).toHaveBeenCalledTimes(1)
     })
 
-    it('skips hashtags that already exist as tags', () => {
+    it('skips hashtags that already exist as tags', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(
@@ -190,9 +186,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper(existingTags) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([mockItem('Love #nature and #community events')])
@@ -202,7 +197,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).not.toHaveBeenCalled()
     })
 
-    it('handles multiple hashtags in one item', () => {
+    it('handles multiple hashtags in one item', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(
@@ -214,9 +209,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper([]) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([
@@ -231,7 +225,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).toHaveBeenCalledTimes(3)
     })
 
-    it('deduplicates same hashtag across multiple items', () => {
+    it('deduplicates same hashtag across multiple items', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(
@@ -243,9 +237,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper([]) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([
@@ -260,7 +253,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).toHaveBeenCalledTimes(1)
     })
 
-    it('handles items without text gracefully', () => {
+    it('handles items without text gracefully', async () => {
       const { api, createItem } = createMockApi()
 
       const { result } = renderHook(
@@ -272,9 +265,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper([]) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([
@@ -288,7 +280,7 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
       expect(createItem).not.toHaveBeenCalled()
     })
 
-    it('assigns color to auto-created tags', () => {
+    it('assigns color to auto-created tags', async () => {
       const { api } = createMockApi()
 
       const { result } = renderHook(
@@ -300,9 +292,8 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
         { wrapper: createWrapper([]) },
       )
 
-      act(() => {
-        result.current.setTagApi(api)
-      })
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
 
       act(() => {
         result.current.processItemsTags([mockItem('New #colorful tag')])
