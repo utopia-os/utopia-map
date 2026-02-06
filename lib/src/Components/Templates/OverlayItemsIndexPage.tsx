@@ -70,7 +70,7 @@ export const OverlayItemsIndexPage = ({
 
   const layer = layers.find((l) => l.name === layerName)
 
-  // Filter and sort items once
+  // Filter and sort items for current render
   const filteredAndSortedItems = items
     .filter((i) => i.layer?.name === layerName)
     .filter((item) =>
