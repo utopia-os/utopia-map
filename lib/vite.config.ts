@@ -10,7 +10,6 @@ export default defineConfig({
     environment: 'happy-dom',
     setupFiles: ['setupTest.ts'],
     coverage: {
-      all: true,
       include: ['src/**/*.{js,jsx,ts,tsx}'],
       exclude: [...configDefaults.exclude, 'src/**/*.cy.tsx'],
       reporter: ['html', 'json-summary'],
