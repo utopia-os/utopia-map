@@ -22,6 +22,7 @@ import {
   Content,
   AuthProvider,
   Modal,
+  InfoRedirect,
   InvitePage,
   LoginPage,
   SignupPage,
@@ -210,9 +211,7 @@ function App() {
           >
             <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}
-            <Modal>
-              <ModalContent map={map} />
-            </Modal>
+            <InfoRedirect enabled={map.info_open} />
             <SideBar routes={[...routes, ...layerPageRoutes]} bottomRoutes={bottomRoutes} />
             <Content>
               <Quests />
@@ -256,6 +255,14 @@ function App() {
                       <Suspense fallback={<LoadingMapOverlay />}>
                         <UserSettings />
                       </Suspense>
+                    }
+                  />
+                  <Route
+                    path='info'
+                    element={
+                      <Modal>
+                        <ModalContent map={map} />
+                      </Modal>
                     }
                   />
                   <Route path='landingpage' element={<Landingpage />} />

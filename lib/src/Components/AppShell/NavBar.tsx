@@ -50,14 +50,9 @@ export default function NavBar({ appName }: { appName: string }) {
                   {appName}
                 </h1>
               </Link>
-              <button
-                className='tw:btn tw:px-2  tw:btn-ghost'
-                onClick={() => {
-                  window.my_modal_3.showModal()
-                }}
-              >
+              <Link className='tw:btn tw:px-2 tw:btn-ghost' to='/info'>
                 <QuestionMarkIcon className='tw:h-5 tw:w-5' />
-              </button>
+              </Link>
             </div>
           </div>
 
