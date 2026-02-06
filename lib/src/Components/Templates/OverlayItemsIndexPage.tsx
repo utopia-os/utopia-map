@@ -195,8 +195,8 @@ export const OverlayItemsIndexPage = ({
           </div>
           <div ref={scrollContainerRef} className='tw:overflow-scroll fade tw:flex-1'>
             <div className='tw:columns-1 tw:md:columns-2 tw:lg:columns-3 tw:2xl:columns-4 tw:gap-6 tw:pt-4'>
-              {visibleItems.map((i, k) => (
-                <div key={k} className='tw:break-inside-avoid tw:mb-6'>
+              {visibleItems.map((i) => (
+                <div key={i.id} className='tw:break-inside-avoid tw:mb-6'>
                   <ItemCard
                     i={i}
                     loading={loading}
