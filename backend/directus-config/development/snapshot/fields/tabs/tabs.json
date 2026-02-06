@@ -1,0 +1,33 @@
+{
+  "collection": "tabs",
+  "field": "tabs",
+  "type": "alias",
+  "meta": {
+    "collection": "tabs",
+    "conditions": null,
+    "display": "related-values",
+    "display_options": {
+      "template": "{{title}}"
+    },
+    "field": "tabs",
+    "group": null,
+    "hidden": false,
+    "interface": "list-o2m",
+    "note": "Individual tabs in this container",
+    "options": {
+      "enableCreate": true,
+      "enableSelect": false,
+      "template": "{{title}}"
+    },
+    "readonly": false,
+    "required": false,
+    "sort": 4,
+    "special": [
+      "o2m"
+    ],
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "full"
+  }
+}

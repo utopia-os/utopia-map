@@ -1,10 +1,10 @@
 {
-  "collection": "types_profileTemplate",
+  "collection": "tab_items",
   "field": "item",
   "related_collection": null,
   "meta": {
-    "junction_field": "types_id",
-    "many_collection": "types_profileTemplate",
+    "junction_field": "tab_id",
+    "many_collection": "tab_items",
     "many_field": "item",
     "one_allowed_collections": [
       "groupSubheaders",
@@ -16,8 +16,7 @@
       "inviteLinks",
       "relations",
       "tags_component",
-      "attestations_component",
-      "tabs"
+      "attestations_component"
     ],
     "one_collection": null,
     "one_collection_field": "collection",

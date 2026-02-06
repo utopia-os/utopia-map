@@ -40,7 +40,7 @@ export const GalleryView = ({ item }: { item: Item }) => {
 
   if (images.length > 0)
     return (
-      <div className='tw:mx-6 tw:mb-6'>
+      <div className=''>
         <RowsPhotoAlbum
           photos={images}
           targetRowHeight={150}
