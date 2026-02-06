@@ -54,48 +54,9 @@ docker exec -t utopia-map-database-1 pg_dumpall -c -U directus > dump.sql
 
 Assuming you run docker-compose with the default postgress credentials and have the dump in cwd as ./dump.sql, execute:
 
-Find current schema name:
+Drop database:
 ```
-echo "SELECT CURRENT_SCHEMA, CURRENT_SCHEMA();" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-``` 
-> current_schema | current_schema 
-> ----------------+----------------
-> public         | public
-> (1 row)
-
-Drop schemata (loses all data):
-```
-echo "DROP SCHEMA public CASCADE;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-
-echo "DROP SCHEMA tiger CASCADE;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-
-echo "DROP SCHEMA tiger_data CASCADE;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-
-echo "DROP SCHEMA topology CASCADE;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-``` 
-> drop cascades to table ...
-> ...
-> DROP SCHEMA
-
-Create the public schema again:
-```
-echo "CREATE SCHEMA public;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-```
-
-Verify schemata:
-```
-echo "select schema_name from information_schema.schemata;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus"
-```
-
-Verify database is empty:
-```
-echo "\dt" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus"
-```
-> Did not find any relations.
-
-Create admin role & grant it:
-```
-echo "CREATE ROLE admin;" | docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql --username directus directus"
+docker exec -i utopia-map-database-1 /bin/bash -c "PGPASSWORD=directus psql -v ON_ERROR_STOP=1 --username directus directus" < ./backend/scripts/drop-database.sql
 ```
 
 Apply dump:
