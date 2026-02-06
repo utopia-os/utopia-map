@@ -126,6 +126,7 @@ describe('OverlayItemsIndexPage – infinite scroll', () => {
 
   it('loads more items when the sentinel becomes visible', async () => {
     renderPage()
+    expect(mockObserve).toHaveBeenCalled()
     expect(screen.getAllByTestId(/^item-/)).toHaveLength(30)
 
     act(() => {
@@ -139,6 +140,7 @@ describe('OverlayItemsIndexPage – infinite scroll', () => {
 
   it('removes the sentinel after all items are loaded', async () => {
     renderPage()
+    expect(mockObserve).toHaveBeenCalled()
 
     act(() => {
       triggerIntersection()
@@ -154,6 +156,7 @@ describe('OverlayItemsIndexPage – infinite scroll', () => {
     vi.mocked(useItems).mockReturnValue(makeItems(80))
 
     renderPage()
+    expect(mockObserve).toHaveBeenCalled()
     expect(screen.getAllByTestId(/^item-/)).toHaveLength(30)
 
     act(() => {
