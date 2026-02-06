@@ -64,7 +64,7 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
 
 export const ModalContent = ({ map }: { map: any }) => {
   const navigate = useNavigate()
-  const [chapter, setChapter] = useState<number>(1)
+  const [chapter] = useState<number>(1)
 
   const close = () => {
     void navigate('/')
@@ -78,9 +78,6 @@ export const ModalContent = ({ map }: { map: any }) => {
             map={map}
             clickAction1={() => {
               close()
-              setTimeout(() => {
-                setChapter(1)
-              }, 1000)
             }}
           />
         )
