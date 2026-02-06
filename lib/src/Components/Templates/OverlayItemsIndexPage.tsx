@@ -70,7 +70,6 @@ export const OverlayItemsIndexPage = ({
 
   const layer = layers.find((l) => l.name === layerName)
 
-  // Filter, sort, and paginate items for current render
   const { visibleItems, hasMore } = filterSortAndPaginate(
     items,
     layerName,
@@ -79,7 +78,6 @@ export const OverlayItemsIndexPage = ({
     itemsToShow,
   )
 
-  // Intersection Observer for infinite scroll
   useEffect(() => {
     const sentinel = sentinelRef.current
     const scrollContainer = scrollContainerRef.current
@@ -95,7 +93,7 @@ export const OverlayItemsIndexPage = ({
       },
       {
         root: scrollContainer,
-        rootMargin: '400px', // Start loading earlier (was 200px)
+        rootMargin: '400px',
         threshold: 0.1,
       },
     )
@@ -107,7 +105,6 @@ export const OverlayItemsIndexPage = ({
     }
   }, [hasMore, visibleItems.length])
 
-  // Reset loading guard after new items have rendered
   useEffect(() => {
     isLoadingMoreRef.current = false
   }, [visibleItems.length])
@@ -228,9 +225,12 @@ export const OverlayItemsIndexPage = ({
                 </form>
               )}
             </div>
-            {/* Sentinel element for infinite scroll */}
             {hasMore && (
-              <div ref={sentinelRef} className='tw:w-full tw:py-8 tw:flex tw:justify-center'>
+              <div
+                ref={sentinelRef}
+                data-testid='scroll-sentinel'
+                className='tw:w-full tw:py-8 tw:flex tw:justify-center'
+              >
                 <span className='loading loading-spinner loading-lg'></span>
               </div>
             )}
