@@ -22,6 +22,7 @@ import { PlusButton } from '#components/Profile/Subcomponents/PlusButton'
 import { hashTagRegex } from '#utils/HashTagRegex'
 import { randomColor } from '#utils/RandomColor'
 
+import { filterSortAndPaginate } from './filterSortAndPaginate'
 import { ItemCard } from './ItemCard'
 import { MapOverlayPage } from './MapOverlayPage'
 
@@ -69,34 +70,14 @@ export const OverlayItemsIndexPage = ({
 
   const layer = layers.find((l) => l.name === layerName)
 
-  // Filter and sort items for current render
-  const filteredAndSortedItems = items
-    .filter((i) => i.layer?.name === layerName)
-    .filter((item) =>
-      filterTags.length === 0
-        ? item
-        : filterTags.some((tag) =>
-            getItemTags(item).some(
-              (filterTag) => filterTag.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
-            ),
-          ),
-    )
-    .sort((a, b) => {
-      const dateA = a.date_updated
-        ? new Date(a.date_updated).getTime()
-        : a.date_created
-          ? new Date(a.date_created).getTime()
-          : 0
-      const dateB = b.date_updated
-        ? new Date(b.date_updated).getTime()
-        : b.date_created
-          ? new Date(b.date_created).getTime()
-          : 0
-      return dateB - dateA
-    })
-
-  const visibleItems = filteredAndSortedItems.slice(0, itemsToShow)
-  const hasMore = filteredAndSortedItems.length > itemsToShow
+  // Filter, sort, and paginate items for current render
+  const { visibleItems, hasMore } = filterSortAndPaginate(
+    items,
+    layerName,
+    filterTags,
+    getItemTags,
+    itemsToShow,
+  )
 
   // Intersection Observer for infinite scroll
   useEffect(() => {
