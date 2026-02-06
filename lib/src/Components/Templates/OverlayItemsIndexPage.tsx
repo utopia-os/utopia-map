@@ -41,11 +41,10 @@ export const OverlayItemsIndexPage = ({
   const [loading, setLoading] = useState<boolean>(false)
   const [addItemPopupOpen, setAddItemPopupOpen] = useState<boolean>(false)
   const [itemsToShow, setItemsToShow] = useState<number>(30)
-  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false)
-
   const tabRef = useRef<HTMLFormElement>(null)
   const sentinelRef = useRef<HTMLDivElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const isLoadingMoreRef = useRef(false)
 
   function scroll() {
     tabRef.current?.scrollIntoView()
@@ -108,11 +107,9 @@ export const OverlayItemsIndexPage = ({
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0]
-        if (entry.isIntersecting && !isLoadingMore) {
-          setIsLoadingMore(true)
-          // Load immediately without delay for smoother UX
+        if (entry.isIntersecting && !isLoadingMoreRef.current && hasMore) {
+          isLoadingMoreRef.current = true
           setItemsToShow((prev) => prev + 24)
-          setIsLoadingMore(false)
         }
       },
       {
@@ -127,7 +124,12 @@ export const OverlayItemsIndexPage = ({
     return () => {
       observer.disconnect()
     }
-  }, [isLoadingMore, hasMore, visibleItems.length])
+  }, [hasMore, visibleItems.length])
+
+  // Reset loading guard after new items have rendered
+  useEffect(() => {
+    isLoadingMoreRef.current = false
+  }, [visibleItems.length])
 
   const submitNewItem = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
@@ -248,7 +250,7 @@ export const OverlayItemsIndexPage = ({
             {/* Sentinel element for infinite scroll */}
             {hasMore && (
               <div ref={sentinelRef} className='tw:w-full tw:py-8 tw:flex tw:justify-center'>
-                {isLoadingMore && <span className='loading loading-spinner loading-lg'></span>}
+                <span className='loading loading-spinner loading-lg'></span>
               </div>
             )}
           </div>
