@@ -22,6 +22,7 @@ import { PlusButton } from '#components/Profile/Subcomponents/PlusButton'
 import { hashTagRegex } from '#utils/HashTagRegex'
 import { randomColor } from '#utils/RandomColor'
 
+import { filterSortAndPaginate } from './filterSortAndPaginate'
 import { ItemCard } from './ItemCard'
 import { MapOverlayPage } from './MapOverlayPage'
 
@@ -40,8 +41,11 @@ export const OverlayItemsIndexPage = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const [addItemPopupOpen, setAddItemPopupOpen] = useState<boolean>(false)
-
+  const [itemsToShow, setItemsToShow] = useState<number>(30)
   const tabRef = useRef<HTMLFormElement>(null)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  const isLoadingMoreRef = useRef(false)
 
   function scroll() {
     tabRef.current?.scrollIntoView()
@@ -65,6 +69,45 @@ export const OverlayItemsIndexPage = ({
   const getItemTags = useGetItemTags()
 
   const layer = layers.find((l) => l.name === layerName)
+
+  const { visibleItems, hasMore } = filterSortAndPaginate(
+    items,
+    layerName,
+    filterTags,
+    getItemTags,
+    itemsToShow,
+  )
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current
+    const scrollContainer = scrollContainerRef.current
+    if (!sentinel || !scrollContainer) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0]
+        if (entry.isIntersecting && !isLoadingMoreRef.current && hasMore) {
+          isLoadingMoreRef.current = true
+          setItemsToShow((prev) => prev + 24)
+        }
+      },
+      {
+        root: scrollContainer,
+        rootMargin: '400px',
+        threshold: 0.1,
+      },
+    )
+
+    observer.observe(sentinel)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasMore, visibleItems.length])
+
+  useEffect(() => {
+    isLoadingMoreRef.current = false
+  }, [visibleItems.length])
 
   const submitNewItem = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault()
@@ -130,44 +173,18 @@ export const OverlayItemsIndexPage = ({
               <TagsControl />
             </Control>
           </div>
-          <div className='tw:overflow-scroll fade tw:flex-1'>
+          <div ref={scrollContainerRef} className='tw:overflow-scroll fade tw:flex-1'>
             <div className='tw:columns-1 tw:md:columns-2 tw:lg:columns-3 tw:2xl:columns-4 tw:gap-6 tw:pt-4'>
-              {items
-                .filter((i) => i.layer?.name === layerName)
-                .filter((item) =>
-                  filterTags.length === 0
-                    ? item
-                    : filterTags.some((tag) =>
-                        getItemTags(item).some(
-                          (filterTag) =>
-                            filterTag.name.toLocaleLowerCase() === tag.name.toLocaleLowerCase(),
-                        ),
-                      ),
-                )
-                .sort((a, b) => {
-                  // Convert date_created to milliseconds, handle undefined by converting to lowest possible date (0 milliseconds)
-                  const dateA = a.date_updated
-                    ? new Date(a.date_updated).getTime()
-                    : a.date_created
-                      ? new Date(a.date_created).getTime()
-                      : 0
-                  const dateB = b.date_updated
-                    ? new Date(b.date_updated).getTime()
-                    : b.date_created
-                      ? new Date(b.date_created).getTime()
-                      : 0
-                  return dateB - dateA // Subtracts milliseconds which are numbers
-                })
-                .map((i, k) => (
-                  <div key={k} className='tw:break-inside-avoid tw:mb-6'>
-                    <ItemCard
-                      i={i}
-                      loading={loading}
-                      url={url}
-                      deleteCallback={() => deleteItem(i)}
-                    />
-                  </div>
-                ))}
+              {visibleItems.map((i) => (
+                <div key={i.id} className='tw:break-inside-avoid tw:mb-6'>
+                  <ItemCard
+                    i={i}
+                    loading={loading}
+                    url={url}
+                    deleteCallback={() => deleteItem(i)}
+                  />
+                </div>
+              ))}
               {addItemPopupOpen && (
                 <form ref={tabRef} autoComplete='off' onSubmit={(e) => submitNewItem(e)}>
                   <div className='tw:cursor-pointer tw:break-inside-avoid card tw:border-[1px] tw:border-base-300 card-body tw:shadow-xl tw:bg-base-100 tw:text-base-content tw:p-6 tw:mb-10'>
@@ -208,6 +225,15 @@ export const OverlayItemsIndexPage = ({
                 </form>
               )}
             </div>
+            {hasMore && (
+              <div
+                ref={sentinelRef}
+                data-testid='scroll-sentinel'
+                className='tw:w-full tw:py-8 tw:flex tw:justify-center'
+              >
+                <span className='loading loading-spinner loading-lg'></span>
+              </div>
+            )}
           </div>
         </div>
       </MapOverlayPage>
