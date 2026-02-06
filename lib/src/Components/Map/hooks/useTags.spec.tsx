@@ -6,6 +6,7 @@ import {
   useTags,
   useAddTag,
   useSetTagApi,
+  useAllTagsLoaded,
   useProcessItemsTags,
   useGetItemTags,
 } from './useTags'
@@ -146,6 +147,76 @@ describe('useTags - Hashtag Auto-Creation Feature', () => {
 
       expect(newCreateItem).toHaveBeenCalled()
       expect(oldCreateItem).not.toHaveBeenCalled()
+    })
+
+    it('loads tags from API into state', async () => {
+      const apiTags: Tag[] = [
+        { id: 'api-1', name: 'solar', color: '#fbbf24' },
+        { id: 'api-2', name: 'wind', color: '#60a5fa' },
+      ]
+      const api: ItemsApi<Tag> = {
+        getItems: vi.fn().mockResolvedValue(apiTags),
+        createItem: vi.fn().mockResolvedValue({}),
+      }
+
+      const { result } = renderHook(() => ({ tags: useTags(), setTagApi: useSetTagApi() }), {
+        wrapper: createWrapper([]),
+      })
+
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
+
+      expect(result.current.tags).toHaveLength(2)
+      expect(result.current.tags.map((t) => t.name)).toContain('solar')
+      expect(result.current.tags.map((t) => t.name)).toContain('wind')
+    })
+
+    it('sets allTagsLoaded when API returns empty array', async () => {
+      const api: ItemsApi<Tag> = {
+        getItems: vi.fn().mockResolvedValue([]),
+        createItem: vi.fn().mockResolvedValue({}),
+      }
+
+      const { result } = renderHook(
+        () => ({ allTagsLoaded: useAllTagsLoaded(), setTagApi: useSetTagApi() }),
+        { wrapper: createWrapper([]) },
+      )
+
+      expect(result.current.allTagsLoaded).toBe(false)
+
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
+
+      expect(result.current.allTagsLoaded).toBe(true)
+    })
+
+    it('sets allTagsLoaded after all API tags are dispatched', async () => {
+      const apiTags: Tag[] = [
+        { id: 'api-1', name: 'permaculture', color: '#10b981' },
+        { id: 'api-2', name: 'regenerative', color: '#84cc16' },
+        { id: 'api-3', name: 'biodynamic', color: '#22c55e' },
+      ]
+      const api: ItemsApi<Tag> = {
+        getItems: vi.fn().mockResolvedValue(apiTags),
+        createItem: vi.fn().mockResolvedValue({}),
+      }
+
+      const { result } = renderHook(
+        () => ({
+          tags: useTags(),
+          allTagsLoaded: useAllTagsLoaded(),
+          setTagApi: useSetTagApi(),
+        }),
+        { wrapper: createWrapper([]) },
+      )
+
+      expect(result.current.allTagsLoaded).toBe(false)
+
+      // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression, @typescript-eslint/await-thenable
+      await act(() => result.current.setTagApi(api))
+
+      expect(result.current.tags).toHaveLength(3)
+      expect(result.current.allTagsLoaded).toBe(true)
     })
   })
 
