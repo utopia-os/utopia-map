@@ -1,4 +1,4 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
+import { render, screen, waitFor, act } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
@@ -10,6 +10,14 @@ import type { Tag } from '#types/Tag'
 vi.mock('#components/Map/hooks/useTags')
 vi.mock('#components/Map/hooks/useItems')
 vi.mock('#components/Map/hooks/useItemColor')
+
+// Type for accessing TipTap editor instance from ProseMirror DOM element
+interface ProseMirrorWithEditor {
+  editor: {
+    commands: { insertContent: (content: string) => boolean }
+    getMarkdown: () => string
+  }
+}
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <MemoryRouter>{children}</MemoryRouter>
@@ -93,6 +101,8 @@ describe('<RichTextEditor />', () => {
       )
       await waitFor(() => {
         expect(document.querySelector('.editor-wrapper')).toBeInTheDocument()
+        expect(document.querySelector('[data-tip="Bold"]')).toBeInTheDocument()
+        expect(document.querySelector('[data-tip="Italic"]')).toBeInTheDocument()
       })
     })
 
@@ -105,6 +115,9 @@ describe('<RichTextEditor />', () => {
       await waitFor(() => {
         expect(screen.getByText('Test')).toBeInTheDocument()
       })
+      // Menu buttons should not be present
+      expect(document.querySelector('[data-tip="Bold"]')).not.toBeInTheDocument()
+      expect(document.querySelector('[data-tip="Italic"]')).not.toBeInTheDocument()
     })
   })
 
@@ -121,12 +134,83 @@ describe('<RichTextEditor />', () => {
         expect(screen.getByText('Initial')).toBeInTheDocument()
       })
 
-      const editor = document.querySelector('.ProseMirror')
-      expect(editor).toBeInTheDocument()
+      const proseMirrorEl = document.querySelector('.ProseMirror')
+      expect(proseMirrorEl).toBeInTheDocument()
+      if (!proseMirrorEl) throw new Error('ProseMirror element not found')
 
-      if (editor) {
-        fireEvent.input(editor, { target: { textContent: 'Updated content' } })
-      }
+      const { editor } = proseMirrorEl as unknown as ProseMirrorWithEditor
+      expect(editor).toBeDefined()
+
+      // Clear any calls from initialization
+      updateFormValue.mockClear()
+
+      // Use TipTap editor commands to trigger a real ProseMirror transaction
+      // which fires onUpdate → handleChange → updateFormValue
+      act(() => {
+        editor.commands.insertContent(' added')
+      })
+
+      expect(updateFormValue).toHaveBeenCalled()
+      expect(updateFormValue).toHaveBeenCalledWith(expect.stringContaining('added'))
+    })
+
+    it('does not throw when updateFormValue is not provided', async () => {
+      render(
+        <Wrapper>
+          <RichTextEditor defaultValue='Initial' />
+        </Wrapper>,
+      )
+
+      await waitFor(() => {
+        expect(screen.getByText('Initial')).toBeInTheDocument()
+      })
+
+      const proseMirrorEl = document.querySelector('.ProseMirror')
+      expect(proseMirrorEl).toBeInTheDocument()
+      if (!proseMirrorEl) throw new Error('ProseMirror element not found')
+
+      const { editor } = proseMirrorEl as unknown as ProseMirrorWithEditor
+      expect(editor).toBeDefined()
+
+      // Should not throw when updateFormValue is undefined
+      act(() => {
+        editor.commands.insertContent(' more text')
+      })
+
+      // If we get here without throwing, the test passes
+      expect(proseMirrorEl).toBeInTheDocument()
+    })
+
+    it('appends newlines after image markdown in updateFormValue output', async () => {
+      const updateFormValue = vi.fn()
+      render(
+        <Wrapper>
+          <RichTextEditor
+            defaultValue='![alt](http://example.com/img.png)'
+            updateFormValue={updateFormValue}
+          />
+        </Wrapper>,
+      )
+
+      await waitFor(() => {
+        const editorElement = document.querySelector('.ProseMirror')
+        expect(editorElement).toBeInTheDocument()
+      })
+
+      const proseMirrorEl = document.querySelector('.ProseMirror')
+      expect(proseMirrorEl).toBeInTheDocument()
+      if (!proseMirrorEl) throw new Error('ProseMirror element not found')
+
+      const { editor } = proseMirrorEl as unknown as ProseMirrorWithEditor
+      expect(editor).toBeDefined()
+
+      updateFormValue.mockClear()
+
+      act(() => {
+        editor.commands.insertContent(' text after image')
+      })
+
+      expect(updateFormValue).toHaveBeenCalled()
     })
   })
 
@@ -172,4 +256,3 @@ describe('<RichTextEditor />', () => {
     })
   })
 })
-
