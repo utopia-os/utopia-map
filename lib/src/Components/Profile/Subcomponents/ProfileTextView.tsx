@@ -6,7 +6,7 @@ import type { Item } from '#types/Item'
 
 export const ProfileTextView = ({
   item,
-  dataField = 'text',
+  dataField,
   heading,
   hideWhenEmpty,
 }: {
@@ -24,7 +24,7 @@ export const ProfileTextView = ({
     <div className='tw:my-10 tw:mt-2 tw:px-6'>
       {shouldShowHeading && <h2 className='tw:text-lg tw:font-semibold'>{heading}</h2>}
       <div className='tw:mt-2 tw:text-sm'>
-        <TextView item={item} text={text as string | null | undefined} itemId={item.id} />
+        <TextView item={item} text={text as string | null | undefined} />
       </div>
     </div>
   )

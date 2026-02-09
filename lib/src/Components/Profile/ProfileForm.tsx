@@ -1,16 +1,17 @@
 /* eslint-disable camelcase */ // Directus database fields use snake_case
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
+
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useAuth } from '#components/Auth/useAuth'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems, useUpdateItem, useAddItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
 import { useHasUserPermission } from '#components/Map/hooks/usePermissions'
-import { useAddTag, useGetItemTags, useTags } from '#components/Map/hooks/useTags'
+import { useAddTag, useTags } from '#components/Map/hooks/useTags'
 import { MapOverlayPage } from '#components/Templates'
 
 import { linkItem, onUpdateItem, unlinkItem } from './itemFunctions'
@@ -64,7 +65,7 @@ export function ProfileForm() {
   const addTag = useAddTag()
   const navigate = useNavigate()
   const hasUserPermission = useHasUserPermission()
-  const getItemTags = useGetItemTags()
+  const getItemColor = useGetItemColor()
   const items = useItems()
 
   const [urlParams, setUrlParams] = useState(new URLSearchParams(location.search))
@@ -92,11 +93,7 @@ export function ProfileForm() {
 
   useEffect(() => {
     if (!item) return
-    const newColor =
-      item.color ??
-      (getItemTags(item) && getItemTags(item)[0]?.color
-        ? getItemTags(item)[0].color
-        : item.layer?.markerDefaultColor)
+    const newColor = getItemColor(item, '')
 
     const offers = (item.offers ?? []).reduce((acc: Tag[], o) => {
       const offer = tags.find((t) => t.id === o.tags_id)
@@ -216,8 +213,7 @@ export function ProfileForm() {
                   )}
                   type='submit'
                   style={{
-                    // We could refactor this, it is used several times at different locations
-                    backgroundColor: `${item.color ?? (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : item?.layer?.markerDefaultColor)}`,
+                    backgroundColor: getItemColor(item),
                     color: '#fff',
                   }}
                 >
