@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { Marker, Tooltip } from 'react-leaflet'
 
 import { useAppState } from '#components/AppShell/hooks/useAppState'
@@ -13,18 +13,19 @@ import {
 import { useItems, useAllItemsLoaded } from '#components/Map/hooks/useItems'
 import { useAddMarker, useAddPopup, useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useSetMarkerClicked, useSelectPosition } from '#components/Map/hooks/useSelectPosition'
-import { useGetItemTags, useAllTagsLoaded, useTags } from '#components/Map/hooks/useTags'
+import {
+  useGetItemTags,
+  useAllTagsLoaded,
+  useProcessItemsTags,
+} from '#components/Map/hooks/useTags'
 import LayerContext from '#components/Map/LayerContext'
 import { ItemViewPopup } from '#components/Map/Subcomponents/ItemViewPopup'
 import { encodeTag } from '#utils/FormatTags'
-import { hashTagRegex } from '#utils/HashTagRegex'
 import MarkerIconFactory from '#utils/MarkerIconFactory'
-import { randomColor } from '#utils/RandomColor'
 
 import TemplateItemContext from './TemplateItemContext'
 
 import type { Item } from '#types/Item'
-import type { Tag } from '#types/Tag'
 import type { Popup } from 'leaflet'
 
 /**
@@ -51,9 +52,14 @@ export const PopupView = ({ children }: { children?: React.ReactNode }) => {
   const setMarkerClicked = useSetMarkerClicked()
   const selectPosition = useSelectPosition()
 
-  const tags = useTags()
-  const [newTagsToAdd, setNewTagsToAdd] = useState<Tag[]>([])
-  const [tagsReady, setTagsReady] = useState<boolean>(false)
+  const processItemsTags = useProcessItemsTags()
+
+  // Process items to create missing tags when items are loaded
+  useEffect(() => {
+    if (allTagsLoaded && allItemsLoaded && items.length > 0) {
+      processItemsTags(items)
+    }
+  }, [allTagsLoaded, allItemsLoaded, items, processItemsTags])
 
   const isLayerVisible = useIsLayerVisible()
 
@@ -103,24 +109,6 @@ export const PopupView = ({ children }: { children?: React.ReactNode }) => {
         }
         return item.text
       })
-    }
-
-    if (allTagsLoaded && allItemsLoaded) {
-      item.text?.match(hashTagRegex)?.map((tag) => {
-        if (
-          !tags.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase()) &&
-          !newTagsToAdd.find((t) => t.name.toLocaleLowerCase() === tag.slice(1).toLocaleLowerCase())
-        ) {
-          const newTag = {
-            id: crypto.randomUUID(),
-            name: tag.slice(1),
-            color: randomColor(),
-          }
-          setNewTagsToAdd((current) => [...current, newTag])
-        }
-        return null
-      })
-      !tagsReady && setTagsReady(true)
     }
 
     const itemTags = getItemTags(item)
