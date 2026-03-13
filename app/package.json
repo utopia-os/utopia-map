@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.0",
-    "eslint-plugin-security": "^3.0.1",
+    "eslint-plugin-security": "^4.0.0",
     "globals": "^17.3.0",
     "postcss": "^8.4.30",
     "tailwindcss": "^4.1.18",
