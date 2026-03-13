@@ -11,6 +11,7 @@ interface AppState {
   embedded: boolean
   openCollectiveApiKey: string
   hideSignup: boolean
+  autoLocateOnLogin: boolean
 }
 
 type UseAppManagerResult = ReturnType<typeof useAppManager>
@@ -23,6 +24,7 @@ const initialAppState: AppState = {
   embedded: false,
   openCollectiveApiKey: '',
   hideSignup: false,
+  autoLocateOnLogin: false,
 }
 
 const AppContext = createContext<UseAppManagerResult>({

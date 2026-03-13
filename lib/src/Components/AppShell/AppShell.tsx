@@ -16,6 +16,7 @@ export function AppShell({
   embedded,
   openCollectiveApiKey,
   hideSignup,
+  autoLocateOnLogin,
 }: {
   appName: string
   children: React.ReactNode
@@ -23,6 +24,7 @@ export function AppShell({
   embedded?: boolean
   openCollectiveApiKey?: string
   hideSignup?: boolean
+  autoLocateOnLogin?: boolean
 }) {
   return (
     <ContextWrapper>
@@ -32,6 +34,7 @@ export function AppShell({
           embedded={embedded}
           openCollectiveApiKey={openCollectiveApiKey}
           hideSignup={hideSignup}
+          autoLocateOnLogin={autoLocateOnLogin}
         />
         <NavBar appName={appName}></NavBar>
         <div id='app-content' className='tw:flex'>

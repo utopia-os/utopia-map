@@ -207,6 +207,7 @@ function App() {
             embedded={embedded}
             openCollectiveApiKey={config.openCollectiveApiKey}
             hideSignup={map.hide_signup}
+            autoLocateOnLogin={map.auto_locate_on_login}
           >
             <Permissions api={permissionsApiInstance} adminRole={config.adminRole} />
             {tagsApi && <Tags api={tagsApi}></Tags>}

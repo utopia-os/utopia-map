@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import TargetSVG from '#assets/target.svg'
+import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useAuth } from '#components/Auth/useAuth'
 import { useAddItem, useUpdateItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
@@ -40,10 +41,12 @@ export const LocateControl = (): React.JSX.Element => {
   const addItem = useAddItem()
   const layers = useLayers()
   const { user } = useAuth()
+  const { autoLocateOnLogin } = useAppState()
   const navigate = useNavigate()
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
+  const prevUserRef = useRef(user)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
   const [lc, setLc] = useState<any>(null)
@@ -88,6 +91,17 @@ export const LocateControl = (): React.JSX.Element => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Auto-start location tracking after login (configurable per map)
+  useEffect(() => {
+    if (autoLocateOnLogin && !prevUserRef.current && user && lc && !active) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      lc.start()
+      setLoading(true)
+      setHasDeclinedModal(false)
+    }
+    prevUserRef.current = user
+  }, [user, lc, active, autoLocateOnLogin])
 
   // Check if user logged in while location is active and found
   useEffect(() => {
