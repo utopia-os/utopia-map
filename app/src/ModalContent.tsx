@@ -5,7 +5,8 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
 import { useEffect, useState } from 'react'
-import { TextView } from 'utopia-ui'
+import { useNavigate } from 'react-router-dom'
+import { TextView, useAuth } from 'utopia-ui'
 
 import { config } from './config'
 
@@ -15,20 +16,35 @@ interface ChapterProps {
 }
 
 export function Welcome1({ clickAction1, map }: ChapterProps) {
+  const { isAuthenticated } = useAuth()
+  const navigate = useNavigate()
+
   return (
     <>
       {map.custom_text ? (
         <>
           <TextView rawText={map.custom_text}></TextView>
-          <div className='tw:grid'>
-            <label
-              className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => {
-                clickAction1()
-              }}
-            >
-              Close
-            </label>
+          <div className='tw:grid tw:mt-4'>
+            {isAuthenticated ? (
+              <label
+                className='tw:btn tw:btn-primary tw:place-self-end'
+                onClick={() => {
+                  clickAction1()
+                }}
+              >
+                Close
+              </label>
+            ) : (
+              <label
+                className='tw:btn tw:btn-primary tw:place-self-end'
+                onClick={() => {
+                  clickAction1()
+                  void navigate('/login')
+                }}
+              >
+                Login
+              </label>
+            )}
           </div>
         </>
       ) : (
@@ -45,15 +61,27 @@ export function Welcome1({ clickAction1, map }: ChapterProps) {
             Join us and grow the network by adding projects and events to the map.
           </p>
           <p className='tw:py-1'>Create your personal profile and place it on the map.</p>
-          <div className='tw:grid'>
-            <label
-              className='tw:btn tw:btn-primary tw:place-self-end tw:mt-4'
-              onClick={() => {
-                clickAction1()
-              }}
-            >
-              Close
-            </label>
+          <div className='tw:grid tw:mt-4'>
+            {isAuthenticated ? (
+              <label
+                className='tw:btn tw:btn-primary tw:place-self-end'
+                onClick={() => {
+                  clickAction1()
+                }}
+              >
+                Close
+              </label>
+            ) : (
+              <label
+                className='tw:btn tw:btn-primary tw:place-self-end'
+                onClick={() => {
+                  clickAction1()
+                  void navigate('/login')
+                }}
+              >
+                Login
+              </label>
+            )}
           </div>
         </>
       )}
