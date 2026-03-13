@@ -8,3 +8,5 @@ cypress/results/
 cypress/runner-results/
 cypress/screenshots/
 
+# Generated seed data (auto-generated from items.json by prepare-seed.js)
+backend/directus-config/development/seed/tags.json
