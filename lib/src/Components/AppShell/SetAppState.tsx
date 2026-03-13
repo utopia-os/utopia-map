@@ -9,11 +9,13 @@ export const SetAppState = ({
   embedded,
   openCollectiveApiKey,
   hideSignup,
+  autoLocateOnLogin,
 }: {
   assetsApi: AssetsApi
   embedded?: boolean
   openCollectiveApiKey?: string
   hideSignup?: boolean
+  autoLocateOnLogin?: boolean
 }) => {
   const setAppState = useSetAppState()
 
@@ -32,6 +34,10 @@ export const SetAppState = ({
   useEffect(() => {
     setAppState({ hideSignup: hideSignup ?? false })
   }, [hideSignup, setAppState])
+
+  useEffect(() => {
+    setAppState({ autoLocateOnLogin: autoLocateOnLogin ?? false })
+  }, [autoLocateOnLogin, setAppState])
 
   return <></>
 }

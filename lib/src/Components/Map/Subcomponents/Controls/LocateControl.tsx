@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 import TargetSVG from '#assets/target.svg'
+import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useAuth } from '#components/Auth/useAuth'
 import { useAddItem, useUpdateItem } from '#components/Map/hooks/useItems'
 import { useLayers } from '#components/Map/hooks/useLayers'
@@ -39,11 +40,16 @@ export const LocateControl = (): React.JSX.Element => {
   const updateItem = useUpdateItem()
   const addItem = useAddItem()
   const layers = useLayers()
-  const { user } = useAuth()
+  const { user, isInitialized } = useAuth()
+  const { autoLocateOnLogin } = useAppState()
   const navigate = useNavigate()
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
+  // Track whether auto-locate has already fired (one-shot per session)
+  const hasAutoLocatedRef = useRef(false)
+  // Snapshot of user after initial auth completes — changes after this are real logins
+  const initialUserRef = useRef<typeof user>(undefined)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
   const [lc, setLc] = useState<any>(null)
@@ -88,6 +94,28 @@ export const LocateControl = (): React.JSX.Element => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // Auto-start location tracking after a real login (not page reload)
+  useEffect(() => {
+    if (!isInitialized || !autoLocateOnLogin || !lc) return
+
+    // First time isInitialized is true: snapshot the current user as baseline
+    if (initialUserRef.current === undefined) {
+      initialUserRef.current = user
+      return
+    }
+
+    // If user changed from null to a value after the baseline was set, it's a real login
+    if (!hasAutoLocatedRef.current && user && initialUserRef.current === null) {
+      hasAutoLocatedRef.current = true
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+      lc.start()
+      setLoading(true)
+      setHasDeclinedModal(false)
+    }
+
+    initialUserRef.current = user
+  }, [isInitialized, user, lc, autoLocateOnLogin])
 
   // Check if user logged in while location is active and found
   useEffect(() => {
