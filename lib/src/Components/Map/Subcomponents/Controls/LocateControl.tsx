@@ -40,13 +40,15 @@ export const LocateControl = (): React.JSX.Element => {
   const updateItem = useUpdateItem()
   const addItem = useAddItem()
   const layers = useLayers()
-  const { user } = useAuth()
+  const { user, isInitialized } = useAuth()
   const { autoLocateOnLogin } = useAppState()
   const navigate = useNavigate()
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
-  const prevUserRef = useRef(user)
+  // Only start tracking user changes after initial auth check completes,
+  // so page reload (user: null → restored session) is not mistaken for a login
+  const authReadyRef = useRef(false)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
   const [lc, setLc] = useState<any>(null)
@@ -92,15 +94,21 @@ export const LocateControl = (): React.JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Mark auth as ready once initial check completes (distinguishes reload from login)
+  useEffect(() => {
+    if (isInitialized && !authReadyRef.current) {
+      authReadyRef.current = true
+    }
+  }, [isInitialized])
+
   // Auto-start location tracking after login (configurable per map)
   useEffect(() => {
-    if (autoLocateOnLogin && !prevUserRef.current && user && lc && !active) {
+    if (autoLocateOnLogin && authReadyRef.current && user && lc && !active) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
       setLoading(true)
       setHasDeclinedModal(false)
     }
-    prevUserRef.current = user
   }, [user, lc, active, autoLocateOnLogin])
 
   // Check if user logged in while location is active and found
