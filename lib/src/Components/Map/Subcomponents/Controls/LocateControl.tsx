@@ -49,6 +49,7 @@ export const LocateControl = (): React.JSX.Element => {
   // Only start tracking user changes after initial auth check completes,
   // so page reload (user: null → restored session) is not mistaken for a login
   const authReadyRef = useRef(false)
+  const hasAutoLocatedRef = useRef(false)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
   const [lc, setLc] = useState<any>(null)
@@ -101,15 +102,16 @@ export const LocateControl = (): React.JSX.Element => {
     }
   }, [isInitialized])
 
-  // Auto-start location tracking after login (configurable per map)
+  // Auto-start location tracking after login (configurable per map, fires once)
   useEffect(() => {
-    if (autoLocateOnLogin && authReadyRef.current && user && lc && !active) {
+    if (autoLocateOnLogin && authReadyRef.current && !hasAutoLocatedRef.current && user && lc) {
+      hasAutoLocatedRef.current = true
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
       setLoading(true)
       setHasDeclinedModal(false)
     }
-  }, [user, lc, active, autoLocateOnLogin])
+  }, [user, lc, autoLocateOnLogin])
 
   // Check if user logged in while location is active and found
   useEffect(() => {
