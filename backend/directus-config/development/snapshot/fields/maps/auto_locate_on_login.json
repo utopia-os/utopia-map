@@ -8,21 +8,21 @@
     "display": null,
     "display_options": null,
     "field": "auto_locate_on_login",
-    "group": null,
+    "group": "Presets",
     "hidden": false,
     "interface": "boolean",
     "note": "Automatically start geolocation after user login",
     "options": null,
     "readonly": false,
     "required": false,
-    "sort": 17,
+    "sort": 3,
     "special": [
       "cast-boolean"
     ],
     "translations": null,
     "validation": null,
     "validation_message": null,
-    "width": "full"
+    "width": "half"
   },
   "schema": {
     "name": "auto_locate_on_login",
