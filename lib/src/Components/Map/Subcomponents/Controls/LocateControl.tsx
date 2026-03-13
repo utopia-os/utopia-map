@@ -46,10 +46,10 @@ export const LocateControl = (): React.JSX.Element => {
 
   // Prevent React 18 StrictMode from calling useEffect twice
   const init = useRef(false)
-  // Only start tracking user changes after initial auth check completes,
-  // so page reload (user: null → restored session) is not mistaken for a login
-  const authReadyRef = useRef(false)
+  // Track whether auto-locate has already fired (one-shot per session)
   const hasAutoLocatedRef = useRef(false)
+  // Snapshot of user after initial auth completes — changes after this are real logins
+  const initialUserRef = useRef<typeof user>(undefined)
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment
   const [lc, setLc] = useState<any>(null)
@@ -95,23 +95,27 @@ export const LocateControl = (): React.JSX.Element => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Mark auth as ready once initial check completes (distinguishes reload from login)
+  // Auto-start location tracking after a real login (not page reload)
   useEffect(() => {
-    if (isInitialized && !authReadyRef.current) {
-      authReadyRef.current = true
-    }
-  }, [isInitialized])
+    if (!isInitialized || !autoLocateOnLogin || !lc) return
 
-  // Auto-start location tracking after login (configurable per map, fires once)
-  useEffect(() => {
-    if (autoLocateOnLogin && authReadyRef.current && !hasAutoLocatedRef.current && user && lc) {
+    // First time isInitialized is true: snapshot the current user as baseline
+    if (initialUserRef.current === undefined) {
+      initialUserRef.current = user
+      return
+    }
+
+    // If user changed from null to a value after the baseline was set, it's a real login
+    if (!hasAutoLocatedRef.current && user && initialUserRef.current === null) {
       hasAutoLocatedRef.current = true
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
       setLoading(true)
       setHasDeclinedModal(false)
     }
-  }, [user, lc, autoLocateOnLogin])
+
+    initialUserRef.current = user
+  }, [isInitialized, user, lc, autoLocateOnLogin])
 
   // Check if user logged in while location is active and found
   useEffect(() => {
