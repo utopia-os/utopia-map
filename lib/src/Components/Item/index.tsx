@@ -1,5 +1,6 @@
 import {
   TextView as PlainTextView,
+  TextViewStatic as PlainTextViewStatic,
   StartEndView as PlainStartEndView,
   PopupTextInput as PlainPopupTextInput,
   PopupButton as PlainPopupButton,
@@ -15,6 +16,7 @@ export { PopupForm } from './PopupForm'
 export { PopupView } from './PopupView'
 
 export const TextView = templateify(PlainTextView)
+export const TextViewStatic = templateify(PlainTextViewStatic)
 export const StartEndView = templateify(PlainStartEndView)
 export const PopupTextInput = templateify(PlainPopupTextInput)
 export const PopupButton = templateify(PlainPopupButton)

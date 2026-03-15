@@ -1,55 +1,51 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-import Markdown from 'react-markdown'
-import { Link as RouterLink } from 'react-router-dom'
-import remarkBreaks from 'remark-breaks'
+import { Markdown } from '@tiptap/markdown'
+import { EditorContent, useEditor } from '@tiptap/react'
+import { StarterKit } from '@tiptap/starter-kit'
+import { useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
+import { useItems } from '#components/Map/hooks/useItems'
 import { useTags } from '#components/Map/hooks/useTags'
-import { decodeTag } from '#utils/FormatTags'
-import { hashTagRegex } from '#utils/HashTagRegex'
-import { fixUrls, mailRegex } from '#utils/ReplaceURLs'
+import { Hashtag, ItemMention, VideoEmbed } from '#components/TipTap/extensions'
+import { removeMarkdownSyntax, truncateMarkdown } from '#components/TipTap/utils/preprocessMarkdown'
 
 import type { Item } from '#types/Item'
-import type { Tag } from '#types/Tag'
 
 /**
  * @category Map
  */
 export const TextView = ({
   item,
-  itemId,
   text,
   truncate = false,
   rawText,
 }: {
   item?: Item
-  itemId?: string
   text?: string | null
   truncate?: boolean
   rawText?: string
 }) => {
   if (item) {
     text = item.text
-    itemId = item.id
   }
+
   const tags = useTags()
   const addFilterTag = useAddFilterTag()
+  const navigate = useNavigate()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const items = useItems()
+  const getItemColor = useGetItemColor()
 
+  // Prepare the text content
   let innerText = ''
-  let replacedText = ''
 
   if (rawText) {
-    innerText = replacedText = rawText
+    innerText = rawText
   } else if (text === undefined) {
     // Field was omitted by backend (no permission)
-    innerText = replacedText = `[Login](/login) to see this ${
-      item?.layer?.item_default_name ?? 'item'
-    }`
+    innerText = `[Login](/login) to see this ${item?.layer?.item_default_name ?? 'item'}`
   } else if (text === null || text === '') {
     // Field is not set or empty - show nothing
     innerText = ''
@@ -58,138 +54,77 @@ export const TextView = ({
     innerText = text
   }
 
-  if (innerText && truncate)
-    innerText = truncateText(removeMarkdownKeepLinksAndParagraphs(innerText), 100)
-
-  if (innerText) replacedText = fixUrls(innerText)
-
-  if (replacedText) {
-    replacedText = replacedText.replace(
-      /(?<!\]?\()(?<!<)https?:\/\/[^\s)]+(?!\))(?!>)/g,
-      (url) => `[${url.replace(/https?:\/\/w{3}\./gi, '')}](${url})`,
-    )
+  // Apply truncation if needed
+  if (innerText && truncate) {
+    innerText = truncateMarkdown(removeMarkdownSyntax(innerText), 100)
   }
 
-  if (replacedText) {
-    replacedText = replacedText.replace(mailRegex, (url) => {
-      return `[${url}](mailto:${url})`
-    })
-  }
+  const editor = useEditor(
+    {
+      extensions: [
+        StarterKit,
+        Markdown,
+        Hashtag.configure({
+          tags,
+          onTagClick: (tag) => {
+            addFilterTag(tag)
+          },
+        }),
+        ItemMention.configure({
+          items,
+          getItemColor,
+        }),
+        VideoEmbed,
+      ],
+      // Load content as markdown - the extensions' markdownTokenizer handles parsing
+      content: innerText,
+      contentType: 'markdown',
+      editable: false,
+      editorProps: {
+        attributes: {
+          class: 'markdown tw:text-map tw:leading-map tw:text-sm',
+        },
+      },
+    },
+    [innerText, tags, items, getItemColor, addFilterTag],
+  )
 
-  if (replacedText) {
-    replacedText = replacedText.replace(hashTagRegex, (match) => {
-      return `[${match}](${match})`
-    })
-  }
+  // Handle link clicks for internal navigation
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
 
-  const HashTag = ({ children, tag, itemId }: { children: string; tag: Tag; itemId?: string }) => {
-    return (
-      <a
-        className='hashtag'
-        style={
-          tag && {
-            color: tag.color,
-          }
-        }
-        key={tag ? tag.name + itemId : itemId}
-        onClick={(e) => {
-          e.stopPropagation()
-          addFilterTag(tag)
-        }}
-      >
-        {decodeTag(children)}
-      </a>
-    )
-  }
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      const link = target.closest('a')
 
-  const Link = ({ href, children }: { href: string; children: string }) => {
-    // Youtube
-    if (href.startsWith('https://www.youtube.com/watch?v=')) {
-      const videoId = href?.split('v=')[1].split('&')[0]
-      const youtubeEmbedUrl = `https://www.youtube-nocookie.com/embed/${videoId}`
+      if (!link) return
 
-      return (
-        <iframe src={youtubeEmbedUrl} allow='fullscreen;  picture-in-picture' allowFullScreen />
-      )
+      const href = link.getAttribute('href')
+      if (!href) return
+
+      // Internal links → React Router navigation
+      if (href.startsWith('/')) {
+        e.preventDefault()
+        e.stopPropagation()
+        void navigate(href)
+      }
+      // External links are handled by the Link extension (target="_blank")
     }
 
-    // Rumble
-    if (href.startsWith('https://rumble.com/embed/')) {
-      return <iframe src={href} allow='fullscreen;  picture-in-picture' allowFullScreen />
+    container.addEventListener('click', handleClick)
+    return () => {
+      container.removeEventListener('click', handleClick)
     }
+  }, [navigate])
 
-    // HashTag
-    if (href.startsWith('#')) {
-      const tag = tags.find((t) => t.name.toLowerCase() === decodeURI(href).slice(1).toLowerCase())
-      if (tag)
-        return (
-          <HashTag tag={tag} itemId={itemId}>
-            {children}
-          </HashTag>
-        )
-      else return children
-    }
-
-    // Internal Link (React Router)
-    if (href.startsWith('/')) {
-      return <RouterLink to={href}>{children}</RouterLink>
-    }
-
-    // External Link
-    return (
-      <a href={href} target='_blank' rel='noreferrer'>
-        {children}
-      </a>
-    )
+  if (!innerText) {
+    return null
   }
 
   return (
-    <div translate='no'>
-      <Markdown
-        className={'markdown tw:text-map tw:leading-map tw:text-sm'}
-        remarkPlugins={[remarkBreaks]}
-        components={{
-          a: Link,
-        }}
-      >
-        {replacedText}
-      </Markdown>
+    <div translate='no' ref={containerRef}>
+      <EditorContent editor={editor} />
     </div>
   )
-}
-
-function removeMarkdownKeepLinksAndParagraphs(text) {
-  // Remove Markdown syntax using regular expressions but keep links and paragraphs
-  return text
-    .replace(/!\[.*?\]\(.*?\)/g, '') // Remove images
-    .replace(/(`{1,3})(.*?)\1/g, '$2') // Remove inline code
-    .replace(/(\*{1,2}|_{1,2})(.*?)\1/g, '$2') // Remove bold and italic
-    .replace(/(#+)\s+(.*)/g, '$2') // Remove headers
-    .replace(/>\s+(.*)/g, '$1') // Remove blockquotes
-    .replace(/^\s*\n/gm, '\n') // Preserve empty lines
-    .replace(/(\r\n|\n|\r)/gm, '\n') // Preserve line breaks
-}
-
-function truncateText(text, limit) {
-  if (text.length <= limit) {
-    return text
-  }
-
-  let truncated = ''
-  let length = 0
-
-  // Split the text by paragraphs
-  const paragraphs = text.split('\n')
-
-  for (const paragraph of paragraphs) {
-    if (length + paragraph.length > limit) {
-      truncated += paragraph.slice(0, limit - length) + '...'
-      break
-    } else {
-      truncated += paragraph + '\n'
-      length += paragraph.length
-    }
-  }
-
-  return truncated.trim()
 }

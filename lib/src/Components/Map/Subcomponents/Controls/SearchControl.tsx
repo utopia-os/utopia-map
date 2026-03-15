@@ -23,6 +23,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAppState } from '#components/AppShell/hooks/useAppState'
 import { useDebounce } from '#components/Map/hooks/useDebounce'
 import { useAddFilterTag } from '#components/Map/hooks/useFilter'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 import { useItems } from '#components/Map/hooks/useItems'
 import { useLeafletRefs } from '#components/Map/hooks/useLeafletRefs'
 import { useTags } from '#components/Map/hooks/useTags'
@@ -48,6 +49,7 @@ export const SearchControl = () => {
   const map = useMap()
   const tags = useTags()
   const items = useItems()
+  const getItemColor = useGetItemColor()
   const leafletRefs = useLeafletRefs()
   const addFilterTag = useAddFilterTag()
   const appState = useAppState()
@@ -173,21 +175,7 @@ export const SearchControl = () => {
                 <hr className='tw:opacity-50'></hr>
               )}
               {itemsResults.slice(0, 5).map((item) => {
-                // Calculate color using the same logic as PopupView
-                const itemTags =
-                  item.text
-                    ?.match(/#[^\s#]+/g)
-                    ?.map((tag) =>
-                      tags.find((t) => t.name.toLowerCase() === tag.slice(1).toLowerCase()),
-                    )
-                    .filter(Boolean) ?? []
-
-                let color1 = item.layer?.markerDefaultColor ?? '#777'
-                if (item.color) {
-                  color1 = item.color
-                } else if (itemTags[0]) {
-                  color1 = itemTags[0].color
-                }
+                const color1 = getItemColor(item, '#777')
 
                 return (
                   <div
