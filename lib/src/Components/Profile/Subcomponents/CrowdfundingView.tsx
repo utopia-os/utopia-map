@@ -144,7 +144,7 @@ export const CrowdfundingView = ({ item }: { item: Item }) => {
   const currentBalance = balanceValueInCents
 
   return (
-    <div className='tw:mx-6 tw:mb-6'>
+    <div>
       <div className='tw:card tw:bg-base-200 tw:w-fit tw:max-w-full tw:shadow'>
         <div className='tw:stats tw:bg-base-200 tw:stats-horizontal tw:rounded-b-none'>
           <div className='tw:stat tw:p-3'>

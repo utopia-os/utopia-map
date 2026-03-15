@@ -60,7 +60,7 @@ export const RelationsView = ({
   }
 
   return (
-    <div className='tw:my-10 tw:mt-2 tw:px-6'>
+    <div>
       <h2 className='tw:text-lg tw:font-bold'>{heading}</h2>
       {hasRelatedItems ? (
         <ul>

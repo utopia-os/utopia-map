@@ -17,7 +17,7 @@ export const InviteLinkView = ({ item }: { item: Item }) => {
   }
 
   return (
-    <div className='tw:my-10 tw:mt-2 tw:px-6'>
+    <div>
       <h2 className='tw:text-lg tw:font-semibold'>Invite</h2>
       <div className='tw:mt-2 tw:text-sm tw:flex tw:gap-2 tw:mb-2'>
         <input

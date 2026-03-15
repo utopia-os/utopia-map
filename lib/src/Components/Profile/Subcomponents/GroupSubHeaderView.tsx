@@ -11,7 +11,7 @@ export const GroupSubHeaderView = ({
   shareBaseUrl: string
   platforms?: string[]
 }) => (
-  <div className='tw:px-6'>
+  <div>
     <div className='tw:float-left tw:mt-2 tw:mb-4 tw:flex tw:items-center'>
       {item.status && (
         <div className='tw:mt-1.5'>
