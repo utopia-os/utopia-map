@@ -247,17 +247,9 @@ export const LocateControl = (): React.JSX.Element => {
         setHasUpdatedPosition(false)
       }, 5000)
     } catch (error: unknown) {
-      if (error instanceof Error) {
+      if (error instanceof Error || typeof error === 'string') {
         toast.update(toastId, {
-          render: error.message,
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
-      } else if (typeof error === 'string') {
-        toast.update(toastId, {
-          render: error,
+          render: error instanceof Error ? error.message : error,
           type: 'error',
           isLoading: false,
           autoClose: 5000,
