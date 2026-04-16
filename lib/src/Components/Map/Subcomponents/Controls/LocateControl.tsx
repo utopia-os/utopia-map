@@ -129,6 +129,13 @@ export const LocateControl = (): React.JSX.Element => {
         setShowLocationModal(true)
       }, 1000)
     }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = null
+      }
+    }
   }, [active, foundLocation, showLocationModal, hasUpdatedPosition, shouldShowModal])
 
   useMapEvents({
@@ -240,25 +247,19 @@ export const LocateControl = (): React.JSX.Element => {
         setHasUpdatedPosition(false)
       }, 5000)
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.update(toastId, {
-          render: error.message,
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
-      } else if (typeof error === 'string') {
-        toast.update(toastId, {
-          render: error,
-          type: 'error',
-          isLoading: false,
-          autoClose: 5000,
-          closeButton: true,
-        })
-      } else {
-        throw error
-      }
+      const message =
+        error instanceof Error
+          ? error.message
+          : typeof error === 'string'
+            ? error
+            : 'An unexpected error occurred'
+      toast.update(toastId, {
+        render: message,
+        type: 'error',
+        isLoading: false,
+        autoClose: 5000,
+        closeButton: true,
+      })
     }
   }, [myProfile.myProfile, foundLocation, updateItem, addItem, layers, user, lc, navigate])
 
@@ -310,9 +311,14 @@ export const LocateControl = (): React.JSX.Element => {
             <label
               className='tw:btn tw:mt-4 tw:btn-primary'
               onClick={() => {
-                void itemUpdatePosition().then(() => {
-                  setShowLocationModal(false)
-                })
+                void itemUpdatePosition()
+                  .then(() => {
+                    setShowLocationModal(false)
+                  })
+                  .catch(() => {
+                    setShowLocationModal(false)
+                    setHasDeclinedModal(true)
+                  })
               }}
             >
               Yes
