@@ -247,19 +247,26 @@ export const LocateControl = (): React.JSX.Element => {
         setHasUpdatedPosition(false)
       }, 5000)
     } catch (error: unknown) {
-      const message =
-        error instanceof Error
-          ? error.message
-          : typeof error === 'string'
-            ? error
-            : 'An unexpected error occurred'
-      toast.update(toastId, {
-        render: message,
-        type: 'error',
-        isLoading: false,
-        autoClose: 5000,
-        closeButton: true,
-      })
+      if (error instanceof Error) {
+        toast.update(toastId, {
+          render: error.message,
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+      } else if (typeof error === 'string') {
+        toast.update(toastId, {
+          render: error,
+          type: 'error',
+          isLoading: false,
+          autoClose: 5000,
+          closeButton: true,
+        })
+      } else {
+        toast.dismiss(toastId)
+        throw error
+      }
     }
   }, [myProfile.myProfile, foundLocation, updateItem, addItem, layers, user, lc, navigate])
 
