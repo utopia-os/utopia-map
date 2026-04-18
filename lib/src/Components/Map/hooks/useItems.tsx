@@ -1,8 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable @typescript-eslint/require-await */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   useCallback,
@@ -57,6 +55,27 @@ function useItemsManager(initialItems: Item[]): {
 
   const [allItemsLoaded, setallItemsLoaded] = useState<boolean>(false)
   const layersRef = useRef<LayerProps[]>([])
+  const pendingLoadsRef = useRef<number>(0)
+  const loadingToastRef = useRef<ReturnType<typeof toast.loading> | null>(null)
+
+  const startLoadingToast = (): void => {
+    pendingLoadsRef.current++
+    loadingToastRef.current ??= toast.loading('Loading data ...')
+  }
+
+  const resolveLoadingToast = (): void => {
+    pendingLoadsRef.current--
+    if (pendingLoadsRef.current === 0 && loadingToastRef.current) {
+      toast.update(loadingToastRef.current, {
+        render: 'Data loaded',
+        type: 'success',
+        isLoading: false,
+        autoClose: 3000,
+      })
+      loadingToastRef.current = null
+      setallItemsLoaded(true)
+    }
+  }
 
   const [items, dispatch] = useReducer((state: Item[], action: ActionType) => {
     switch (action.type) {
@@ -86,29 +105,34 @@ function useItemsManager(initialItems: Item[]): {
 
   const setItemsApi = useCallback(async (layer: LayerProps) => {
     addLayer(layer)
-    layersRef.current.push(layer)
-    const result = await toast.promise(layer.api!.getItems(), {
-      pending: `loading ${layer.name} ...`,
-      success: `${layer.name} loaded`,
-      error: {
-        render({ data }) {
-          return `${data}`
-        },
-      },
-    })
-    result.map((item) => {
-      dispatch({ type: 'ADD', item: { ...item, layer } })
-      return null
-    })
-    setallItemsLoaded(true)
+    if (!layersRef.current.some((l) => l.name === layer.name)) {
+      layersRef.current.push(layer)
+    }
+
+    startLoadingToast()
+
+    try {
+      const result = await layer.api!.getItems()
+      result.forEach((item) => {
+        dispatch({ type: 'ADD', item: { ...item, layer } })
+      })
+    } catch (error: unknown) {
+      if (error instanceof Error || typeof error === 'string') {
+        const msg = error instanceof Error ? error.message : error
+        toast.error(`Failed to load ${layer.name}: ${msg}`)
+      } else {
+        throw error
+      }
+    } finally {
+      resolveLoadingToast()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const setItemsData = useCallback((layer: LayerProps) => {
     addLayer(layer)
-    layer.data?.map((item) => {
+    layer.data?.forEach((item) => {
       dispatch({ type: 'ADD', item: { ...item, layer } })
-      return null
     })
     setallItemsLoaded(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -146,25 +170,33 @@ function useItemsManager(initialItems: Item[]): {
     dispatch({ type: 'CLEAR_ALL' })
     setallItemsLoaded(false)
 
-    for (const layer of layersRef.current) {
-      if (layer.api) {
-        const result = await toast.promise(layer.api.getItems(), {
-          pending: `loading ${layer.name} ...`,
-          success: `${layer.name} loaded`,
-          error: {
-            render({ data }) {
-              return `${data}`
-            },
-          },
-        })
-        result.map((item) => {
-          dispatch({ type: 'ADD', item: { ...item, layer } })
-          return null
-        })
-      }
+    const apiLayers = layersRef.current.filter((l) => l.api)
+    if (apiLayers.length === 0) {
+      setallItemsLoaded(true)
+      return
     }
 
-    setallItemsLoaded(true)
+    startLoadingToast()
+
+    try {
+      await Promise.all(
+        apiLayers.map(async (layer) => {
+          const result = await layer.api!.getItems()
+          result.forEach((item) => {
+            dispatch({ type: 'ADD', item: { ...item, layer } })
+          })
+        }),
+      )
+    } catch (error: unknown) {
+      if (error instanceof Error || typeof error === 'string') {
+        const msg = error instanceof Error ? error.message : error
+        toast.error(`Failed to load data: ${msg}`)
+      } else {
+        throw error
+      }
+    } finally {
+      resolveLoadingToast()
+    }
   }, [])
 
   useEffect(() => {
