@@ -60,6 +60,8 @@ export const LocateControl = (): React.JSX.Element => {
   const [hasUpdatedPosition, setHasUpdatedPosition] = useState<boolean>(false)
   const [hasDeclinedModal, setHasDeclinedModal] = useState<boolean>(false)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+  // True when the user manually triggered locate — used to show error toast only on their action
+  const manualClickRef = useRef<boolean>(false)
 
   const currentPosition = myProfile.myProfile?.position?.coordinates ?? null
 
@@ -156,9 +158,13 @@ export const LocateControl = (): React.JSX.Element => {
       setActive(true)
       setFoundLocation(e.latlng)
     },
-    locationerror: () => {
+    locationerror: (e) => {
       setLoading(false)
       setActive(false)
+      if (manualClickRef.current) {
+        manualClickRef.current = false
+        toast.error(e.message || 'Could not find your location')
+      }
     },
   })
 
@@ -174,12 +180,25 @@ export const LocateControl = (): React.JSX.Element => {
         clearTimeout(timeoutRef.current)
         timeoutRef.current = null
       }
-    } else {
+      return
+    }
+
+    void (async () => {
+      try {
+        const result = await navigator.permissions.query({ name: 'geolocation' })
+        if (result.state === 'denied') {
+          toast.error('Location access denied. Please enable it in your browser settings.')
+          return
+        }
+      } catch (e: unknown) {
+        if (!(e instanceof TypeError || e instanceof DOMException)) throw e
+      }
+      manualClickRef.current = true
       // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       lc.start()
       setLoading(true)
-      setHasDeclinedModal(false) // Reset declined state when turning on location
-    }
+      setHasDeclinedModal(false)
+    })()
   }
 
   const itemUpdatePosition = useCallback(async () => {
