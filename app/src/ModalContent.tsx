@@ -4,8 +4,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { TextView, useAuth } from 'utopia-ui'
 
 import { config } from './config'
@@ -14,6 +14,8 @@ interface ChapterProps {
   clickAction1: () => void
   map?: any
 }
+
+const ROOT_PATH = '/'
 
 export function Welcome1({ clickAction1, map }: ChapterProps) {
   const { isAuthenticated } = useAuth()
@@ -95,12 +97,26 @@ const close = () => {
 }
 
 export const ModalContent = ({ map }: { map: any }) => {
+  const { pathname } = useLocation()
+  const autoOpenedModal = useRef(false)
+
   useEffect(() => {
-    const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
-    if (map.info_open) {
-      myModal.showModal()
+    const myModal = document.getElementById('my_modal_3')
+    if (!(myModal instanceof HTMLDialogElement)) {
+      return
     }
-  }, [map.info_open])
+
+    if (map.info_open && pathname === ROOT_PATH && !myModal.open) {
+      myModal.showModal()
+      autoOpenedModal.current = true
+      return
+    }
+
+    if (pathname !== ROOT_PATH && autoOpenedModal.current && myModal.open) {
+      myModal.close()
+      autoOpenedModal.current = false
+    }
+  }, [map.info_open, pathname])
 
   const [chapter, setChapter] = useState<number>(1)
   // const setQuestsOpen = useSetQuestOpen()
