@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { TextView, useAuth } from 'utopia-ui'
 
 import { config } from './config'
@@ -95,12 +95,23 @@ const close = () => {
 }
 
 export const ModalContent = ({ map }: { map: any }) => {
+  const { pathname } = useLocation()
+
   useEffect(() => {
-    const myModal = document.getElementById('my_modal_3') as HTMLDialogElement
-    if (map.info_open) {
-      myModal.showModal()
+    const myModal = document.getElementById('my_modal_3') as HTMLDialogElement | null
+    if (!myModal) {
+      return
     }
-  }, [map.info_open])
+
+    if (map.info_open && pathname === '/') {
+      myModal.showModal()
+      return
+    }
+
+    if (myModal.open) {
+      myModal.close()
+    }
+  }, [map.info_open, pathname])
 
   const [chapter, setChapter] = useState<number>(1)
   // const setQuestsOpen = useSetQuestOpen()
