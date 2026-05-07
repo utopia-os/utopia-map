@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Utopia Map Set New Password', () => {
+describe('Utopia Map Authentication Set New Password', () => {
   beforeEach(() => {
     cy.clearCookies()
     cy.clearLocalStorage()
@@ -15,17 +15,25 @@ describe('Utopia Map Set New Password', () => {
         }
       })
     }).as('getMap')
-
-    cy.visit('/set-new-password?token=test-reset-token')
-    cy.wait('@getMap')
   })
 
   it('should keep the set new password dialog visible when startup info is enabled', () => {
+    cy.visit('/set-new-password?token=test-reset-token')
+    cy.wait('@getMap')
+
     cy.get('h2').should('contain.text', 'Set new Password')
     cy.get('input[type="password"]')
       .should('be.visible')
       .should('have.attr', 'placeholder', 'Password')
+    cy.get('button:contains("Set")').should('be.visible').and('not.be.disabled')
 
     cy.get('dialog#my_modal_3').should('not.have.attr', 'open')
+  })
+
+  it('should still open the startup info modal on the root route', () => {
+    cy.visit('/')
+    cy.wait('@getMap')
+
+    cy.get('dialog#my_modal_3').should('have.attr', 'open')
   })
 })
