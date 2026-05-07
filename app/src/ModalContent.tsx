@@ -99,6 +99,8 @@ const close = () => {
 export const ModalContent = ({ map }: { map: any }) => {
   const { pathname } = useLocation()
   const autoOpenedModal = useRef(false)
+  const hasHandledStartupModal = useRef(false)
+  const initialPathname = useRef(pathname)
 
   useEffect(() => {
     const myModal = document.getElementById('my_modal_3')
@@ -106,10 +108,14 @@ export const ModalContent = ({ map }: { map: any }) => {
       return
     }
 
-    if (map.info_open && pathname === ROOT_PATH && !myModal.open) {
-      myModal.showModal()
-      autoOpenedModal.current = true
-      return
+    if (!hasHandledStartupModal.current) {
+      hasHandledStartupModal.current = true
+
+      if (map.info_open && initialPathname.current === ROOT_PATH && !myModal.open) {
+        myModal.showModal()
+        autoOpenedModal.current = true
+        return
+      }
     }
 
     if (pathname !== ROOT_PATH && autoOpenedModal.current && myModal.open) {
