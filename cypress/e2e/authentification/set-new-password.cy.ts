@@ -30,6 +30,20 @@ describe('Utopia Map Authentication Set New Password', () => {
     cy.get('dialog#my_modal_3').should('not.have.attr', 'open')
   })
 
+  it('should not open the startup info modal when returning to root after the initial reset route', () => {
+    cy.visit('/set-new-password?token=test-reset-token')
+    cy.wait('@getMap')
+
+    cy.contains('h2', 'Set new Password')
+      .parent()
+      .within(() => {
+        cy.contains('button', '✕').click()
+      })
+
+    cy.location('pathname').should('eq', '/')
+    cy.get('dialog#my_modal_3').should('not.have.attr', 'open')
+  })
+
   it('should still open the startup info modal on the root route', () => {
     cy.visit('/')
     cy.wait('@getMap')
