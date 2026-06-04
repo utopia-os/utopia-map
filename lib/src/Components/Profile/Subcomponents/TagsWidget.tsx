@@ -98,7 +98,7 @@ export const TagsWidget = ({ placeholder, containerStyle, defaultTags, onUpdate 
     onKeyDown,
     onKeyUp,
     onChange,
-    className: 'tw:bg-transparent tw:w-fit tw:mt-5 tw:h-fit',
+    className: 'tw:bg-transparent tw:min-w-48 tw:w-fit tw:mt-5 tw:h-fit',
   }
 
   /* eslint-disable react/prop-types */

@@ -21,6 +21,7 @@ import { useTags } from '#components/Map/hooks/useTags'
 import { HeaderView } from '#components/Map/Subcomponents/ItemPopupComponents/HeaderView'
 import { MapOverlayPage } from '#components/Templates'
 
+import { AttestationsContext } from './hooks/useAttestations'
 import { handleDelete, linkItem, unlinkItem } from './itemFunctions'
 import { FlexView } from './Templates/FlexView'
 import { OnepagerView } from './Templates/OnepagerView'
@@ -203,7 +204,11 @@ export function ProfileView({ attestationApi }: { attestationApi?: ItemsApi<any>
 
             {template === 'simple' && <SimpleView item={item} />}
 
-            {template === 'flex' && <FlexView item={item} />}
+            {template === 'flex' && (
+              <AttestationsContext.Provider value={attestations}>
+                <FlexView item={item} />
+              </AttestationsContext.Provider>
+            )}
 
             {template === 'tabs' && (
               <TabsView

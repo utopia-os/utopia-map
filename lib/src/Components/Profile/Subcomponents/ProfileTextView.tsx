@@ -21,7 +21,7 @@ export const ProfileTextView = ({
   const shouldShowHeading = !(hideWhenEmpty && (text === '' || text === null))
 
   return (
-    <div className='tw:my-10 tw:mt-2 tw:px-6'>
+    <div>
       {shouldShowHeading && <h2 className='tw:text-lg tw:font-semibold'>{heading}</h2>}
       <div className='tw:mt-2 tw:text-sm'>
         <TextView item={item} text={text as string | null | undefined} itemId={item.id} />

@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`<InviteLinkView /> > when item has secrets > matches the snapshot 1`] = `
-<div
-  class="tw:my-10 tw:mt-2 tw:px-6"
->
+<div>
   <h2
     class="tw:text-lg tw:font-semibold"
   >

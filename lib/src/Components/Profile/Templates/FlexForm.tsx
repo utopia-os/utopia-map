@@ -1,25 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
-import { ContactInfoForm } from '#components/Profile/Subcomponents/ContactInfoForm'
-import { CrowdfundingForm } from '#components/Profile/Subcomponents/CrowdfundingForm'
-import { GalleryForm } from '#components/Profile/Subcomponents/GalleryForm'
-import { GroupSubheaderForm } from '#components/Profile/Subcomponents/GroupSubheaderForm'
-import { ProfileStartEndForm } from '#components/Profile/Subcomponents/ProfileStartEndForm'
-import { ProfileTextForm } from '#components/Profile/Subcomponents/ProfileTextForm'
+import { ComponentErrorBoundary } from '#components/Profile/ComponentErrorBoundary'
+import { formComponentMap } from '#components/Profile/componentMaps'
 
 import type { FormState } from '#types/FormState'
 import type { Item } from '#types/Item'
-
-const componentMap = {
-  groupSubheaders: GroupSubheaderForm,
-  texts: ProfileTextForm,
-  contactInfos: ContactInfoForm,
-  startEnd: ProfileStartEndForm,
-  crowdfundings: CrowdfundingForm,
-  gallery: GalleryForm,
-  inviteLinks: () => null, // Not needed for now
-  // weitere Komponenten hier
-}
 
 export const FlexForm = ({
   item,
@@ -33,15 +16,20 @@ export const FlexForm = ({
   return (
     <div className='tw:mt-6 tw:flex tw:flex-col tw:flex-1 tw:min-h-0'>
       {item.layer?.itemType.profileTemplate.map((templateItem) => {
-        const TemplateComponent = componentMap[templateItem.collection]
+        const TemplateComponent = formComponentMap[templateItem.collection]
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- Key may not exist in map
         return TemplateComponent ? (
-          <TemplateComponent
+          <ComponentErrorBoundary
             key={templateItem.id}
-            state={state}
-            setState={setState}
-            item={item}
-            {...templateItem.item}
-          />
+            componentName={String(templateItem.collection)}
+          >
+            <TemplateComponent
+              state={state}
+              setState={setState}
+              item={item}
+              {...templateItem.item}
+            />
+          </ComponentErrorBoundary>
         ) : (
           <div className='tw:mt-2 tw:flex-none' key={templateItem.id}>
             {templateItem.collection} form not found

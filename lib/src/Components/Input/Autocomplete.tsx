@@ -1,12 +1,26 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { useEffect, useRef, useState } from 'react'
 
 import { TagView } from '#components/Templates/TagView'
+
+import type { Tag } from '#types/Tag'
+import type { ChangeEvent, KeyboardEvent } from 'react'
+
+interface InputProps {
+  value: string
+  placeholder?: string
+  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void
+  onKeyUp: () => void
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  className?: string
+}
+
+interface AutocompleteProps {
+  inputProps: InputProps
+  suggestions: Tag[]
+  onSelected: (suggestion: Tag) => void
+  pushFilteredSuggestions?: Tag[]
+  setFocus?: boolean
+}
 
 export const Autocomplete = ({
   inputProps,
@@ -14,64 +28,66 @@ export const Autocomplete = ({
   onSelected,
   pushFilteredSuggestions,
   setFocus,
-}: {
-  inputProps: any
-  suggestions: any[]
-  onSelected: (suggestion) => void
-  pushFilteredSuggestions?: any[]
-  setFocus?: boolean
-}) => {
-  const [filteredSuggestions, setFilteredSuggestions] = useState<any[]>([])
-  const [heighlightedSuggestion, setHeighlightedSuggestion] = useState<number>(0)
+}: AutocompleteProps) => {
+  const [filteredSuggestions, setFilteredSuggestions] = useState<Tag[]>([])
+  const [highlightedSuggestion, setHighlightedSuggestion] = useState<number>(0)
 
   useEffect(() => {
-    pushFilteredSuggestions && setFilteredSuggestions(pushFilteredSuggestions)
+    if (pushFilteredSuggestions) {
+      setFilteredSuggestions(pushFilteredSuggestions)
+    }
   }, [pushFilteredSuggestions])
 
   useEffect(() => {
-    setFocus && inputRef.current?.focus()
+    if (setFocus) {
+      inputRef.current?.focus()
+    }
   }, [setFocus])
 
-  const inputRef = useRef<HTMLInputElement>()
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const getSuggestions = (value) => {
+  const getSuggestions = (value: string): Tag[] => {
     const inputValue = value.trim().toLowerCase()
     const inputLength = inputValue.length
 
     return inputLength === 0
       ? []
-      : suggestions.filter((tag) => tag.name.toLowerCase().slice(0, inputLength) === inputValue)
+      : suggestions.filter((tag) => tag.name.toLowerCase().startsWith(inputValue))
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilteredSuggestions(getSuggestions(e.target.value))
 
-    // Call the parent's onChange handler, if it exists
-    if (inputProps.onChange) {
-      inputProps.onChange(e)
-    }
+    // Call the parent's onChange handler
+    inputProps.onChange(e)
   }
 
-  function handleSuggestionClick(suggestion) {
+  function handleSuggestionClick(suggestion: Tag) {
     onSelected(suggestion)
   }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     switch (event.key) {
       case 'ArrowDown':
-        heighlightedSuggestion < filteredSuggestions.length - 1 &&
-          setHeighlightedSuggestion((current) => current + 1)
+        if (highlightedSuggestion < filteredSuggestions.length - 1) {
+          setHighlightedSuggestion((current) => current + 1)
+        }
         break
       case 'ArrowUp':
-        heighlightedSuggestion > 0 && setHeighlightedSuggestion((current) => current - 1)
+        if (highlightedSuggestion > 0) {
+          setHighlightedSuggestion((current) => current - 1)
+        }
         break
       case 'Enter':
+        event.preventDefault()
         if (filteredSuggestions.length > 0) {
           // eslint-disable-next-line security/detect-object-injection
-          onSelected(filteredSuggestions[heighlightedSuggestion])
-          setHeighlightedSuggestion(0)
+          onSelected(filteredSuggestions[highlightedSuggestion])
+          setHighlightedSuggestion(0)
         }
-        filteredSuggestions.length === 0 && inputProps.onKeyDown(event)
+        if (filteredSuggestions.length === 0) {
+          inputProps.onKeyDown(event)
+        }
         break
       default:
         inputProps.onKeyDown(event)
@@ -80,7 +96,7 @@ export const Autocomplete = ({
   }
 
   return (
-    <div>
+    <div className='tw:flex-1'>
       <input
         ref={inputRef}
         {...inputProps}
@@ -88,21 +104,30 @@ export const Autocomplete = ({
         onChange={(e) => {
           handleChange(e)
         }}
-        tabIndex='-1'
+        tabIndex={-1}
         onKeyDown={handleKeyDown}
-        className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5'
+        className='tw:border-none tw:focus:outline-none tw:focus:ring-0 tw:mt-5 tw:w-full'
       />
       <ul
-        className={`tw:absolute tw:z-4000 ${filteredSuggestions.length > 0 && 'tw:bg-base-100 tw:rounded-xl tw:p-2'}`}
+        className={`tw:absolute tw:z-4000 ${filteredSuggestions.length > 0 ? 'tw:bg-base-100 tw:rounded-xl tw:p-2' : ''}`}
       >
         {filteredSuggestions.map((suggestion, index) => (
           <li
-            key={index}
+            key={suggestion.id}
+            role='option'
+            tabIndex={0}
+            aria-selected={index === highlightedSuggestion}
             onClick={() => {
               handleSuggestionClick(suggestion)
             }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                handleSuggestionClick(suggestion)
+              }
+            }}
           >
-            <TagView heighlight={index === heighlightedSuggestion} tag={suggestion}></TagView>
+            <TagView heighlight={index === highlightedSuggestion} tag={suggestion}></TagView>
           </li>
         ))}
       </ul>
