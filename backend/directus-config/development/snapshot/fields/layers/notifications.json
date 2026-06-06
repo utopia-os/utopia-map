@@ -15,6 +15,7 @@
     "options": {},
     "readonly": false,
     "required": false,
+    "searchable": true,
     "sort": 18,
     "special": [
       "m2m"

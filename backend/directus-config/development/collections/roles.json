@@ -11,13 +11,20 @@
     "icon": "paragliding",
     "description": null,
     "parent": null,
-    "_syncId": "4c32a9b2-714d-44e4-84bd-675d2351bdd7"
+    "_syncId": "4069c5bd-d3ff-4bfc-ad26-8ac40a23ccf9"
+  },
+  {
+    "name": "Würdekompass Admin",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "parent": null,
+    "_syncId": "ee70ef60-14f8-4bed-9281-5b844dc59c77"
   },
   {
     "name": "Editor",
     "icon": "supervised_user_circle",
     "description": null,
     "parent": null,
-    "_syncId": "f07fdc26-2935-401a-abc9-67d5ad38a965"
+    "_syncId": "f1de6572-e805-42d8-a2c1-dee9f1fbb607"
   }
 ]

@@ -1,5 +1,6 @@
 {
   "version": 1,
-  "directus": "11.9.3",
-  "vendor": "postgres"
+  "directus": "11.17.4",
+  "vendor": "postgres",
+  "systemFields": []
 }

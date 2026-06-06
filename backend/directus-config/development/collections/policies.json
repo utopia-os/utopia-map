@@ -10,37 +10,11 @@
     "roles": [
       {
         "role": "_sync_default_admin_role",
+        "user": null,
         "sort": 1
       }
     ],
     "_syncId": "_sync_default_admin_policy"
-  },
-  {
-    "name": "App Access",
-    "icon": "badge",
-    "description": null,
-    "ip_access": null,
-    "enforce_tfa": false,
-    "admin_access": false,
-    "app_access": true,
-    "roles": [],
-    "_syncId": "_sync_default_public_policy"
-  },
-  {
-    "name": "Editor",
-    "icon": "supervised_user_circle",
-    "description": null,
-    "ip_access": null,
-    "enforce_tfa": false,
-    "admin_access": false,
-    "app_access": true,
-    "roles": [
-      {
-        "role": "f07fdc26-2935-401a-abc9-67d5ad38a965",
-        "sort": 1
-      }
-    ],
-    "_syncId": "263ff65e-de84-4e41-8eb2-9354fe69c484"
   },
   {
     "name": "$t:public_label",
@@ -53,21 +27,11 @@
     "roles": [
       {
         "role": null,
+        "user": null,
         "sort": 1
       }
     ],
-    "_syncId": "4d5d2bd8-7e1f-40c1-b10b-3f0ecac70877"
-  },
-  {
-    "name": "Zapier",
-    "icon": "badge",
-    "description": null,
-    "ip_access": null,
-    "enforce_tfa": false,
-    "admin_access": false,
-    "app_access": false,
-    "roles": [],
-    "_syncId": "b0eb656b-96e5-4a30-a083-6ef8141e6a4c"
+    "_syncId": "_sync_default_public_policy"
   },
   {
     "name": "Registrated",
@@ -79,10 +43,67 @@
     "app_access": false,
     "roles": [
       {
-        "role": "4c32a9b2-714d-44e4-84bd-675d2351bdd7",
+        "role": "4069c5bd-d3ff-4bfc-ad26-8ac40a23ccf9",
+        "user": null,
         "sort": 1
       }
     ],
-    "_syncId": "e1a6faf4-e93c-4f22-bc56-41b8e48b3ee7"
+    "_syncId": "6376f9f2-7a16-407c-839d-0455cd15c47a"
+  },
+  {
+    "name": "App Access",
+    "icon": "badge",
+    "description": null,
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [],
+    "_syncId": "96bd438d-a8a4-4a92-954e-3800af1ff75e"
+  },
+  {
+    "name": "Zapier",
+    "icon": "badge",
+    "description": null,
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": false,
+    "roles": [],
+    "_syncId": "9be12131-2689-4178-bea0-78f415953ac9"
+  },
+  {
+    "name": "Würdekompass Admin",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "ee70ef60-14f8-4bed-9281-5b844dc59c77",
+        "user": null,
+        "sort": 1
+      }
+    ],
+    "_syncId": "c009cc84-d89b-493e-a987-a0c636a19d2b"
+  },
+  {
+    "name": "Editor",
+    "icon": "supervised_user_circle",
+    "description": null,
+    "ip_access": null,
+    "enforce_tfa": false,
+    "admin_access": false,
+    "app_access": true,
+    "roles": [
+      {
+        "role": "f1de6572-e805-42d8-a2c1-dee9f1fbb607",
+        "user": null,
+        "sort": 1
+      }
+    ],
+    "_syncId": "ebc00e02-774d-4c3e-a985-04be783dad54"
   }
 ]

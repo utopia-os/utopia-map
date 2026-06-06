@@ -17,6 +17,7 @@
     },
     "readonly": false,
     "required": false,
+    "searchable": true,
     "sort": 1,
     "special": null,
     "translations": null,

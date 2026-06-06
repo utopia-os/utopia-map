@@ -14,61 +14,10 @@
         }
       }
     },
-    "resolve": "28db9e52-c64d-4eb7-8bb9-b9f4e1355301",
+    "resolve": "3d0ac315-aca8-4ad4-8fac-3478de4019eb",
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "b7241999-bfef-4086-bce1-b77d73323efb"
-  },
-  {
-    "name": "Condition",
-    "key": "condition_d2q1f",
-    "type": "condition",
-    "position_x": 36,
-    "position_y": 1,
-    "options": {
-      "filter": {
-        "$trigger": {
-          "payload": {
-            "location": {
-              "_nempty": true
-            }
-          }
-        }
-      }
-    },
-    "resolve": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a",
-    "reject": "aad65a35-dcb2-4e71-a27a-b7600fea06a8",
-    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "6325ec57-0cde-491b-b453-f69effb404e6"
-  },
-  {
-    "name": "Condition",
-    "key": "condition_ljedr",
-    "type": "condition",
-    "position_x": 54,
-    "position_y": 1,
-    "options": {
-      "filter": {
-        "item_read_i7dz7": {
-          "_and": [
-            {
-              "location": {
-                "_nempty": true
-              }
-            },
-            {
-              "location": {
-                "_nnull": true
-              }
-            }
-          ]
-        }
-      }
-    },
-    "resolve": "ef204e62-9a47-4560-a940-336bdf2f897b",
-    "reject": "e76cc608-589d-4758-98ee-b01346e5f22c",
-    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "7e647ad3-8a87-43c6-aee3-08600f0382e0"
+    "_syncId": "080a25bc-fe08-47a3-bcbc-47b25b394210"
   },
   {
     "name": "Condition",
@@ -87,10 +36,10 @@
         }
       }
     },
-    "resolve": "ae903e53-b569-492c-85a1-b331f0030e96",
-    "reject": "5eb2d090-716a-405e-be6c-ca496961b5d3",
+    "resolve": "a7e1413f-a8ce-4606-b152-aebb70e98cd9",
+    "reject": "be6ec47f-f8e6-4dc9-9943-a2dc3b49c251",
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "e4e7b722-24be-484d-b1cf-f2f63ad31474"
+    "_syncId": "d3e8c91c-3cdf-48f4-bc9e-9b7584d0b15c"
   },
   {
     "name": "Condition",
@@ -107,10 +56,10 @@
         }
       }
     },
-    "resolve": "bd160694-88f8-4148-bf9d-5122f8b883aa",
-    "reject": "37fd6139-7518-44d3-bae5-b38c5aa132b9",
+    "resolve": "486256b3-51f8-4026-90bd-a9f173a4570b",
+    "reject": "721eb0ec-8a56-4fc2-9e7b-48442647c1a1",
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "4659da47-fe8b-4968-8885-4e22d7330e63"
+    "_syncId": "fc00e198-5f82-4d29-b32f-c7120cc8d78c"
   },
   {
     "name": "Condition",
@@ -122,26 +71,17 @@
       "filter": {
         "$trigger": {
           "payload": {
-            "_or": [
-              {
-                "layer": {
-                  "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
-                }
-              },
-              {
-                "layer": {
-                  "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
-                }
-              }
-            ]
+            "layer": {
+              "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
+            }
           }
         }
       }
     },
-    "resolve": "4d1d29aa-4bcc-451e-a2be-cd98b754e307",
-    "reject": "c9c55294-3bad-4cc0-9e5d-4a572492a3d7",
+    "resolve": "29a4cbc8-a722-4996-abd5-985d62525fcc",
+    "reject": "e943f0bc-0763-4d83-916a-25c6a894ec76",
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "39d03980-4747-4970-80fa-2ad9afbdfb32"
+    "_syncId": "b73b1c69-130e-4a33-a3fa-9b58f280ba96"
   },
   {
     "name": "Condition",
@@ -156,10 +96,10 @@
         }
       }
     },
-    "resolve": "ed868bc4-e5fb-42fd-96a9-e72b125d3f24",
-    "reject": "9c0fd031-ad6a-42e4-b978-742716acb1da",
+    "resolve": "14185142-3542-4206-a2e2-356f7538a457",
+    "reject": "d5a9968c-97b7-4de8-a4b1-84df8be15ea5",
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "02e3984d-d938-4d1c-960b-c868831f1e72"
+    "_syncId": "ef840111-d07e-40b3-86cc-0606a4aef921"
   },
   {
     "name": "Create item secret",
@@ -178,7 +118,7 @@
     "resolve": null,
     "reject": null,
     "flow": "234d13fe-112a-4408-9bdb-78dd8cbd6b82",
-    "_syncId": "3767ea47-c9f5-4668-9cfa-9350803b9b31"
+    "_syncId": "0b74c9d6-4125-45d4-8a4b-9fc90dd7df51"
   },
   {
     "name": "Create secret",
@@ -197,7 +137,7 @@
     "resolve": null,
     "reject": null,
     "flow": "cbd7d15d-7f09-4f45-8060-3b24adabf82a",
-    "_syncId": "05954e5e-1ca7-4a9c-b8c8-3ea6fceaa5de"
+    "_syncId": "dd1ab015-45ef-4413-86c3-aabe1ced78b4"
   },
   {
     "name": "Run Script",
@@ -208,10 +148,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            item: item.id,\n        };\n    });\n}"
     },
-    "resolve": "95d762f9-4695-4168-aa65-5bd065b40742",
+    "resolve": "59a8470a-c766-4301-acf3-6f8a98e73fdf",
     "reject": null,
     "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
-    "_syncId": "a433dd53-77e2-4f4a-8ea3-7bb9eeae31bd"
+    "_syncId": "21afb037-67ee-4f3f-af4e-b8fa9a95a517"
   },
   {
     "name": "does_relation_exist",
@@ -222,10 +162,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n\treturn {\n    \tresult: data['$last'].length > 0\n    };\n}"
     },
-    "resolve": "4659da47-fe8b-4968-8885-4e22d7330e63",
+    "resolve": "fc00e198-5f82-4d29-b32f-c7120cc8d78c",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "06716525-6d29-46e2-bb01-0764bccd74e9"
+    "_syncId": "6b1e9a7c-aa37-4cd7-aeae-689338fd7136"
   },
   {
     "name": "Run Script",
@@ -239,7 +179,7 @@
     "resolve": null,
     "reject": null,
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "c9c55294-3bad-4cc0-9e5d-4a572492a3d7"
+    "_syncId": "e943f0bc-0763-4d83-916a-25c6a894ec76"
   },
   {
     "name": "Run Script",
@@ -250,10 +190,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n    const regex = /See More:\\s*(https?:\\/\\/[^\\s]+)/g;\n    const payload = {...data.$trigger.payload}\n    payload.text = payload.text.replace(regex, `[See More]($1)`);\n    return payload;\n}"
     },
-    "resolve": "44ded01a-ae2f-4dd3-9a73-aaa2b2f7a2d3",
+    "resolve": "7a922339-4a8c-4935-8384-c12d74b2a97a",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "67847550-3c95-4ee4-af02-32ebb69747d6"
+    "_syncId": "f202bd42-7063-4eb6-a613-2311edfae03b"
   },
   {
     "name": "get Creator",
@@ -272,10 +212,10 @@
         "{{$trigger.user_created}}"
       ]
     },
-    "resolve": "963022f0-a46a-4357-9321-898e995dda48",
+    "resolve": "ee104ed0-bc97-40b7-b9cf-f8eafbcf14b6",
     "reject": null,
     "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
-    "_syncId": "b160f6e2-fc44-428b-886e-39d5552727d5"
+    "_syncId": "5e6d1581-ac62-4c82-9757-8a2873517c3b"
   },
   {
     "name": "get_existing_relation",
@@ -301,10 +241,10 @@
         }
       }
     },
-    "resolve": "06716525-6d29-46e2-bb01-0764bccd74e9",
+    "resolve": "6b1e9a7c-aa37-4cd7-aeae-689338fd7136",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "87295976-e35b-44a8-98ba-8ef659f3b4a4"
+    "_syncId": "5eb29d6a-3646-4a97-b3a3-9d99bbea06b3"
   },
   {
     "name": "Get Item",
@@ -323,10 +263,10 @@
         "fields": "name"
       }
     },
-    "resolve": "0e6dff93-766c-4a5f-918a-0f458794733b",
+    "resolve": "d67268e4-2e2e-46eb-8cce-2beed5a87d82",
     "reject": null,
     "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
-    "_syncId": "500fd5a0-592d-4434-8763-59072ca3b334"
+    "_syncId": "db1dce7f-c4c4-4001-859a-a6d8e7249191"
   },
   {
     "name": "Get Map",
@@ -347,10 +287,10 @@
         "fields": "name,logo"
       }
     },
-    "resolve": "b160f6e2-fc44-428b-886e-39d5552727d5",
+    "resolve": "5e6d1581-ac62-4c82-9757-8a2873517c3b",
     "reject": null,
     "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
-    "_syncId": "0e6dff93-766c-4a5f-918a-0f458794733b"
+    "_syncId": "d67268e4-2e2e-46eb-8cce-2beed5a87d82"
   },
   {
     "name": "Get Subscriber",
@@ -369,10 +309,10 @@
         "fields": "email, first_name"
       }
     },
-    "resolve": "500fd5a0-592d-4434-8763-59072ca3b334",
+    "resolve": "db1dce7f-c4c4-4001-859a-a6d8e7249191",
     "reject": null,
     "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
-    "_syncId": "43de95f1-d63b-4231-80c3-b399c45470f6"
+    "_syncId": "7db7527c-5f0c-4969-84f5-48be32918bc3"
   },
   {
     "name": "Create Nomads User",
@@ -389,10 +329,10 @@
         "first_name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}"
       }
     },
-    "resolve": "6325ec57-0cde-491b-b453-f69effb404e6",
+    "resolve": "47735176-ff0e-4a92-8483-5e1630203a51",
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "02499c24-46a9-4d77-8a2e-1b963cb3d62c"
+    "_syncId": "47c1a98c-53e2-48b5-b241-58db3cd9efb0"
   },
   {
     "name": "Read Items",
@@ -408,59 +348,35 @@
         "limit": -1
       }
     },
-    "resolve": "a433dd53-77e2-4f4a-8ea3-7bb9eeae31bd",
+    "resolve": "21afb037-67ee-4f3f-af4e-b8fa9a95a517",
     "reject": null,
     "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
-    "_syncId": "589ea382-5027-40fb-9f4d-3852389ccaab"
+    "_syncId": "679a4fcf-1188-4805-8f6a-52e17ce3e2cd"
   },
   {
     "name": "Create Nomads Home Item",
     "key": "item_create_oym38",
     "type": "item-create",
-    "position_x": 70,
+    "position_x": 56,
     "position_y": 1,
     "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
       "payload": {
         "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
-        "layer": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362",
-        "extended": {
-          "external_profile_id": "{{$trigger.payload.id}}"
-        },
         "position": "{{$last.data.features[0].geometry}}",
-        "image_external": "{{$trigger.payload.avatar_url}}"
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
-    },
-    "resolve": "f12ba44c-69cc-40c0-a346-aafb851fe892",
-    "reject": null,
-    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "3624ff50-c282-45db-aa01-9b8c4a75e45c"
-  },
-  {
-    "name": "Create Nomads Home Item",
-    "key": "item_create_oym38_epxyf",
-    "type": "item-create",
-    "position_x": 53,
-    "position_y": 18,
-    "options": {
-      "payload": {
-        "name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
-        "layer": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362",
+        "image_external": "{{$trigger.payload.avatar_url}}",
         "extended": {
           "external_profile_id": "{{$trigger.payload.id}}"
         },
-        "image_external": "{{$trigger.payload.avatar_url}}"
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
+        "layer": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
+      }
     },
-    "resolve": "fc07cebb-9577-41a2-9c1c-d2ee873b112d",
+    "resolve": "60d8af70-90e8-418e-be85-ad9fd750a069",
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "aad65a35-dcb2-4e71-a27a-b7600fea06a8"
+    "_syncId": "f772a991-22eb-4492-928d-b035db5e0dc4"
   },
   {
     "name": "Create Data",
@@ -469,22 +385,22 @@
     "position_x": 86,
     "position_y": 1,
     "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
       "payload": {
-        "end": "{{$trigger.payload.end}}",
         "name": "{{$trigger.payload.title}}",
         "text": "{{exec_p5p4r.text}}",
-        "layer": "5b9f713c-74b6-4dcc-a4d0-c7893b267d6e",
+        "position": "{{$last.data.features[0].geometry}}",
+        "layer": "5d12f356-349a-4463-a57c-5fc54eede6ba",
         "start": "{{$trigger.payload.start}}",
-        "position": "{{$last.data.features[0].geometry}}"
+        "end": "{{$trigger.payload.end}}"
       },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$trigger"
+      "collection": "items"
     },
-    "resolve": "906b8e62-bc1b-4e69-9502-51363e868cb8",
+    "resolve": "92c18333-ea5c-4e8b-8cfd-f8f5e71095f9",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "8ed6471d-7897-4aea-84df-dd0308b5df12"
+    "_syncId": "f2354b05-5841-4790-9231-007083f413ce"
   },
   {
     "name": "Create Data",
@@ -493,21 +409,44 @@
     "position_x": 69,
     "position_y": 24,
     "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
       "payload": {
-        "end": "{{$trigger.payload.end}}",
         "name": "{{$trigger.payload.title}}",
         "text": "{{exec_p5p4r.text}}",
-        "layer": "5b9f713c-74b6-4dcc-a4d0-c7893b267d6e",
-        "start": "{{$trigger.payload.start}}"
+        "layer": "5d12f356-349a-4463-a57c-5fc54eede6ba",
+        "start": "{{$trigger.payload.start}}",
+        "end": "{{$trigger.payload.end}}"
       },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$trigger"
+      "collection": "items"
     },
-    "resolve": "017875a5-3736-478a-9bcc-ed473117c74d",
+    "resolve": "dadd911c-e033-4e29-b56e-b0ef65328e5e",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "5eb2d090-716a-405e-be6c-ca496961b5d3"
+    "_syncId": "be6ec47f-f8e6-4dc9-9943-a2dc3b49c251"
+  },
+  {
+    "name": "Update Data",
+    "key": "item_create_u15xk",
+    "type": "item-update",
+    "position_x": 74,
+    "position_y": 32,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "payload": {
+        "name": "{{$last[0].first_name}} {{$last[0].last_name}}",
+        "image_external": "{{$last[0].avatar_url}}"
+      },
+      "collection": "items",
+      "key": [
+        "{{$trigger.payload.id}}"
+      ]
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "6ff997a0-b3f1-441b-970d-8a1997e8a3d9"
   },
   {
     "name": "Create Data",
@@ -525,10 +464,33 @@
         "type": "is_following"
       }
     },
-    "resolve": "2362eac0-7c3c-4164-8927-6cbc43e4934e",
+    "resolve": "d6ccc1b1-0040-49ee-aba9-eff3b38eb0f4",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "37fd6139-7518-44d3-bae5-b38c5aa132b9"
+    "_syncId": "721eb0ec-8a56-4fc2-9e7b-48442647c1a1"
+  },
+  {
+    "name": "Create Data",
+    "key": "item_create_xb5fa",
+    "type": "item-create",
+    "position_x": 92,
+    "position_y": 24,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "payload": {
+        "name": "{{item_read_gejrb[0].first_name}} {{item_read_gejrb[0].last_name}}",
+        "image_external": "{{item_read_gejrb[0].avatar_url}}",
+        "layer": "{{$trigger.payload.layer}}",
+        "position": "{{$trigger.payload.position}}",
+        "": "{{$trigger.payload.id}}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "3921e0d1-8013-4d88-ab14-e79648bbb347"
   },
   {
     "name": "Delete Data",
@@ -551,7 +513,7 @@
     "resolve": null,
     "reject": null,
     "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
-    "_syncId": "d6eb9087-481b-407c-af0d-bc37527d0fc4"
+    "_syncId": "287386d3-ccd7-4ff6-8a8e-322b1e99e18e"
   },
   {
     "name": "Delete Data",
@@ -560,12 +522,15 @@
     "position_x": 55,
     "position_y": 1,
     "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
+                "_eq": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
               }
             },
             {
@@ -575,15 +540,12 @@
             }
           ]
         }
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
+      }
     },
-    "resolve": "dc438e50-a3a1-4d38-8b7a-7c1dd1f22166",
+    "resolve": "cac205ec-d7c8-4e80-aef6-396737740518",
     "reject": null,
     "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
-    "_syncId": "cbec78ff-1efd-494d-906d-5b6d6ef00a6b"
+    "_syncId": "37e5df24-7485-4c66-8f8f-a9994666e556"
   },
   {
     "name": "Delete Data",
@@ -592,30 +554,30 @@
     "position_x": 73,
     "position_y": 1,
     "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "collection": "items",
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+                "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
               }
             },
             {
               "user_created": {
-                "_eq": "{{item_read_m7xes[0].id}}"
+                "_eq": "{{$last[0].id}}"
               }
             }
           ]
         }
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
+      }
     },
-    "resolve": "d6eb9087-481b-407c-af0d-bc37527d0fc4",
+    "resolve": "287386d3-ccd7-4ff6-8a8e-322b1e99e18e",
     "reject": null,
     "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
-    "_syncId": "dc438e50-a3a1-4d38-8b7a-7c1dd1f22166"
+    "_syncId": "cac205ec-d7c8-4e80-aef6-396737740518"
   },
   {
     "name": "Read Data",
@@ -627,10 +589,10 @@
       "collection": "layers",
       "key": "{{$last.layer}}"
     },
-    "resolve": "f0ec57c8-070f-4f0c-881b-2f0a77bc6f2b",
+    "resolve": "d9433791-615f-4d7b-b282-7bf19be0660d",
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "f83abfeb-1457-405f-b2b6-3b2d064937dc"
+    "_syncId": "b1d6d9f0-0a8f-492f-8860-3d18f7fdff58"
   },
   {
     "name": "Read Data",
@@ -651,10 +613,10 @@
         }
       }
     },
-    "resolve": "bb24ba37-d1e6-4d44-a36c-f4dea4527180",
+    "resolve": "c5731faa-2177-4261-9639-dae09ebb681a",
     "reject": null,
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "5129e430-971e-49ca-b8d5-83e40f489fda"
+    "_syncId": "4b0a12b2-0c06-475e-847b-35331bff5a9e"
   },
   {
     "name": "Read Data",
@@ -670,10 +632,10 @@
         "{{$trigger.payload.id}}"
       ]
     },
-    "resolve": "f61d61c8-eb66-43b6-9929-c878bd653aa8",
+    "resolve": "518c6dbc-a1fa-4092-8d87-e3d7a48d4066",
     "reject": null,
     "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
-    "_syncId": "2eba1a24-aec5-477b-919f-f2276705606f"
+    "_syncId": "5fefcc0b-41d5-4103-884b-fd59c6a616db"
   },
   {
     "name": "Read Data",
@@ -697,7 +659,7 @@
     "resolve": null,
     "reject": null,
     "flow": "01d61db0-25aa-4bfa-bc24-c6a8f208a455",
-    "_syncId": "c880bc9d-1568-4c9c-b3d5-ddbd61f0a9d3"
+    "_syncId": "7d2cdab7-0f59-435c-b39f-b30be0a1aa87"
   },
   {
     "name": "Read Data",
@@ -706,17 +668,17 @@
     "position_x": 19,
     "position_y": 1,
     "options": {
-      "permissions": "$full",
+      "permissions": "$trigger",
       "emitEvents": false,
       "collection": "oceannomads_profiles",
       "key": [
         "{{$trigger.payload[0]}}"
       ]
     },
-    "resolve": "0dbba1fc-05f5-4c05-b949-f25610f96df7",
+    "resolve": "03366452-45aa-43cc-899a-58e38bb37095",
     "reject": null,
     "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
-    "_syncId": "2f4c3d12-87c3-44d5-aa5d-0e7d5529b149"
+    "_syncId": "eb31ecd2-4abb-4714-9b14-02e4c2b9746e"
   },
   {
     "name": "Read Data",
@@ -728,10 +690,10 @@
       "collection": "items",
       "key": "{{$trigger.payload.id}}"
     },
-    "resolve": "f83abfeb-1457-405f-b2b6-3b2d064937dc",
+    "resolve": "b1d6d9f0-0a8f-492f-8860-3d18f7fdff58",
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "9838d2ca-3698-4d29-8429-038dfcaf7fab"
+    "_syncId": "a2a754c4-bc29-4af8-aa33-c45e6612d6ee"
   },
   {
     "name": "Read Data",
@@ -751,10 +713,10 @@
         }
       }
     },
-    "resolve": "e4e7b722-24be-484d-b1cf-f2f63ad31474",
+    "resolve": "d3e8c91c-3cdf-48f4-bc9e-9b7584d0b15c",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "44ded01a-ae2f-4dd3-9a73-aaa2b2f7a2d3"
+    "_syncId": "7a922339-4a8c-4935-8384-c12d74b2a97a"
   },
   {
     "name": "Read Data",
@@ -774,10 +736,10 @@
         }
       }
     },
-    "resolve": "91e39643-b58e-4629-8875-06559cfacf64",
+    "resolve": "17d9f9fb-f599-489e-ba47-921e9a8c139a",
     "reject": null,
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "50d65464-caac-4d66-9968-319153f0a4b6"
+    "_syncId": "ea4e2275-7b19-4fec-9a30-69ee3007adbf"
   },
   {
     "name": "Read Data",
@@ -793,10 +755,10 @@
         "{{$trigger.keys[0]}}"
       ]
     },
-    "resolve": "840b0278-ff8a-4f2f-bf67-c75a2e7e00b6",
+    "resolve": "b845d296-2848-4a99-9364-c7b6e0dd96e2",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "9d88e79c-2d51-4b66-9c36-341f1c8f9508"
+    "_syncId": "6de49d32-c1e7-4205-936f-567bbd55095f"
   },
   {
     "name": "Read Data",
@@ -805,17 +767,17 @@
     "position_x": 37,
     "position_y": 1,
     "options": {
-      "permissions": "$full",
+      "permissions": "$trigger",
       "emitEvents": false,
       "collection": "directus_users",
       "key": [
         "{{$accountability.user}}"
       ]
     },
-    "resolve": "50d65464-caac-4d66-9968-319153f0a4b6",
+    "resolve": "ea4e2275-7b19-4fec-9a30-69ee3007adbf",
     "reject": null,
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "4d1d29aa-4bcc-451e-a2be-cd98b754e307"
+    "_syncId": "29a4cbc8-a722-4996-abd5-985d62525fcc"
   },
   {
     "name": "Read Data",
@@ -835,10 +797,10 @@
         }
       }
     },
-    "resolve": "cbec78ff-1efd-494d-906d-5b6d6ef00a6b",
+    "resolve": "37e5df24-7485-4c66-8f8f-a9994666e556",
     "reject": null,
     "flow": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6",
-    "_syncId": "0dbba1fc-05f5-4c05-b949-f25610f96df7"
+    "_syncId": "03366452-45aa-43cc-899a-58e38bb37095"
   },
   {
     "name": "Read Data",
@@ -849,10 +811,10 @@
     "options": {
       "collection": "layers_maps"
     },
-    "resolve": "810b13ca-f884-4b1d-84db-8f71ed067337",
+    "resolve": "66788522-706a-4ecd-a5d3-b74ca07ab17a",
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "f0ec57c8-070f-4f0c-881b-2f0a77bc6f2b"
+    "_syncId": "d9433791-615f-4d7b-b282-7bf19be0660d"
   },
   {
     "name": "Read Data",
@@ -863,10 +825,42 @@
     "options": {
       "collection": "maps"
     },
-    "resolve": "b7241999-bfef-4086-bce1-b77d73323efb",
+    "resolve": "080a25bc-fe08-47a3-bcbc-47b25b394210",
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "810b13ca-f884-4b1d-84db-8f71ed067337"
+    "_syncId": "66788522-706a-4ecd-a5d3-b74ca07ab17a"
+  },
+  {
+    "name": "Read Data",
+    "key": "item_read_soekq",
+    "type": "item-read",
+    "position_x": 56,
+    "position_y": 1,
+    "options": {
+      "permissions": "$trigger",
+      "emitEvents": false,
+      "collection": "items",
+      "query": {
+        "filter": {
+          "_and": [
+            {
+              "layer": {
+                "_eq": "a546f94b-8928-4d0b-b3ca-39bd109abd34"
+              }
+            },
+            {
+              "user_created": {
+                "_eq": "{{$last[0].id}}"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "resolve": "82c96c63-d8ca-45bb-be6c-2790bf2bfa81",
+    "reject": null,
+    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
+    "_syncId": "76b2bc3d-363d-442e-a301-724c446bbb0a"
   },
   {
     "name": "Read Data",
@@ -887,16 +881,16 @@
       },
       "key": []
     },
-    "resolve": "7e647ad3-8a87-43c6-aee3-08600f0382e0",
+    "resolve": "76b2bc3d-363d-442e-a301-724c446bbb0a",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "840b0278-ff8a-4f2f-bf67-c75a2e7e00b6"
+    "_syncId": "b845d296-2848-4a99-9364-c7b6e0dd96e2"
   },
   {
     "name": "Set Item Ownership to Nomads User",
     "key": "item_update_1vgft",
     "type": "item-update",
-    "position_x": 87,
+    "position_x": 74,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -912,44 +906,28 @@
     "resolve": null,
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "f12ba44c-69cc-40c0-a346-aafb851fe892"
-  },
-  {
-    "name": "Set Item Ownership to Nomads User",
-    "key": "item_update_1vgft_dwftb",
-    "type": "item-update",
-    "position_x": 70,
-    "position_y": 18,
-    "options": {
-      "permissions": "$full",
-      "emitEvents": false,
-      "collection": "items",
-      "payload": {
-        "user_created": "{{item_create_dj57t[0]}}"
-      },
-      "key": [
-        "{{$last[0]}}"
-      ]
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "fc07cebb-9577-41a2-9c1c-d2ee873b112d"
+    "_syncId": "60d8af70-90e8-418e-be85-ad9fd750a069"
   },
   {
     "name": "Update Nomads Current Location",
     "key": "item_update_5eu19",
     "type": "item-update",
-    "position_x": 129,
+    "position_x": 131,
     "position_y": 1,
     "options": {
+      "permissions": "$full",
+      "emitEvents": false,
+      "payload": {
+        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
+        "image_external": "{{item_read_i7dz7.avatar_url}}"
+      },
       "key": [],
       "query": {
         "filter": {
           "_and": [
             {
               "layer": {
-                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
+                "_eq": "1c0a440f-bdf8-43a0-80bc-2d099d69b3ca"
               }
             },
             {
@@ -960,55 +938,12 @@
           ]
         }
       },
-      "payload": {
-        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "image_external": "{{item_read_i7dz7.avatar_url}}"
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
+      "collection": "items"
     },
     "resolve": null,
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e"
-  },
-  {
-    "name": "Update Nomads Current Location",
-    "key": "item_update_5eu19_prdze",
-    "type": "item-update",
-    "position_x": 119,
-    "position_y": 17,
-    "options": {
-      "key": [],
-      "query": {
-        "filter": {
-          "_and": [
-            {
-              "layer": {
-                "_eq": "98f4cd2f-e1ce-4db8-bb16-f4bbf3d6991a"
-              }
-            },
-            {
-              "user_created": {
-                "_eq": "{{$last}}"
-              }
-            }
-          ]
-        }
-      },
-      "payload": {
-        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "image_external": "{{item_read_i7dz7.avatar_url}}"
-      },
-      "collection": "items",
-      "emitEvents": false,
-      "permissions": "$full"
-    },
-    "resolve": null,
-    "reject": null,
-    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0"
+    "_syncId": "34ddec64-08fb-48c0-b2da-7512e606cb6f"
   },
   {
     "name": "Update Data",
@@ -1030,7 +965,7 @@
     "resolve": null,
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "906b8e62-bc1b-4e69-9502-51363e868cb8"
+    "_syncId": "92c18333-ea5c-4e8b-8cfd-f8f5e71095f9"
   },
   {
     "name": "Update Data",
@@ -1052,7 +987,7 @@
     "resolve": null,
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "017875a5-3736-478a-9bcc-ed473117c74d"
+    "_syncId": "dadd911c-e033-4e29-b56e-b0ef65328e5e"
   },
   {
     "name": "Update Data",
@@ -1076,13 +1011,13 @@
     "resolve": null,
     "reject": null,
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "9c0fd031-ad6a-42e4-b978-742716acb1da"
+    "_syncId": "d5a9968c-97b7-4de8-a4b1-84df8be15ea5"
   },
   {
     "name": "Update Nomads User",
     "key": "item_update_e3pl5",
     "type": "item-update",
-    "position_x": 110,
+    "position_x": 111,
     "position_y": 1,
     "options": {
       "permissions": "$full",
@@ -1092,114 +1027,38 @@
         "{{item_read_ym92c[0].id}}"
       ],
       "payload": {
-        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "email": "{{item_read_i7dz7.email}}"
+        "first_name": "{{$trigger.payload.first_name}} {{$trigger.payload.last_name}}",
+        "email": "{{$trigger.payload.email}}"
       }
     },
-    "resolve": "3bb1c8b0-fae7-42b0-af07-562e4a4bf20e",
+    "resolve": "34ddec64-08fb-48c0-b2da-7512e606cb6f",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752"
-  },
-  {
-    "name": "Update Nomads User",
-    "key": "item_update_e3pl5_wansj",
-    "type": "item-update",
-    "position_x": 100,
-    "position_y": 17,
-    "options": {
-      "permissions": "$full",
-      "emitEvents": false,
-      "collection": "directus_users",
-      "key": [
-        "{{item_read_ym92c[0].id}}"
-      ],
-      "payload": {
-        "first_name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "email": "{{item_read_i7dz7.email}}"
-      },
-      "query": null
-    },
-    "resolve": "4dc368cc-6fc1-411e-b0f0-b39490c3efe0",
-    "reject": null,
-    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab"
+    "_syncId": "f7fd7032-aa07-464f-a43e-8f8313a40dfb"
   },
   {
     "name": "Update Nomads Home",
     "key": "item_update_o6cn8",
     "type": "item-update",
-    "position_x": 91,
+    "position_x": 92,
     "position_y": 1,
     "options": {
       "permissions": "$full",
       "emitEvents": false,
-      "key": [],
-      "query": {
-        "filter": {
-          "_and": [
-            {
-              "layer": {
-                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
-              }
-            },
-            {
-              "user_created": {
-                "_eq": "{{item_read_ym92c[0].id}}"
-              }
-            }
-          ]
-        }
-      },
+      "collection": "items",
+      "key": [
+        "{{item_read_soekq[0].id}}"
+      ],
       "payload": {
         "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "image_external": "{{item_read_i7dz7.avatar_url}}",
-        "position": "{{$last.data.features[0].geometry}}"
-      },
-      "collection": "items"
-    },
-    "resolve": "e7b3b7b8-c34a-4024-8aa4-d7d4687d6752",
-    "reject": null,
-    "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "4535f776-40c7-4e6d-8873-843822996dd5"
-  },
-  {
-    "name": "Update Nomads Home",
-    "key": "item_update_o6cn8_nitpl",
-    "type": "item-update",
-    "position_x": 81,
-    "position_y": 17,
-    "options": {
-      "permissions": "$full",
-      "emitEvents": false,
-      "key": [],
-      "query": {
-        "filter": {
-          "_and": [
-            {
-              "layer": {
-                "_eq": "4f22c074-a5c0-47a3-9e76-2bb76eb2e362"
-              }
-            },
-            {
-              "user_created": {
-                "_eq": "{{item_read_ym92c[0].id}}"
-              }
-            }
-          ]
-        }
-      },
-      "payload": {
-        "name": "{{item_read_i7dz7.first_name}} {{item_read_i7dz7.last_name}}",
-        "position": null,
+        "position": "{{$last.data.features[0].geometry}}",
         "image_external": "{{item_read_i7dz7.avatar_url}}"
-      },
-      "collection": "items"
+      }
     },
-    "resolve": "b22755ba-4ec5-4e04-a3fe-a390a9bc75ab",
+    "resolve": "f7fd7032-aa07-464f-a43e-8f8313a40dfb",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "e76cc608-589d-4758-98ee-b01346e5f22c"
+    "_syncId": "f6f8616e-5d67-4570-80c2-1b39209e3433"
   },
   {
     "name": "Update Data",
@@ -1223,7 +1082,7 @@
     "resolve": null,
     "reject": null,
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "ed868bc4-e5fb-42fd-96a9-e72b125d3f24"
+    "_syncId": "14185142-3542-4206-a2e2-356f7538a457"
   },
   {
     "name": "Log to Console",
@@ -1237,7 +1096,7 @@
     "resolve": null,
     "reject": null,
     "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
-    "_syncId": "d07dddce-810b-4a79-90fe-5e19f2485d31"
+    "_syncId": "56deeb88-4528-4d24-bca0-d783b046219c"
   },
   {
     "name": "Send Email",
@@ -1256,7 +1115,7 @@
     "resolve": null,
     "reject": null,
     "flow": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081",
-    "_syncId": "963022f0-a46a-4357-9321-898e995dda48"
+    "_syncId": "ee104ed0-bc97-40b7-b9cf-f8eafbcf14b6"
   },
   {
     "name": "prepare Mails",
@@ -1267,10 +1126,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n\treturn data['$last'].map((item) => {\n    \treturn {\n            event: data['$trigger'].event === \"items.items.create\" ? \"created\" : \"updated\",\n            item: data['$trigger'].payload.id,\n            user_created: data['$accountability'].user,\n            subscriber: item.directus_users_id,\n   \t\t\tmap_url: data['$accountability'].origin,\n        };\n    });\n}"
     },
-    "resolve": "2179c615-5939-40cb-a85a-9e02b7d148fa",
+    "resolve": "f152414a-8920-4385-9f72-01d9ba5e28e9",
     "reject": null,
     "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
-    "_syncId": "940c929e-15b2-411d-a9b3-336af4574127"
+    "_syncId": "e5577eca-5a31-43ea-8b85-76a609535bdb"
   },
   {
     "name": "Prepare Profile for Murmurations",
@@ -1292,10 +1151,10 @@
         }
       }
     },
-    "resolve": "d07dddce-810b-4a79-90fe-5e19f2485d31",
+    "resolve": "56deeb88-4528-4d24-bca0-d783b046219c",
     "reject": null,
     "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
-    "_syncId": "8265ad6e-df54-48c8-b068-31c07f6b50a8"
+    "_syncId": "bb31aeb6-7ce7-472e-8d2b-d44360428234"
   },
   {
     "name": "read data",
@@ -1315,10 +1174,10 @@
         }
       }
     },
-    "resolve": "87295976-e35b-44a8-98ba-8ef659f3b4a4",
+    "resolve": "5eb29d6a-3646-4a97-b3a3-9d99bbea06b3",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "74084d01-0a3d-474e-b377-f15d2c1457ed"
+    "_syncId": "a90f7833-0908-42ad-ae5c-acb36bbdeb89"
   },
   {
     "name": "Read Layer IDs",
@@ -1340,10 +1199,10 @@
         "fields": "directus_users_id"
       }
     },
-    "resolve": "940c929e-15b2-411d-a9b3-336af4574127",
+    "resolve": "e5577eca-5a31-43ea-8b85-76a609535bdb",
     "reject": null,
     "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
-    "_syncId": "f61d61c8-eb66-43b6-9929-c878bd653aa8"
+    "_syncId": "518c6dbc-a1fa-4092-8d87-e3d7a48d4066"
   },
   {
     "name": "read user items",
@@ -1363,10 +1222,10 @@
         }
       }
     },
-    "resolve": "6bf62484-4a2b-4d78-8d19-ca53deea32a4",
+    "resolve": "e641852d-315e-4842-94cd-fa62fa0f16a0",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "0d9acb0c-571a-4a6a-b6c9-aa4f2dab8ca6"
+    "_syncId": "4c71fcf0-58b9-44c4-acbe-2bd0dca988b1"
   },
   {
     "name": "Webhook / Request URL",
@@ -1378,10 +1237,10 @@
       "method": "GET",
       "url": "https://photon.komoot.io/api/?q={{$trigger.payload.location}}&limit=1"
     },
-    "resolve": "8ed6471d-7897-4aea-84df-dd0308b5df12",
+    "resolve": "f2354b05-5841-4790-9231-007083f413ce",
     "reject": null,
     "flow": "7b978be2-605f-4061-b5b3-46f151b1b80a",
-    "_syncId": "ae903e53-b569-492c-85a1-b331f0030e96"
+    "_syncId": "a7e1413f-a8ce-4606-b152-aebb70e98cd9"
   },
   {
     "name": "Webhook / Request URL",
@@ -1407,22 +1266,22 @@
     "resolve": null,
     "reject": null,
     "flow": "5e320392-429d-4759-95ec-c5adcff61f01",
-    "_syncId": "9e548616-7a5f-417a-834d-7100fa79f774"
+    "_syncId": "48f41c3e-b699-4e97-819e-eeec4afea8fb"
   },
   {
     "name": "Webhook / Request URL",
     "key": "request_hfzgd",
     "type": "request",
-    "position_x": 73,
+    "position_x": 74,
     "position_y": 1,
     "options": {
       "method": "GET",
       "url": "https://photon.komoot.io/api/?q={{item_read_i7dz7.location}}&limit=1"
     },
-    "resolve": "4535f776-40c7-4e6d-8873-843822996dd5",
+    "resolve": "f6f8616e-5d67-4570-80c2-1b39209e3433",
     "reject": null,
     "flow": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92",
-    "_syncId": "ef204e62-9a47-4560-a940-336bdf2f897b"
+    "_syncId": "82c96c63-d8ca-45bb-be6c-2790bf2bfa81"
   },
   {
     "name": "Webhook updated",
@@ -1444,7 +1303,7 @@
     "resolve": null,
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "59f02fa4-1af8-413c-afba-a4c3ab653259"
+    "_syncId": "c0fbfb61-8486-4826-8002-61c9d8c8ed42"
   },
   {
     "name": "Webhook created",
@@ -1466,22 +1325,22 @@
     "resolve": null,
     "reject": null,
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "78e22eb0-72f1-4b9e-9af2-c76ddcefa61b"
+    "_syncId": "80afa9d4-3ca0-4898-b48d-1c1d8e67903e"
   },
   {
     "name": "Request Coordinates from Geocoder",
     "key": "request_sxzym",
     "type": "request",
-    "position_x": 53,
+    "position_x": 37,
     "position_y": 1,
     "options": {
       "method": "GET",
       "url": "https://photon.komoot.io/api/?q={{$trigger.payload.location}}&limit=1"
     },
-    "resolve": "3624ff50-c282-45db-aa01-9b8c4a75e45c",
+    "resolve": "f772a991-22eb-4492-928d-b035db5e0dc4",
     "reject": null,
     "flow": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721",
-    "_syncId": "28aaa64f-7cab-4e64-a5ea-4ab7f825250a"
+    "_syncId": "47735176-ff0e-4a92-8483-5e1630203a51"
   },
   {
     "name": "return inviting item",
@@ -1495,7 +1354,7 @@
     "resolve": null,
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "2362eac0-7c3c-4164-8927-6cbc43e4934e"
+    "_syncId": "d6ccc1b1-0040-49ee-aba9-eff3b38eb0f4"
   },
   {
     "name": "return inviting item",
@@ -1509,7 +1368,7 @@
     "resolve": null,
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "bd160694-88f8-4148-bf9d-5122f8b883aa"
+    "_syncId": "486256b3-51f8-4026-90bd-a9f173a4570b"
   },
   {
     "name": "singelton",
@@ -1520,10 +1379,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n\treturn data.$last[0].count\n}"
     },
-    "resolve": "02e3984d-d938-4d1c-960b-c868831f1e72",
+    "resolve": "ef840111-d07e-40b3-86cc-0606a4aef921",
     "reject": null,
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "bb24ba37-d1e6-4d44-a36c-f4dea4527180"
+    "_syncId": "c5731faa-2177-4261-9639-dae09ebb681a"
   },
   {
     "name": "slugify",
@@ -1534,10 +1393,10 @@
     "options": {
       "code": "module.exports = async function (data) {\n\tconst text = data.$trigger.payload.name;\n\n\tconst slug = text\n\t\t.toLowerCase()\n\t\t.trim()\n\t\t.replace(/[^\\w\\s-]/g, '')\n\t\t.replace(/[\\s_-]+/g, '-')\n\t\t.replace(/^-+|-+$/g, '');\n\n\treturn slug;\n};"
     },
-    "resolve": "5129e430-971e-49ca-b8d5-83e40f489fda",
+    "resolve": "4b0a12b2-0c06-475e-847b-35331bff5a9e",
     "reject": null,
     "flow": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1",
-    "_syncId": "55857562-e0ab-49a5-a292-18f6c1cb075e"
+    "_syncId": "a6242592-d2cc-45d3-9cd2-42a2196bc6e7"
   },
   {
     "name": "test item ownership",
@@ -1548,10 +1407,10 @@
     "options": {
       "code": "module.exports = async function(data) {\n\tif (!data.$last.some(item => item.id === data.$trigger.body.item)) {\n        throw new Error('Not your item')\n    }\n    return {};\n}"
     },
-    "resolve": "74084d01-0a3d-474e-b377-f15d2c1457ed",
+    "resolve": "a90f7833-0908-42ad-ae5c-acb36bbdeb89",
     "reject": null,
     "flow": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4",
-    "_syncId": "6bf62484-4a2b-4d78-8d19-ca53deea32a4"
+    "_syncId": "e641852d-315e-4842-94cd-fa62fa0f16a0"
   },
   {
     "name": "Transform Payload",
@@ -1565,7 +1424,24 @@
     "resolve": null,
     "reject": null,
     "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
-    "_syncId": "91e39643-b58e-4629-8875-06559cfacf64"
+    "_syncId": "17d9f9fb-f599-489e-ba47-921e9a8c139a"
+  },
+  {
+    "name": "Transform Payload",
+    "key": "transform_mobig",
+    "type": "transform",
+    "position_x": 73,
+    "position_y": 16,
+    "options": {
+      "json": {
+        "name": "{{$last[0].first_name}} {{$last[0].last_name}}",
+        "image_external": "{{$last[0].avatar_url}}"
+      }
+    },
+    "resolve": null,
+    "reject": null,
+    "flow": "77f1fc79-d0fd-4f5d-a168-50fa3948a945",
+    "_syncId": "f0c204da-98c7-4d8f-a766-b32208957dbc"
   },
   {
     "name": "Trigger Send Email",
@@ -1581,7 +1457,7 @@
     "resolve": null,
     "reject": null,
     "flow": "bff21ad9-d142-4a6e-96fe-8da016576bc7",
-    "_syncId": "2179c615-5939-40cb-a85a-9e02b7d148fa"
+    "_syncId": "f152414a-8920-4385-9f72-01d9ba5e28e9"
   },
   {
     "name": "trigger create secret flow",
@@ -1597,7 +1473,7 @@
     "resolve": null,
     "reject": null,
     "flow": "9a1d1084-438f-471e-aac5-47e0749375e7",
-    "_syncId": "95d762f9-4695-4168-aa65-5bd065b40742"
+    "_syncId": "59a8470a-c766-4301-acf3-6f8a98e73fdf"
   },
   {
     "name": "Updated?",
@@ -1614,9 +1490,9 @@
         }
       }
     },
-    "resolve": "59f02fa4-1af8-413c-afba-a4c3ab653259",
-    "reject": "78e22eb0-72f1-4b9e-9af2-c76ddcefa61b",
+    "resolve": "c0fbfb61-8486-4826-8002-61c9d8c8ed42",
+    "reject": "80afa9d4-3ca0-4898-b48d-1c1d8e67903e",
     "flow": "a78d01a4-13b3-46a4-8938-9606bf26e329",
-    "_syncId": "28db9e52-c64d-4eb7-8bb9-b9f4e1355301"
+    "_syncId": "3d0ac315-aca8-4ad4-8fac-3478de4019eb"
   }
 ]

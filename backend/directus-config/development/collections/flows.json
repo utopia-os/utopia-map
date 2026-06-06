@@ -8,7 +8,7 @@
     "trigger": "webhook",
     "accountability": "all",
     "options": {},
-    "operation": "c880bc9d-1568-4c9c-b3d5-ddbd61f0a9d3",
+    "operation": "7d2cdab7-0f59-435c-b39f-b30be0a1aa87",
     "_syncId": "01d61db0-25aa-4bfa-bc24-c6a8f208a455"
   },
   {
@@ -16,13 +16,13 @@
     "icon": "bolt",
     "color": null,
     "description": "Creates a secret for an existing item, triggered by another flow",
-    "status": "inactive",
+    "status": "active",
     "trigger": "operation",
     "accountability": "all",
     "options": {
       "return": "$last"
     },
-    "operation": "3767ea47-c9f5-4668-9cfa-9350803b9b31",
+    "operation": "0b74c9d6-4125-45d4-8a4b-9fc90dd7df51",
     "_syncId": "234d13fe-112a-4408-9bdb-78dd8cbd6b82"
   },
   {
@@ -30,7 +30,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Deletes Nomads User and Items",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -42,7 +42,7 @@
         "oceannomads_profiles"
       ]
     },
-    "operation": "2f4c3d12-87c3-44d5-aa5d-0e7d5529b149",
+    "operation": "eb31ecd2-4abb-4714-9b14-02e4c2b9746e",
     "_syncId": "3c6cdddf-2944-493d-bc7f-2769fd87b1d6"
   },
   {
@@ -63,7 +63,7 @@
         "updates"
       ]
     },
-    "operation": "8265ad6e-df54-48c8-b068-31c07f6b50a8",
+    "operation": "bb31aeb6-7ce7-472e-8d2b-d44360428234",
     "_syncId": "5e320392-429d-4759-95ec-c5adcff61f01"
   },
   {
@@ -81,11 +81,11 @@
     "_syncId": "6a48c246-2fb2-42ca-bebb-3f605e794d02"
   },
   {
-    "name": "Ocean Nomads: Create Location or Home",
+    "name": "Ocean Nomads: Create Location",
     "icon": "sailing",
     "color": "#2ECDA7",
-    "description": "Creates Nomads Current Location or Home",
-    "status": "inactive",
+    "description": "Creates Nomads Current Location",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -98,7 +98,7 @@
         "items"
       ]
     },
-    "operation": "39d03980-4747-4970-80fa-2ad9afbdfb32",
+    "operation": "b73b1c69-130e-4a33-a3fa-9b58f280ba96",
     "_syncId": "77f1fc79-d0fd-4f5d-a168-50fa3948a945"
   },
   {
@@ -106,7 +106,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Event Item on Map",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -118,15 +118,15 @@
         "oceannomads_events"
       ]
     },
-    "operation": "67847550-3c95-4ee4-af02-32ebb69747d6",
+    "operation": "f202bd42-7063-4eb6-a613-2311edfae03b",
     "_syncId": "7b978be2-605f-4061-b5b3-46f151b1b80a"
   },
   {
-    "name": "Ocean Nomads: Create Nomad",
+    "name": "Ocean Nomad: Create Nomad",
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Creates Nomads User and Home Base",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -138,7 +138,7 @@
         "oceannomads_profiles"
       ]
     },
-    "operation": "02499c24-46a9-4d77-8a2e-1b963cb3d62c",
+    "operation": "47c1a98c-53e2-48b5-b241-58db3cd9efb0",
     "_syncId": "8b79cca0-d346-4d05-8bb2-c4b3c45d0721"
   },
   {
@@ -146,7 +146,7 @@
     "icon": "salinity",
     "color": null,
     "description": "Generate a secret for each item",
-    "status": "inactive",
+    "status": "active",
     "trigger": "manual",
     "accountability": "all",
     "options": {
@@ -155,7 +155,7 @@
       ],
       "requireSelection": false
     },
-    "operation": "589ea382-5027-40fb-9f4d-3852389ccaab",
+    "operation": "679a4fcf-1188-4805-8f6a-52e17ce3e2cd",
     "_syncId": "9a1d1084-438f-471e-aac5-47e0749375e7"
   },
   {
@@ -163,7 +163,7 @@
     "icon": "mark_chat_read",
     "color": "#3584E4",
     "description": null,
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -176,7 +176,7 @@
         "items"
       ]
     },
-    "operation": "9838d2ca-3698-4d29-8429-038dfcaf7fab",
+    "operation": "a2a754c4-bc29-4af8-aa33-c45e6612d6ee",
     "_syncId": "a78d01a4-13b3-46a4-8938-9606bf26e329"
   },
   {
@@ -197,7 +197,7 @@
         "items"
       ]
     },
-    "operation": "2eba1a24-aec5-477b-919f-f2276705606f",
+    "operation": "5fefcc0b-41d5-4103-884b-fd59c6a616db",
     "_syncId": "bff21ad9-d142-4a6e-96fe-8da016576bc7"
   },
   {
@@ -205,7 +205,7 @@
     "icon": "sailing",
     "color": "#2ECDA7",
     "description": "Updates Nomads User, Home Base and Current Location",
-    "status": "inactive",
+    "status": "active",
     "trigger": "event",
     "accountability": "all",
     "options": {
@@ -217,7 +217,7 @@
         "oceannomads_profiles"
       ]
     },
-    "operation": "9d88e79c-2d51-4b66-9c36-341f1c8f9508",
+    "operation": "6de49d32-c1e7-4205-936f-567bbd55095f",
     "_syncId": "cb772a2c-150c-4cca-bc2c-1f8498a5cd92"
   },
   {
@@ -237,7 +237,7 @@
         "items"
       ]
     },
-    "operation": "05954e5e-1ca7-4a9c-b8c8-3ea6fceaa5de",
+    "operation": "dd1ab015-45ef-4413-86c3-aabe1ced78b4",
     "_syncId": "cbd7d15d-7f09-4f45-8060-3b24adabf82a"
   },
   {
@@ -252,7 +252,7 @@
       "error_on_reject": true,
       "method": "POST"
     },
-    "operation": "0d9acb0c-571a-4a6a-b6c9-aa4f2dab8ca6",
+    "operation": "4c71fcf0-58b9-44c4-acbe-2bd0dca988b1",
     "_syncId": "cc80ec73-ecf5-4789-bee5-1127fb1a6ed4"
   },
   {
@@ -266,7 +266,7 @@
     "options": {
       "return": "$last"
     },
-    "operation": "43de95f1-d63b-4231-80c3-b399c45470f6",
+    "operation": "7db7527c-5f0c-4969-84f5-48be32918bc3",
     "_syncId": "d7e74f35-a19a-4a0b-9ae8-59af2fa0f081"
   },
   {
@@ -286,7 +286,7 @@
         "items"
       ]
     },
-    "operation": "55857562-e0ab-49a5-a292-18f6c1cb075e",
+    "operation": "a6242592-d2cc-45d3-9cd2-42a2196bc6e7",
     "_syncId": "f2beb617-9c21-48b2-a8ec-c04197d1b7d1"
   }
 ]

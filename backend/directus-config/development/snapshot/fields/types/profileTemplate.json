@@ -15,6 +15,7 @@
     "options": {},
     "readonly": false,
     "required": false,
+    "searchable": true,
     "sort": 1,
     "special": [
       "m2a"
