@@ -16,7 +16,7 @@ PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
 echo "Wait for Directus to be ready"
-TIMEOUT=90
+TIMEOUT=180
 ELAPSED=0
 until curl -fsS "$DIRECTUS_URL/server/health" >/dev/null 2>&1; do
   if [ $ELAPSED -ge $TIMEOUT ]; then
