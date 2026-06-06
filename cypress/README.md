@@ -163,7 +163,10 @@ docker compose down && docker compose up -d
 docker compose down && sudo rm -rf ./data/database && docker compose up -d
 ```
 
-**Permission denied on ./data**
+**Permission denied on ./data/database**
 ```bash
-sudo chmod 777 -R ./data
+sudo chmod -R 777 ./data/database
 ```
+
+(The `./data/uploads` directory is fixed automatically by the
+`init-uploads` service in `docker-compose.yml`.)

@@ -16,7 +16,7 @@ In order to pull data from your locally running backend (see [docker-compose](..
 
 
 ```
-npx directus-sync pull \
+npx directus-sync@3.5.1 pull \
   --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
@@ -29,7 +29,7 @@ You can run `./pull.sh` to run this command and modify it via `export PROJECT=..
 
 To push local changes or to seed directus use the following command
 ```
-npx directus-sync push \
+npx directus-sync@3.5.1 push \
   --dump-path ./directus-config/development \
   --directus-url http://localhost:8055 \
   --directus-email admin@it4c.dev \
@@ -73,11 +73,11 @@ echo "REASSIGN OWNED BY admin TO directus" | docker exec -i utopia-map-database-
 
 ## Access Data on local drive
 
-In order to access the postgress data mounted to the local drive at `/data/database` you need to make it accessible (assuming you are not root):
+In order to access the postgres data mounted to the local drive at `./data/database` you need to make it accessible (assuming you are not root):
 ```
-sudo chmod 777 -R ./data/
+sudo chmod -R 777 ./data/database
 ```
 
-This process is to be repeated whenever you restart the database docker container
+This process is to be repeated whenever you restart the database docker container.
 
-The same applies for the uploads and extension folder - ensure that the folder is writeable or file uploads will fail.
+The `./data/uploads` folder is taken care of automatically by the `init-uploads` service in `docker-compose.yml`, which runs once before the backend starts and makes the directory writeable. No manual chmod needed.
