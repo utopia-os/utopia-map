@@ -15,6 +15,11 @@ PGDATABASE="${PGDATABASE:-'directus'}"
 PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
+echo "Wait for Directus to be ready"
+npx directus-sync@3.5.1 wait-server-ready \
+  --directus-url $DIRECTUS_URL \
+  || exit 1
+
 echo "Preparing seed data with dynamic dates"
 node $SCRIPT_DIR/prepare-seed.js || exit 1
 
