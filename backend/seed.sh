@@ -16,7 +16,7 @@ PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
 echo "Wait for Directus to be ready"
-npx directus-sync@3.5.1 wait-server-ready \
+npx directus-sync@3.5.1 helpers wait-server-ready \
   --directus-url $DIRECTUS_URL \
   || exit 1
 
