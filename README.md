@@ -30,7 +30,6 @@ docker compose up -d
 **Initialize backend**
 
 ```bash
-sudo chmod 777 -R  ./data/
 cd backend/
 ./push.sh
 ./seed.sh

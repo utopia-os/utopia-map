@@ -6,6 +6,16 @@ services:
     volumes:
       - ./app/dist:/srv:ro
 
+  # One-shot helper that runs before the backend starts.
+  # Ensures ./data/uploads exists and is writeable by the Directus
+  # container (which runs as a non-root user). Without this, a fresh
+  # checkout fails on a permission-denied error.
+  init-uploads:
+    image: busybox
+    command: ["sh", "-c", "mkdir -p /uploads && chmod -R 777 /uploads"]
+    volumes:
+      - ./data/uploads:/uploads
+
   database:
     image: postgis/postgis:13-master
     volumes:
@@ -41,6 +51,8 @@ services:
         condition: service_healthy
       cache:
         condition: service_healthy
+      init-uploads:
+        condition: service_completed_successfully
     ports:
       - 8055:8055
     volumes:
