@@ -16,7 +16,7 @@ PROJECT_NAME="${PROJECT:-development}"
 PROJECT_FOLDER=$SCRIPT_DIR/directus-config/$PROJECT_NAME
 
 echo "Push collections"
-npx directus-sync@3.4.0 push \
+npx directus-sync@3.5.1 push \
   --dump-path $PROJECT_FOLDER \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \

@@ -19,7 +19,7 @@ echo "Preparing seed data with dynamic dates"
 node $SCRIPT_DIR/prepare-seed.js || exit 1
 
 echo "Seed data"
-npx directus-sync@3.4.0 seed push \
+npx directus-sync@3.5.1 seed push \
   --seed-path $PROJECT_FOLDER/seed \
   --directus-url $DIRECTUS_URL \
   --directus-email $DIRECTUS_EMAIL \
