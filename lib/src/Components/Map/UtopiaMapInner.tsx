@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 
 import { useSetAppState } from '#components/AppShell/hooks/useAppState'
 import { useTheme } from '#components/AppShell/hooks/useTheme'
+import { useSyncFilterTagsWithUrl } from '#components/Map/hooks/useSyncFilterTagsWithUrl'
 import { containsUUID } from '#utils/ContainsUUID'
 import {
   removeItemFromUrl,
@@ -21,13 +22,7 @@ import {
 } from '#utils/UrlHelper'
 
 import { useClusterRef, useSetClusterRef } from './hooks/useClusterRef'
-import {
-  useAddFilterTag,
-  useAddVisibleLayer,
-  useFilterTags,
-  useResetFilterTags,
-  useToggleVisibleLayer,
-} from './hooks/useFilter'
+import { useAddVisibleLayer, useToggleVisibleLayer } from './hooks/useFilter'
 import { useLayers } from './hooks/useLayers'
 import { useLeafletRefs } from './hooks/useLeafletRefs'
 import { usePopupForm } from './hooks/usePopupForm'
@@ -241,33 +236,8 @@ export function UtopiaMapInner({
     }
   }
 
-  const addFilterTag = useAddFilterTag()
-  const resetFilterTags = useResetFilterTags()
   const tags = useTags()
-  const filterTags = useFilterTags()
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search)
-    const urlTags = params.get('tags')
-    const decodedTags = urlTags ? decodeURIComponent(urlTags) : ''
-    const decodedTagsArray = decodedTags.split(';').filter(Boolean)
-
-    const urlDiffersFromState =
-      decodedTagsArray.some(
-        (ut) => !filterTags.find((ft) => ut.toLowerCase() === ft.name.toLowerCase()),
-      ) ||
-      filterTags.some(
-        (ft) => !decodedTagsArray.find((ut) => ut.toLowerCase() === ft.name.toLowerCase()),
-      )
-
-    if (urlDiffersFromState) {
-      resetFilterTags()
-      decodedTagsArray.forEach((urlTag) => {
-        const match = tags.find((t) => t.name.toLowerCase() === urlTag.toLowerCase())
-        if (match) addFilterTag(match)
-      })
-    }
-  }, [location, tags, filterTags, addFilterTag, resetFilterTags])
+  useSyncFilterTagsWithUrl(tags)
 
   const toggleVisibleLayer = useToggleVisibleLayer()
   const allLayers = useLayers()
