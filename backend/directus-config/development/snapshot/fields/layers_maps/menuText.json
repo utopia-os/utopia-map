@@ -1,0 +1,46 @@
+{
+  "collection": "layers_maps",
+  "field": "menuText",
+  "type": "string",
+  "meta": {
+    "collection": "layers_maps",
+    "conditions": null,
+    "display": null,
+    "display_options": null,
+    "field": "menuText",
+    "group": null,
+    "hidden": false,
+    "interface": "input",
+    "note": "Optional: Text im Plus-Menü nur für diese Karte. Leer = menuText vom Layer.",
+    "options": {
+      "placeholder": "leer = menuText vom Layer übernehmen"
+    },
+    "readonly": false,
+    "required": false,
+    "searchable": true,
+    "sort": 5,
+    "special": null,
+    "translations": null,
+    "validation": null,
+    "validation_message": null,
+    "width": "half"
+  },
+  "schema": {
+    "name": "menuText",
+    "table": "layers_maps",
+    "data_type": "character varying",
+    "default_value": null,
+    "max_length": 255,
+    "numeric_precision": null,
+    "numeric_scale": null,
+    "is_nullable": true,
+    "is_unique": false,
+    "is_indexed": false,
+    "is_primary_key": false,
+    "is_generated": false,
+    "generation_expression": null,
+    "has_auto_increment": false,
+    "foreign_key_table": null,
+    "foreign_key_column": null
+  }
+}

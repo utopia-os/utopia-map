@@ -10,7 +10,8 @@
     "dev": "vite --host",
     "build": "tsc && vite build",
     "test:lint:eslint": "eslint --max-warnings 0 .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@directus/sdk": "^17.0.2",
@@ -50,6 +51,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.9.0",
     "vite": "^7.3.1",
-    "vite-plugin-pwa": "^1.2.0"
+    "vite-plugin-pwa": "^1.2.0",
+    "vitest": "^4.0.16"
   }
 }
