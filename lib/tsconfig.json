@@ -29,7 +29,8 @@
     "setupTest.ts",
     "cypress.config.ts",
     "cypress/support/commands.ts",
-    "cypress/support/component.ts"
+    "cypress/support/component.ts",
+    "cypress/component"
   ],
   "exclude": ["node_modules", "dist", "example"],
   "typeRoots": ["./src/types", "./node_modules/@types/"]

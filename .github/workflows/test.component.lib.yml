@@ -1,0 +1,34 @@
+name: test:component:lib
+
+on: push
+
+jobs:
+  files-changed:
+    name: Detect File Changes - component - lib
+    runs-on: ubuntu-latest
+    outputs:
+      component: ${{ steps.filter.outputs.component }}
+    steps:
+      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        id: filter
+        with:
+          filters: |
+            component:
+              - '.github/workflows/**/*'
+              - 'lib/**/*'
+
+  component:
+    if: needs.files-changed.outputs.component == 'true'
+    name: Component - lib
+    needs: files-changed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98 # v6.0.2
+      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.tool-versions'
+      - name: Component Tests
+        run: npm install && npm run test:component
+        working-directory: lib/
+

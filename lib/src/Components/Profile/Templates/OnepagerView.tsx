@@ -15,14 +15,14 @@ export const OnepagerView = ({ item }: { item: Item }) => {
       {item.user_created?.first_name && <ContactInfoView heading='Du hast Fragen?' item={item} />}
       {/* Description Section */}
       <div className='tw:my-10 tw:mt-2 tw:px-6 tw:text-sm '>
-        <TextView itemId={item.id} rawText={item.text ?? 'Keine Beschreibung vorhanden'} />
+        <TextView rawText={item.text ?? 'Keine Beschreibung vorhanden'} />
       </div>
       {/* Next Appointment Section */}
       {item.next_appointment && (
         <div className='tw:my-10 tw:px-6'>
           <h2 className='tw:text-lg tw:font-semibold'>Nächste Termine</h2>
           <div className='tw:mt-2 tw:text-sm'>
-            <TextView itemId={item.id} rawText={item.next_appointment} />
+            <TextView rawText={item.next_appointment} />
           </div>
         </div>
       )}

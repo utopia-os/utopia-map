@@ -1,12 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable @typescript-eslint/no-base-to-string */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/prefer-optional-chain */
 import { get } from 'radash'
 import { Link } from 'react-router-dom'
 
-import { useGetItemTags } from '#components/Map/hooks/useTags'
+import { useGetItemColor } from '#components/Map/hooks/useItemColor'
 
 import type { Item } from '#types/Item'
 
@@ -27,14 +22,15 @@ export const PopupButton = ({
   target?: string
 }) => {
   const params = new URLSearchParams(window.location.search)
-  const getItemTags = useGetItemTags()
-  const parameter = get(item, parameterField ?? 'id')
+  const getItemColor = useGetItemColor()
+  const parameter = parameterField ? get(item, parameterField) : undefined
+  const itemId = typeof parameter === 'string' ? parameter : (item?.id ?? '')
 
   return (
-    <Link to={`${url}/${parameter || item?.id}?${params}`} target={target ?? '_self'}>
+    <Link to={`${url}/${itemId}?${params}`} target={target ?? '_self'}>
       <button
         style={{
-          backgroundColor: `${item?.color ?? (item && (getItemTags(item) && getItemTags(item)[0] && getItemTags(item)[0].color ? getItemTags(item)[0].color : (item?.layer?.markerDefaultColor ?? '#000')))}`,
+          backgroundColor: getItemColor(item),
         }}
         className='tw:btn tw:text-white tw:btn-sm tw:float-right tw:mt-1'
       >

@@ -103,9 +103,9 @@ export const TabsView = ({
             <StartEndView item={item}></StartEndView>
           </div>
         )}
-        <TextView text={item.text} itemId={item.id} />
+        <TextView text={item.text} />
         <div className='tw:h-4'></div>
-        <TextView text={item.contact} itemId={item.id} />
+        <TextView text={item.contact} />
       </div>
       {item.layer?.itemType.questlog && (
         <>
@@ -296,7 +296,7 @@ export const TabsView = ({
                         loading={loading}
                       />
                       <div className='tw:overflow-y-auto tw:overflow-x-hidden tw:max-h-64 fade'>
-                        <TextView truncate text={i.text} itemId={item.id} />
+                        <TextView truncate text={i.text} />
                       </div>
                     </div>
                   ))}

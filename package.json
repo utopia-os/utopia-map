@@ -4,5 +4,8 @@
   "workspaces": [
     "app",
     "lib"
-  ]
+  ],
+  "overrides": {
+    "marked": "^16.3.0"
+  }
 }
